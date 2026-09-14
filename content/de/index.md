@@ -11,12 +11,7 @@ intro: |
   Wir testen KI-Begleiter-Apps unspektakulär, aber gründlich: echte Accounts,
   echte Gespräche, jedes Mal dieselbe Checkliste. Keine gekauften Platzierungen.
 
-hero_cta: rankings/best-ai-girlfriend
 
-top_products_title: Aktuell am besten bewertet
-top_products:
-  - candy-ai
-  - nomi
 
 seo:
   title: AI Girlfriend Apps im Test & Ranking (2026)
@@ -44,7 +39,8 @@ faq:
 
 Der Markt für KI-Begleiter verändert sich schnell: Preise ändern sich, Funktionen
 kommen dazu, und manche Apps werden in einzelnen Ländern ohne Vorwarnung
-eingeschränkt. Diese Seite hält pro Markt ein getestetes, datiertes Ranking bereit.
+eingeschränkt. Diese Seite wird pro Markt ein getestetes, datiertes Ranking
+bereithalten. Die ersten Tests sind in Arbeit.
 
 ## Was wir bewerten
 

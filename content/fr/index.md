@@ -11,12 +11,7 @@ intro: |
   Nous testons les applications de compagnon IA de façon méthodique : de vrais
   comptes, de vraies conversations, la même grille à chaque fois. Aucun placement payé.
 
-hero_cta: rankings/best-ai-girlfriend
 
-top_products_title: Les mieux notées ce mois-ci
-top_products:
-  - candy-ai
-  - nomi
 
 seo:
   title: Applications d'IA girlfriend testées et classées (2026)
@@ -44,7 +39,8 @@ faq:
 
 Le marché du compagnon IA évolue vite : les tarifs changent, des fonctions
 arrivent, et certaines applications sont restreintes dans un pays sans préavis.
-Ce site maintient un classement testé et daté pour chaque marché.
+Ce site maintiendra un classement testé et daté pour chaque marché. Les premiers
+tests sont en préparation.
 
 ## Ce que nous mesurons
 

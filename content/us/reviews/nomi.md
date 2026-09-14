@@ -2,7 +2,7 @@
 title: Nomi Review 2026
 slug: nomi
 type: review
-status: published
+status: draft
 translation_key: nomi
 product: nomi
 date: 2026-02-05

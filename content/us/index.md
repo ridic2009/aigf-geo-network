@@ -11,12 +11,7 @@ intro: |
   We test AI companion apps the boring way: real accounts, real conversations,
   the same checklist every time. No sponsored placements, no invented scores.
 
-hero_cta: rankings/best-ai-girlfriend
 
-top_products_title: Top rated this month
-top_products:
-  - candy-ai
-  - nomi
 
 seo:
   title: AI Girlfriend Apps Ranked & Tested (2026)
@@ -43,9 +38,9 @@ faq:
 ## What this site is for
 
 The AI companion market changes fast: pricing pages move, features ship, and
-apps get restricted in some countries without warning. This site keeps one
-tested, dated ranking per market so you can see what is actually available to
-you today.
+apps get restricted in some countries without warning. This site will keep one
+tested, dated ranking per market so you can see what is actually available to you
+today. The first reviews are in preparation.
 
 ## What we measure
 

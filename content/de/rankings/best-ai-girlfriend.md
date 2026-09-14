@@ -2,7 +2,7 @@
 title: Beste KI-Freundin Apps 2026
 slug: beste-ki-freundin
 type: ranking
-status: published
+status: draft
 translation_key: best-ai-girlfriend
 date: 2026-02-01
 updated: 2026-09-12

@@ -2,7 +2,7 @@
 title: How to Choose an AI Companion App
 slug: how-to-choose-an-ai-companion
 type: guide
-status: review
+status: draft
 translation_key: how-to-choose-an-ai-companion
 date: 2026-09-01
 author: m-keller

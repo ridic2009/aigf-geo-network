@@ -2,7 +2,7 @@
 title: Nomi — Avis et test 2026
 slug: nomi-avis
 type: review
-status: published
+status: draft
 translation_key: nomi
 product: nomi
 date: 2026-02-05

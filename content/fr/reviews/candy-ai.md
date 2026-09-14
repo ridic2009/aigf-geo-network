@@ -2,7 +2,7 @@
 title: Candy AI — Avis et test 2026
 slug: candy-ai-avis
 type: review
-status: published
+status: draft
 translation_key: candy-ai
 product: candy-ai
 date: 2026-02-03
