@@ -1,0 +1,31 @@
+# Dependencies
+/vendor/
+
+# Cecil
+/.cache/
+/.cecil/
+
+# Build output
+/dist/
+
+# Local environment
+.env
+.env.local
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs & reports
+/reports/
+*.log
+
+# Browser automation artefacts
+/.playwright-mcp/
+*.png.tmp
+
+# Deploy keys (generated locally, never committed)
+/.secrets/

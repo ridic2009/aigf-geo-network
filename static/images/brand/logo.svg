@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" role="img" aria-label="AI Girlfriend Ranking">
+  <rect width="40" height="40" rx="10" fill="#6b42d9"/>
+  <text x="20" y="26" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">AI</text>
+  <text x="50" y="26" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181d">Ranking</text>
+</svg>

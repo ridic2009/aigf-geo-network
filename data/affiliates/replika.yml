@@ -1,0 +1,9 @@
+product: replika
+
+default: 'https://replika.com/?utm_source=aigr&utm_medium=affiliate'
+
+geo:
+  us:
+    url: 'https://replika.com/?utm_source=aigr&utm_medium=affiliate&utm_campaign=us'
+  de:
+    url: 'https://replika.com/?utm_source=aigr&utm_medium=affiliate&utm_campaign=de'

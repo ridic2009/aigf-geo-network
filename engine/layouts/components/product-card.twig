@@ -1,0 +1,60 @@
+{#
+  Product card. `product` is already merged (global defaults + GEO overrides) by
+  the base layout; the card never reads data/products/*.yml itself.
+
+  params: product (map), rank (int, optional), badge (string, optional),
+          highlight (string, optional), compact (bool, optional)
+#}
+{%- import 'helpers/format.twig' as fmt -%}
+{%- set ui = site.ui -%}
+{%- set L = ui.labels -%}
+{%- set review = site.pages.showable|filter(p => p.type|default('') == 'review' and p.product|default('') == product.id and p.id != page.id)|first|default(null) -%}
+<article class="product-card{{ compact|default(false) ? ' product-card--compact' : '' }}">
+    {%- if rank is defined and rank %}
+    <div class="product-card__rank" aria-hidden="true">{{ rank }}</div>
+    {%- endif %}
+
+    <div class="product-card__head">
+        {%- if product.logo is defined and product.logo %}
+        <img class="product-card__logo" src="{{ product.logo }}" alt="{{ product.name }}" width="72" height="72" loading="lazy" decoding="async">
+        {%- endif %}
+        <div>
+            <h3 class="product-card__name">{{ product.name }}</h3>
+            {%- if badge is defined and badge %}<p class="product-card__badge">{{ badge }}</p>{% endif %}
+            {% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}
+        </div>
+    </div>
+
+    {%- if highlight is defined and highlight %}
+    <p class="product-card__highlight">{{ highlight }}</p>
+    {%- elseif product.tagline is defined %}
+    <p class="product-card__highlight">{{ product.tagline }}</p>
+    {%- endif %}
+
+    {%- if product.features|default([])|length > 0 and not compact|default(false) %}
+    <ul class="product-card__features">
+        {%- for feature in product.features|slice(0, 4) %}
+        <li>{{ feature }}</li>
+        {%- endfor %}
+    </ul>
+    {%- endif %}
+
+    <dl class="product-card__meta">
+        {%- if product.price is defined and product.price.amount is defined %}
+        <div><dt>{{ L.price }}</dt><dd>{{ L.from }} {{ fmt.price(product.price.amount, site.geo.currency) }}{{ L.per_month }}</dd></div>
+        {%- endif %}
+        {%- if product.free_tier is defined %}
+        <div><dt>{{ L.free_tier }}</dt><dd>{{ product.free_tier ? L.yes : L.no }}</dd></div>
+        {%- endif %}
+        {%- if product.availability is defined %}
+        <div><dt>{{ site.geo.name }}</dt><dd>{{ attribute(L, 'availability_' ~ product.availability)|default(product.availability) }}</dd></div>
+        {%- endif %}
+    </dl>
+
+    <div class="product-card__actions">
+        {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.try_now|format(product.name) } %}
+        {%- if review %}
+        <a class="btn btn--ghost" href="{{ url(review, {canonical: false}) }}">{{ L.read_review }}</a>
+        {%- endif %}
+    </div>
+</article>

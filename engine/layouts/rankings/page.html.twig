@@ -1,0 +1,24 @@
+{# Ranking page: ordered table on top, detailed cards below. #}
+{% extends '_default/article.html.twig' %}
+
+{% block lead %}
+    {% include 'components/product-ranking-table.twig' with { 'entries': page.ranking|default([]), 'products': products } %}
+{% endblock %}
+
+{% block after_body %}
+    {%- if page.ranking|default([])|length > 0 %}
+    <section class="ranking-details">
+        {%- for entry in page.ranking -%}
+            {%- set product = products[entry.product]|default(null) -%}
+            {%- if product %}
+                {% include 'components/product-card.twig' with {
+                    'product': product,
+                    'rank': loop.index,
+                    'badge': entry.badge|default(null),
+                    'highlight': entry.highlight|default(null)
+                } %}
+            {%- endif -%}
+        {%- endfor %}
+    </section>
+    {%- endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+name: Nomi
+slug: nomi
+website: 'https://nomi.ai/'
+logo: /images/products/nomi.svg
+category: LifestyleApplication
+platforms: 'Web, iOS, Android'
+rating: 4.4
+free_tier: true
+launched: 2023
+
+features:
+  - 'Long-term memory across sessions'
+  - 'Group chats with several companions'
+  - 'Roleplay and shared notes'
+  - 'Voice calls'
+
+price:
+  amount: 15.99
+  period: month
+
+geo:
+  us:
+    availability: available
+    tagline: 'The strongest memory and conversation quality of the apps we tested.'
+    best_for: 'Conversation quality'
+    price:
+      amount: 15.99
+      period: month
+  de:
+    availability: available
+    tagline: 'Das beste Gedächtnis und die natürlichsten Gespräche im Test.'
+    best_for: 'Gesprächsqualität'
+    price:
+      amount: 15.99
+      period: month
+  fr:
+    availability: available
+    tagline: 'La meilleure mémoire et la conversation la plus naturelle de notre test.'
+    best_for: 'Qualité de conversation'
+    price:
+      amount: 15.99
+      period: month

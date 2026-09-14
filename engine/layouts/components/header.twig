@@ -1,0 +1,19 @@
+{# Site header: brand + main navigation. Works without JavaScript. #}
+{%- set ui = site.ui -%}
+<header class="site-header">
+    <div class="container site-header__inner">
+        <a class="brand" href="/">
+            <span class="brand__mark" aria-hidden="true">AI</span>
+            <span class="brand__name">{{ site.title }}</span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+            <span class="nav-toggle__bar" aria-hidden="true"></span>
+            <span class="nav-toggle__label">{{ ui.labels.menu }}</span>
+        </button>
+
+        <div class="site-header__nav" id="site-nav">
+            {% include 'components/navigation.twig' with { 'items': site.navigation.main, 'menu': 'main', 'label': ui.labels.main_navigation } %}
+        </div>
+    </div>
+</header>

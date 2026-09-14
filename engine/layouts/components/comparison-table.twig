@@ -1,0 +1,68 @@
+{#
+  Side-by-side comparison table. Rows are derived from the product database, so
+  a new product attribute becomes comparable everywhere at once.
+
+  params: items (list of resolved products)
+#}
+{%- import 'helpers/format.twig' as fmt -%}
+{%- set ui = site.ui -%}
+{%- set L = ui.labels -%}
+{%- if items|default([])|length > 1 %}
+<div class="table-wrap">
+    <table class="comparison-table">
+        <caption class="visually-hidden">{{ page.title }}</caption>
+        <thead>
+            <tr>
+                <th scope="col">&nbsp;</th>
+                {%- for product in items %}
+                <th scope="col">{{ product.name }}</th>
+                {%- endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">{{ L.rating }}</th>
+                {%- for product in items %}
+                <td>{% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}</td>
+                {%- endfor %}
+            </tr>
+            <tr>
+                <th scope="row">{{ L.price }}</th>
+                {%- for product in items %}
+                <td>{% if product.price is defined and product.price.amount is defined %}{{ L.from }} {{ fmt.price(product.price.amount, site.geo.currency) }}{{ L.per_month }}{% else %}—{% endif %}</td>
+                {%- endfor %}
+            </tr>
+            <tr>
+                <th scope="row">{{ L.free_tier }}</th>
+                {%- for product in items %}
+                <td>{{ product.free_tier is defined ? (product.free_tier ? L.yes : L.no) : '—' }}</td>
+                {%- endfor %}
+            </tr>
+            <tr>
+                <th scope="row">{{ L.best_for }}</th>
+                {%- for product in items %}
+                <td>{{ product.best_for|default('—') }}</td>
+                {%- endfor %}
+            </tr>
+            <tr>
+                <th scope="row">{{ L.features }}</th>
+                {%- for product in items %}
+                <td>
+                    <ul class="comparison-table__features">
+                        {%- for feature in product.features|default([])|slice(0, 5) %}
+                        <li>{{ feature }}</li>
+                        {%- endfor %}
+                    </ul>
+                </td>
+                {%- endfor %}
+            </tr>
+            <tr>
+                <th scope="row"><span class="visually-hidden">{{ L.visit_site }}</span></th>
+                {%- for product in items %}
+                <td>{% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.visit_site, 'class': 'btn--small' } %}</td>
+                {%- endfor %}
+            </tr>
+        </tbody>
+    </table>
+</div>
+{%- endif %}

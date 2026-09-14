@@ -1,0 +1,148 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AiGf\Tools;
+
+/**
+ * Runs one GEO build: validate -> Cecil -> verify output.
+ * Used by scripts/build, scripts/build-all and the CI workflow.
+ */
+final class Builder
+{
+    /**
+     * @param array<string,string|bool> $options
+     *
+     * @return array{ok: bool, geo: string, output: string, pages: int, warnings: int}
+     */
+    public static function build(string $geoCode, array $options = []): array
+    {
+        $host = Network::host($geoCode);
+        $output = (string) ($options['output'] ?? ('dist' . \DIRECTORY_SEPARATOR . $host));
+        $warnings = 0;
+
+        /* 1. data + content validation -------------------------------- */
+        if (empty($options['skip-validation'])) {
+            foreach ([(new DataValidator())->validate(), (new ContentValidator())->validate($geoCode)] as $result) {
+                $warnings += \count($result['warnings']);
+                if (!Cli::report($result, empty($options['quiet']))) {
+                    return ['ok' => false, 'geo' => $geoCode, 'output' => $output, 'pages' => 0, 'warnings' => $warnings];
+                }
+            }
+        }
+
+        /* 2. Cecil build ---------------------------------------------- */
+        $configs = [
+            'config/common.yml',
+            'config/geos/' . $geoCode . '.yml',
+        ];
+        $generated = Network::path(...explode('/', Prepare::OUTPUT));
+        if (is_file($generated)) {
+            $configs[] = Prepare::OUTPUT;
+        }
+
+        $command = [
+            \PHP_BINARY,
+            Network::path('vendor', 'cecil', 'cecil', 'bin', 'cecil'),
+            'build',
+            '--config=' . implode(',', $configs),
+            '--output=' . $output,
+            '--quiet',
+        ];
+        if (!empty($options['drafts'])) {
+            $command[] = '--drafts';
+        }
+        if (!empty($options['optimize'])) {
+            $command[] = '--optimize';
+        }
+
+        self::removeDirectory(Network::path(...explode(\DIRECTORY_SEPARATOR, $output)));
+
+        [$exitCode, $stdout, $stderr] = self::run($command);
+        $buildLog = trim($stdout . "\n" . $stderr);
+
+        // Cecil reports per-page failures on stderr without failing the process:
+        // treat any error line as a build failure so production is never updated.
+        $hasErrors = $exitCode !== 0 || preg_match('/\b(Unable to|error|Error:)\b/', $buildLog) === 1;
+        if ($hasErrors) {
+            foreach (explode("\n", $buildLog) as $line) {
+                if (trim($line) !== '') {
+                    Cli::error(trim($line));
+                }
+            }
+
+            return ['ok' => false, 'geo' => $geoCode, 'output' => $output, 'pages' => 0, 'warnings' => $warnings];
+        }
+
+        /* 3. output verification -------------------------------------- */
+        $absolute = Network::path(...explode(\DIRECTORY_SEPARATOR, $output));
+        if (empty($options['skip-validation'])) {
+            $result = (new OutputValidator())->validate($geoCode, $absolute);
+            $warnings += \count($result['warnings']);
+            if (!Cli::report($result, empty($options['quiet']))) {
+                return ['ok' => false, 'geo' => $geoCode, 'output' => $output, 'pages' => 0, 'warnings' => $warnings];
+            }
+        }
+
+        return [
+            'ok'       => true,
+            'geo'      => $geoCode,
+            'output'   => $output,
+            'pages'    => self::countFiles($absolute, 'html'),
+            'warnings' => $warnings,
+        ];
+    }
+
+    /**
+     * @param string[] $command
+     *
+     * @return array{0: int, 1: string, 2: string}
+     */
+    public static function run(array $command, ?string $cwd = null): array
+    {
+        $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
+        $process = proc_open($command, $descriptors, $pipes, $cwd ?? Network::root());
+        if (!\is_resource($process)) {
+            return [1, '', 'Unable to start: ' . implode(' ', $command)];
+        }
+        $stdout = (string) stream_get_contents($pipes[1]);
+        $stderr = (string) stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        return [proc_close($process), $stdout, $stderr];
+    }
+
+    public static function countFiles(string $dir, string $extension): int
+    {
+        if (!is_dir($dir)) {
+            return 0;
+        }
+        $count = 0;
+        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS));
+        foreach ($it as $file) {
+            /** @var \SplFileInfo $file */
+            if ($file->isFile() && strtolower($file->getExtension()) === $extension) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    public static function removeDirectory(string $dir): void
+    {
+        if (!is_dir($dir)) {
+            return;
+        }
+        $it = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS),
+            \RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($it as $item) {
+            /** @var \SplFileInfo $item */
+            $item->isDir() ? @rmdir($item->getPathname()) : @unlink($item->getPathname());
+        }
+        @rmdir($dir);
+    }
+}

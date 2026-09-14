@@ -1,0 +1,13 @@
+{#
+  Table of contents, generated from the page body headings (Cecil's `toc` filter
+  takes Markdown and produces the same anchors as the rendered body).
+  params: content (raw Markdown body)
+#}
+{%- set ui = site.ui -%}
+{%- set toc = content|toc('html')|trim -%}
+{%- if toc is not empty and toc|striptags|trim is not empty %}
+<nav class="toc" aria-labelledby="toc-title">
+    <h2 class="toc__title" id="toc-title">{{ ui.labels.toc }}</h2>
+    {{ toc|raw }}
+</nav>
+{%- endif %}

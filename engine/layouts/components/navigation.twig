@@ -1,0 +1,25 @@
+{#
+  Navigation — structure comes from config/common.yml (`navigation.<menu>`),
+  labels from config/geos/<geo>.yml (`ui.nav`), URLs from the routing layer.
+  Adding a menu item = one entry in common.yml + one label per GEO.
+  Items pointing at a missing or unpublished page are silently skipped.
+
+  params: items (list), menu (string), label (string), class (string)
+#}
+{%- set ui = site.ui -%}
+<nav class="nav nav--{{ menu }}" aria-label="{{ label|default(menu) }}">
+    <ul class="nav__list {{ class|default('') }}">
+    {%- for item in items|sort((a, b) => a.weight|default(0) <=> b.weight|default(0)) -%}
+        {%- if site.pages.has(item.id) -%}
+            {%- set target = site.pages.get(item.id) -%}
+            {%- if target.published %}
+        <li class="nav__item">
+            <a class="nav__link{{ target.id == page.id ? ' is-current' : '' }}"
+               href="{{ url(target, {canonical: false}) }}"
+               {{ target.id == page.id ? 'aria-current="page"' : '' }}>{{ attribute(ui.nav, item.label)|default(target.title) }}</a>
+        </li>
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor %}
+    </ul>
+</nav>

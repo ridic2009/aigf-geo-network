@@ -1,0 +1,31 @@
+{#
+  Related links. Explicit ids from front matter (`related:`) first; otherwise the
+  most recent published pages of the same section. URLs come from the router, so
+  they can never drift from canonical/sitemap.
+
+  params: ids (list of page ids, optional), section (string, optional), limit (int)
+#}
+{%- set ui = site.ui -%}
+{%- set limit = limit|default(3) -%}
+{%- set items = [] -%}
+{%- for id in ids|default([]) -%}
+    {%- if site.pages.has(id) and site.pages.get(id).published and site.pages.get(id).id != page.id -%}
+        {%- set items = items|merge([site.pages.get(id)]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- if items|length == 0 and section|default(null) -%}
+    {%- set items = site.pages.showable|filter(p => p.section|default('') == section and p.id != page.id)|sort_by_date|slice(0, limit) -%}
+{%- endif -%}
+{%- if items|length > 0 %}
+<section class="related">
+    <h2 class="related__title">{{ ui.labels.related }}</h2>
+    <ul class="related__list">
+        {%- for item in items|slice(0, limit) %}
+        <li class="related__item">
+            <a href="{{ url(item, {canonical: false}) }}">{{ item.title }}</a>
+            {%- if item.seo.description is defined %}<span class="related__excerpt">{{ item.seo.description }}</span>{% endif %}
+        </li>
+        {%- endfor %}
+    </ul>
+</section>
+{%- endif %}

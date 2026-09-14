@@ -1,0 +1,104 @@
+# ---------------------------------------------------------------------------
+# GEO: Germany
+# ---------------------------------------------------------------------------
+
+geo:
+  code: de
+  name: Deutschland
+  country_code: DE
+  hreflang: de-DE
+  enabled: true
+  timezone: Europe/Berlin
+  currency:
+    code: EUR
+    symbol: '€'
+    position: after
+    decimals: 2
+    decimal_separator: ','
+    thousands_separator: '.'
+
+baseurl: 'https://aigirlfriendranking-germany.site/'
+
+language: de
+languages:
+  - code: de
+    name: Deutsch
+    locale: de_DE
+    enabled: true
+
+title: 'AI Girlfriend Ranking Deutschland'
+baseline: 'Unabhängige Tests von KI-Begleiter-Apps'
+description: 'Unabhängige Tests und Rankings von AI-Girlfriend- und KI-Companion-Apps — geprüft von unserer Redaktion.'
+
+pages:
+  dir: content/de
+  default:
+    '404':
+      title: 'Seite nicht gefunden'
+
+routes:
+  reviews: erfahrungen
+  compare: vergleich
+  guides: ratgeber
+  rankings: ''
+
+organization:
+  name: 'AI Girlfriend Ranking Deutschland'
+  legal_name: 'AIGR Media'
+  email: 'redaktion@aigirlfriendranking-germany.site'
+  logo: '/images/brand/logo.svg'
+
+ui:
+  nav:
+    ranking: 'Beste KI-Freundin'
+    reviews: 'Erfahrungen'
+    compare: 'Vergleiche'
+    guides: 'Ratgeber'
+    about: 'Über uns'
+    disclosure: 'Affiliate-Hinweis'
+    privacy: 'Datenschutz'
+  sections:
+    reviews: 'Erfahrungen'
+    compare: 'Vergleiche'
+    guides: 'Ratgeber'
+    rankings: 'Rankings'
+  labels:
+    home: 'Startseite'
+    not_found_text: 'Diese Seite gibt es nicht mehr, oder die Adresse wurde falsch eingegeben.'
+    skip_to_content: 'Zum Inhalt springen'
+    menu: 'Menü'
+    main_navigation: 'Hauptnavigation'
+    footer_navigation: 'Fußzeilen-Navigation'
+    close: 'Schließen'
+    read_review: 'Erfahrungsbericht lesen'
+    visit_site: 'Zur Website'
+    try_now: '%s testen'
+    pros: 'Vorteile'
+    cons: 'Nachteile'
+    rating: 'Bewertung'
+    out_of: 'von'
+    score: 'Punktzahl'
+    rank: 'Platz'
+    product: 'Anbieter'
+    features: 'Wichtigste Funktionen'
+    price: 'Preis'
+    from: 'ab'
+    per_month: '/Monat'
+    free_tier: 'Gratis-Version'
+    yes: 'Ja'
+    no: 'Nein'
+    verdict: 'Unser Fazit'
+    best_for: 'Am besten für'
+    faq: 'Häufige Fragen'
+    toc: 'Inhalt dieser Seite'
+    updated: 'Aktualisiert'
+    published: 'Veröffentlicht'
+    author: 'Autor'
+    reviewed_by: 'Geprüft von'
+    related: 'Passende Artikel'
+    all_reviews: 'Alle Erfahrungsberichte'
+    back_to_top: 'Nach oben'
+    affiliate_notice: 'Über Links auf dieser Seite erhalten wir unter Umständen eine Provision. Auf unsere Bewertungen hat das keinen Einfluss.'
+    availability_available: 'Verfügbar'
+    availability_limited: 'Eingeschränkt'
+    availability_unavailable: 'Nicht verfügbar'

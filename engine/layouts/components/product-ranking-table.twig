@@ -1,0 +1,45 @@
+{#
+  Ranking table used by ranking pages.
+
+  params: entries (list of {product, badge, highlight}), products (resolved map)
+#}
+{%- import 'helpers/format.twig' as fmt -%}
+{%- set ui = site.ui -%}
+{%- set L = ui.labels -%}
+{%- if entries|default([])|length > 0 %}
+<div class="table-wrap">
+    <table class="ranking-table">
+        <caption class="visually-hidden">{{ page.title }}</caption>
+        <thead>
+            <tr>
+                <th scope="col">{{ L.rank }}</th>
+                <th scope="col">{{ L.product }}</th>
+                <th scope="col">{{ L.score }}</th>
+                <th scope="col">{{ L.best_for }}</th>
+                <th scope="col"><span class="visually-hidden">{{ L.visit_site }}</span></th>
+            </tr>
+        </thead>
+        <tbody>
+        {%- for entry in entries -%}
+            {%- set product = products[entry.product]|default(null) -%}
+            {%- if product %}
+            <tr>
+                <td class="ranking-table__rank">{{ loop.index }}</td>
+                <th scope="row" class="ranking-table__product">
+                    {%- if product.logo is defined %}
+                    <img src="{{ product.logo }}" alt="" width="32" height="32" loading="lazy" decoding="async">
+                    {%- endif %}
+                    <span>{{ product.name }}</span>
+                </th>
+                <td>{% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}</td>
+                <td>{{ entry.badge|default(product.best_for|default('—')) }}</td>
+                <td class="ranking-table__cta">
+                    {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.visit_site, 'class': 'btn--small' } %}
+                </td>
+            </tr>
+            {%- endif -%}
+        {%- endfor %}
+        </tbody>
+    </table>
+</div>
+{%- endif %}

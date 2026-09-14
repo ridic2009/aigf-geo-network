@@ -1,0 +1,14 @@
+{# Site footer: legal navigation, affiliate notice, copyright. #}
+{%- set ui = site.ui -%}
+<footer class="site-footer">
+    <div class="container">
+        {% include 'components/affiliate-disclosure.twig' with { 'variant': 'footer' } %}
+
+        {% include 'components/navigation.twig' with { 'items': site.navigation.footer, 'menu': 'footer', 'label': ui.labels.footer_navigation } %}
+
+        <p class="site-footer__meta">
+            &copy; {{ 'now'|date('Y') }} {{ site.organization.name|default(site.title) }}.
+            {% if site.organization.email is defined %}<a href="mailto:{{ site.organization.email }}">{{ site.organization.email }}</a>{% endif %}
+        </p>
+    </div>
+</footer>

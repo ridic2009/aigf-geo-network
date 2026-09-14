@@ -1,0 +1,29 @@
+{#
+  Locale-aware formatting helpers. All formatting rules come from the GEO config
+  (config/geos/<geo>.yml -> geo.currency), never from the content.
+
+      {% import 'helpers/format.twig' as fmt %}
+      {{ fmt.price(12.99, site.geo.currency) }}   ->  $12.99 / 12,99 €
+#}
+
+{% macro price(amount, currency) %}
+{%- if amount is null or amount == '' -%}
+{%- else -%}
+{%- set decimals = currency.decimals is defined ? currency.decimals : 2 -%}
+{%- set n = amount|number_format(decimals, currency.decimal_separator|default('.'), currency.thousands_separator|default(',')) -%}
+{%- if currency.position|default('before') == 'before' -%}
+{{- currency.symbol ~ n -}}
+{%- else -%}
+{{- n ~ ' ' ~ currency.symbol -}}
+{%- endif -%}
+{%- endif -%}
+{% endmacro %}
+
+{# Machine readable date for <time datetime="…"> and JSON-LD #}
+{% macro isodate(date) %}{{- date|date('Y-m-d') -}}{% endmacro %}
+
+{# Human readable, localized date #}
+{% macro humandate(date, locale) %}{{- date|format_date('long', locale=locale) -}}{% endmacro %}
+
+{# Star rating rounded to the nearest half, as an integer 0..10 of half-stars #}
+{% macro halfstars(rating) %}{{- (rating * 2)|round -}}{% endmacro %}

@@ -1,0 +1,46 @@
+# Product database entry.
+# Global defaults + per-GEO overrides (price, availability, localized copy).
+# Articles reference this file by id ("candy-ai") — never by copying its values.
+
+name: Candy AI
+slug: candy-ai
+website: 'https://candy.ai/'
+logo: /images/products/candy-ai.svg
+category: LifestyleApplication
+platforms: 'Web, iOS, Android'
+rating: 4.6
+free_tier: true
+launched: 2023
+
+features:
+  - 'Text chat with persistent memory'
+  - 'AI image generation'
+  - 'Voice messages'
+  - 'Custom character creation'
+
+price:
+  amount: 12.99
+  period: month
+
+geo:
+  us:
+    availability: available
+    tagline: 'The most complete AI companion app we tested, with strong image generation.'
+    best_for: 'Image generation'
+    price:
+      amount: 12.99
+      period: month
+  de:
+    availability: available
+    tagline: 'Die vollständigste KI-Begleiter-App im Test, mit starker Bildgenerierung.'
+    best_for: 'Bildgenerierung'
+    price:
+      amount: 12.99
+      period: month
+  fr:
+    availability: available
+    tagline: "L'application de compagnon IA la plus complète de notre test, avec une excellente génération d'images."
+    best_for: "Génération d'images"
+    price:
+      amount: 12.99
+      period: month

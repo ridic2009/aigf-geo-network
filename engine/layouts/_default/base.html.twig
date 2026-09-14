@@ -1,0 +1,54 @@
+{#
+  BASE LAYOUT — the single HTML skeleton of the whole network.
+  Every GEO site renders through this file; nothing here is GEO specific.
+
+  Variables defined here are available inside the {% block %}s of child layouts:
+    geo       GEO identity (code, hreflang, currency…)      <- config/geos/<geo>.yml
+    ui / L    localized interface strings / labels shortcut <- config/geos/<geo>.yml
+    products  products already merged with their GEO overrides
+    crumbs    breadcrumb trail, rendered visually AND as BreadcrumbList JSON-LD
+#}
+{%- set geo = site.geo -%}
+{%- set ui = site.ui -%}
+{%- set L = ui.labels -%}
+
+{#- products: global defaults + GEO overrides, resolved once per page -#}
+{%- set products = {} -%}
+{%- for pid, p in site.data.products|default({}) -%}
+    {%- set products = products|merge({ (pid): p|merge(p.geo[geo.code]|default({}))|merge({'id': pid}) }) -%}
+{%- endfor -%}
+
+{#- breadcrumbs: built from the routing hierarchy, never stored in content.
+    `path` is the relative link used visually, `url` the absolute one used by JSON-LD. -#}
+{%- set crumbs = [{ 'title': L.home, 'path': '/', 'url': site.baseurl, 'current': false }] -%}
+{%- if page.type|default('page') != 'homepage' -%}
+    {%- set sec = page.section|default(null) -%}
+    {%- if sec and page.id != sec and site.pages.has(sec) and site.pages.get(sec).published -%}
+        {%- set sp = site.pages.get(sec) -%}
+        {%- set crumbs = crumbs|merge([{ 'title': sp.title, 'path': url(sp, {canonical: false}), 'url': url(sp, {canonical: true}), 'current': false }]) -%}
+    {%- endif -%}
+    {%- set crumbs = crumbs|merge([{ 'title': page.breadcrumb_title|default(page.title), 'path': url(page, {canonical: false}), 'url': url(page, {canonical: true}), 'current': true }]) -%}
+{%- endif -%}
+<!DOCTYPE html>
+<html lang="{{ geo.hreflang }}">
+<head>
+{% include 'partials/head.html.twig' %}
+</head>
+<body class="page page--{{ page.type|default('page') }}">
+<a class="skip-link" href="#main">{{ L.skip_to_content }}</a>
+
+{% include 'components/header.twig' %}
+
+<main id="main" class="main">
+    {% if crumbs|length > 1 %}
+        {% include 'components/breadcrumbs.twig' with { 'items': crumbs } %}
+    {% endif %}
+
+    {% block main %}{% endblock %}
+</main>
+
+{% include 'components/footer.twig' %}
+
+<script src="{{ url(asset('js/main.js')|minify, {canonical: false}) }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{#
+  params: date (DateTime), updated (DateTime, optional)
+#}
+{%- import 'helpers/format.twig' as fmt -%}
+{%- set ui = site.ui -%}
+{%- set L = ui.labels -%}
+{%- set locale = site.languages[0].locale|default('en_US') -%}
+{%- set shown = updated|default(date) -%}
+<p class="page-meta">
+    <span class="page-meta__item">
+        {{ updated is defined and updated ? L.updated : L.published }}:
+        <time datetime="{{ fmt.isodate(shown) }}">{{ fmt.humandate(shown, locale) }}</time>
+    </span>
+</p>

@@ -1,0 +1,41 @@
+name: Replika
+slug: replika
+website: 'https://replika.com/'
+logo: /images/products/replika.svg
+category: LifestyleApplication
+platforms: 'Web, iOS, Android'
+rating: 4.0
+free_tier: true
+launched: 2017
+
+features:
+  - 'Long-running companion relationship'
+  - 'Mood and journaling features'
+  - 'AR and 3D avatar'
+
+price:
+  amount: 19.99
+  period: month
+
+geo:
+  us:
+    availability: available
+    tagline: 'The veteran of the category: polished, but more restricted than newer apps.'
+    best_for: 'Everyday companionship'
+    price:
+      amount: 19.99
+      period: month
+  de:
+    availability: available
+    tagline: 'Der Veteran der Kategorie: ausgereift, aber stärker eingeschränkt als neuere Apps.'
+    best_for: 'Alltagsbegleitung'
+    price:
+      amount: 19.99
+      period: month
+  fr:
+    availability: limited
+    tagline: 'Le vétéran de la catégorie : abouti, mais plus limité que les applications récentes.'
+    best_for: 'Compagnie au quotidien'
+    price:
+      amount: 19.99
+      period: month

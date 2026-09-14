@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+Sitemap: {{ site.baseurl }}sitemap.xml
+{% if page.body|default('') is not empty %}
+{{ page.body|raw }}
+{% endif %}

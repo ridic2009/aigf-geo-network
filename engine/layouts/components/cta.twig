@@ -1,0 +1,22 @@
+{#
+  Conversion block.
+  params: product (resolved product map), title (string, optional), text (string, optional)
+#}
+{%- set ui = site.ui -%}
+{%- set L = ui.labels -%}
+{%- if product is defined and product %}
+<aside class="cta">
+    <div class="cta__body">
+        <h2 class="cta__title">{{ title|default(L.try_now|format(product.name)) }}</h2>
+        {%- if text is defined and text %}
+        <p class="cta__text">{{ text }}</p>
+        {%- elseif product.tagline is defined %}
+        <p class="cta__text">{{ product.tagline }}</p>
+        {%- endif %}
+    </div>
+    <div class="cta__action">
+        {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.visit_site } %}
+        <p class="cta__note">{{ L.affiliate_notice }}</p>
+    </div>
+</aside>
+{%- endif %}

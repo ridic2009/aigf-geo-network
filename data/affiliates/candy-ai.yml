@@ -1,0 +1,18 @@
+# Affiliate destinations for one product, per GEO.
+# Never referenced directly by a template: engine/layouts/helpers/affiliate.twig
+# resolves product_id + geo -> URL, so this structure can be replaced by a
+# redirect service without touching a single template.
+#
+# `default` is the fallback used when a GEO has no dedicated link.
+
+product: candy-ai
+
+default: 'https://candy.ai/?utm_source=aigr&utm_medium=affiliate'
+
+geo:
+  us:
+    url: 'https://candy.ai/?utm_source=aigr&utm_medium=affiliate&utm_campaign=us'
+  de:
+    url: 'https://candy.ai/?utm_source=aigr&utm_medium=affiliate&utm_campaign=de'
+  fr:
+    url: 'https://candy.ai/?utm_source=aigr&utm_medium=affiliate&utm_campaign=fr'

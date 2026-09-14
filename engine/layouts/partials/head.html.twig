@@ -1,0 +1,56 @@
+{#
+  <head> — every SEO tag is derived, never hand-entered by an editor.
+    canonical  = GEO baseurl + resolved route  (advanced override: front matter `canonical.url`)
+    hreflang   = generated translation map     (.cecil/generated/network.yml, key: translation_key)
+    og:locale  = GEO locale
+    robots     = front matter `indexing`
+#}
+{%- set seo = page.seo|default({}) -%}
+{%- set meta_title = seo.title|default(null) -%}
+{%- if meta_title is null -%}
+    {%- set meta_title = page.type|default('page') == 'homepage' ? site.title : page.title ~ ' | ' ~ site.title -%}
+{%- endif -%}
+{%- set meta_description = seo.description|default(page.description|default(site.description)) -%}
+{#- `|default()` must NOT be used for booleans: Twig treats `false` as empty and
+    would silently turn `index: false` back into `index`. -#}
+{%- set indexing = page.indexing|default({}) -%}
+{%- set do_index = indexing.index is defined ? indexing.index : true -%}
+{%- set do_follow = indexing.follow is defined ? indexing.follow : true -%}
+{%- set robots = (do_index ? 'index' : 'noindex') ~ ',' ~ (do_follow ? 'follow' : 'nofollow') -%}
+{%- set canonical = url(page, {canonical: true}) -%}
+{%- set og_image = seo.og_image|default(page.image|default(site.image|default(null))) -%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="AIGF Network Engine">
+    <title>{{ meta_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="robots" content="{{ robots }}">
+    <link rel="canonical" href="{{ canonical }}">
+
+{#- hreflang: one logical page, N GEO variants -#}
+{%- set alternates = site.hreflang|default({})[page.translation_key|default('')]|default([]) -%}
+{%- if alternates|length > 1 and do_index %}
+{% for alt in alternates %}    <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}">
+{% endfor %}
+{%- set xdefault = alternates|filter(a => a.x_default|default(false))|first -%}
+{%- if xdefault %}    <link rel="alternate" hreflang="x-default" href="{{ xdefault.url }}">
+{% endif %}
+{%- endif %}
+
+    <meta property="og:type" content="{{ page.type|default('page') in ['review', 'guide', 'comparison', 'ranking'] ? 'article' : 'website' }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:locale" content="{{ site.languages[0].locale }}">
+    <meta property="og:title" content="{{ seo.og_title|default(meta_title) }}">
+    <meta property="og:description" content="{{ seo.og_description|default(meta_description) }}">
+    <meta property="og:url" content="{{ canonical }}">
+{%- if og_image %}
+    <meta property="og:image" content="{{ url(og_image, {canonical: true}) }}">
+{%- endif %}
+    <meta name="twitter:card" content="{{ og_image ? 'summary_large_image' : 'summary' }}">
+    <meta name="twitter:title" content="{{ seo.og_title|default(meta_title) }}">
+    <meta name="twitter:description" content="{{ seo.og_description|default(meta_description) }}">
+
+    <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ url(asset('css/main.css')|minify, {canonical: false}) }}">
+
+{% include 'partials/schema.html.twig' %}

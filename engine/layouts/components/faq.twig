@@ -1,0 +1,21 @@
+{#
+  FAQ — one source of truth (front matter `faq:`) for BOTH the visual accordion
+  and FAQPage structured data (see partials/schema.html.twig).
+  Uses <details>/<summary>: fully functional and accessible without JavaScript.
+
+  params: items (list of {question, answer}), title (string, optional), id (string, optional)
+#}
+{%- set ui = site.ui -%}
+{%- if items|default([])|length > 0 %}
+<section class="faq" id="{{ id|default('faq') }}" aria-labelledby="{{ id|default('faq') }}-title">
+    <h2 class="faq__title" id="{{ id|default('faq') }}-title">{{ title|default(ui.labels.faq) }}</h2>
+    <div class="faq__list">
+        {%- for item in items %}
+        <details class="faq__item">
+            <summary class="faq__question">{{ item.question }}</summary>
+            <div class="faq__answer">{{ item.answer|markdown_to_html|raw }}</div>
+        </details>
+        {%- endfor %}
+    </div>
+</section>
+{%- endif %}

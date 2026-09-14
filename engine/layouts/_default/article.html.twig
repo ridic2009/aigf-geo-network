@@ -1,0 +1,42 @@
+{#
+  Shared article skeleton for every editorial page type.
+  Review / ranking / comparison / guide layouts only fill in the blocks below —
+  headings, meta, disclosure, FAQ and related content are defined once, here.
+#}
+{% extends '_default/base.html.twig' %}
+
+{% block main %}
+<article class="article">
+    <div class="container container--narrow">
+        <header class="article__header">
+            <h1 class="article__title">{{ page.title }}</h1>
+
+            {%- if page.intro|default(null) %}
+            <div class="article__intro">{{ page.intro|markdown_to_html|raw }}</div>
+            {%- endif %}
+
+            <div class="article__meta">
+                {% include 'components/last-updated.twig' with { 'date': page.date, 'updated': page.updated|default(null) } %}
+                {% include 'components/author.twig' with { 'author_id': page.author|default(site.editorial.default_author), 'reviewer_id': page.reviewer|default(null) } %}
+            </div>
+
+            {% block disclosure %}
+                {% include 'components/affiliate-disclosure.twig' with { 'variant': 'inline' } %}
+            {% endblock %}
+        </header>
+
+        {% block lead %}{% endblock %}
+
+        {%- if page.content|striptags|trim is not empty %}
+            {% include 'components/toc.twig' with { 'content': page.body|default('') } %}
+            <div class="article__body prose">{{ page.content|raw }}</div>
+        {%- endif %}
+
+        {% block after_body %}{% endblock %}
+
+        {% include 'components/faq.twig' with { 'items': page.faq|default([]) } %}
+
+        {% include 'components/related-content.twig' with { 'ids': page.related|default([]), 'section': page.section|default(null) } %}
+    </div>
+</article>
+{% endblock %}

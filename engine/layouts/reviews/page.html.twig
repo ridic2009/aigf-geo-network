@@ -1,0 +1,25 @@
+{# Review page: one product, editorial verdict, pros/cons, CTA. #}
+{% extends '_default/article.html.twig' %}
+
+{% block lead %}
+    {%- set product = page.product is defined ? products[page.product]|default(null) : null -%}
+    {%- if product %}
+        {% include 'components/product-card.twig' with { 'product': product } %}
+    {%- endif %}
+
+    {%- if page.verdict|default(null) %}
+    <section class="verdict">
+        <h2 class="verdict__title">{{ site.ui.labels.verdict }}</h2>
+        <div class="verdict__body prose">{{ page.verdict|markdown_to_html|raw }}</div>
+    </section>
+    {%- endif %}
+
+    {% include 'components/pros-cons.twig' with { 'pros': page.pros|default([]), 'cons': page.cons|default([]) } %}
+{% endblock %}
+
+{% block after_body %}
+    {%- set product = page.product is defined ? products[page.product]|default(null) : null -%}
+    {%- if product %}
+        {% include 'components/cta.twig' with { 'product': product } %}
+    {%- endif %}
+{% endblock %}

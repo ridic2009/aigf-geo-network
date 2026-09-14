@@ -1,0 +1,134 @@
+#!/usr/bin/env sh
+#
+# scripts/deploy <geo> [--build] [--host=IP] [--no-smoke]
+#
+# Release-based, atomic deployment of one GEO to every configured server:
+#
+#   /srv/www/<domain>/releases/<UTC timestamp>/   <- uploaded here first
+#   /srv/www/<domain>/current -> releases/<ts>    <- switched only after upload
+#
+# The switch is a single atomic rename, so visitors never see a half-uploaded
+# site, and rolling back is another rename (see scripts/rollback).
+#
+# With several hosts in DEPLOY_HOSTS the same release id is pushed to all of
+# them, which keeps the backup server byte-identical to production.
+# --host=IP targets a single server (useful when seeding a new one).
+#
+# After each switch the new release is smoke-tested against that server directly
+# (right Host/SNI, request pinned to its IP). A server that fails the test is
+# rolled back to its previous release automatically. Use --no-smoke before DNS
+# and the certificate exist.
+
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR/lib/deploy-common.sh"
+
+GEO=""
+DO_BUILD=0
+ONLY_HOST=""
+RELEASE=""
+SMOKE=1
+for arg in "$@"; do
+    case "$arg" in
+        --build) DO_BUILD=1 ;;
+        --no-smoke) SMOKE=0 ;;
+        --host=*) ONLY_HOST="${arg#--host=}" ;;
+        --release=*) RELEASE="${arg#--release=}" ;;
+        --*) die "Unknown option: $arg" ;;
+        *) GEO="$arg" ;;
+    esac
+done
+
+[ -n "$GEO" ] || die "Usage: scripts/deploy <geo> [--build] [--host=IP] [--no-smoke]"
+
+if [ -n "$ONLY_HOST" ]; then
+    DEPLOY_HOSTS="$ONLY_HOST"
+fi
+require_hosts
+
+DOMAIN=$(geo_host "$GEO")
+SRC="$ROOT_DIR/dist/$DOMAIN"
+[ -n "$RELEASE" ] || RELEASE=$(date -u +%Y%m%d-%H%M%S)
+
+if [ "$DO_BUILD" -eq 1 ]; then
+    php "$ROOT_DIR/scripts/build.php" "$GEO"
+fi
+
+[ -d "$SRC" ] || die "No build output in dist/$DOMAIN — run ./scripts/build $GEO first."
+[ -f "$SRC/index.html" ] || die "dist/$DOMAIN has no index.html: refusing to deploy a broken build."
+
+FILE_COUNT=$(find "$SRC" -type f | wc -l | tr -d ' ')
+printf '\n== Deploying %s (%s) release %s to %s server(s)\n' \
+    "$(upper "$GEO")" "$DOMAIN" "$RELEASE" "$(host_count)"
+
+FAILED=""
+for HOST in $(host_list); do
+    SITE_ROOT="$DEPLOY_ROOT/$DOMAIN"
+    TARGET="$SITE_ROOT/releases/$RELEASE"
+
+    if ! ssh_run "$HOST" "mkdir -p '$TARGET' '$SITE_ROOT/releases'"; then
+        FAILED="$FAILED $HOST"
+        printf '  [ERROR] %s: cannot create the release directory\n' "$HOST" >&2
+        continue
+    fi
+
+    # Upload into the new release directory. Nothing visible changes yet.
+    # rsync when it is available (CI, Linux, macOS); otherwise stream a tar over
+    # ssh, so deploying from a Windows workstation works without extra software.
+    # The release directory is always new, so there is nothing to delete.
+    if command -v rsync >/dev/null 2>&1; then
+        UPLOAD_OK=0
+        rsync -az --delete \
+            -e "ssh -p $DEPLOY_PORT -o StrictHostKeyChecking=accept-new" \
+            "$SRC/" "$DEPLOY_USER@$HOST:$TARGET/" && UPLOAD_OK=1
+    else
+        UPLOAD_OK=0
+        tar -czf - -C "$SRC" . \
+            | ssh -p "$DEPLOY_PORT" -o StrictHostKeyChecking=accept-new \
+                  "$DEPLOY_USER@$HOST" "tar -xzf - -C '$TARGET'" && UPLOAD_OK=1
+    fi
+
+    if [ "$UPLOAD_OK" -ne 1 ]; then
+        FAILED="$FAILED $HOST"
+        printf '  [ERROR] %s: upload failed, current release untouched\n' "$HOST" >&2
+        continue
+    fi
+
+    # Verify on the server, then switch atomically.
+    if ssh_run "$HOST" "set -eu
+        test -f '$TARGET/index.html' || { echo 'release is missing index.html'; exit 1; }
+        test -f '$TARGET/sitemap.xml' || { echo 'release is missing sitemap.xml'; exit 1; }
+        ln -sfn '$TARGET' '$SITE_ROOT/current.tmp'
+        mv -Tf '$SITE_ROOT/current.tmp' '$SITE_ROOT/current'
+        printf '%s\t%s\t%s\n' \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" '$RELEASE' '${GIT_COMMIT:-manual}' >> '$SITE_ROOT/releases.log'
+        cd '$SITE_ROOT/releases'
+        ls -1t | tail -n +\$(( $KEEP_RELEASES + 1 )) | xargs -r rm -rf
+    "; then
+        ok "$HOST: $DOMAIN serving release $RELEASE ($FILE_COUNT files)"
+    else
+        FAILED="$FAILED $HOST"
+        printf '  [ERROR] %s: release switch failed, previous release still live\n' "$HOST" >&2
+        continue
+    fi
+
+    # Verify the live server, then undo the switch if it is not healthy.
+    if [ "$SMOKE" -eq 1 ]; then
+        if php "$ROOT_DIR/scripts/smoke.php" "$GEO" --origin="$HOST" --quiet; then
+            ok "$HOST: smoke test passed"
+        else
+            printf '  [ERROR] %s: smoke test failed — rolling back\n' "$HOST" >&2
+            if sh "$SCRIPT_DIR/rollback" "$GEO" --host="$HOST"; then
+                printf '  [ERROR] %s: rolled back to the previous release\n' "$HOST" >&2
+            else
+                printf '  [ERROR] %s: ROLLBACK ALSO FAILED — check this server now\n' "$HOST" >&2
+            fi
+            FAILED="$FAILED $HOST"
+        fi
+    fi
+done
+
+if [ -n "$FAILED" ]; then
+    die "Deployment failed on:$FAILED"
+fi

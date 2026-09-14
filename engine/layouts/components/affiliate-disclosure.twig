@@ -1,0 +1,10 @@
+{#
+  FTC-style disclosure. Rendered near the top of monetised pages and in the footer.
+  params: variant ('inline' | 'footer')
+#}
+{%- set ui = site.ui -%}
+{%- if variant|default('inline') == 'footer' %}
+<p class="disclosure disclosure--footer">{{ ui.labels.affiliate_notice }}</p>
+{%- else %}
+<p class="disclosure disclosure--inline">{{ ui.labels.affiliate_notice }}</p>
+{%- endif %}

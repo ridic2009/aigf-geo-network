@@ -1,0 +1,14 @@
+{# Guide page: long-form editorial content, optional product mentions. #}
+{% extends '_default/article.html.twig' %}
+
+{% block after_body %}
+    {%- if page.products|default([])|length > 0 %}
+    <section class="guide-products">
+        {%- for pid in page.products -%}
+            {%- if products[pid] is defined %}
+                {% include 'components/product-card.twig' with { 'product': products[pid], 'compact': true } %}
+            {%- endif -%}
+        {%- endfor %}
+    </section>
+    {%- endif %}
+{% endblock %}

@@ -1,0 +1,62 @@
+{# Homepage. #}
+{% extends '_default/base.html.twig' %}
+
+{% block main %}
+<section class="hero">
+    <div class="container">
+        <h1 class="hero__title">{{ page.title }}</h1>
+        {%- if page.intro|default(null) %}
+        <div class="hero__text">{{ page.intro|markdown_to_html|raw }}</div>
+        {%- endif %}
+        {%- if page.hero_cta|default(null) and site.pages.has(page.hero_cta) and site.pages.get(page.hero_cta).published %}
+        <p class="hero__actions">
+            <a class="btn btn--primary" href="{{ url(site.pages.get(page.hero_cta), {canonical: false}) }}">{{ site.pages.get(page.hero_cta).title }}</a>
+        </p>
+        {%- endif %}
+        {% include 'components/affiliate-disclosure.twig' with { 'variant': 'inline' } %}
+    </div>
+</section>
+
+{%- if page.top_products|default([])|length > 0 %}
+<section class="section">
+    <div class="container">
+        <h2 class="section__title">{{ page.top_products_title|default(site.ui.nav.ranking) }}</h2>
+        <div class="card-grid">
+            {%- for pid in page.top_products -%}
+                {%- if products[pid] is defined %}
+                    {% include 'components/product-card.twig' with { 'product': products[pid], 'rank': loop.index } %}
+                {%- endif -%}
+            {%- endfor %}
+        </div>
+    </div>
+</section>
+{%- endif %}
+
+{%- if page.content|striptags|trim is not empty %}
+<section class="section">
+    <div class="container container--narrow">
+        <div class="prose">{{ page.content|raw }}</div>
+    </div>
+</section>
+{%- endif %}
+
+{%- set latest = site.pages.showable|filter(p => p.section|default('') == 'reviews')|sort_by_date|slice(0, 6) -%}
+{%- if latest|length > 0 %}
+<section class="section section--alt">
+    <div class="container">
+        <h2 class="section__title">{{ site.ui.labels.all_reviews }}</h2>
+        <ul class="link-list">
+            {%- for item in latest %}
+            <li><a href="{{ url(item, {canonical: false}) }}">{{ item.title }}</a></li>
+            {%- endfor %}
+        </ul>
+    </div>
+</section>
+{%- endif %}
+
+{%- if page.faq|default([])|length > 0 %}
+<div class="container container--narrow">
+    {% include 'components/faq.twig' with { 'items': page.faq } %}
+</div>
+{%- endif %}
+{% endblock %}

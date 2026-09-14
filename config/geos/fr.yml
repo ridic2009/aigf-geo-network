@@ -1,0 +1,104 @@
+# ---------------------------------------------------------------------------
+# GEO: France
+# ---------------------------------------------------------------------------
+
+geo:
+  code: fr
+  name: France
+  country_code: FR
+  hreflang: fr-FR
+  enabled: true
+  timezone: Europe/Paris
+  currency:
+    code: EUR
+    symbol: '€'
+    position: after
+    decimals: 2
+    decimal_separator: ','
+    thousands_separator: ' '
+
+baseurl: 'https://aigirlfriendranking-france.site/'
+
+language: fr
+languages:
+  - code: fr
+    name: Français
+    locale: fr_FR
+    enabled: true
+
+title: 'AI Girlfriend Ranking France'
+baseline: 'Tests indépendants des applications de compagnon IA'
+description: "Tests indépendants et classements des applications d'IA girlfriend et de compagnon IA, évalués par notre rédaction."
+
+pages:
+  dir: content/fr
+  default:
+    '404':
+      title: 'Page introuvable'
+
+routes:
+  reviews: avis
+  compare: comparatif
+  guides: guides
+  rankings: ''
+
+organization:
+  name: 'AI Girlfriend Ranking France'
+  legal_name: 'AIGR Media'
+  email: 'redaction@aigirlfriendranking-france.site'
+  logo: '/images/brand/logo.svg'
+
+ui:
+  nav:
+    ranking: 'Meilleures petites amies IA'
+    reviews: 'Avis'
+    compare: 'Comparatifs'
+    guides: 'Guides'
+    about: 'À propos'
+    disclosure: 'Divulgation d’affiliation'
+    privacy: 'Confidentialité'
+  sections:
+    reviews: 'Avis'
+    compare: 'Comparatifs'
+    guides: 'Guides'
+    rankings: 'Classements'
+  labels:
+    home: 'Accueil'
+    not_found_text: "Cette page n'existe plus, ou l'adresse a été mal saisie."
+    skip_to_content: 'Aller au contenu'
+    menu: 'Menu'
+    main_navigation: 'Navigation principale'
+    footer_navigation: 'Navigation de pied de page'
+    close: 'Fermer'
+    read_review: "Lire l'avis"
+    visit_site: 'Visiter le site'
+    try_now: 'Essayer %s'
+    pros: 'Avantages'
+    cons: 'Inconvénients'
+    rating: 'Note'
+    out_of: 'sur'
+    score: 'Score'
+    rank: 'Rang'
+    product: 'Service'
+    features: 'Fonctionnalités clés'
+    price: 'Prix'
+    from: 'à partir de'
+    per_month: '/mois'
+    free_tier: 'Version gratuite'
+    yes: 'Oui'
+    no: 'Non'
+    verdict: 'Notre verdict'
+    best_for: 'Idéal pour'
+    faq: 'Questions fréquentes'
+    toc: 'Sur cette page'
+    updated: 'Mis à jour'
+    published: 'Publié'
+    author: 'Auteur'
+    reviewed_by: 'Vérifié par'
+    related: 'À lire aussi'
+    all_reviews: 'Tous les avis'
+    back_to_top: 'Haut de page'
+    affiliate_notice: "Nous pouvons percevoir une commission via les liens de cette page. Cela n'influence jamais nos notes."
+    availability_available: 'Disponible'
+    availability_limited: 'Limitée'
+    availability_unavailable: 'Non disponible'

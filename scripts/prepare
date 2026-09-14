@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# Thin wrapper — see prepare.php
+set -e
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+exec php "$DIR/prepare.php" "$@"

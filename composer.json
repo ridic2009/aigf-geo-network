@@ -1,0 +1,26 @@
+{
+    "name": "aigf/geo-network",
+    "description": "Multi-GEO static SEO/affiliate site network engine (Cecil + Twig + Pages CMS)",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "cecil/cecil": "^9.1",
+        "symfony/yaml": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AiGf\\Engine\\": "engine/php/",
+            "AiGf\\Tools\\": "scripts/php/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "scripts": {
+        "build": "scripts/build",
+        "build-all": "scripts/build-all",
+        "validate-content": "scripts/validate"
+    }
+}

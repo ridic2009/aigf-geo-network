@@ -1,0 +1,25 @@
+{#
+  Byline. Authors live in data/authors.yml (shared across the whole network);
+  pages reference them by id only.
+
+  params: author_id (string), reviewer_id (string, optional)
+#}
+{%- set ui = site.ui -%}
+{%- set L = ui.labels -%}
+{%- set authors = site.data.authors|default({}) -%}
+{%- set author = author_id is defined and authors[author_id] is defined ? authors[author_id] : null -%}
+{%- set reviewer = reviewer_id is defined and reviewer_id and authors[reviewer_id] is defined ? authors[reviewer_id] : null -%}
+{%- set role = author and author.role is defined ? (author.role[site.language]|default(author.role.en|default(null))) : null -%}
+{%- if author %}
+<div class="byline">
+    {%- if author.avatar is defined %}
+    <img class="byline__avatar" src="{{ author.avatar }}" alt="" width="40" height="40" loading="lazy" decoding="async">
+    {%- endif %}
+    <p class="byline__text">
+        <span class="byline__label">{{ L.author }}:</span>
+        <span class="byline__name">{{ author.name }}</span>
+        {%- if role %}<span class="byline__role">{{ role }}</span>{% endif %}
+        {%- if reviewer %}<span class="byline__reviewer">{{ L.reviewed_by }}: {{ reviewer.name }}</span>{% endif %}
+    </p>
+</div>
+{%- endif %}

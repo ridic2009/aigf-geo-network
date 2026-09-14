@@ -1,0 +1,216 @@
+# ---------------------------------------------------------------------------
+# COMMON CONFIGURATION — shared by every GEO site of the network.
+#
+# This file is layer 1 of the configuration stack. The full stack is:
+#
+#   config/common.yml            <- this file (engine defaults, identical everywhere)
+#   config/geos/<geo>.yml        <- GEO identity: domain, language, currency, routes, labels
+#   .cecil/generated/network.yml <- generated: GEO registry + hreflang map (scripts/prepare)
+#
+# Never put GEO-specific values here.
+# ---------------------------------------------------------------------------
+
+# --- Directories (single engine, content swapped per GEO) -------------------
+pages:
+  dir: content/_missing # ALWAYS overridden by config/geos/<geo>.yml
+  ext: [md, markdown]
+  exclude: ['vendor', 'node_modules', '*.example.md']
+  sortby: date
+  frontmatter: yaml
+  # Review sites list a handful of pages per section: pagination would only add
+  # thin /page/2/ URLs. Re-enable per section if a section ever grows past ~100 pages.
+  pagination:
+    enabled: false
+  body:
+    toc: [h2, h3]
+    highlight: false
+    images:
+      lazy: true
+      decoding: true
+      responsive: true
+      formats: [webp]
+    links:
+      external:
+        blank: true
+        noopener: true
+        noreferrer: true
+        nofollow: false
+  # Custom generators. Order matters (lower number = runs earlier).
+  #   15 -> editorial workflow: status (draft|review|published) -> Cecil `published`
+  #   45 -> routing: section + slug -> final path (runs after Cecil's Section generator)
+  generators:
+    15: 'AiGf\Engine\Generator\EditorialStatus'
+    45: 'AiGf\Engine\Generator\Router'
+  default:
+    # Built-in generated pages. Templates live in engine/layouts/_default/.
+    index:
+      published: false # every GEO ships its own content/<geo>/index.md
+    '404':
+      path: '404'
+      title: 'Page not found'
+      layout: 404
+      uglyurl: true
+      published: true
+      excluded: true
+      indexing:
+        index: false
+        follow: false
+    robots:
+      path: robots
+      title: 'robots.txt'
+      layout: robots
+      output: txt
+      published: true
+      excluded: true
+    sitemap:
+      path: sitemap
+      title: 'XML sitemap'
+      layout: sitemap
+      output: xml
+      changefreq: weekly
+      priority: '0.5'
+      published: true
+      excluded: true
+    xsl/sitemap:
+      published: false
+    xsl/atom:
+      published: false
+    xsl/rss:
+      published: false
+
+data:
+  dir: data
+  load: true
+
+static:
+  dir: static
+  exclude: ['*.scss', 'package*.json', 'node_modules', '.gitkeep']
+
+assets:
+  dir: engine/assets
+  fingerprint: true
+  minify: true
+  images:
+    quality: 82
+    responsive:
+      widths: [320, 480, 640, 768, 1024, 1366]
+      sizes:
+        default: '100vw'
+
+layouts:
+  dir: engine/layouts
+  autoescape: null # extension-based escaping: .html.twig is escaped, .txt/.xml are not
+  components:
+    dir: components
+    ext: twig
+  images:
+    formats: [webp]
+    responsive: true
+
+output:
+  dir: dist/_preview # ALWAYS overridden by scripts/build (--output)
+  pagetypeformats:
+    page: [html]
+    homepage: [html]
+    section: [html]
+    vocabulary: [html]
+    term: [html]
+
+# No taxonomies on review sites: they generate thin, duplicate-prone pages.
+taxonomies:
+  tags: disabled
+  categories: disabled
+
+cache:
+  enabled: true
+  dir: .cache
+
+canonicalurl: true # url() returns absolute URLs -> correct canonicals, sitemap, OG
+
+metatags:
+  robots: 'index,follow'
+
+date:
+  format: 'F j, Y'
+
+# --- Network-wide business configuration -----------------------------------
+
+# Page types. `section` is the content sub-directory that carries the type.
+# The layout used is engine/layouts/<section>/page.html.twig (see docs/adding-page-type.md).
+page_types:
+  homepage:
+    section: null
+    layout: index
+  ranking:
+    section: rankings
+  review:
+    section: reviews
+  comparison:
+    section: compare
+  guide:
+    section: guides
+  static:
+    section: null
+
+# ROUTING — the single source of truth for URLs.
+# `routes.<section>` is the URL prefix applied to every page of that section.
+# An empty prefix means "publish at site root" (and suppresses the section index page).
+# GEO configs override these values with localized prefixes.
+routes:
+  reviews: reviews
+  compare: compare
+  guides: guides
+  rankings: '' # ranking pages live at the root: /best-ai-girlfriend/
+
+# Navigation structure (labels are localized in config/geos/<geo>.yml -> ui.nav).
+# Items reference Cecil page IDs, which are stable across GEOs because the content
+# directory layout is identical in every GEO (only slugs are localized).
+navigation:
+  main:
+    - id: rankings/best-ai-girlfriend
+      label: ranking
+      weight: 10
+    - id: reviews
+      label: reviews
+      weight: 20
+    - id: compare
+      label: compare
+      weight: 30
+    - id: guides
+      label: guides
+      weight: 40
+  footer:
+    - id: about
+      label: about
+      weight: 10
+    - id: affiliate-disclosure
+      label: disclosure
+      weight: 20
+    - id: privacy
+      label: privacy
+      weight: 30
+
+# Structured data switches (see engine/layouts/partials/schema.html.twig).
+schema:
+  organization: true
+  website: true
+  webpage: true
+  breadcrumbs: true
+  article: true
+  review: true
+  # FAQPage markup stays valid schema.org; Google restricts FAQ *rich results*
+  # to authoritative sites. Flip to false to drop it network-wide.
+  faq: true
+
+# Affiliate link behaviour (see engine/layouts/helpers/affiliate.twig).
+affiliate:
+  rel: 'sponsored nofollow noopener'
+  target: '_blank'
+  # When a redirect service is introduced (phase 2), set `redirect_base` and the
+  # helper starts emitting go.example.com/<product>/<geo> without touching templates.
+  redirect_base: ''
+
+# Author/reviewer defaults used by the `author` component and Article schema.
+editorial:
+  default_author: editorial-team
+  review_policy_page: about

@@ -1,0 +1,77 @@
+#!/usr/bin/env sh
+#
+# scripts/rollback <geo> [release] [--list] [--host=IP]
+#
+# Switches `current` back to a previous release. No rebuild, no upload: the
+# previous releases are still on disk, so a rollback is one atomic rename and
+# takes about a second. It is applied to every configured server unless --host
+# narrows it down.
+#
+#   scripts/rollback de --list        show what is on each server
+#   scripts/rollback de               go back to the release before the current one
+#   scripts/rollback de 20260914-2101 go back to a specific release
+
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR/lib/deploy-common.sh"
+
+GEO=""
+RELEASE=""
+LIST=0
+ONLY_HOST=""
+for arg in "$@"; do
+    case "$arg" in
+        --list) LIST=1 ;;
+        --host=*) ONLY_HOST="${arg#--host=}" ;;
+        --*) die "Unknown option: $arg" ;;
+        *) if [ -z "$GEO" ]; then GEO="$arg"; else RELEASE="$arg"; fi ;;
+    esac
+done
+
+[ -n "$GEO" ] || die "Usage: scripts/rollback <geo> [release] [--list] [--host=IP]"
+
+if [ -n "$ONLY_HOST" ]; then
+    DEPLOY_HOSTS="$ONLY_HOST"
+fi
+require_hosts
+
+DOMAIN=$(geo_host "$GEO")
+SITE_ROOT="$DEPLOY_ROOT/$DOMAIN"
+
+if [ "$LIST" -eq 1 ]; then
+    for HOST in $(host_list); do
+        printf '\n== %s (%s)\n' "$HOST" "$DOMAIN"
+        ssh_run "$HOST" "cd '$SITE_ROOT/releases' 2>/dev/null || { echo '  not deployed yet'; exit 0; }
+            echo \"  current -> \$(basename \"\$(readlink '$SITE_ROOT/current')\")\"
+            echo '  --- releases (newest first) ---'
+            ls -1t | sed 's/^/  /'"
+    done
+    exit 0
+fi
+
+FAILED=""
+for HOST in $(host_list); do
+    if ssh_run "$HOST" "set -eu
+        cd '$SITE_ROOT/releases'
+        CURRENT=\$(basename \"\$(readlink '$SITE_ROOT/current')\")
+        TARGET='$RELEASE'
+        if [ -z \"\$TARGET\" ]; then
+            TARGET=\$(ls -1t | grep -v \"^\$CURRENT\$\" | head -n 1)
+        fi
+        [ -n \"\$TARGET\" ] || { echo 'No previous release to roll back to.'; exit 1; }
+        [ -d \"\$TARGET\" ] || { echo \"Release \$TARGET does not exist.\"; exit 1; }
+        test -f \"\$TARGET/index.html\" || { echo \"Release \$TARGET is incomplete.\"; exit 1; }
+        ln -sfn '$SITE_ROOT/releases/'\"\$TARGET\" '$SITE_ROOT/current.tmp'
+        mv -Tf '$SITE_ROOT/current.tmp' '$SITE_ROOT/current'
+        printf '%s\trollback\t%s\n' \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" \"\$TARGET\" >> '$SITE_ROOT/releases.log'
+        echo \"rolled back: \$CURRENT -> \$TARGET\"
+    "; then
+        ok "$HOST: $DOMAIN rolled back"
+    else
+        FAILED="$FAILED $HOST"
+    fi
+done
+
+[ -z "$FAILED" ] || die "Rollback failed on:$FAILED"

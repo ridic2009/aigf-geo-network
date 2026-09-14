@@ -1,0 +1,145 @@
+{#
+  CENTRALIZED STRUCTURED DATA LAYER
+  ---------------------------------
+  One JSON-LD @graph per page, assembled from page/product metadata only.
+  No editor ever writes JSON-LD by hand, and nothing is invented here:
+    * Review is emitted only when the page really is a review with an editorial rating
+    * FAQPage is emitted only from the same `faq` list that renders visually
+    * BreadcrumbList is emitted from the same `crumbs` array the header renders
+  Node types can be switched off network-wide in config/common.yml -> schema.
+#}
+{%- set S = site.schema|default({}) -%}
+{%- set canonical = url(page, {canonical: true}) -%}
+{%- set org_id = site.baseurl ~ '#organization' -%}
+{%- set site_id = site.baseurl ~ '#website' -%}
+{%- set page_id = canonical ~ '#webpage' -%}
+{%- set org = site.organization|default({}) -%}
+{%- set authors = site.data.authors|default({}) -%}
+{%- set author_id = page.author|default(site.editorial.default_author|default(null)) -%}
+{%- set author = author_id and authors[author_id] is defined ? authors[author_id] : null -%}
+{%- set graph = [] -%}
+
+{%- if S.organization|default(false) -%}
+    {%- set org_node = {
+        '@type': 'Organization',
+        '@id': org_id,
+        'name': org.name|default(site.title),
+        'url': site.baseurl
+    } -%}
+    {%- if org.legal_name is defined %}{% set org_node = org_node|merge({'legalName': org.legal_name}) %}{% endif -%}
+    {%- if org.email is defined %}{% set org_node = org_node|merge({'email': org.email}) %}{% endif -%}
+    {%- if org.logo is defined %}{% set org_node = org_node|merge({'logo': {'@type': 'ImageObject', 'url': url(org.logo, {canonical: true})}}) %}{% endif -%}
+    {%- set graph = graph|merge([org_node]) -%}
+{%- endif -%}
+
+{%- if S.website|default(false) -%}
+    {%- set graph = graph|merge([{
+        '@type': 'WebSite',
+        '@id': site_id,
+        'url': site.baseurl,
+        'name': site.title,
+        'description': site.description,
+        'inLanguage': site.geo.hreflang,
+        'publisher': {'@id': org_id}
+    }]) -%}
+{%- endif -%}
+
+{%- if S.breadcrumbs|default(false) and crumbs|default([])|length > 1 -%}
+    {%- set items = [] -%}
+    {%- for c in crumbs -%}
+        {%- set items = items|merge([{'@type': 'ListItem', 'position': loop.index, 'name': c.title, 'item': c.url}]) -%}
+    {%- endfor -%}
+    {%- set graph = graph|merge([{
+        '@type': 'BreadcrumbList',
+        '@id': canonical ~ '#breadcrumb',
+        'itemListElement': items
+    }]) -%}
+{%- endif -%}
+
+{%- if S.webpage|default(false) -%}
+    {%- set webpage = {
+        '@type': 'WebPage',
+        '@id': page_id,
+        'url': canonical,
+        'name': page.seo.title|default(page.title),
+        'description': page.seo.description|default(page.description|default(site.description)),
+        'inLanguage': site.geo.hreflang,
+        'isPartOf': {'@id': site_id},
+        'datePublished': page.date|date('c'),
+        'dateModified': (page.updated|default(page.date))|date('c')
+    } -%}
+    {%- if S.breadcrumbs|default(false) and crumbs|default([])|length > 1 -%}
+        {%- set webpage = webpage|merge({'breadcrumb': {'@id': canonical ~ '#breadcrumb'}}) -%}
+    {%- endif -%}
+    {%- set graph = graph|merge([webpage]) -%}
+{%- endif -%}
+
+{#- Article: editorial content pages (rankings, comparisons, guides) -#}
+{%- if S.article|default(false) and page.type|default('page') in ['ranking', 'comparison', 'guide'] -%}
+    {%- set article = {
+        '@type': 'Article',
+        '@id': canonical ~ '#article',
+        'headline': page.title,
+        'mainEntityOfPage': {'@id': page_id},
+        'inLanguage': site.geo.hreflang,
+        'datePublished': page.date|date('c'),
+        'dateModified': (page.updated|default(page.date))|date('c'),
+        'publisher': {'@id': org_id}
+    } -%}
+    {%- if author -%}
+        {%- set author_role = author.role is defined ? (author.role[site.language]|default(author.role.en|default(null))) : null -%}
+        {%- set article = article|merge({'author': {'@type': 'Person', 'name': author.name, 'jobTitle': author_role}|filter(v => v is not null)}) -%}
+    {%- endif -%}
+    {%- set graph = graph|merge([article]) -%}
+{%- endif -%}
+
+{#- Review: only for real review pages that carry an editorial rating -#}
+{%- if S.review|default(false) and page.type|default('page') == 'review' and page.product is defined -%}
+    {%- set prod = products[page.product]|default(null) -%}
+    {%- if prod and prod.rating is defined and prod.rating -%}
+        {%- set review = {
+            '@type': 'Review',
+            '@id': canonical ~ '#review',
+            'mainEntityOfPage': {'@id': page_id},
+            'inLanguage': site.geo.hreflang,
+            'datePublished': page.date|date('c'),
+            'itemReviewed': {
+                '@type': 'SoftwareApplication',
+                'name': prod.name,
+                'applicationCategory': prod.category|default('LifestyleApplication'),
+                'operatingSystem': prod.platforms|default('Web')
+            },
+            'reviewRating': {
+                '@type': 'Rating',
+                'ratingValue': prod.rating,
+                'bestRating': site.rating_scale|default(5),
+                'worstRating': 1
+            },
+            'publisher': {'@id': org_id}
+        } -%}
+        {%- if author -%}
+            {%- set review = review|merge({'author': {'@type': 'Person', 'name': author.name}}) -%}
+        {%- endif -%}
+        {%- set graph = graph|merge([review]) -%}
+    {%- endif -%}
+{%- endif -%}
+
+{#- FAQPage: same source of truth as the visual FAQ component -#}
+{%- if S.faq|default(false) and page.faq|default([])|length > 0 -%}
+    {%- set qa = [] -%}
+    {%- for item in page.faq -%}
+        {%- set qa = qa|merge([{
+            '@type': 'Question',
+            'name': item.question,
+            'acceptedAnswer': {'@type': 'Answer', 'text': item.answer|markdown_to_html|striptags|trim}
+        }]) -%}
+    {%- endfor -%}
+    {%- set graph = graph|merge([{
+        '@type': 'FAQPage',
+        '@id': canonical ~ '#faq',
+        'mainEntity': qa
+    }]) -%}
+{%- endif -%}
+{%- if graph|length > 0 %}
+    <script type="application/ld+json">{{ {'@context': 'https://schema.org', '@graph': graph}|json_encode|replace({'<': '\\u003C'})|raw }}</script>
+{%- endif %}

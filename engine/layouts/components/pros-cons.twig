@@ -1,0 +1,28 @@
+{#
+  params: pros (list of strings), cons (list of strings)
+#}
+{%- set ui = site.ui -%}
+{%- if pros|default([])|length > 0 or cons|default([])|length > 0 %}
+<div class="pros-cons">
+    {%- if pros|default([])|length > 0 %}
+    <div class="pros-cons__col pros-cons__col--pros">
+        <h3 class="pros-cons__title">{{ ui.labels.pros }}</h3>
+        <ul class="pros-cons__list">
+            {%- for item in pros %}
+            <li>{{ item }}</li>
+            {%- endfor %}
+        </ul>
+    </div>
+    {%- endif %}
+    {%- if cons|default([])|length > 0 %}
+    <div class="pros-cons__col pros-cons__col--cons">
+        <h3 class="pros-cons__title">{{ ui.labels.cons }}</h3>
+        <ul class="pros-cons__list">
+            {%- for item in cons %}
+            <li>{{ item }}</li>
+            {%- endfor %}
+        </ul>
+    </div>
+    {%- endif %}
+</div>
+{%- endif %}

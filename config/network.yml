@@ -1,0 +1,45 @@
+# ---------------------------------------------------------------------------
+# NETWORK PRESETS — scaffolding data only.
+#
+# This file is NOT read at build time. `scripts/new-geo <code>` uses it to
+# generate config/geos/<code>.yml with correct language/locale/currency values
+# so nobody has to type technical locale codes by hand.
+#
+# A GEO only becomes real once config/geos/<code>.yml and content/<code>/ exist.
+# ---------------------------------------------------------------------------
+
+defaults:
+  domain_pattern: 'aigirlfriendranking-%name%.site'
+  currency_position: after
+  decimal_separator: ','
+  thousands_separator: '.'
+
+geos:
+  gb: { name: 'United Kingdom', language: en, locale: en_GB, hreflang: en-GB, currency: GBP, symbol: '£', position: before, decimal_separator: '.', thousands_separator: ',', timezone: Europe/London, domain: 'aigirlfriendranking-uk.site' }
+  us: { name: 'United States', language: en, locale: en_US, hreflang: en-US, currency: USD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/New_York, domain: 'aigirlfriendranking.com' }
+  de: { name: 'Deutschland', language: de, locale: de_DE, hreflang: de-DE, currency: EUR, symbol: '€', timezone: Europe/Berlin, domain: 'aigirlfriendranking-germany.site' }
+  au: { name: 'Australia', language: en, locale: en_AU, hreflang: en-AU, currency: AUD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: Australia/Sydney, domain: 'aigirlfriendranking-australia.site' }
+  ca: { name: 'Canada', language: en, locale: en_CA, hreflang: en-CA, currency: CAD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/Toronto, domain: 'aigirlfriendranking-canada.site' }
+  no: { name: 'Norge', language: nb, locale: nb_NO, hreflang: nb-NO, currency: NOK, symbol: 'kr', timezone: Europe/Oslo, domain: 'aigirlfriendranking-norway.site' }
+  fr: { name: 'France', language: fr, locale: fr_FR, hreflang: fr-FR, currency: EUR, symbol: '€', thousands_separator: ' ', timezone: Europe/Paris, domain: 'aigirlfriendranking-france.site' }
+  it: { name: 'Italia', language: it, locale: it_IT, hreflang: it-IT, currency: EUR, symbol: '€', timezone: Europe/Rome, domain: 'aigirlfriendranking-italy.site' }
+  nl: { name: 'Nederland', language: nl, locale: nl_NL, hreflang: nl-NL, currency: EUR, symbol: '€', timezone: Europe/Amsterdam, domain: 'aigirlfriendranking-netherlands.site' }
+  nz: { name: 'New Zealand', language: en, locale: en_NZ, hreflang: en-NZ, currency: NZD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: Pacific/Auckland, domain: 'aigirlfriendranking-newzealand.site' }
+  se: { name: 'Sverige', language: sv, locale: sv_SE, hreflang: sv-SE, currency: SEK, symbol: 'kr', thousands_separator: ' ', timezone: Europe/Stockholm, domain: 'aigirlfriendranking-sweden.site' }
+  at: { name: 'Österreich', language: de, locale: de_AT, hreflang: de-AT, currency: EUR, symbol: '€', timezone: Europe/Vienna, domain: 'aigirlfriendranking-austria.site' }
+  cz: { name: 'Česko', language: cs, locale: cs_CZ, hreflang: cs-CZ, currency: CZK, symbol: 'Kč', thousands_separator: ' ', timezone: Europe/Prague, domain: 'aigirlfriendranking-czechia.site' }
+  pl: { name: 'Polska', language: pl, locale: pl_PL, hreflang: pl-PL, currency: PLN, symbol: 'zł', thousands_separator: ' ', timezone: Europe/Warsaw, domain: 'aigirlfriendranking-poland.site' }
+  es: { name: 'España', language: es, locale: es_ES, hreflang: es-ES, currency: EUR, symbol: '€', timezone: Europe/Madrid, domain: 'aigirlfriendranking-spain.site' }
+  fi: { name: 'Suomi', language: fi, locale: fi_FI, hreflang: fi-FI, currency: EUR, symbol: '€', thousands_separator: ' ', timezone: Europe/Helsinki, domain: 'aigirlfriendranking-finland.site' }
+  dk: { name: 'Danmark', language: da, locale: da_DK, hreflang: da-DK, currency: DKK, symbol: 'kr', timezone: Europe/Copenhagen, domain: 'aigirlfriendranking-denmark.site' }
+  jp: { name: '日本', language: ja, locale: ja_JP, hreflang: ja-JP, currency: JPY, symbol: '¥', position: before, decimals: 0, decimal_separator: '.', thousands_separator: ',', timezone: Asia/Tokyo, domain: 'aigirlfriendranking-japan.site' }
+  be: { name: 'België', language: nl, locale: nl_BE, hreflang: nl-BE, currency: EUR, symbol: '€', timezone: Europe/Brussels, domain: 'aigirlfriendranking-belgium.site' }
+  hu: { name: 'Magyarország', language: hu, locale: hu_HU, hreflang: hu-HU, currency: HUF, symbol: 'Ft', position: after, thousands_separator: ' ', decimals: 0, timezone: Europe/Budapest, domain: 'aigirlfriendranking-hungary.site' }
+  tw: { name: '台灣', language: zh-Hant, locale: zh_TW, hreflang: zh-TW, currency: TWD, symbol: 'NT$', position: before, decimals: 0, decimal_separator: '.', thousands_separator: ',', timezone: Asia/Taipei, domain: 'aigirlfriendranking-taiwan.site' }
+  hk: { name: '香港', language: zh-Hant, locale: zh_HK, hreflang: zh-HK, currency: HKD, symbol: 'HK$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: Asia/Hong_Kong, domain: 'aigirlfriendranking-hongkong.site' }
+  kr: { name: '대한민국', language: ko, locale: ko_KR, hreflang: ko-KR, currency: KRW, symbol: '₩', position: before, decimals: 0, decimal_separator: '.', thousands_separator: ',', timezone: Asia/Seoul, domain: 'aigirlfriendranking-korea.site' }
+  br: { name: 'Brasil', language: pt, locale: pt_BR, hreflang: pt-BR, currency: BRL, symbol: 'R$', position: before, timezone: America/Sao_Paulo, domain: 'aigirlfriendranking-brazil.site' }
+  mx: { name: 'México', language: es, locale: es_MX, hreflang: es-MX, currency: MXN, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/Mexico_City, domain: 'aigirlfriendranking-mexico.site' }
+
+# hreflang x-default target (must be an existing, enabled GEO).
+x_default: us

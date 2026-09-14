@@ -1,0 +1,58 @@
+#!/usr/bin/env sh
+#
+# scripts/deploy-all [--build] [--host=IP] [geo…]
+#
+# Deploys every enabled GEO (or the ones listed) to every configured server.
+# A failure stops the run so a half-deployed network is obvious rather than silent.
+#
+# --host=IP restricts the run to one server, which is how a freshly provisioned
+# backup VPS is seeded with the whole network.
+
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR/lib/deploy-common.sh"
+
+BUILD_FLAG=""
+HOST_FLAG=""
+SMOKE_FLAG=""
+GEOS=""
+for arg in "$@"; do
+    case "$arg" in
+        --build) BUILD_FLAG="--build" ;;
+        --no-smoke) SMOKE_FLAG="--no-smoke" ;;
+        --host=*) HOST_FLAG="$arg"; DEPLOY_HOSTS="${arg#--host=}" ;;
+        --*) die "Unknown option: $arg" ;;
+        *) GEOS="$GEOS $arg" ;;
+    esac
+done
+
+require_hosts
+
+[ -n "$GEOS" ] || GEOS=$(geo_list)
+
+TOTAL=0
+OKC=0
+FAILED=""
+
+for geo in $GEOS; do
+    TOTAL=$((TOTAL + 1))
+    if sh "$SCRIPT_DIR/deploy" "$geo" $BUILD_FLAG $HOST_FLAG $SMOKE_FLAG; then
+        OKC=$((OKC + 1))
+    else
+        FAILED="$FAILED $geo"
+    fi
+done
+
+printf '\n---------------------------------------------\n'
+for geo in $GEOS; do
+    case " $FAILED " in
+        *" $geo "*) printf '  %-4s FAILED\n' "$(printf '%s' "$geo" | tr '[:lower:]' '[:upper:]')" ;;
+        *) printf '  %-4s OK\n' "$(printf '%s' "$geo" | tr '[:lower:]' '[:upper:]')" ;;
+    esac
+done
+printf -- '---------------------------------------------\n'
+printf '%d/%d GEOs deployed to %s server(s)\n' "$OKC" "$TOTAL" "$(host_count)"
+
+[ -z "$FAILED" ] || exit 1

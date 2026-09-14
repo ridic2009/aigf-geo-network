@@ -1,0 +1,16 @@
+{#
+  Editorial rating. Never invented in a template: `value` always comes from the
+  product database (data/products/<id>.yml, optionally overridden per GEO).
+
+  params: value (number), scale (number, optional), label (string, optional)
+#}
+{%- set scale = scale|default(site.rating_scale|default(5)) -%}
+{%- set ui = site.ui -%}
+{%- set sep = site.geo.currency.decimal_separator|default('.') -%}
+{%- if value is not null and value > 0 -%}
+<span class="rating" title="{{ ui.labels.rating }}">
+    <span class="rating__stars" aria-hidden="true"><span class="rating__stars-fill" style="width: {{ (value / scale * 100)|round }}%"></span></span>
+    <span class="rating__value">{{ value|number_format(1, sep, '') }}</span>
+    <span class="visually-hidden">{{ ui.labels.rating }}: {{ value|number_format(1, sep, '') }} {{ ui.labels.out_of }} {{ scale }}</span>
+</span>
+{%- endif -%}

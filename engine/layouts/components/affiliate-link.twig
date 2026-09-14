@@ -1,0 +1,20 @@
+{#
+  The ONLY place in the engine that renders an outbound monetised link.
+  Destination is resolved by helpers/affiliate.twig from product_id + GEO —
+  affiliate URLs are never written inside article content.
+
+  params: product (resolved product map), label (string), class (string, optional)
+#}
+{%- import 'helpers/affiliate.twig' as aff -%}
+{%- set href = aff.url(site, product.id, site.geo.code)|trim -%}
+{%- set sponsored = href is not empty -%}
+{%- if not sponsored and product.website is defined -%}
+    {%- set href = product.website -%}
+{%- endif -%}
+{%- if href is not empty -%}
+<a class="btn {{ class|default('btn--primary') }}"
+   href="{{ href }}"
+   rel="{{ sponsored ? aff.rel(site) : 'nofollow noopener noreferrer' }}"
+   target="{{ aff.target(site) }}"
+   data-product="{{ product.id }}">{{ label }}</a>
+{%- endif -%}

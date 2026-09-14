@@ -1,0 +1,26 @@
+{# Section index (e.g. /reviews/, /erfahrungen/, /avis/). #}
+{% extends '_default/base.html.twig' %}
+
+{% block main %}
+<div class="container container--narrow">
+    <header class="article__header">
+        <h1 class="article__title">{{ page.title }}</h1>
+        {%- if page.intro|default(null) %}
+        <div class="article__intro">{{ page.intro|markdown_to_html|raw }}</div>
+        {%- endif %}
+    </header>
+
+    {%- if page.content|default('')|striptags|trim is not empty %}
+    <div class="prose">{{ page.content|raw }}</div>
+    {%- endif %}
+
+    <ul class="link-list link-list--cards">
+        {%- for item in page.pages|filter(p => p.published)|sort_by_date %}
+        <li>
+            <a href="{{ url(item, {canonical: false}) }}">{{ item.title }}</a>
+            {%- if item.seo.description is defined %}<span class="link-list__excerpt">{{ item.seo.description }}</span>{% endif %}
+        </li>
+        {%- endfor %}
+    </ul>
+</div>
+{% endblock %}

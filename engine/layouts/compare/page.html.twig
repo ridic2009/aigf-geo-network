@@ -1,0 +1,20 @@
+{# Comparison page: two or more products side by side. #}
+{% extends '_default/article.html.twig' %}
+
+{% block lead %}
+    {%- set items = [] -%}
+    {%- for pid in page.products|default([]) -%}
+        {%- if products[pid] is defined -%}
+            {%- set items = items|merge([products[pid]]) -%}
+        {%- endif -%}
+    {%- endfor %}
+    {% include 'components/comparison-table.twig' with { 'items': items } %}
+{% endblock %}
+
+{% block after_body %}
+    {%- for pid in page.products|default([]) -%}
+        {%- if products[pid] is defined %}
+            {% include 'components/product-card.twig' with { 'product': products[pid], 'compact': true } %}
+        {%- endif -%}
+    {%- endfor %}
+{% endblock %}

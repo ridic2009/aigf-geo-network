@@ -1,0 +1,31 @@
+{#
+  Per-GEO sitemap. A URL is listed only when it is genuinely indexable:
+      status = published   (Cecil `published`, set by the EditorialStatus generator)
+    AND indexing.index = true
+    AND not an engine page (404 / robots / sitemap)
+    AND no canonical override pointing somewhere else
+  URLs come from url(), i.e. from the same router as canonical and navigation.
+#}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- for p in site.pages -%}
+{#- `p.indexing.index is defined ? … : true` rather than `|default(true)`:
+    Twig's default filter treats `false` as empty and would list noindex pages. -#}
+{%- if p.published
+    and p.excluded|default(false) != true
+    and p.redirect|default(null) is null
+    and (p.indexing.index is defined ? p.indexing.index : true)
+    and p.canonical.url|default(null) is null -%}
+{%- set alternates = site.hreflang|default({})[p.translation_key|default('')]|default([]) %}
+  <url>
+    <loc>{{ url(p, {canonical: true}) }}</loc>
+    <lastmod>{{ (p.updated|default(p.date))|date('Y-m-d') }}</lastmod>
+    <changefreq>{{ p.sitemap.changefreq|default('weekly') }}</changefreq>
+    <priority>{{ p.sitemap.priority|default(p.type|default('page') == 'homepage' ? '1.0' : '0.5') }}</priority>
+{%- for alt in alternates %}
+    <xhtml:link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}"/>
+{%- endfor %}
+  </url>
+{%- endif -%}
+{%- endfor %}
+</urlset>

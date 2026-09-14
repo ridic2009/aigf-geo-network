@@ -1,0 +1,21 @@
+{#
+  Visual breadcrumbs. The very same `items` array feeds BreadcrumbList JSON-LD
+  in partials/schema.html.twig — there is no second copy of this data anywhere.
+
+  params: items (list of {title, url, current})
+#}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <div class="container">
+        <ol class="breadcrumbs__list">
+        {%- for item in items %}
+            <li class="breadcrumbs__item">
+                {%- if item.current %}
+                <span aria-current="page">{{ item.title }}</span>
+                {%- else %}
+                <a href="{{ item.path }}">{{ item.title }}</a>
+                {%- endif %}
+            </li>
+        {%- endfor %}
+        </ol>
+    </div>
+</nav>

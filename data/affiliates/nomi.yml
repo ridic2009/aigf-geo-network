@@ -1,0 +1,11 @@
+product: nomi
+
+default: 'https://nomi.ai/?utm_source=aigr&utm_medium=affiliate'
+
+geo:
+  us:
+    url: 'https://nomi.ai/?utm_source=aigr&utm_medium=affiliate&utm_campaign=us'
+  de:
+    url: 'https://nomi.ai/?utm_source=aigr&utm_medium=affiliate&utm_campaign=de'
+  fr:
+    url: 'https://nomi.ai/?utm_source=aigr&utm_medium=affiliate&utm_campaign=fr'
