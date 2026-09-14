@@ -133,9 +133,13 @@ if ($home['status'] === 200) {
 
 /* ---- robots.txt --------------------------------------------------------- */
 $robots = $fetch($baseUrl . 'robots.txt');
-$check('robots.txt', static function () use ($robots, $host) {
+$staging = Network::isStaging($code);
+$check('robots.txt', static function () use ($robots, $host, $staging) {
     if ($robots['status'] !== 200) {
         return 'HTTP ' . $robots['status'];
+    }
+    if ($staging) {
+        return str_contains($robots['body'], 'Disallow: /') ? null : 'staging host is not disallowed for crawlers';
     }
     if (!str_contains($robots['body'], $host . '/sitemap.xml')) {
         return 'does not reference this site\'s sitemap';

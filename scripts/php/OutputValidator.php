@@ -56,7 +56,11 @@ final class OutputValidator
 
         $this->checkAssets($distDir, $htmlFiles);
         $this->checkSitemap($geoCode, $distDir, $baseUrl);
-        $this->checkRobots($distDir, $baseUrl);
+        $this->checkRobots($distDir, $baseUrl, Network::isStaging($geoCode));
+
+        if (Network::isStaging($geoCode)) {
+            $this->checkStagingIsNotIndexable($distDir, $htmlFiles);
+        }
 
         return $this->result();
     }
@@ -274,7 +278,7 @@ final class OutputValidator
         }
     }
 
-    private function checkRobots(string $distDir, string $baseUrl): void
+    private function checkRobots(string $distDir, string $baseUrl, bool $staging): void
     {
         $file = $distDir . \DIRECTORY_SEPARATOR . 'robots.txt';
         if (!is_file($file)) {
@@ -283,9 +287,33 @@ final class OutputValidator
             return;
         }
         $content = (string) file_get_contents($file);
+
+        if ($staging) {
+            if (!str_contains($content, 'Disallow: /')) {
+                $this->error('robots.txt', 'Staging GEO: robots.txt must disallow everything.');
+            }
+
+            return;
+        }
+
         $expected = 'Sitemap: ' . $baseUrl . 'sitemap.xml';
         if (!str_contains($content, $expected)) {
             $this->error('robots.txt', \sprintf('robots.txt does not reference this GEO sitemap (expected "%s").', $expected));
+        }
+    }
+
+    /**
+     * Belt and braces: a rehearsal host getting indexed would compete with the
+     * real domain later, so every page must carry noindex.
+     */
+    private function checkStagingIsNotIndexable(string $distDir, array $htmlFiles): void
+    {
+        foreach ($htmlFiles as $file) {
+            $relative = str_replace('\\', '/', substr($file, \strlen($distDir) + 1));
+            $robots = self::attr(self::xpath((string) file_get_contents($file)), '//meta[@name="robots"]/@content');
+            if (!str_contains($robots, 'noindex')) {
+                $this->error($relative, \sprintf('Staging GEO: page is indexable (robots: "%s").', $robots));
+            }
         }
     }
 

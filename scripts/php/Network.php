@@ -84,6 +84,15 @@ final class Network
         return self::$geoCache[$code];
     }
 
+    /**
+     * A staging GEO runs on a temporary host (a preview server, an sslip.io
+     * name). It is served exactly like production but must never be indexable.
+     */
+    public static function isStaging(string $code): bool
+    {
+        return (self::geo($code)['geo']['staging'] ?? false) === true;
+    }
+
     public static function isEnabled(string $code): bool
     {
         $geo = self::geo($code);

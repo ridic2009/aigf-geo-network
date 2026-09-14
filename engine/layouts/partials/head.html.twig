@@ -16,6 +16,12 @@
 {%- set indexing = page.indexing|default({}) -%}
 {%- set do_index = indexing.index is defined ? indexing.index : true -%}
 {%- set do_follow = indexing.follow is defined ? indexing.follow : true -%}
+{#- A GEO marked `geo.staging: true` is a rehearsal host (a temporary domain, a
+    preview server). It must never be indexable, whatever the pages say. -#}
+{%- if site.geo.staging|default(false) -%}
+    {%- set do_index = false -%}
+    {%- set do_follow = false -%}
+{%- endif -%}
 {%- set robots = (do_index ? 'index' : 'noindex') ~ ',' ~ (do_follow ? 'follow' : 'nofollow') -%}
 {%- set canonical = url(page, {canonical: true}) -%}
 {%- set og_image = seo.og_image|default(page.image|default(site.image|default(null))) -%}
