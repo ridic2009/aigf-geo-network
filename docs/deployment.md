@@ -205,6 +205,90 @@ rollback is appended to `/srv/www/<domain>/releases.log`:
 2026-09-14T23:02:11Z	rollback	20260914-210100
 ```
 
+## When GitHub Actions is not available
+
+Actions can be blocked for reasons that have nothing to do with this repository:
+exhausted minutes on a private repo, a billing problem, an account restriction.
+The symptom is a run that ends in `startup_failure` in a second, with no job logs
+— and it happens even to a three-line hello-world workflow. Check
+<https://github.com/settings/billing> first.
+
+There are three ways out; none of them requires changing project code.
+
+### A. Self-hosted runner (keeps the GitHub pipeline)
+
+Jobs on your own runner do **not** consume GitHub-hosted minutes, so this works
+even when the hosted ones are cut off. Install the runner from the repository's
+*Settings → Actions → Runners*, then set a repository **variable**:
+
+```
+RUNNER_LABEL = self-hosted
+```
+
+Both workflows read `runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}`, so
+that single variable moves the whole pipeline. Unset it to go back.
+
+The runner needs the PHP CLI toolchain (see the package list in
+`infra/install-auto-deploy.sh`). Use a self-hosted runner only on a **private**
+repository: on a public one, a pull request could run arbitrary code on it.
+
+### B. Pull-based deployment on the VPS (no Actions at all)
+
+The server watches the repository itself and does exactly what CI would do.
+This is the most robust option: it keeps working whatever GitHub decides about
+Actions.
+
+```
+every 2 minutes:  git fetch -> anything new? -> validate -> build -> release switch
+```
+
+Setup, after `infra/server-setup.sh`:
+
+```bash
+# 1. a read-only deploy key for the repository
+ssh-keygen -t ed25519 -C "aigf-repo-readonly" -f .secrets/repo_deploy_key -N ""
+gh api repos/<owner>/<repo>/keys -f title="VPS auto-deploy" \
+       -f key="$(cat .secrets/repo_deploy_key.pub)" -F read_only=true
+
+# 2. put the private half on the server
+scp .secrets/repo_deploy_key root@<VPS_IP>:/home/deploy/.ssh/repo_key
+
+# 3. install the timer
+scp infra/install-auto-deploy.sh root@<VPS_IP>:/tmp/
+ssh root@<VPS_IP> "REPO_SSH_URL=git@github.com:<owner>/<repo>.git bash /tmp/install-auto-deploy.sh"
+```
+
+Operating it:
+
+```bash
+systemctl status aigf-auto-deploy.timer          # is it running
+tail -f /srv/aigf-network/var/auto-deploy.log    # what it did
+sudo -u deploy /srv/aigf-network/infra/auto-deploy.sh --force   # publish now
+systemctl disable --now aigf-auto-deploy.timer   # stop watching
+```
+
+Every guarantee of the CI pipeline still applies: validation and build failures
+abort before anything is published, the release switch is atomic, and a release
+that fails its smoke test is rolled back automatically. The editorial workflow is
+unchanged — Pages CMS commits, the site updates a couple of minutes later.
+
+The trade-off: the PHP CLI and Composer are installed on the origin. Nothing
+web-facing changes — there is still no PHP-FPM and Nginx still serves only static
+files — but the server is no longer purely a file server. Move back to CI when
+Actions works again and `systemctl disable --now aigf-auto-deploy.timer`.
+
+### C. Deploy from a workstation
+
+Always available, nothing to install on the server:
+
+```bash
+./scripts/build-all --optimize
+./scripts/deploy-all
+```
+
+Fine while you are the only one publishing. It stops being fine once editors
+publish through the CMS and expect the site to update on its own.
+
 ## Post-deploy smoke test
 
 Every release switch is followed by a check of the server that just switched,

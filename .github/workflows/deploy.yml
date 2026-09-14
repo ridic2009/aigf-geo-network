@@ -33,7 +33,7 @@ concurrency:
 jobs:
   build:
     name: Validate and build
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     timeout-minutes: 20
     outputs:
       geos: ${{ steps.targets.outputs.geos }}
@@ -85,7 +85,7 @@ jobs:
 
   deploy:
     name: Deploy to production
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     needs: build
     timeout-minutes: 20
     environment: production
