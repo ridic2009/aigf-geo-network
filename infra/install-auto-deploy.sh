@@ -107,7 +107,10 @@ User=$DEPLOY_USER
 WorkingDirectory=$REPO_DIR
 Environment=REPO_DIR=$REPO_DIR
 Environment=BRANCH=$BRANCH
-ExecStart=$REPO_DIR/infra/auto-deploy.sh
+# Invoked through bash rather than relying on the file's executable bit: git on
+# Windows does not preserve that bit, and a `git reset --hard` inside the script
+# would restore mode 644 and break the next run with status=203/EXEC.
+ExecStart=/bin/bash $REPO_DIR/infra/auto-deploy.sh
 TimeoutStartSec=900
 EOF
 
