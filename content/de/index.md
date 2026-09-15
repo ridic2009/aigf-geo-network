@@ -4,7 +4,7 @@ type: homepage
 status: published
 translation_key: home
 date: 2026-01-15
-updated: 2026-09-10
+updated: 2026-09-15
 author: editorial-team
 
 intro: |
