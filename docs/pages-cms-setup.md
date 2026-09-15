@@ -15,6 +15,11 @@ admin surface at all.
 git add .pages.yml && git commit -m "cms: regenerate schema"
 ```
 
+It is derived from `config/geos/*.yml` and the page-type model in
+`config/common.yml`, so adding a GEO, a page type or a product attribute is a
+regeneration rather than a 2,800-line manual edit.
+
+
 ## Interface language
 
 Pages CMS has no interface localization: its own chrome — *Save*, *Add an
@@ -42,10 +47,6 @@ and language names are deliberately left untranslated.
 
 Another language is a new `config/cms-labels.<code>.yml`; nothing in the
 generator changes. Switching back is `./scripts/cms-config` without `--lang`.
-
-It is derived from `config/geos/*.yml` and the page-type model in
-`config/common.yml`, so adding a GEO, a page type or a product attribute is a
-regeneration rather than a 2,800-line manual edit.
 
 `./scripts/validate` checks the result against the Pages CMS schema rules
 (unknown keys, unknown field types, `type`/`component` exclusivity, references to
