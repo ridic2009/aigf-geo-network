@@ -34,11 +34,24 @@ $quiet = !empty($options['quiet']);
 
 $baseUrl = Network::baseUrl($code);
 $host = Network::host($code);
-$scheme = (string) ($options['scheme'] ?? 'https');
+// The scheme comes from the GEO's own baseurl: a staging host served over plain
+// HTTP must not be probed on 443, and a production host must not be probed on 80.
+$scheme = (string) ($options['scheme'] ?? parse_url($baseUrl, \PHP_URL_SCHEME) ?: 'https');
 $port = (int) ($options['port'] ?? ($scheme === 'https' ? 443 : 80));
-if ($scheme === 'http' || isset($options['port'])) {
+if ($scheme !== parse_url($baseUrl, \PHP_URL_SCHEME) || isset($options['port'])) {
     // --port is mainly for verifying a local preview before anything is deployed
     $baseUrl = \sprintf('%s://%s%s/', $scheme, $host, \in_array($port, [80, 443], true) ? '' : ':' . $port);
+}
+
+// CURLOPT_RESOLVE only accepts an address, so a name like "localhost" (used when
+// the server deploys to itself) has to be resolved first.
+if ($origin !== null && filter_var($origin, \FILTER_VALIDATE_IP) === false) {
+    $resolved = gethostbyname($origin);
+    if ($resolved === $origin) {
+        Cli::error(\sprintf('Cannot resolve --origin=%s to an IP address.', $origin));
+        exit(1);
+    }
+    $origin = $resolved;
 }
 $lang = (string) (Network::geo($code)['geo']['hreflang'] ?? $code);
 

@@ -33,6 +33,17 @@ chmod 600 "$KEY"
 
 echo "==> Build toolchain"
 export DEBIAN_FRONTEND=noninteractive
+
+# A freshly booted Ubuntu runs unattended-upgrades, which holds the dpkg lock
+# for a few minutes. Wait for it instead of failing the whole installation.
+for i in $(seq 1 60); do
+    if ! fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; then
+        break
+    fi
+    [ "$i" = 1 ] && echo "    waiting for unattended-upgrades to release the dpkg lock..."
+    sleep 10
+done
+
 apt-get update -qq
 apt-get install -y -qq git unzip \
     php-cli php-mbstring php-intl php-gd php-xml php-curl php-zip
