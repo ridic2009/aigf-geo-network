@@ -11,6 +11,11 @@ declare(strict_types=1);
  *
  * --http-only emits a port 80 vhost that serves files directly: use it for the
  * first deploy, before the TLS certificate exists.
+ *
+ * --listen=IP binds the vhost to one address instead of every interface. Needed
+ * when nginx is shared with something else (a control panel) that already binds
+ * a specific IP: mixing "listen 80" and "listen <ip>:80" in one nginx confuses
+ * default_server selection.
  */
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -21,6 +26,19 @@ use AiGf\Tools\Network;
 [$args, $options] = Cli::parse($argv);
 $codes = Cli::resolveGeos($args);
 $httpOnly = !empty($options['http-only']);
+$listen = isset($options['listen']) ? trim((string) $options['listen']) . ':' : '';
+$listen6 = $listen === '' ? '[::]:' : '';
+// Where releases live on the server. Overridable for hosts where /srv is taken.
+$webRoot = (string) ($options['web-root'] ?? getenv('DEPLOY_ROOT') ?: '/srv/www');
+
+// Git Bash on Windows rewrites "/opt/x" into "C:/Program Files/Git/opt/x" before
+// PHP ever sees it, which would silently produce an unusable `root` directive.
+if (preg_match('#^[A-Za-z]:[\\/]#', $webRoot)) {
+    Cli::error(sprintf('"%s" was rewritten by the shell into a Windows path.', $webRoot));
+    Cli::info('Re-run with MSYS_NO_PATHCONV=1, e.g.:');
+    Cli::info('    MSYS_NO_PATHCONV=1 ./scripts/nginx-config --web-root=/opt/aigf/www');
+    exit(1);
+}
 
 $sitesDir = Network::path('infra', 'nginx', 'sites');
 $snippetsDir = Network::path('infra', 'nginx', 'snippets');
@@ -135,8 +153,12 @@ Cli::ok('infra/nginx/snippets/ written (security headers, cache, compression, Cl
 
 foreach ($codes as $code) {
     $domain = Network::host($code);
-    $root = '/srv/www/' . $domain . '/current';
+    $root = rtrim($webRoot, '/') . '/' . $domain . '/current';
     $name = strtoupper($code);
+    $listen6Line80 = $listen6 === '' ? '' : "    listen {$listen6}80;
+";
+    $listen6Line443 = $listen6 === '' ? '' : "    listen {$listen6}443 ssl;
+";
 
 $common = <<<CONF
     root {$root};
@@ -173,9 +195,8 @@ $vhost = <<<CONF
 # first deploy, then re-run scripts/nginx-config without --http-only.
 
 server {
-    listen 80;
-    listen [::]:80;
-    server_name {$domain} www.{$domain};
+    listen {$listen}80;
+{$listen6Line80}    server_name {$domain} www.{$domain};
 
 {$common}
 }
@@ -188,9 +209,8 @@ $vhost = <<<CONF
 # redeploy, otherwise the next release silently overwrites your change.
 
 server {
-    listen 80;
-    listen [::]:80;
-    server_name {$domain} www.{$domain};
+    listen {$listen}80;
+{$listen6Line80}    server_name {$domain} www.{$domain};
 
     # Let certbot renew without taking the site down.
     location ^~ /.well-known/acme-challenge/ {
@@ -203,9 +223,8 @@ server {
 }
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    http2 on;
+    listen {$listen}443 ssl;
+{$listen6Line443}    http2 on;
     server_name www.{$domain};
 
     ssl_certificate     /etc/letsencrypt/live/{$domain}/fullchain.pem;
@@ -216,9 +235,8 @@ server {
 }
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    http2 on;
+    listen {$listen}443 ssl;
+{$listen6Line443}    http2 on;
     server_name {$domain};
 
     ssl_certificate     /etc/letsencrypt/live/{$domain}/fullchain.pem;

@@ -46,6 +46,13 @@ Put the **private** key in the GitHub secret `DEPLOY_SSH_KEY`.
 ./scripts/nginx-config de --http-only   # HTTP only, for the very first deploy
 ```
 
+Two options matter when the server is not exclusively ours:
+
+| Option | When |
+| ------ | ---- |
+| `--listen=IP` | Nginx is shared with something else (a control panel) that already binds a specific address. Mixing `listen 80` and `listen <ip>:80` in one nginx breaks `default_server` selection. |
+| `--web-root=/path` | `/srv/www` is taken. On Git Bash, prefix the command with `MSYS_NO_PATHCONV=1`, otherwise the shell rewrites the path into `C:/Program Files/Git/...` — the script detects that and refuses rather than writing a broken vhost. |
+
 Install:
 
 ```bash
