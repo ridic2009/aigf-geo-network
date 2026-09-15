@@ -436,3 +436,18 @@ p, ul, ol, table { margin: 0 0 1rem; }
 @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
 }
+
+/* ---------- featured image ---------- */
+
+.article__image { margin: 1.5rem 0; }
+.article__image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    display: block;
+}
+.article__image figcaption {
+    margin-top: .5rem;
+    font-size: .875rem;
+    color: var(--c-muted);
+}

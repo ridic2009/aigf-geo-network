@@ -8,6 +8,11 @@ declare(strict_types=1);
  * The CMS schema is derived from the GEO list and the page-type model, so a new
  * GEO or a new product attribute is a regeneration, not a hand-edit of a
  * 1000-line YAML file. Run it after `scripts/new-geo` and commit the result.
+ *
+ * --lang=ru translates every label and hint through config/cms-labels.ru.yml.
+ * Pages CMS has no interface localization of its own, but the schema is where
+ * almost all of the text an editor reads comes from, so this covers most of it.
+ * Strings without a translation stay English and are reported.
  */
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -16,8 +21,9 @@ use AiGf\Tools\Cli;
 use AiGf\Tools\Network;
 use Symfony\Component\Yaml\Yaml;
 
-[$args] = Cli::parse($argv);
+[$args, $options] = Cli::parse($argv);
 $codes = $args === [] ? Network::codes(false) : Cli::resolveGeos($args);
+$lang = strtolower((string) ($options['lang'] ?? 'en'));
 
 const SLUG_PATTERN = '^[a-z0-9]+(?:-[a-z0-9]+)*$';
 
@@ -186,7 +192,22 @@ function contentFields(): array
 {
     return [
         ['name' => 'intro', 'label' => 'Introduction', 'type' => 'text', 'description' => 'One or two sentences under the title.'],
-        ['name' => 'body', 'label' => 'Main content', 'type' => 'rich-text', 'options' => ['format' => 'markdown', 'media' => 'content']],
+        [
+            'name'        => 'image',
+            'label'       => 'Featured image',
+            'type'        => 'image',
+            'options'     => ['media' => 'content'],
+            'description' => 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.',
+        ],
+        ['name' => 'image_alt', 'label' => 'Featured image: alt text', 'type' => 'string', 'description' => 'What the image shows, for screen readers and search engines. Defaults to the title.'],
+        ['name' => 'image_caption', 'label' => 'Featured image: caption', 'type' => 'string', 'description' => 'Optional, printed under the image.'],
+        [
+            'name'        => 'body',
+            'label'       => 'Main content',
+            'type'        => 'rich-text',
+            'options'     => ['format' => 'markdown', 'media' => 'content'],
+            'description' => 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.',
+        ],
     ];
 }
 
@@ -430,7 +451,7 @@ function geoGroup(string $code, array $ui): array
     $items[] = [
         'name'        => $code . '_home',
         'label'       => 'Homepage',
-        'description' => 'The front page of ' . $label . '.',
+        'description' => 'The front page of this country.',
         'type'        => 'file',
         'path'        => $base . '/index.md',
         'format'      => 'yaml-frontmatter',
@@ -776,7 +797,54 @@ $header = <<<TXT
 
 TXT;
 
+/* ------------------------------------------------- optional translation pass */
+
+$missing = [];
+if ($lang !== 'en') {
+    $dictionaryFile = Network::path('config', 'cms-labels.' . $lang . '.yml');
+    if (!is_file($dictionaryFile)) {
+        Cli::error(\sprintf('No dictionary for "%s": expected config/cms-labels.%s.yml', $lang, $lang));
+        exit(1);
+    }
+    $dictionary = (array) (Yaml::parseFile($dictionaryFile) ?? []);
+
+    // Only user-facing keys are translated; names, paths and field types are
+    // structural and must stay exactly as generated.
+    $translate = static function (array $node, string $parent = "") use (&$translate, $dictionary, &$missing): array {
+        foreach ($node as $key => $value) {
+            if (\is_array($value)) {
+                $node[$key] = $translate($value, (string) $key);
+                continue;
+            }
+            // `options.label` and `options.value` are templates ({fields.name}),
+            // not text: translating them would break reference fields.
+            if ($parent === "options") {
+                continue;
+            }
+            if (!\in_array($key, ['label', 'description', 'message'], true) || !\is_string($value)) {
+                continue;
+            }
+            if (isset($dictionary[$value])) {
+                $node[$key] = $dictionary[$value];
+            } elseif (trim($value) !== '' && !preg_match('/^[a-z0-9_-]+$/', $value)) {
+                $missing[$value] = true;
+            }
+        }
+
+        return $node;
+    };
+    $config = $translate($config);
+}
+
 $file = Network::path('.pages.yml');
 file_put_contents($file, $header . Yaml::dump($config, 10, 2, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK));
 
-Cli::ok(\sprintf('.pages.yml generated for %d GEO(s): %s', \count($codes), implode(', ', array_map('strtoupper', $codes))));
+Cli::ok(\sprintf('.pages.yml generated for %d GEO(s): %s%s', \count($codes), implode(', ', array_map('strtoupper', $codes)), $lang === 'en' ? '' : ' [' . $lang . ']'));
+
+if ($missing !== []) {
+    Cli::warn(\sprintf('%d string(s) have no %s translation and stay English:', \count($missing), $lang));
+    foreach (\array_slice(array_keys($missing), 0, 10) as $string) {
+        Cli::info('  ' . $string);
+    }
+    Cli::info(\sprintf('Add them to config/cms-labels.%s.yml', $lang));
+}

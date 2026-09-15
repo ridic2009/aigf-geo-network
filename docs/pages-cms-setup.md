@@ -9,10 +9,39 @@ admin surface at all.
 `.pages.yml` is **generated** — never hand-edited:
 
 ```bash
-./scripts/cms-config          # every GEO that has a config file
-./scripts/cms-config us de    # only these
+./scripts/cms-config              # every GEO that has a config file
+./scripts/cms-config us de        # only these
+./scripts/cms-config --lang=ru    # Russian labels and hints
 git add .pages.yml && git commit -m "cms: regenerate schema"
 ```
+
+## Interface language
+
+Pages CMS has no interface localization: its own chrome — *Save*, *Add an
+entry*, *Settings*, date pickers — is hardcoded English, and there is no i18n
+package in the project at all.
+
+Everything the schema defines is ours, though, and that is most of what an
+editor actually reads: the sidebar, country and page-type names, every field
+label, every hint, the status options, the media source names.
+`--lang=ru` translates all of it through `config/cms-labels.ru.yml`.
+
+```
+Сайты                       Обзоры → Заголовок · Адрес страницы · Статус ·
+  Deutschland                        Ключ страницы · Продукт · Вступление ·
+    Настройки сайта                  Главное изображение · Основной текст ·
+    Главная страница                 Итог редакции · Плюсы · Минусы ·
+    Страницы                         Частые вопросы · SEO · Индексация
+    Обзоры · Рейтинги · Сравнения · Гайды
+Продукты · Партнёрские ссылки · Авторы · Сеть
+```
+
+A string with no entry in the dictionary stays English, and the script lists
+what is missing — so adding a field later never silently leaves a gap. Country
+and language names are deliberately left untranslated.
+
+Another language is a new `config/cms-labels.<code>.yml`; nothing in the
+generator changes. Switching back is `./scripts/cms-config` without `--lang`.
 
 It is derived from `config/geos/*.yml` and the page-type model in
 `config/common.yml`, so adding a GEO, a page type or a product attribute is a

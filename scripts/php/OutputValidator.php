@@ -15,9 +15,12 @@ final class OutputValidator
 {
     private array $errors = [];
     private array $warnings = [];
+    /** True when the build was asked for drafts (a preview), so they may be present. */
+    private bool $draftsIncluded = false;
 
-    public function validate(string $geoCode, string $distDir): array
+    public function validate(string $geoCode, string $distDir, bool $draftsIncluded = false): array
     {
+        $this->draftsIncluded = $draftsIncluded;
         $this->errors = [];
         $this->warnings = [];
 
@@ -269,10 +272,10 @@ final class OutputValidator
             if ($status === 'published' && ($fm['indexing']['index'] ?? true) !== false) {
                 continue;
             }
-            if (\in_array($page['url'], $locs, true)) {
+            if (!$this->draftsIncluded && \in_array($page['url'], $locs, true)) {
                 $this->error('sitemap.xml', \sprintf('Non-indexable page present in sitemap: %s (status: %s).', $page['url'], $status));
             }
-            if ($status !== 'published' && $this->resolves($distDir, '/' . $page['path'])) {
+            if (!$this->draftsIncluded && $status !== 'published' && $this->resolves($distDir, '/' . $page['path'])) {
                 $this->error($geoCode, \sprintf('Page with status "%s" was rendered to production output: /%s/', $status, $page['path']));
             }
         }

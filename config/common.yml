@@ -125,7 +125,10 @@ cache:
   enabled: true
   dir: .cache
 
-canonicalurl: true # url() returns absolute URLs -> correct canonicals, sitemap, OG
+# url() returns relative URLs by default; canonical, OG, sitemap, hreflang and
+# schema.org all pass {canonical: true} explicitly. Keeping the default relative
+# means body images and internal links do not hardcode the domain into the HTML.
+canonicalurl: false
 
 metatags:
   robots: 'index,follow'

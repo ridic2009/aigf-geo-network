@@ -77,7 +77,7 @@ final class Builder
         /* 3. output verification -------------------------------------- */
         $absolute = Network::path(...explode(\DIRECTORY_SEPARATOR, $output));
         if (empty($options['skip-validation'])) {
-            $result = (new OutputValidator())->validate($geoCode, $absolute);
+            $result = (new OutputValidator())->validate($geoCode, $absolute, !empty($options['drafts']));
             $warnings += \count($result['warnings']);
             if (!Cli::report($result, empty($options['quiet']))) {
                 return ['ok' => false, 'geo' => $geoCode, 'output' => $output, 'pages' => 0, 'warnings' => $warnings];

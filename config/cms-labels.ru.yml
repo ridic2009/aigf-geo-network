@@ -1,0 +1,267 @@
+# ---------------------------------------------------------------------------
+# Russian labels for the Pages CMS schema.
+#
+# Pages CMS itself has no interface localization: its own chrome (Save, Add an
+# entry, Settings…) is hardcoded English. Everything the schema defines, though,
+# is ours — and that is almost everything an editor reads.
+#
+# Used by:  ./scripts/cms-config --lang=ru
+# Keys are the English strings from scripts/cms-config.php. A string without a
+# translation stays English, and the script reports how many are missing.
+# ---------------------------------------------------------------------------
+
+# --- sidebar ---------------------------------------------------------------
+Sites: Сайты
+'Pick a country, then a page type.': 'Выберите страну, затем тип страницы.'
+Network: Сеть
+Products: Продукты
+'Affiliate links': 'Партнёрские ссылки'
+Authors: Авторы
+Homepage: 'Главная страница'
+Pages: Страницы
+Reviews: Обзоры
+Rankings: Рейтинги
+Comparisons: Сравнения
+Guides: Гайды
+'Site settings': 'Настройки сайта'
+'Navigation & SEO': 'Навигация и SEO'
+
+# --- entry descriptions ----------------------------------------------------
+'About, privacy, affiliate disclosure and other standalone pages.': 'О нас, политика конфиденциальности, партнёрский дисклеймер и другие отдельные страницы.'
+'One review per product. The product database supplies logo, rating, price and the affiliate link.': 'Один обзор на продукт. Логотип, рейтинг, цена и партнёрская ссылка подставляются из базы продуктов.'
+'Ordered "best of" pages. The table and the cards are generated from the list below.': 'Рейтинговые страницы. Таблица и карточки генерируются из списка ниже.'
+'Head-to-head pages. The comparison table is generated from the product database.': 'Страницы сравнения. Таблица сравнения строится из базы продуктов.'
+'Long-form editorial content.': 'Большие редакционные материалы.'
+'Name, description and every piece of interface text for this country.': 'Название, описание и все надписи интерфейса для этой страны.'
+'Menu structure and structured-data switches for every country at once.': 'Структура меню и переключатели микроразметки — сразу для всех стран.'
+'One file per product, shared by every country. Articles reference a product — they never copy its data.': 'Один файл на продукт, общий для всех стран. Статьи ссылаются на продукт, а не копируют его данные.'
+'One file per product. Buttons pick the right link automatically from the product and the country.': 'Один файл на продукт. Кнопки сами подбирают нужную ссылку по продукту и стране.'
+'Shared byline registry. Pages reference an author by id.': 'Общий справочник авторов. Страницы ссылаются на автора по идентификатору.'
+
+# --- common fields ---------------------------------------------------------
+Title: Заголовок
+'The heading shown at the top of the page.': 'Заголовок в начале страницы.'
+URL: 'Адрес страницы'
+'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.': 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+'Use lowercase letters, numbers and single hyphens.': 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+Status: Статус
+'Draft and Review pages are never published to the live site.': 'Страницы в статусе «Черновик» и «На проверке» на сайт не попадают.'
+'Draft — work in progress': 'Черновик — в работе'
+'Review — waiting for SEO approval': 'На проверке — ждёт согласования SEO'
+'Published — live': 'Опубликовано — на сайте'
+'Page key': 'Ключ страницы'
+'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.': 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+
+'First published': 'Дата публикации'
+'Last updated': 'Дата обновления'
+'Shown on the page and used as the sitemap date.': 'Показывается на странице и используется как дата в sitemap.'
+Author: Автор
+'Who wrote this page.': 'Кто написал страницу.'
+'Reviewed by': 'Проверил'
+'Optional second pair of eyes.': 'Необязательно: кто вычитал материал.'
+
+Introduction: Вступление
+'One or two sentences under the title.': 'Одно-два предложения под заголовком.'
+'Featured image': 'Главное изображение'
+'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.': 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+'Featured image: alt text': 'Главное изображение: alt-текст'
+'What the image shows, for screen readers and search engines. Defaults to the title.': 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+'Featured image: caption': 'Главное изображение: подпись'
+'Optional, printed under the image.': 'Необязательно, выводится под изображением.'
+'Main content': 'Основной текст'
+'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.': 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+
+'Related pages': 'Похожие страницы'
+'Optional. Page ids, e.g. "reviews/candy-ai".': 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+
+# --- SEO -------------------------------------------------------------------
+'Canonical URL, hreflang and language tags are generated automatically — you only fill in the fields below.': 'Canonical, hreflang и языковые теги формируются автоматически — вы заполняете только поля ниже.'
+'SEO title': 'SEO-заголовок'
+'Shown in Google. Aim for 50-60 characters.': 'Показывается в Google. Оптимально 50–60 символов.'
+'Meta description': 'Мета-описание'
+'Shown under the title in Google. Aim for 120-160 characters.': 'Показывается в Google под заголовком. Оптимально 120–160 символов.'
+'Primary keyword': 'Основной запрос'
+'The main search term this page targets.': 'Главный поисковый запрос этой страницы.'
+'Social title': 'Заголовок для соцсетей'
+'Optional. Defaults to the SEO title.': 'Необязательно. По умолчанию — SEO-заголовок.'
+'Social description': 'Описание для соцсетей'
+'Optional. Defaults to the meta description.': 'Необязательно. По умолчанию — мета-описание.'
+'Social image': 'Картинка для соцсетей'
+'Optional. Used when the page is shared on social networks.': 'Необязательно. Используется при репосте страницы.'
+
+'Search engine indexing': 'Индексация'
+'Leave both switched on unless you have a reason not to.': 'Оставьте оба переключателя включёнными, если нет причин поступить иначе.'
+'Allow indexing': 'Разрешить индексацию'
+'Follow links': 'Переходить по ссылкам'
+
+FAQ: 'Частые вопросы'
+'Questions and answers. Shown on the page and used for FAQ structured data — you never write code for this.': 'Вопросы и ответы. Выводятся на странице и превращаются в микроразметку FAQ — код писать не нужно.'
+Question: Вопрос
+Answer: Ответ
+
+'Advanced: canonical override': 'Дополнительно: переопределить canonical'
+'Leave empty. The canonical URL is generated from the domain and the page URL. Only fill this in when this page must point at a different URL.': 'Оставьте пустым. Canonical формируется из домена и адреса страницы. Заполняйте, только если страница должна указывать на другой URL.'
+'Canonical URL': 'Canonical URL'
+
+# --- type-specific ---------------------------------------------------------
+Product: Продукт
+'Which product this review is about.': 'О каком продукте этот обзор.'
+'Our verdict': 'Итог редакции'
+'Short editorial conclusion, shown in a highlighted box.': 'Краткий вывод, выводится в выделенном блоке.'
+Pros: Плюсы
+Cons: Минусы
+Ranking: Рейтинг
+'In order: position 1 first.': 'По порядку: первым идёт первое место.'
+Badge: Плашка
+'e.g. "Best overall".': 'Например, «Лучший в целом».'
+'Why it ranks here': 'Почему это место'
+'Products compared': 'Сравниваемые продукты'
+'Pick at least two.': 'Выберите минимум два.'
+'Products mentioned': 'Упомянутые продукты'
+'Optional.': 'Необязательно.'
+'Hero button target': 'Кнопка в шапке ведёт на'
+'Page id the main button links to, e.g. "rankings/best-ai-girlfriend".': 'Идентификатор страницы для главной кнопки, например "rankings/best-ai-girlfriend".'
+'Top products heading': 'Заголовок блока с продуктами'
+'Top products': 'Продукты на главной'
+'Products shown as cards on the homepage.': 'Продукты, которые показываются карточками на главной.'
+'The front page of': 'Главная страница'
+
+# --- products / affiliates / authors ---------------------------------------
+'Product name': 'Название продукта'
+'Product id': 'Идентификатор продукта'
+'Lowercase id used by articles and affiliate links, e.g. "candy-ai". Also becomes the file name.': 'Идентификатор для статей и партнёрских ссылок, например "candy-ai". Он же становится именем файла.'
+'Official website': 'Официальный сайт'
+Logo: Логотип
+'Editorial rating': 'Оценка редакции'
+'Out of 5. Used on cards, tables and in Review structured data.': 'По пятибалльной шкале. Используется в карточках, таблицах и микроразметке Review.'
+'Has a free tier': 'Есть бесплатный тариф'
+Launched: 'Год запуска'
+Platforms: Платформы
+'e.g. "Web, iOS, Android".': 'Например, «Web, iOS, Android».'
+'Key features': 'Ключевые возможности'
+'Default price': 'Базовая цена'
+'Price per month': 'Цена в месяц'
+'Country overrides': 'Переопределения по странам'
+'Only fill in what differs from the defaults above.': 'Заполняйте только то, что отличается от значений выше.'
+'One-line summary': 'Краткое описание'
+'Best for': 'Лучше всего для'
+Availability: Доступность
+Available: Доступен
+Limited: Ограниченно
+'Not available': Недоступен
+Price: Цена
+'Rating override': 'Оценка для этой страны'
+'Leave empty to use the global rating.': 'Оставьте пустым, чтобы использовать общую оценку.'
+'Must match the product id, e.g. "candy-ai".': 'Должен совпадать с идентификатором продукта, например "candy-ai".'
+'Fallback link': 'Запасная ссылка'
+'Used for any country without its own link.': 'Используется для стран без собственной ссылки.'
+'Country links': 'Ссылки по странам'
+'Affiliate URL': 'Партнёрская ссылка'
+'Display name': 'Отображаемое имя'
+'Author id': 'Идентификатор автора'
+'Lowercase id used by pages, e.g. "m-keller".': 'Идентификатор для страниц, например "m-keller".'
+Photo: Фото
+'Role per language': 'Должность по языкам'
+
+# --- site settings ---------------------------------------------------------
+'Site name': 'Название сайта'
+'Used in the header, in <title> and in Organization/WebSite structured data.': 'Используется в шапке, в теге <title> и в микроразметке Organization/WebSite.'
+Tagline: Слоган
+'Default meta description': 'Мета-описание по умолчанию'
+'Used on pages that do not define their own.': 'Используется на страницах, где своё не задано.'
+Publisher: Издатель
+'Publisher name': 'Название издателя'
+'Legal name': 'Юридическое лицо'
+'Contact email': 'Контактный email'
+'Interface text': 'Надписи интерфейса'
+'Everything the engine writes on the page by itself: menu, buttons, table headings.': 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
+'Menu labels': 'Пункты меню'
+'Section names': 'Названия разделов'
+'Interface labels': 'Подписи интерфейса'
+'The %s is replaced by the product name, e.g. "Try %s".': 'Вместо %s подставляется название продукта, например «Попробовать %s».'
+'Shown near every monetised button and in the footer.': 'Показывается рядом с партнёрскими кнопками и в подвале.'
+'Used as "4.6 out of 5".': 'Используется в виде «4,6 из 5».'
+Domain: Домен
+'Read-only. Changing a domain means DNS, a certificate and a new Nginx vhost — ask a developer.': 'Только для чтения. Смена домена — это DNS, сертификат и новый конфиг Nginx: обратитесь к разработчику.'
+'URL structure': 'Структура адресов'
+'Read-only. These prefixes are part of every URL in the section; changing one moves every page in it and needs redirects — ask a developer.': 'Только для чтения. Эти префиксы входят в адрес каждой страницы раздела; их смена переносит все страницы и требует редиректов — обратитесь к разработчику.'
+'Reviews prefix': 'Префикс обзоров'
+'Comparisons prefix': 'Префикс сравнений'
+'Guides prefix': 'Префикс гайдов'
+'Rankings prefix': 'Префикс рейтингов'
+Market: Рынок
+'Country name': 'Название страны'
+'Language/region code': 'Код языка и региона'
+Live: 'В эфире'
+'Read-only. A country goes live once DNS, the certificate and the content are ready.': 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.'
+
+# --- network settings ------------------------------------------------------
+Menus: Меню
+'One structure for the whole network; each country supplies its own labels.': 'Одна структура на всю сеть; подписи каждая страна задаёт у себя.'
+'Main menu': 'Главное меню'
+'Footer menu': 'Меню в подвале'
+'Header menu.': 'Меню в шапке.'
+'e.g. "reviews", "about", "rankings/best-ai-girlfriend". Countries that do not have the page simply skip the item.': 'Например, "reviews", "about", "rankings/best-ai-girlfriend". Страны без такой страницы просто пропустят пункт.'
+'Label key': 'Ключ подписи'
+'Which entry of "Menu labels" to show. Add the same key to every country under Site settings.': 'Какую запись из «Пунктов меню» показывать. Тот же ключ нужно добавить каждой стране в «Настройках сайта».'
+Order: Порядок
+'Lower numbers come first.': 'Меньшие числа идут первыми.'
+'Structured data': Микроразметка
+'Which schema.org blocks the engine emits. Turn something off only if search guidelines change.': 'Какие блоки schema.org выводит движок. Отключайте только при изменении требований поисковых систем.'
+'Article (rankings, comparisons, guides)': 'Article (рейтинги, сравнения, гайды)'
+'Review (review pages with a rating)': 'Review (страницы обзоров с оценкой)'
+'Valid markup either way; Google limits FAQ rich results to a few site categories.': 'Разметка корректна в любом случае; расширенные сниппеты FAQ Google показывает лишь части сайтов.'
+'rel attribute': 'Атрибут rel'
+'Applied to every monetised outbound link. Keep "sponsored" in it.': 'Добавляется ко всем партнёрским ссылкам. Оставьте в нём "sponsored".'
+'Link target': 'Открывать ссылку'
+'Redirect service': 'Сервис редиректов'
+'Read-only. When set, buttons point at go.<domain>/<product>/<country> instead of the network URL.': 'Только для чтения. Если задан, кнопки ведут на go.<домен>/<продукт>/<страна>.'
+
+# --- media -----------------------------------------------------------------
+'Article images': 'Изображения для статей'
+'Product logos': 'Логотипы продуктов'
+
+# --- names of the interface labels themselves (Site settings -> Interface labels)
+Home: 'Главная'
+'Not found text': 'Текст страницы 404'
+'Skip to content': 'Ссылка «к содержимому»'
+Menu: 'Кнопка меню'
+'Main navigation': 'Главная навигация'
+'Footer navigation': 'Навигация в подвале'
+Close: 'Закрыть'
+'Read review': 'Кнопка «читать обзор»'
+'Visit site': 'Кнопка «перейти на сайт»'
+'Try now': 'Кнопка «попробовать»'
+Rating: 'Оценка'
+'Out of': 'Разделитель «из»'
+Score: 'Балл'
+Rank: 'Место'
+Features: 'Возможности'
+From: 'Префикс «от»'
+'Per month': 'Суффикс «в месяц»'
+'Free tier': 'Бесплатный тариф'
+Yes: 'Да'
+No: 'Нет'
+Verdict: 'Итог'
+Faq: 'Заголовок FAQ'
+Toc: 'Заголовок оглавления'
+Updated: 'Обновлено'
+Published: 'Опубликовано'
+Related: 'Похожее'
+'All reviews': 'Все обзоры'
+'Back to top': 'Наверх'
+'Affiliate notice': 'Партнёрский дисклеймер'
+'Availability available': 'Доступность: доступен'
+'Availability limited': 'Доступность: ограниченно'
+'Availability unavailable': 'Доступность: недоступен'
+Compare: 'Сравнения'
+About: 'О нас'
+Disclosure: 'Партнёрский дисклеймер'
+Privacy: 'Конфиденциальность'
+
+# --- remaining -------------------------------------------------------------
+'The front page of this country.': 'Главная страница этой страны.'
+'Page id': 'Идентификатор страницы'
+'Footer menu.': 'Меню в подвале.'
+'Schema category': 'Категория schema.org'
+'Billing period': 'Период оплаты'
