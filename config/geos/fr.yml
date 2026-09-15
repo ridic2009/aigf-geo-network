@@ -8,6 +8,7 @@ geo:
   country_code: FR
   hreflang: fr-FR
   enabled: true
+  staging: true
   timezone: Europe/Paris
   currency:
     code: EUR
@@ -17,7 +18,7 @@ geo:
     decimal_separator: ','
     thousands_separator: ' '
 
-baseurl: 'https://aigirlfriendranking-france.site/'
+baseurl: 'http://fr.45.140.14.7.sslip.io/'
 
 language: fr
 languages:

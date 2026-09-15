@@ -11,6 +11,7 @@ geo:
   country_code: US
   hreflang: en-US
   enabled: true
+  staging: true
   timezone: America/New_York
   currency:
     code: USD
@@ -22,7 +23,7 @@ geo:
 
 # Domain. This single value drives: baseurl, canonical, sitemap, OG url,
 # output directory (dist/<host>) and the generated Nginx vhost.
-baseurl: 'https://aigirlfriendranking.com/'
+baseurl: 'http://us.45.140.14.7.sslip.io/'
 
 language: en
 languages:

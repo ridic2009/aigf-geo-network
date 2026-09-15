@@ -8,6 +8,7 @@ geo:
   country_code: DE
   hreflang: de-DE
   enabled: true
+  staging: true
   timezone: Europe/Berlin
   currency:
     code: EUR
@@ -17,7 +18,7 @@ geo:
     decimal_separator: ','
     thousands_separator: '.'
 
-baseurl: 'https://aigirlfriendranking-germany.site/'
+baseurl: 'http://de.45.140.14.7.sslip.io/'
 
 language: de
 languages:

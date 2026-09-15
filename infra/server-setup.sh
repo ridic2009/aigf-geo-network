@@ -34,14 +34,25 @@ install -d -o "$DEPLOY_USER" -g "$DEPLOY_USER" -m 755 /var/www/certbot
 
 echo "==> Nginx"
 install -d -m 755 /etc/nginx/snippets
-# The affiliate map is only present once scripts/redirect-config has run;
-# create an empty one so the include in nginx.conf never breaks a reload.
+# nginx.conf gets includes for these below. Create placeholders first: an
+# include pointing at a missing file makes every later `nginx -t` fail, which
+# would leave the server unable to reload until the real files are copied.
+for snippet in compression cloudflare-real-ip security-headers static-cache; do
+    target="/etc/nginx/snippets/aigf-$snippet.conf"
+    [ -f "$target" ] || echo "# placeholder, replaced by scripts/nginx-config output" > "$target"
+done
+# The affiliate map is only present once scripts/redirect-config has run.
 [ -f /etc/nginx/snippets/aigf-affiliate-map.conf ] || echo 'map $uri $aigf_affiliate { default ""; }' > /etc/nginx/snippets/aigf-affiliate-map.conf
 # The deploy user only needs to reload nginx, nothing else.
 cat >/etc/sudoers.d/aigf-deploy <<EOF
 $DEPLOY_USER ALL=(root) NOPASSWD: /usr/bin/systemctl reload nginx, /usr/sbin/nginx -t
 EOF
 chmod 440 /etc/sudoers.d/aigf-deploy
+
+# The distribution ships `gzip on;` in nginx.conf; our snippet sets the whole
+# gzip block, and nginx rejects a duplicate directive.
+cp -n /etc/nginx/nginx.conf /etc/nginx/nginx.conf.aigf-backup 2>/dev/null || true
+sed -i 's|^[[:space:]]*gzip on;|	# gzip on;  # managed by snippets/aigf-compression.conf|' /etc/nginx/nginx.conf
 
 if ! grep -q "aigf-compression" /etc/nginx/nginx.conf; then
     sed -i 's|include /etc/nginx/conf.d/\*.conf;|include /etc/nginx/snippets/aigf-compression.conf;\n\tinclude /etc/nginx/snippets/aigf-cloudflare-real-ip.conf;\n\tinclude /etc/nginx/snippets/aigf-affiliate-map.conf;\n\tinclude /etc/nginx/conf.d/*.conf;|' /etc/nginx/nginx.conf
@@ -51,6 +62,9 @@ if ! grep -q "server_names_hash_bucket_size" /etc/nginx/nginx.conf; then
     sed -i 's|http {|http {\n\tserver_names_hash_bucket_size 128;|' /etc/nginx/nginx.conf
 fi
 rm -f /etc/nginx/sites-enabled/default
+
+echo "==> Nginx configuration check"
+nginx -t && systemctl reload nginx
 
 echo "==> Firewall"
 ufw allow OpenSSH
