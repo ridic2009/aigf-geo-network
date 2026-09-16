@@ -44,6 +44,7 @@ const paths = {
   tag:'M20.5 12.5 12 21 3 12V3h9zM7.5 7.5h.01',
   history:'M3 12a9 9 0 1 0 2.6-6.4M3 4v4h4M12 7.5V12l3 2',
   chart:'M4 20V10M10 20V4M16 20v-7M22 20H2',
+  palette:'M12 21a9 9 0 1 1 9-9c0 1.7-1.3 3-3 3h-1.5a2 2 0 0 0-1.4 3.4A2 2 0 0 1 13.7 21zM7.5 10.5h.01M12 7.5h.01M16.5 10.5h.01',
   chain:'M10.5 13.5a4.5 4.5 0 0 0 6.6.4l2.4-2.4a4.5 4.5 0 0 0-6.4-6.4l-1.4 1.4M13.5 10.5a4.5 4.5 0 0 0-6.6-.4l-2.4 2.4a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4',
 };
 function icon(name) {
@@ -143,12 +144,14 @@ function navLink(name, text, query, active) {
 
 /**
  * Application shell.
- * options: {title, subtitle, breadcrumb: [[text, query]|text], actions: [Node]}
+ * options: {title, subtitle, breadcrumb: [[text, query]|text], actions: [Node], narrow: bool}
+ * narrow suits a form, where a full-width measure would strand the labels.
  */
 function shell(options, ...children) {
-  const {title, subtitle, breadcrumb = [], actions = []} = options;
+  const {title, subtitle, breadcrumb = [], actions = [], narrow = false} = options;
   const site = params().get('site') || sites[0]?.id;
   const view = params().get('view') || 'sites';
+  const settingsTab = view === 'settings' ? (params().get('tab') || 'general') : null;
   const current = sites.find(s => s.id === site);
   const admin = session.user.role === 'admin';
 
@@ -163,16 +166,24 @@ function shell(options, ...children) {
         h('span', {class:'site-switch__meta'}, current.baseurl.replace(/^https?:\/\//, '').replace(/\/$/, ''))),
       icon('chevron'),
     ], {view:'sites'}, 'site-switch') : null,
+    // Grouped by what you are working on, and named after the job rather than
+    // the screen: "how do I change how the site looks" should not end in a tab
+    // inside a tab, so the settings tabs are linked directly.
     h('nav', {class:'nav', 'aria-label':'Разделы'},
+      site ? h('p', {class:'nav__label'}, 'Этот сайт') : null,
+      site ? navLink('doc', 'Страницы и тексты', {view:'pages', site}, ['pages', 'editor'].includes(view)) : null,
+      site && admin ? navLink('palette', 'Внешний вид', {view:'settings', site, tab:'appearance'}, settingsTab === 'appearance') : null,
+      site && admin ? navLink('chain', 'Адреса и меню', {view:'settings', site, tab:'routes'}, ['routes', 'labels', 'navigation'].includes(settingsTab)) : null,
+      site && admin ? navLink('back', 'Редиректы', {view:'settings', site, tab:'redirects'}, settingsTab === 'redirects') : null,
+      site && admin ? navLink('gear', 'Название и домен', {view:'settings', site, tab:'general'}, settingsTab === 'general') : null,
+      h('p', {class:'nav__label'}, 'Вся сеть'),
       navLink('grid', 'Все сайты', {view:'sites'}, view === 'sites'),
-      site ? navLink('doc', 'Материалы', {view:'pages', site}, ['pages', 'editor'].includes(view)) : null,
-      navLink('chart', 'SEO', {view:'seo'}, view === 'seo'),
+      admin ? navLink('tag', 'Товары и ссылки', {view:'catalog'}, ['catalog', 'product'].includes(view)) : null,
+      navLink('chart', 'SEO: аудит и переводы', {view:'seo'}, view === 'seo'),
       navLink('rocket', 'Публикации', {view:'jobs'}, view === 'jobs'),
-      site && admin ? navLink('gear', 'Настройки сайта', {view:'settings', site}, view === 'settings') : null,
       admin ? h('p', {class:'nav__label'}, 'Администрирование') : null,
       admin ? navLink('plus', 'Новый сайт', {view:'new-site'}, view === 'new-site') : null,
-      admin ? navLink('tag', 'Товары', {view:'catalog'}, ['catalog', 'product'].includes(view)) : null,
-      admin ? navLink('history', 'История', {view:'history'}, ['history', 'version'].includes(view)) : null,
+      admin ? navLink('history', 'История правок', {view:'history'}, ['history', 'version'].includes(view)) : null,
       admin ? navLink('users', 'Команда', {view:'users'}, view === 'users') : null),
     h('div', {class:'sidebar__spacer'}),
     h('div', {class:'sidebar__user'},
@@ -186,13 +197,15 @@ function shell(options, ...children) {
     crumbs.append(Array.isArray(item) ? link(item[0], item[1]) : h('strong', {}, item));
   });
 
+  const measure = narrow ? ' is-narrow' : '';
   const root = h('div', {class:'app'}, aside,
-    h('div', {},
+    h('div', {class:'app__main'},
       h('div', {class:'topbar'},
-        iconButton('menu', 'Меню', () => root.classList.toggle('drawer-open'), 'btn--icon drawer-toggle'),
-        crumbs,
-        h('div', {class:'topbar__actions'}, ...actions)),
-      h('main', {id:'main', class:'content'},
+        h('div', {class:'topbar__inner' + measure},
+          iconButton('menu', 'Меню', () => root.classList.toggle('drawer-open'), 'btn--icon drawer-toggle'),
+          crumbs,
+          h('div', {class:'topbar__actions'}, ...actions))),
+      h('main', {id:'main', class:'content' + measure},
         title ? h('div', {class:'page-head'}, h('div', {class:'page-head__text'},
           h('h1', {}, title), subtitle ? h('p', {}, subtitle) : null)) : null,
         ...children)));
@@ -491,6 +504,42 @@ function markdownEditor(textarea, site) {
 
   const tool = (label, title, fn) => h('button', {type:'button', class:'md-tool', title, 'aria-label':title, onclick:fn}, label);
 
+  const picker = h('input', {type:'file', accept:'image/png,image/jpeg,image/webp', class:'is-hidden', 'aria-hidden':'true', tabindex:'-1'});
+  const upload = guard(async file => {
+    if (!file) return;
+    if (!/^image\/(png|jpeg|webp)$/.test(file.type)) { fail('Поддерживаются PNG, JPEG и WebP.'); return; }
+    notice('Загружаю изображение…');
+    const data = new FormData();
+    data.append('site', site);
+    data.append('image', file);
+    const response = await fetch('/api?action=upload', {method:'POST', headers:{'X-CSRF-Token':session.csrf}, body:data});
+    const json = await response.json();
+    if (!json.ok) throw new Error(json.message || 'Не удалось загрузить изображение.');
+    // The caret lands inside the alt brackets: a description is not optional,
+    // and the audit reports every image that has none.
+    const before = `![`;
+    const after = `](${json.url})`;
+    const {selectionStart:at, value} = textarea;
+    textarea.value = value.slice(0, at) + before + after + value.slice(textarea.selectionEnd);
+    textarea.focus();
+    textarea.setSelectionRange(at + before.length, at + before.length);
+    textarea.dispatchEvent(new Event('input', {bubbles:true}));
+    done('Изображение вставлено. Впишите описание в квадратных скобках — оно нужно поиску и читателям.');
+  });
+  picker.addEventListener('change', () => { upload(picker.files[0]); picker.value = ''; });
+
+  textarea.addEventListener('paste', event => {
+    const file = [...(event.clipboardData?.files || [])][0];
+    if (file) { event.preventDefault(); upload(file); }
+  });
+  textarea.addEventListener('dragover', event => { if (event.dataTransfer?.types.includes('Files')) { event.preventDefault(); wrap.classList.add('is-dropping'); } });
+  textarea.addEventListener('dragleave', () => wrap.classList.remove('is-dropping'));
+  textarea.addEventListener('drop', event => {
+    const file = [...(event.dataTransfer?.files || [])][0];
+    wrap.classList.remove('is-dropping');
+    if (file) { event.preventDefault(); upload(file); }
+  });
+
   const linkDialog = h('dialog', {class:'link-dialog'});
   const openLinks = guard(async () => {
     const {pages} = await api('pages', undefined, {site});
@@ -531,6 +580,7 @@ function markdownEditor(textarea, site) {
     tool('❝', 'Цитата', () => lines('> ')),
     h('span', {class:'md-sep'}),
     tool('🔗', 'Внешняя ссылка', () => around('[', '](https://)')),
+    tool('🖼', 'Вставить изображение — можно также вставить из буфера или перетащить файл', () => picker.click()),
     h('button', {type:'button', class:'md-tool md-tool--wide', onclick:openLinks}, icon('doc'), 'Страница сайта'),
     modes);
 
@@ -576,7 +626,7 @@ function markdownEditor(textarea, site) {
 
   wrap.append(toolbar,
     h('div', {class:'md-body'}, textarea, preview),
-    h('div', {class:'md-foot'}, counter, linkDialog));
+    h('div', {class:'md-foot'}, counter, linkDialog, picker));
   count();
   let saved = 'write';
   try { saved = localStorage.getItem('studio:editor-mode') || 'write'; } catch { /* private mode */ }
@@ -1078,10 +1128,10 @@ async function settingsView(site, create) {
   input('hreflang', 'Язык и регион для поиска', c.geo.hreflang);
   input('translation_group', 'Группа переводов', create ? 'new-brand' : identity.translation_group, 'text', null, 'Сайты одной группы связываются между собой через hreflang.');
 
-  const look = section('Оформление', 'Набор полей у страниц и внешний вид сайта.');
-  input('model', 'Модель страниц', identity.model, 'text', result.models);
-  input('theme', 'Тема оформления', identity.theme, 'text', result.themes);
-  input('accent', 'Акцентный цвет', c.appearance?.tokens?.['c-accent'] || '#6b42d9', 'color');
+  const look = section('Оформление', 'Как сайт выглядит для читателя и какие поля есть у его страниц.');
+  input('theme', 'Тема оформления', identity.theme, 'text', result.themes, 'Цвета, ширины и скругления всего сайта. Применится при следующей публикации.');
+  input('accent', 'Акцентный цвет', c.appearance?.tokens?.['c-accent'] || '#6b42d9', 'color', null, 'Перекрывает акцент выбранной темы.');
+  input('model', 'Модель страниц', identity.model, 'text', result.models, 'Какие типы страниц и какие поля у них есть. Менять на живом сайте рискованно.');
 
   const publishing = section('Публикация', 'Как сайт ведёт себя при сборке сети и в поиске.');
   input('staging', 'Тестовый сайт: запретить индексацию', create ? true : !!c.geo.staging, 'checkbox');
@@ -1089,8 +1139,12 @@ async function settingsView(site, create) {
   bodyEl.append(h('p', {class:'muted small'}, 'Настройки применяются при следующей сборке и публикации.'), error);
 
   const extra = {};
-  const panels = [{id:'general', label:'Основное', icon:'gear',
-    panel:h('div', {class:'tab-panel'}, basics, market, look, publishing)}];
+  // Appearance gets its own tab: it is the thing people look for first, and it
+  // has nothing to do with domains or hreflang.
+  const panels = [
+    {id:'general', label:'Название и домен', icon:'gear', panel:h('div', {class:'tab-panel'}, basics, market, publishing)},
+    {id:'appearance', label:'Внешний вид', icon:'palette', panel:h('div', {class:'tab-panel'}, look)},
+  ];
 
   if (!create) {
     const routes = field('routes', {type:'object', label:'Адреса разделов', hideLabel:true, fields:Object.fromEntries(Object.keys(c.routes || {}).map(key => [key, {label:key}]))}, c.routes, 'routes', {});
@@ -1158,12 +1212,24 @@ async function settingsView(site, create) {
       link('Отмена', {view:'sites'}, 'button'),
       h('button', {type:'submit', class:'primary', onclick:() => form.requestSubmit()}, create ? 'Создать сайт' : 'Сохранить')));
 
+  const open = panels.find(panel => panel.id === (params().get('tab') || 'general')) || panels[0];
+  const siteTitle = sites.find(s => s.id === site)?.title || site;
+  const hints = {
+    general:'Как сайт называется, где он живёт и участвует ли в общей сборке.',
+    appearance:'Тема, акцентный цвет и набор полей у страниц.',
+    routes:'Из чего складываются адреса разделов.',
+    labels:'Подписи кнопок и разделов на языке сайта.',
+    navigation:'Что стоит в меню и в подвале.',
+    redirects:'Постоянные 301 внутри сайта.',
+  };
+
   shell({
-    title:create ? 'Новый сайт' : 'Настройки сайта',
+    narrow:true,
+    title:create ? 'Новый сайт' : open.label,
     subtitle:create
       ? 'Бренд, рынок, язык и оформление задаются для каждого сайта независимо.'
-      : (sites.find(s => s.id === site)?.title || site),
-    breadcrumb:[['Сайты', {view:'sites'}], create ? 'Новый сайт' : (sites.find(s => s.id === site)?.title || site), create ? null : 'Настройки'].filter(Boolean),
+      : (hints[open.id] || siteTitle),
+    breadcrumb:[['Сайты', {view:'sites'}], create ? 'Новый сайт' : siteTitle, create ? null : open.label].filter(Boolean),
   }, form, savebar);
   setDirty(false);
 }
@@ -1414,6 +1480,7 @@ async function productView(id, create) {
       h('button', {type:'button', class:'primary', onclick:save}, create ? 'Создать товар' : 'Сохранить')));
 
   shell({
+    narrow:true,
     title:create ? 'Новый товар' : (product.name || id),
     subtitle:create ? 'Каталог общий для всей сети.' : 'ID: ' + id,
     breadcrumb:[['Товары', {view:'catalog'}], create ? 'Новый товар' : (product.name || id)],

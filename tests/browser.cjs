@@ -35,7 +35,8 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   await page.locator('.topbar__actions').getByRole('link',{name:'Новый сайт',exact:true}).click();await page.getByRole('heading',{name:'Новый сайт'}).waitFor();
   const settings={site:'browser-us',title:'Northstar Reviews',description:'Independent reviews and detailed comparisons for curious readers.',baseurl:'https://browser.example.com/',brand:'northstar',market:'us',language:'en',locale:'en_US',hreflang:'en-US',translation_group:'northstar'};
   for(const [key,value] of Object.entries(settings))await page.locator('#setting-'+key).fill(value);
-  await page.locator('#setting-theme').selectOption('editorial');await page.getByRole('button',{name:'Создать сайт',exact:true}).click();
+  await page.getByRole('tab',{name:'Внешний вид',exact:true}).click();await page.locator('#setting-theme').selectOption('editorial');
+  await page.getByRole('button',{name:'Создать сайт',exact:true}).click();
   await page.getByText('Northstar Reviews').first().waitFor();check(true,'new brand/site created through UI');
   await page.goto(url+'/?view=settings&site=browser-us');
   await page.getByRole('tab',{name:'Тексты',exact:true}).click();await page.locator('#field-ui-labels-home').fill('Our home');
@@ -144,6 +145,25 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   // The editor: preview uses the same parser as the build, and raw HTML stays text.
   const rendered=await (await request(context,'markdown',{site:'browser-us',body:'## Заголовок\n\n<script>alert(1)</script>\n'})).json();
   check(rendered.html.includes('<h2>')&&!rendered.html.includes('<script>'),'the preview renders Markdown and neutralises raw HTML');
+
+  // A copywriter has to be able to put a picture in the text.
+  await page.goto(url+'/?view=editor&site=browser-us&page=index.md');await page.waitForSelector('.editor-pane');
+  await page.locator('#field-body').click();await page.locator('#field-body').press('Control+Home');
+  await page.locator('.md-foot input[type=file]').setInputFiles({name:'shot.png',mimeType:'image/png',
+    buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAFElEQVR42mP8z8BQz0AEYBxVSF+FABJADveWkH6oAAAAAElFTkSuQmCC','base64')});
+  await page.getByText('Изображение вставлено',{exact:false}).waitFor({timeout:20000});
+  check(/!\[\]\(\/images\/content\/browser-us\/[a-f0-9]+\.png\)/.test(await page.locator('#field-body').inputValue()),
+    'an uploaded image is inserted into the text as Markdown');
+  check((await page.locator('#field-body').evaluate(el=>el.selectionStart))===2,
+    'the caret lands in the alt brackets, because an image without alt is a finding');
+
+  // The column is centred; a measure pinned to the left reads as a cut-off page.
+  const centred=await page.evaluate(()=>{
+    const main=document.querySelector('.app__main').getBoundingClientRect();
+    const col=document.querySelector('.content').getBoundingClientRect();
+    return Math.abs((col.left-main.left)-(main.right-col.right))<=2;
+  });
+  check(centred,'the content column is centred in the space beside the sidebar');
 
   // History: what Git used to provide, now visible in the app.
   const historyDenied=await editor.request.get(url+'/api?action=history');
