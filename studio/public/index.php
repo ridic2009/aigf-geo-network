@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
-use AiGf\Tools\{Network, Model, StudioStore, StudioAuth, StudioContent, StudioSites, StudioPreview};
+use AiGf\Tools\{Network, Model, StudioStore, StudioAuth, StudioCatalog, StudioContent, StudioSites, StudioPreview};
 
 $path = rawurldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/');
 $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || getenv('STUDIO_HTTPS') === '1';
@@ -88,6 +88,10 @@ try {
                 case 'save': response(StudioContent::save($user, $site, $page, $input));
                 case 'transition': response(StudioContent::transition($user, $site, $page, (string) ($input['transition'] ?? ''), (int) ($input['revision'] ?? -1)));
                 case 'site-save': response(['ok' => true, 'site' => StudioSites::save($user, $site, $input, !empty($input['create']))]);
+                case 'product-save': response(['ok' => true] + StudioCatalog::save($user, (string) ($input['id'] ?? ''), $input, !empty($input['create'])));
+                case 'product-delete':
+                    StudioCatalog::delete($user, (string) ($input['id'] ?? ''));
+                    response(['ok' => true]);
                 case 'preview':
                     session_write_close(); response(['ok' => true, 'url' => StudioPreview::create($user, $site, $page)]);
                 case 'upload':
@@ -136,6 +140,10 @@ try {
                 foreach ($docs as $doc) { if ($doc['site'] === $site) { $records[$doc['page']] = ['page' => $doc['page'], 'title' => $doc['front_matter']['title'] ?? '', 'type' => $doc['front_matter']['type'], 'state' => $doc['state'], 'revision' => $doc['revision'], 'owner' => $doc['owner']]; } }
                 response(['ok' => true, 'pages' => array_values($records)]);
             case 'document': response(['ok' => true, 'document' => StudioContent::get($user, $site, (string) ($_GET['page'] ?? ''), $_GET['type'] ?? null)]);
+            case 'catalog':
+                response(['ok' => true, 'products' => StudioCatalog::list($user), 'markets' => StudioCatalog::markets(),
+                    'redirect_base' => Network::common()['affiliate']['redirect_base'] ?? '']);
+            case 'product': response(['ok' => true] + StudioCatalog::get($user, (string) ($_GET['id'] ?? '')));
             case 'settings':
                 StudioAuth::requireAdmin($user);
                 $themes = []; foreach (glob(Network::path('config', 'themes', '*.yml')) as $file) { $themes[basename($file, '.yml')] = \Symfony\Component\Yaml\Yaml::parseFile($file)['label']; }

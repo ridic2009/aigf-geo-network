@@ -88,6 +88,35 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   await page.getByRole('dialog').getByRole('button',{name:'Закрыть',exact:true}).click();
   await page.goto(url+'/?view=sites');await page.getByRole('heading',{name:'Сайты',exact:true}).waitFor();
   check((await page.locator('.site-group__title').count())===2,'sites are grouped by brand once the workspace holds more than one');
+
+  // Catalogue: products and their affiliate destinations are one record spread
+  // over two files, and the whole network shares it.
+  const catalogDenied=await request(editor,'product-save',{id:'test-widget',create:true,name:'Test Widget'});
+  check(catalogDenied.status()===403,'only an admin may write to the shared catalogue');
+  const badLink=await (await request(context,'product-save',{id:'test-widget',create:true,name:'Test Widget',affiliate:{default:'javascript:alert(1)'}})).json();
+  check(!badLink.ok && /https/.test(badLink.message||''),'affiliate destination must be an absolute http(s) URL');
+  await page.goto(url+'/?view=product&create=1');await page.getByRole('heading',{name:'Новый товар',exact:true}).waitFor();
+  await page.locator('#product-id').fill('test-widget');
+  await page.locator('#product-name').fill('Test Widget');
+  await page.locator('#product-website').fill('https://example.com/widget');
+  await page.locator('#product-rating').fill('4.2');
+  await page.locator('#product-affiliate_default').fill('https://partner.example.com/widget');
+  await page.getByRole('tab',{name:'United States',exact:true}).click();
+  await page.locator('#market-us-tagline').fill('The widget we keep coming back to.');
+  await page.locator('#market-us-amount').fill('9.5');
+  await page.locator('#market-us-url').fill('https://partner.example.com/widget?geo=us');
+  await page.locator('.savebar .primary').click();
+  await page.getByText('Каталог сохранён.',{exact:false}).waitFor();
+  const stored=await (await context.request.get(url+'/api?action=product&id=test-widget')).json();
+  check(stored.product.geo.us.price.amount===9.5 && stored.product.rating===4.2,'per-market price and rating round-trip through the catalogue');
+  check(stored.affiliate.geo.us.url==='https://partner.example.com/widget?geo=us' && stored.affiliate.default==='https://partner.example.com/widget','affiliate destinations are stored per market with a fallback');
+  const productYaml=fs.readFileSync(path.join(fixture,'data/products/test-widget.yml'),'utf8');
+  const affiliateYaml=fs.readFileSync(path.join(fixture,'data/affiliates/test-widget.yml'),'utf8');
+  check(/Test Widget/.test(productYaml) && /amount: 9.5/.test(productYaml) && /geo=us/.test(affiliateYaml),'the catalogue writes plain YAML the engine already reads');
+  const removed=await request(context,'product-delete',{id:'test-widget'});
+  check(removed.ok() && !fs.existsSync(path.join(fixture,'data/affiliates/test-widget.yml')),'deleting an unused product removes its affiliate file too');
+  const inUse=await (await request(context,'product-delete',{id:'candy-ai'})).json();
+  check(!inUse.ok && /использ/.test(inUse.message||''),'a product referenced by a page cannot be deleted');
   await page.screenshot({path:path.join(root,'reports/studio-sites.png'),fullPage:true});
   await page.goto(url+'/?view=editor&site=browser-us&page=index.md');await page.getByRole('tab',{name:'Содержание',exact:true}).waitFor();
   await page.setViewportSize({width:390,height:844});

@@ -41,6 +41,7 @@ const paths = {
   inbox:'M3 13h5l1.5 3h5L16 13h5M3 13l3-8h12l3 8v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
   back:'M19 12H5M12 19l-7-7 7-7',
   close:'M6 6l12 12M18 6 6 18',
+  tag:'M20.5 12.5 12 21 3 12V3h9zM7.5 7.5h.01',
   chain:'M10.5 13.5a4.5 4.5 0 0 0 6.6.4l2.4-2.4a4.5 4.5 0 0 0-6.4-6.4l-1.4 1.4M13.5 10.5a4.5 4.5 0 0 0-6.6-.4l-2.4 2.4a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4',
 };
 function icon(name) {
@@ -167,6 +168,7 @@ function shell(options, ...children) {
       site && admin ? navLink('gear', 'Настройки сайта', {view:'settings', site}, view === 'settings') : null,
       admin ? h('p', {class:'nav__label'}, 'Администрирование') : null,
       admin ? navLink('plus', 'Новый сайт', {view:'new-site'}, view === 'new-site') : null,
+      admin ? navLink('tag', 'Товары', {view:'catalog'}, ['catalog', 'product'].includes(view)) : null,
       admin ? navLink('users', 'Команда', {view:'users'}, view === 'users') : null),
     h('div', {class:'sidebar__spacer'}),
     h('div', {class:'sidebar__user'},
@@ -964,6 +966,228 @@ async function jobsView() {
     : h('div', {class:'table-card'}, emptyState('Заданий пока нет', 'Они появятся после одобрения и отправки материала на публикацию.')));
 }
 
+/* -------------------------------------------------------------- catalogue
+   Products and affiliate links are one database shared by the whole network:
+   a price or a partner URL is set once per market, not once per site. The two
+   files behind it (data/products, data/affiliates) are edited together here,
+   because from an editor's point of view they are one record. */
+
+async function catalogView() {
+  const {products, markets, redirect_base:redirectBase} = await api('catalog');
+  const codes = Object.keys(markets);
+
+  const rows = products.map(product => {
+    const missing = codes.filter(code => !product.markets.includes(code));
+    return h('tr', {},
+      h('td', {}, link(product.name, {view:'product', id:product.id}, 'table__title'),
+        h('span', {class:'table__path'}, product.id)),
+      h('td', {class:'shrink'}, product.rating == null
+        ? h('span', {class:'muted small'}, '—')
+        : h('span', {class:'chip'}, String(product.rating))),
+      h('td', {}, h('div', {class:'chips'},
+        product.markets.map(code => h('span', {class:'chip'}, code.toUpperCase())),
+        missing.map(code => h('span', {class:'chip chip--warn', title:'Нет цены и описания для этого рынка'}, code.toUpperCase() + ' ?')))),
+      h('td', {class:'shrink'}, product.links
+        ? h('span', {class:'chip'}, product.links + ' ' + plural(product.links, 'ссылка', 'ссылки', 'ссылок'))
+        : h('span', {class:'chip chip--warn', title:'Без партнёрской ссылки кнопка ведёт на официальный сайт'}, 'нет ссылок')),
+      h('td', {class:'shrink muted'}, product.used_by.length
+        ? product.used_by.length + ' ' + plural(product.used_by.length, 'страница', 'страницы', 'страниц')
+        : 'нигде'));
+  });
+
+  shell({
+    title:'Товары',
+    subtitle:'Один каталог на всю сеть: цена, описание и партнёрская ссылка задаются для каждого рынка.',
+    breadcrumb:['Товары'],
+    actions:[link('Новый товар', {view:'product', create:'1'}, 'button primary')],
+  },
+    h('div', {class:'notice-card'}, icon('info'),
+      h('div', {},
+        h('strong', {}, redirectBase ? 'Ссылки идут через редирект-сервис' : 'Ссылки вшиты в страницы'),
+        h('p', {class:'muted small'}, redirectBase
+          ? 'Смена партнёрской ссылки применяется после обновления редирект-карты — пересобирать сайты не нужно. Цены попадут на сайт при следующей публикации.'
+          : 'Цены и партнёрские ссылки попадают на сайт только при следующей сборке и публикации. Чтобы менять ссылки без пересборки, задайте affiliate.redirect_base в config/common.yml.'))),
+    products.length
+      ? h('div', {class:'table-card'}, h('table', {class:'table'},
+          h('thead', {}, h('tr', {}, h('th', {}, 'Товар'), h('th', {}, 'Рейтинг'), h('th', {}, 'Рынки'), h('th', {}, 'Ссылки'), h('th', {}, 'Используется'))),
+          h('tbody', {}, rows)))
+      : h('div', {class:'table-card'}, emptyState('Каталог пуст', 'Добавьте первый товар, чтобы ссылаться на него из обзоров и рейтингов.')));
+}
+
+async function productView(id, create) {
+  const {markets, redirect_base:redirectBase} = await api('catalog');
+  const loaded = create ? null : await api('product', undefined, {id});
+  const product = loaded?.product || {};
+  const affiliate = loaded?.affiliate || {default:'', geo:{}};
+  const usedBy = loaded?.used_by || [];
+  const fields = {};
+  const form = h('form', {class:'settings-form'});
+  const error = h('p', {role:'alert', class:'field-error'});
+
+  let bodyEl;
+  const section = (title, hint) => {
+    bodyEl = h('div', {class:'card__body'});
+    return h('section', {class:'card'},
+      h('div', {class:'card__head'}, h('div', {}, h('h2', {}, title), hint ? h('p', {}, hint) : null)), bodyEl);
+  };
+  const input = (key, label, value, type = 'text', options = null, hint = null) => {
+    const control = options
+      ? h('select', {id:'product-' + key}, Object.entries(options).map(([k, v]) => h('option', {value:k, selected:k === String(value)}, v)))
+      : h('input', {id:'product-' + key, type, value:type === 'checkbox' ? undefined : (value ?? ''), checked:type === 'checkbox' ? !!value : undefined});
+    fields[key] = control;
+    bodyEl.append(h('div', {class:'field'}, h('label', {for:control.id}, label), control, hint ? h('small', {class:'field__hint'}, hint) : null));
+    return control;
+  };
+  const periods = {month:'в месяц', year:'в год', week:'в неделю', once:'разово'};
+
+  const identity = section('Товар', 'Общие данные — они одинаковы на всех рынках.');
+  if (create) input('id', 'ID товара', '', 'text', null, 'Латиница, цифры, дефис. По нему на товар ссылаются обзоры и рейтинги.');
+  input('name', 'Название', product.name);
+  input('website', 'Официальный сайт', product.website, 'url', null, 'Куда ведёт кнопка, если партнёрской ссылки нет.');
+  input('logo', 'Логотип', product.logo, 'text', null, 'Путь внутри сайта: /images/products/name.svg');
+  input('category', 'Категория Schema.org', product.category || 'SoftwareApplication');
+  input('platforms', 'Платформы', product.platforms, 'text', null, 'Через запятую: Web, iOS, Android.');
+  input('rating', 'Ваша оценка', product.rating, 'number', null, 'От 0 до 5. Пусто — не показывать.');
+  input('launched', 'Год запуска', product.launched, 'number');
+  input('free_tier', 'Есть бесплатный тариф', !!product.free_tier, 'checkbox');
+
+  const base = section('Цена по умолчанию', 'Используется, когда для рынка не задана своя цена.');
+  input('price_amount', 'Сумма', product.price?.amount, 'number');
+  input('price_period', 'Период', product.price?.period || 'month', 'text', periods);
+
+  const featuresField = field('features', {type:'list', label:'Возможности', items:{type:'string'}}, product.features || [], 'features', {});
+  const featuresCard = section('Возможности', 'Список, который выводится в карточке товара.');
+  bodyEl.append(featuresField);
+
+  const links = section('Партнёрская ссылка по умолчанию', 'Подставляется для рынков без собственной ссылки.');
+  input('affiliate_default', 'Ссылка', affiliate.default, 'url');
+
+  // One tab per market: price, wording and partner link live together, because
+  // that is the set of things you check before a campaign in that country.
+  const marketFields = {};
+  const marketPanels = Object.values(markets).map(market => {
+    const code = market.code;
+    const geo = product.geo?.[code] || {};
+    const url = affiliate.geo?.[code]?.url || '';
+    const scoped = {};
+    const put = (key, label, value, type = 'text', options = null, hint = null) => {
+      const control = options
+        ? h('select', {id:'market-' + code + '-' + key}, Object.entries(options).map(([k, v]) => h('option', {value:k, selected:k === String(value)}, v)))
+        : h('input', {id:'market-' + code + '-' + key, type, value:value ?? ''});
+      scoped[key] = control;
+      bodyEl.append(h('div', {class:'field'}, h('label', {for:control.id}, label), control, hint ? h('small', {class:'field__hint'}, hint) : null));
+    };
+    marketFields[code] = scoped;
+
+    const where = market.sites.map(s => s.title).join(', ');
+    const offer = section('Предложение · ' + market.name, where ? 'Показывается на: ' + where : 'Пока нет сайтов для этого рынка.');
+    put('availability', 'Доступность', geo.availability || 'available', 'text', {available:'Доступен', limited:'Ограниченно', unavailable:'Недоступен'});
+    put('tagline', 'Короткое описание', geo.tagline, 'text', null, 'Одна фраза на языке рынка — она идёт в карточку и в подборки.');
+    put('best_for', 'Чем хорош', geo.best_for, 'text', null, 'Например: генерация изображений.');
+    put('amount', 'Цена' + (market.currency ? ', ' + market.currency : ''), geo.price?.amount, 'number', null, 'Пусто — берётся цена по умолчанию.');
+    put('period', 'Период', geo.price?.period || product.price?.period || 'month', 'text', periods);
+
+    const linkCard = section('Партнёрская ссылка · ' + market.name,
+      redirectBase ? 'Изменение применится после обновления редирект-карты.' : 'Изменение попадёт на сайт при следующей сборке.');
+    put('url', 'Ссылка', url, 'url', null, 'Пусто — используется ссылка по умолчанию.');
+
+    // No icon: four identical glyphs would say less than the market names do.
+    return {id:'m-' + code, label:market.name,
+      panel:h('div', {class:'tab-panel'}, offer, linkCard)};
+  });
+
+  bodyEl.append(error);
+  form.addEventListener('input', () => setDirty(true));
+  form.append(tabs([
+    {id:'general', label:'Товар', icon:'grid',
+     panel:h('div', {class:'tab-panel'}, identity, base, featuresCard, links)},
+    ...marketPanels,
+  ]));
+
+  const collect = () => {
+    const data = {
+      id:create ? fields.id.value.trim() : id,
+      create,
+      name:fields.name.value,
+      website:fields.website.value,
+      logo:fields.logo.value,
+      category:fields.category.value,
+      platforms:fields.platforms.value,
+      rating:fields.rating.value,
+      launched:fields.launched.value,
+      free_tier:fields.free_tier.checked,
+      features:featuresField.read().filter(Boolean),
+      price:{amount:fields.price_amount.value, period:fields.price_period.value},
+      geo:{},
+      affiliate:{default:fields.affiliate_default.value, geo:{}},
+    };
+    for (const [code, scoped] of Object.entries(marketFields)) {
+      const filled = scoped.tagline.value || scoped.best_for.value || scoped.amount.value || scoped.availability.value !== 'available';
+      if (filled) {
+        data.geo[code] = {
+          availability:scoped.availability.value,
+          tagline:scoped.tagline.value,
+          best_for:scoped.best_for.value,
+          price:{amount:scoped.amount.value, period:scoped.period.value},
+        };
+      }
+      if (scoped.url.value.trim()) data.affiliate.geo[code] = {url:scoped.url.value.trim()};
+    }
+    return data;
+  };
+
+  const save = guard(async () => {
+    try {
+      const data = collect();
+      await api('product-save', data);
+      setDirty(false);
+      done('Каталог сохранён. На сайты изменения попадут при следующей публикации.');
+      navigate({view:'product', id:data.id});
+    } catch (e) { error.textContent = e.message; throw e; }
+  });
+  form.addEventListener('submit', event => { event.preventDefault(); save(); });
+
+  const rail = h('aside', {class:'editor-rail'},
+    h('section', {class:'card'},
+      h('div', {class:'rail-section'},
+        h('h3', {}, 'Где используется'),
+        usedBy.length
+          ? h('ul', {class:'rail-list'}, usedBy.slice(0, 12).map(use =>
+              h('li', {}, link(use.title, {view:'editor', site:use.site, page:use.page}),
+                h('span', {}, use.site.toUpperCase() + ' · ' + use.page))))
+          : h('p', {class:'muted small'}, create ? 'Товар ещё не создан.' : 'Ни один материал не ссылается на этот товар.'),
+        usedBy.length > 12 ? h('p', {class:'muted small mt-3'}, 'и ещё ' + (usedBy.length - 12)) : null)),
+    create ? null : h('section', {class:'card'},
+      h('div', {class:'rail-section'},
+        h('h3', {}, 'Удаление'),
+        h('p', {class:'muted small'}, usedBy.length
+          ? 'Товар используется в материалах — сначала уберите ссылки на него.'
+          : 'Товар нигде не используется, его можно удалить.'),
+        h('div', {class:'mt-3'}, h('button', {type:'button', class:'btn--danger btn--sm', disabled:usedBy.length > 0, onclick:guard(async () => {
+          if (!confirm('Удалить товар «' + (product.name || id) + '» вместе с партнёрскими ссылками?')) return;
+          await api('product-delete', {id});
+          dirty = false;
+          done('Товар удалён.');
+          navigate({view:'catalog'});
+        })}, 'Удалить товар')))));
+
+  const savebar = h('div', {class:'savebar'},
+    h('span', {class:'savebar__state'}, 'Все изменения сохранены'),
+    h('div', {class:'savebar__actions'},
+      link('Отмена', {view:'catalog'}, 'button'),
+      h('button', {type:'button', class:'primary', onclick:save}, create ? 'Создать товар' : 'Сохранить')));
+
+  shell({
+    title:create ? 'Новый товар' : (product.name || id),
+    subtitle:create ? 'Каталог общий для всей сети.' : 'ID: ' + id,
+    breadcrumb:[['Товары', {view:'catalog'}], create ? 'Новый товар' : (product.name || id)],
+  }, h('div', {class:'editor-grid'}, form, rail), savebar);
+  setDirty(false);
+}
+
+const plural = (n, one, few, many) => n % 10 === 1 && n % 100 !== 11 ? one
+  : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? few : many;
+
 async function render() {
   try {
     session = await api('session');
@@ -973,6 +1197,8 @@ async function render() {
     if (view === 'pages') await pagesView(site);
     else if (view === 'editor') await editorView(site, p.get('page'));
     else if (view === 'settings' || view === 'new-site') await settingsView(site, view === 'new-site');
+    else if (view === 'catalog') await catalogView();
+    else if (view === 'product') await productView(p.get('id') || '', p.get('create') === '1');
     else if (view === 'jobs') await jobsView();
     else if (view === 'users') await usersView();
     else await sitesView();
