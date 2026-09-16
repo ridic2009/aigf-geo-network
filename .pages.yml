@@ -11,7 +11,7 @@
 media:
   -
     name: content
-    label: 'Article images'
+    label: 'Изображения для статей'
     input: static/images/content
     output: /images/content
     categories:
@@ -26,7 +26,7 @@ media:
     rename: safe
   -
     name: products
-    label: 'Product logos'
+    label: 'Логотипы продуктов'
     input: static/images/products
     output: /images/products
     categories:
@@ -48,79 +48,79 @@ settings:
 components:
   status:
     type: select
-    label: Status
-    description: 'Draft and Review pages are never published to the live site.'
+    label: Статус
+    description: 'Страницы в статусе «Черновик» и «На проверке» на сайт не попадают.'
     default: draft
     required: true
     options:
       values:
         -
           value: draft
-          label: 'Draft — work in progress'
+          label: 'Черновик — в работе'
         -
           value: review
-          label: 'Review — waiting for SEO approval'
+          label: 'На проверке — ждёт согласования SEO'
         -
           value: published
-          label: 'Published — live'
+          label: 'Опубликовано — на сайте'
   seo:
     type: object
     label: SEO
-    description: 'Canonical URL, hreflang and language tags are generated automatically — you only fill in the fields below.'
+    description: 'Canonical, hreflang и языковые теги формируются автоматически — вы заполняете только поля ниже.'
     fields:
       -
         name: title
-        label: 'SEO title'
+        label: SEO-заголовок
         type: string
         required: true
-        description: 'Shown in Google. Aim for 50-60 characters.'
+        description: 'Показывается в Google. Оптимально 50–60 символов.'
       -
         name: description
-        label: 'Meta description'
+        label: Мета-описание
         type: text
         required: true
-        description: 'Shown under the title in Google. Aim for 120-160 characters.'
+        description: 'Показывается в Google под заголовком. Оптимально 120–160 символов.'
       -
         name: primary_keyword
-        label: 'Primary keyword'
+        label: 'Основной запрос'
         type: string
-        description: 'The main search term this page targets.'
+        description: 'Главный поисковый запрос этой страницы.'
       -
         name: og_title
-        label: 'Social title'
+        label: 'Заголовок для соцсетей'
         type: string
-        description: 'Optional. Defaults to the SEO title.'
+        description: 'Необязательно. По умолчанию — SEO-заголовок.'
       -
         name: og_description
-        label: 'Social description'
+        label: 'Описание для соцсетей'
         type: text
-        description: 'Optional. Defaults to the meta description.'
+        description: 'Необязательно. По умолчанию — мета-описание.'
       -
         name: og_image
-        label: 'Social image'
+        label: 'Картинка для соцсетей'
         type: image
         options:
           media: content
-        description: 'Optional. Used when the page is shared on social networks.'
+        description: 'Необязательно. Используется при репосте страницы.'
   indexing:
     type: object
-    label: 'Search engine indexing'
-    description: 'Leave both switched on unless you have a reason not to.'
+    label: Индексация
+    description: 'Оставьте оба переключателя включёнными, если нет причин поступить иначе.'
     fields:
       -
         name: index
-        label: 'Allow indexing'
+        label: 'Разрешить индексацию'
         type: boolean
         default: true
       -
         name: follow
-        label: 'Follow links'
+        label: 'Переходить по ссылкам'
         type: boolean
         default: true
   faq:
     type: object
-    label: FAQ
-    description: 'Questions and answers. Shown on the page and used for FAQ structured data — you never write code for this.'
+    label: 'Частые вопросы'
+    description: 'Вопросы и ответы. Выводятся на странице и превращаются в микроразметку FAQ — код писать не нужно.'
     list:
       collapsible:
         collapsed: true
@@ -128,18 +128,18 @@ components:
     fields:
       -
         name: question
-        label: Question
+        label: Вопрос
         type: string
         required: true
       -
         name: answer
-        label: Answer
+        label: Ответ
         type: text
         required: true
   canonical:
     type: object
-    label: 'Advanced: canonical override'
-    description: 'Leave empty. The canonical URL is generated from the domain and the page URL. Only fill this in when this page must point at a different URL.'
+    label: 'Дополнительно: переопределить canonical'
+    description: 'Оставьте пустым. Canonical формируется из домена и адреса страницы. Заполняйте, только если страница должна указывать на другой URL.'
     fields:
       -
         name: url
@@ -148,8 +148,8 @@ components:
 content:
   -
     name: sites
-    label: Sites
-    description: 'Pick a country, then a page type.'
+    label: Сайты
+    description: 'Выберите страну, затем тип страницы.'
     type: group
     items:
       -
@@ -159,71 +159,71 @@ content:
         items:
           -
             name: fr_settings
-            label: 'Site settings'
-            description: 'Name, description and every piece of interface text for this country.'
+            label: 'Настройки сайта'
+            description: 'Название, описание и все надписи интерфейса для этой страны.'
             type: file
             path: config/sites/fr.yml
             format: yaml
             fields:
               -
                 name: title
-                label: 'Site name'
+                label: 'Название сайта'
                 type: string
                 required: true
-                description: 'Used in the header, in <title> and in Organization/WebSite structured data.'
+                description: 'Используется в шапке, в теге <title> и в микроразметке Organization/WebSite.'
               -
                 name: baseline
-                label: Tagline
+                label: Слоган
                 type: string
               -
                 name: description
-                label: 'Default meta description'
+                label: 'Мета-описание по умолчанию'
                 type: text
                 required: true
-                description: 'Used on pages that do not define their own.'
+                description: 'Используется на страницах, где своё не задано.'
               -
                 name: organization
-                label: Publisher
+                label: Издатель
                 type: object
                 fields:
-                  - { name: name, label: 'Publisher name', type: string }
-                  - { name: legal_name, label: 'Legal name', type: string }
-                  - { name: email, label: 'Contact email', type: string }
+                  - { name: name, label: 'Название издателя', type: string }
+                  - { name: legal_name, label: 'Юридическое лицо', type: string }
+                  - { name: email, label: 'Контактный email', type: string }
               -
                 name: ui
-                label: 'Interface text'
-                description: 'Everything the engine writes on the page by itself: menu, buttons, table headings.'
+                label: 'Надписи интерфейса'
+                description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Menu labels', type: object, fields: [{ name: ranking, label: Ranking, type: string }, { name: reviews, label: Reviews, type: string }, { name: compare, label: Compare, type: string }, { name: guides, label: Guides, type: string }, { name: about, label: About, type: string }, { name: disclosure, label: Disclosure, type: string }, { name: privacy, label: Privacy, type: string }] }
-                  - { name: sections, label: 'Section names', type: object, fields: [{ name: reviews, label: Reviews, type: string }, { name: compare, label: Compare, type: string }, { name: guides, label: Guides, type: string }, { name: rankings, label: Rankings, type: string }] }
-                  - { name: labels, label: 'Interface labels', type: object, fields: [{ name: home, label: Home, type: string }, { name: not_found_text, label: 'Not found text', type: string }, { name: skip_to_content, label: 'Skip to content', type: string }, { name: menu, label: Menu, type: string }, { name: main_navigation, label: 'Main navigation', type: string }, { name: footer_navigation, label: 'Footer navigation', type: string }, { name: close, label: Close, type: string }, { name: read_review, label: 'Read review', type: string }, { name: visit_site, label: 'Visit site', type: string }, { name: try_now, label: 'Try now', type: string, description: 'The %s is replaced by the product name, e.g. "Try %s".' }, { name: pros, label: Pros, type: string }, { name: cons, label: Cons, type: string }, { name: rating, label: Rating, type: string }, { name: out_of, label: 'Out of', type: string, description: 'Used as "4.6 out of 5".' }, { name: score, label: Score, type: string }, { name: rank, label: Rank, type: string }, { name: product, label: Product, type: string }, { name: features, label: Features, type: string }, { name: price, label: Price, type: string }, { name: from, label: From, type: string }, { name: per_month, label: 'Per month', type: string }, { name: free_tier, label: 'Free tier', type: string }, { name: 'yes', label: 'Yes', type: string }, { name: 'no', label: 'No', type: string }, { name: verdict, label: Verdict, type: string }, { name: best_for, label: 'Best for', type: string }, { name: faq, label: Faq, type: string }, { name: toc, label: Toc, type: string }, { name: updated, label: Updated, type: string }, { name: published, label: Published, type: string }, { name: author, label: Author, type: string }, { name: reviewed_by, label: 'Reviewed by', type: string }, { name: related, label: Related, type: string }, { name: all_reviews, label: 'All reviews', type: string }, { name: back_to_top, label: 'Back to top', type: string }, { name: affiliate_notice, label: 'Affiliate notice', type: string, description: 'Shown near every monetised button and in the footer.' }, { name: availability_available, label: 'Availability available', type: string }, { name: availability_limited, label: 'Availability limited', type: string }, { name: availability_unavailable, label: 'Availability unavailable', type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: rankings, label: Рейтинги, type: string }] }
+                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }] }
               -
                 name: baseurl
-                label: Domain
+                label: Домен
                 type: string
                 readonly: true
-                description: 'Read-only. Changing a domain means DNS, a certificate and a new Nginx vhost — ask a developer.'
+                description: 'Только для чтения. Смена домена — это DNS, сертификат и новый конфиг Nginx: обратитесь к разработчику.'
               -
                 name: routes
-                label: 'URL structure'
+                label: 'Структура адресов'
                 type: object
                 readonly: true
-                description: 'Read-only. These prefixes are part of every URL in the section; changing one moves every page in it and needs redirects — ask a developer.'
+                description: 'Только для чтения. Эти префиксы входят в адрес каждой страницы раздела; их смена переносит все страницы и требует редиректов — обратитесь к разработчику.'
                 fields:
-                  - { name: reviews, label: 'Reviews prefix', type: string, readonly: true }
-                  - { name: compare, label: 'Comparisons prefix', type: string, readonly: true }
-                  - { name: guides, label: 'Guides prefix', type: string, readonly: true }
-                  - { name: rankings, label: 'Rankings prefix', type: string, readonly: true }
+                  - { name: reviews, label: 'Префикс обзоров', type: string, readonly: true }
+                  - { name: compare, label: 'Префикс сравнений', type: string, readonly: true }
+                  - { name: guides, label: 'Префикс гайдов', type: string, readonly: true }
+                  - { name: rankings, label: 'Префикс рейтингов', type: string, readonly: true }
               -
                 name: geo
-                label: Market
+                label: Рынок
                 type: object
                 readonly: true
                 fields:
-                  - { name: name, label: 'Country name', type: string, readonly: true }
-                  - { name: hreflang, label: 'Language/region code', type: string, readonly: true }
-                  - { name: enabled, label: Live, type: boolean, readonly: true, description: 'Read-only. A country goes live once DNS, the certificate and the content are ready.' }
+                  - { name: name, label: 'Название страны', type: string, readonly: true }
+                  - { name: hreflang, label: 'Код языка и региона', type: string, readonly: true }
+                  - { name: enabled, label: 'В эфире', type: boolean, readonly: true, description: 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.' }
           -
             name: fr_home
             label: Главная
@@ -233,10 +233,10 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: status
                 component: status
@@ -247,26 +247,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -275,8 +275,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -285,34 +285,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: hero_cta
                 label: 'Страница главной кнопки'
@@ -336,10 +336,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -400,19 +400,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -423,26 +423,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -451,8 +451,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -461,43 +461,43 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: faq
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -560,19 +560,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -583,26 +583,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -611,8 +611,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -621,34 +621,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: product
                 label: Продукт
@@ -678,10 +678,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -742,19 +742,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -765,26 +765,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -793,8 +793,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -803,34 +803,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: ranking
                 label: 'Позиции рейтинга'
@@ -845,10 +845,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -909,19 +909,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -932,26 +932,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -960,8 +960,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -970,34 +970,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: products
                 label: 'Сравниваемые продукты'
@@ -1013,10 +1013,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -1077,19 +1077,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -1100,26 +1100,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -1128,8 +1128,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -1138,34 +1138,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: products
                 label: 'Упоминаемые продукты'
@@ -1181,10 +1181,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -1245,19 +1245,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -1268,26 +1268,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -1296,8 +1296,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -1306,43 +1306,43 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: faq
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -1378,71 +1378,71 @@ content:
         items:
           -
             name: jp_settings
-            label: 'Site settings'
-            description: 'Name, description and every piece of interface text for this country.'
+            label: 'Настройки сайта'
+            description: 'Название, описание и все надписи интерфейса для этой страны.'
             type: file
             path: config/sites/jp.yml
             format: yaml
             fields:
               -
                 name: title
-                label: 'Site name'
+                label: 'Название сайта'
                 type: string
                 required: true
-                description: 'Used in the header, in <title> and in Organization/WebSite structured data.'
+                description: 'Используется в шапке, в теге <title> и в микроразметке Organization/WebSite.'
               -
                 name: baseline
-                label: Tagline
+                label: Слоган
                 type: string
               -
                 name: description
-                label: 'Default meta description'
+                label: 'Мета-описание по умолчанию'
                 type: text
                 required: true
-                description: 'Used on pages that do not define their own.'
+                description: 'Используется на страницах, где своё не задано.'
               -
                 name: organization
-                label: Publisher
+                label: Издатель
                 type: object
                 fields:
-                  - { name: name, label: 'Publisher name', type: string }
-                  - { name: legal_name, label: 'Legal name', type: string }
-                  - { name: email, label: 'Contact email', type: string }
+                  - { name: name, label: 'Название издателя', type: string }
+                  - { name: legal_name, label: 'Юридическое лицо', type: string }
+                  - { name: email, label: 'Контактный email', type: string }
               -
                 name: ui
-                label: 'Interface text'
-                description: 'Everything the engine writes on the page by itself: menu, buttons, table headings.'
+                label: 'Надписи интерфейса'
+                description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Menu labels', type: object, fields: [{ name: ranking, label: Ranking, type: string }, { name: reviews, label: Reviews, type: string }, { name: compare, label: Compare, type: string }, { name: guides, label: Guides, type: string }, { name: about, label: About, type: string }, { name: disclosure, label: Disclosure, type: string }, { name: privacy, label: Privacy, type: string }] }
-                  - { name: sections, label: 'Section names', type: object, fields: [{ name: reviews, label: Reviews, type: string }, { name: compare, label: Compare, type: string }, { name: guides, label: Guides, type: string }, { name: rankings, label: Rankings, type: string }] }
-                  - { name: labels, label: 'Interface labels', type: object, fields: [{ name: home, label: Home, type: string }, { name: not_found_text, label: 'Not found text', type: string }, { name: skip_to_content, label: 'Skip to content', type: string }, { name: menu, label: Menu, type: string }, { name: main_navigation, label: 'Main navigation', type: string }, { name: footer_navigation, label: 'Footer navigation', type: string }, { name: close, label: Close, type: string }, { name: read_review, label: 'Read review', type: string }, { name: visit_site, label: 'Visit site', type: string }, { name: try_now, label: 'Try now', type: string, description: 'The %s is replaced by the product name, e.g. "Try %s".' }, { name: pros, label: Pros, type: string }, { name: cons, label: Cons, type: string }, { name: rating, label: Rating, type: string }, { name: out_of, label: 'Out of', type: string, description: 'Used as "4.6 out of 5".' }, { name: score, label: Score, type: string }, { name: rank, label: Rank, type: string }, { name: product, label: Product, type: string }, { name: features, label: Features, type: string }, { name: price, label: Price, type: string }, { name: from, label: From, type: string }, { name: per_month, label: 'Per month', type: string }, { name: free_tier, label: 'Free tier', type: string }, { name: 'yes', label: 'Yes', type: string }, { name: 'no', label: 'No', type: string }, { name: verdict, label: Verdict, type: string }, { name: best_for, label: 'Best for', type: string }, { name: faq, label: Faq, type: string }, { name: toc, label: Toc, type: string }, { name: updated, label: Updated, type: string }, { name: published, label: Published, type: string }, { name: author, label: Author, type: string }, { name: reviewed_by, label: 'Reviewed by', type: string }, { name: related, label: Related, type: string }, { name: all_reviews, label: 'All reviews', type: string }, { name: back_to_top, label: 'Back to top', type: string }, { name: affiliate_notice, label: 'Affiliate notice', type: string, description: 'Shown near every monetised button and in the footer.' }, { name: availability_available, label: 'Availability available', type: string }, { name: availability_limited, label: 'Availability limited', type: string }, { name: availability_unavailable, label: 'Availability unavailable', type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: rankings, label: Рейтинги, type: string }] }
+                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }] }
               -
                 name: baseurl
-                label: Domain
+                label: Домен
                 type: string
                 readonly: true
-                description: 'Read-only. Changing a domain means DNS, a certificate and a new Nginx vhost — ask a developer.'
+                description: 'Только для чтения. Смена домена — это DNS, сертификат и новый конфиг Nginx: обратитесь к разработчику.'
               -
                 name: routes
-                label: 'URL structure'
+                label: 'Структура адресов'
                 type: object
                 readonly: true
-                description: 'Read-only. These prefixes are part of every URL in the section; changing one moves every page in it and needs redirects — ask a developer.'
+                description: 'Только для чтения. Эти префиксы входят в адрес каждой страницы раздела; их смена переносит все страницы и требует редиректов — обратитесь к разработчику.'
                 fields:
-                  - { name: reviews, label: 'Reviews prefix', type: string, readonly: true }
-                  - { name: compare, label: 'Comparisons prefix', type: string, readonly: true }
-                  - { name: guides, label: 'Guides prefix', type: string, readonly: true }
-                  - { name: rankings, label: 'Rankings prefix', type: string, readonly: true }
+                  - { name: reviews, label: 'Префикс обзоров', type: string, readonly: true }
+                  - { name: compare, label: 'Префикс сравнений', type: string, readonly: true }
+                  - { name: guides, label: 'Префикс гайдов', type: string, readonly: true }
+                  - { name: rankings, label: 'Префикс рейтингов', type: string, readonly: true }
               -
                 name: geo
-                label: Market
+                label: Рынок
                 type: object
                 readonly: true
                 fields:
-                  - { name: name, label: 'Country name', type: string, readonly: true }
-                  - { name: hreflang, label: 'Language/region code', type: string, readonly: true }
-                  - { name: enabled, label: Live, type: boolean, readonly: true, description: 'Read-only. A country goes live once DNS, the certificate and the content are ready.' }
+                  - { name: name, label: 'Название страны', type: string, readonly: true }
+                  - { name: hreflang, label: 'Код языка и региона', type: string, readonly: true }
+                  - { name: enabled, label: 'В эфире', type: boolean, readonly: true, description: 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.' }
           -
             name: jp_home
             label: Главная
@@ -1452,10 +1452,10 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: status
                 component: status
@@ -1466,26 +1466,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -1494,8 +1494,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -1504,34 +1504,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: hero_cta
                 label: 'Страница главной кнопки'
@@ -1555,10 +1555,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -1619,19 +1619,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -1642,26 +1642,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -1670,8 +1670,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -1680,43 +1680,43 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: faq
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -1779,19 +1779,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -1802,26 +1802,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -1830,8 +1830,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -1840,34 +1840,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: product
                 label: Продукт
@@ -1897,10 +1897,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -1961,19 +1961,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -1984,26 +1984,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -2012,8 +2012,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -2022,34 +2022,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: ranking
                 label: 'Позиции рейтинга'
@@ -2064,10 +2064,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -2128,19 +2128,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -2151,26 +2151,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -2179,8 +2179,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -2189,34 +2189,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: products
                 label: 'Сравниваемые продукты'
@@ -2232,10 +2232,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -2296,19 +2296,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -2319,26 +2319,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -2347,8 +2347,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -2357,34 +2357,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: products
                 label: 'Упоминаемые продукты'
@@ -2400,10 +2400,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -2464,19 +2464,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -2487,26 +2487,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -2515,8 +2515,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -2525,43 +2525,43 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: faq
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -2592,76 +2592,76 @@ content:
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
       -
         name: site_nl
-        label: 'AI Girlfriend Ranking France Nederland — nl'
+        label: 'AI Girlfriend Ranking Nederland — nl'
         type: group
         items:
           -
             name: nl_settings
-            label: 'Site settings'
-            description: 'Name, description and every piece of interface text for this country.'
+            label: 'Настройки сайта'
+            description: 'Название, описание и все надписи интерфейса для этой страны.'
             type: file
             path: config/sites/nl.yml
             format: yaml
             fields:
               -
                 name: title
-                label: 'Site name'
+                label: 'Название сайта'
                 type: string
                 required: true
-                description: 'Used in the header, in <title> and in Organization/WebSite structured data.'
+                description: 'Используется в шапке, в теге <title> и в микроразметке Organization/WebSite.'
               -
                 name: baseline
-                label: Tagline
+                label: Слоган
                 type: string
               -
                 name: description
-                label: 'Default meta description'
+                label: 'Мета-описание по умолчанию'
                 type: text
                 required: true
-                description: 'Used on pages that do not define their own.'
+                description: 'Используется на страницах, где своё не задано.'
               -
                 name: organization
-                label: Publisher
+                label: Издатель
                 type: object
                 fields:
-                  - { name: name, label: 'Publisher name', type: string }
-                  - { name: legal_name, label: 'Legal name', type: string }
-                  - { name: email, label: 'Contact email', type: string }
+                  - { name: name, label: 'Название издателя', type: string }
+                  - { name: legal_name, label: 'Юридическое лицо', type: string }
+                  - { name: email, label: 'Контактный email', type: string }
               -
                 name: ui
-                label: 'Interface text'
-                description: 'Everything the engine writes on the page by itself: menu, buttons, table headings.'
+                label: 'Надписи интерфейса'
+                description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Menu labels', type: object, fields: [{ name: ranking, label: Ranking, type: string }, { name: reviews, label: Reviews, type: string }, { name: compare, label: Compare, type: string }, { name: guides, label: Guides, type: string }, { name: about, label: About, type: string }, { name: disclosure, label: Disclosure, type: string }, { name: privacy, label: Privacy, type: string }] }
-                  - { name: sections, label: 'Section names', type: object, fields: [{ name: reviews, label: Reviews, type: string }, { name: compare, label: Compare, type: string }, { name: guides, label: Guides, type: string }, { name: rankings, label: Rankings, type: string }] }
-                  - { name: labels, label: 'Interface labels', type: object, fields: [{ name: home, label: Home, type: string }, { name: not_found_text, label: 'Not found text', type: string }, { name: skip_to_content, label: 'Skip to content', type: string }, { name: menu, label: Menu, type: string }, { name: main_navigation, label: 'Main navigation', type: string }, { name: footer_navigation, label: 'Footer navigation', type: string }, { name: close, label: Close, type: string }, { name: read_review, label: 'Read review', type: string }, { name: visit_site, label: 'Visit site', type: string }, { name: try_now, label: 'Try now', type: string, description: 'The %s is replaced by the product name, e.g. "Try %s".' }, { name: pros, label: Pros, type: string }, { name: cons, label: Cons, type: string }, { name: rating, label: Rating, type: string }, { name: out_of, label: 'Out of', type: string, description: 'Used as "4.6 out of 5".' }, { name: score, label: Score, type: string }, { name: rank, label: Rank, type: string }, { name: product, label: Product, type: string }, { name: features, label: Features, type: string }, { name: price, label: Price, type: string }, { name: from, label: From, type: string }, { name: per_month, label: 'Per month', type: string }, { name: free_tier, label: 'Free tier', type: string }, { name: 'yes', label: 'Yes', type: string }, { name: 'no', label: 'No', type: string }, { name: verdict, label: Verdict, type: string }, { name: best_for, label: 'Best for', type: string }, { name: faq, label: Faq, type: string }, { name: toc, label: Toc, type: string }, { name: updated, label: Updated, type: string }, { name: published, label: Published, type: string }, { name: author, label: Author, type: string }, { name: reviewed_by, label: 'Reviewed by', type: string }, { name: related, label: Related, type: string }, { name: all_reviews, label: 'All reviews', type: string }, { name: back_to_top, label: 'Back to top', type: string }, { name: affiliate_notice, label: 'Affiliate notice', type: string, description: 'Shown near every monetised button and in the footer.' }, { name: availability_available, label: 'Availability available', type: string }, { name: availability_limited, label: 'Availability limited', type: string }, { name: availability_unavailable, label: 'Availability unavailable', type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: rankings, label: Рейтинги, type: string }] }
+                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }] }
               -
                 name: baseurl
-                label: Domain
+                label: Домен
                 type: string
                 readonly: true
-                description: 'Read-only. Changing a domain means DNS, a certificate and a new Nginx vhost — ask a developer.'
+                description: 'Только для чтения. Смена домена — это DNS, сертификат и новый конфиг Nginx: обратитесь к разработчику.'
               -
                 name: routes
-                label: 'URL structure'
+                label: 'Структура адресов'
                 type: object
                 readonly: true
-                description: 'Read-only. These prefixes are part of every URL in the section; changing one moves every page in it and needs redirects — ask a developer.'
+                description: 'Только для чтения. Эти префиксы входят в адрес каждой страницы раздела; их смена переносит все страницы и требует редиректов — обратитесь к разработчику.'
                 fields:
-                  - { name: reviews, label: 'Reviews prefix', type: string, readonly: true }
-                  - { name: compare, label: 'Comparisons prefix', type: string, readonly: true }
-                  - { name: guides, label: 'Guides prefix', type: string, readonly: true }
-                  - { name: rankings, label: 'Rankings prefix', type: string, readonly: true }
+                  - { name: reviews, label: 'Префикс обзоров', type: string, readonly: true }
+                  - { name: compare, label: 'Префикс сравнений', type: string, readonly: true }
+                  - { name: guides, label: 'Префикс гайдов', type: string, readonly: true }
+                  - { name: rankings, label: 'Префикс рейтингов', type: string, readonly: true }
               -
                 name: geo
-                label: Market
+                label: Рынок
                 type: object
                 readonly: true
                 fields:
-                  - { name: name, label: 'Country name', type: string, readonly: true }
-                  - { name: hreflang, label: 'Language/region code', type: string, readonly: true }
-                  - { name: enabled, label: Live, type: boolean, readonly: true, description: 'Read-only. A country goes live once DNS, the certificate and the content are ready.' }
+                  - { name: name, label: 'Название страны', type: string, readonly: true }
+                  - { name: hreflang, label: 'Код языка и региона', type: string, readonly: true }
+                  - { name: enabled, label: 'В эфире', type: boolean, readonly: true, description: 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.' }
           -
             name: nl_home
             label: Главная
@@ -2671,10 +2671,10 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: status
                 component: status
@@ -2685,26 +2685,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -2713,8 +2713,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -2723,34 +2723,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: hero_cta
                 label: 'Страница главной кнопки'
@@ -2774,10 +2774,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -2838,19 +2838,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -2861,26 +2861,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -2889,8 +2889,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -2899,43 +2899,43 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: faq
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -2998,19 +2998,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -3021,26 +3021,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -3049,8 +3049,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -3059,34 +3059,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: product
                 label: Продукт
@@ -3116,10 +3116,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -3180,19 +3180,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -3203,26 +3203,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -3231,8 +3231,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -3241,34 +3241,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: ranking
                 label: 'Позиции рейтинга'
@@ -3283,10 +3283,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -3347,19 +3347,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -3370,26 +3370,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -3398,8 +3398,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -3408,34 +3408,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: products
                 label: 'Сравниваемые продукты'
@@ -3451,10 +3451,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -3515,19 +3515,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -3538,26 +3538,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -3566,8 +3566,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -3576,34 +3576,34 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: products
                 label: 'Упоминаемые продукты'
@@ -3619,10 +3619,10 @@ content:
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -3683,19 +3683,19 @@ content:
             fields:
               -
                 name: title
-                label: Title
+                label: Заголовок
                 type: string
                 required: true
-                description: 'The heading shown at the top of the page.'
+                description: 'Заголовок в начале страницы.'
               -
                 name: slug
-                label: URL
+                label: 'Адрес страницы'
                 type: string
                 required: true
-                description: 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.'
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: status
                 component: status
@@ -3706,26 +3706,26 @@ content:
                 hidden: true
               -
                 name: translation_key
-                label: 'Page key'
+                label: 'Ключ страницы'
                 type: string
                 required: true
-                description: 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.'
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-                  message: 'Use lowercase letters, numbers and single hyphens.'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
-                label: 'First published'
+                label: 'Дата публикации'
                 type: date
               -
                 name: updated
-                label: 'Last updated'
+                label: 'Дата обновления'
                 type: date
-                description: 'Shown on the page and used as the sitemap date.'
+                description: 'Показывается на странице и используется как дата в sitemap.'
               -
                 name: author
-                label: Author
-                description: 'Who wrote this page.'
+                label: Автор
+                description: 'Кто написал страницу.'
                 type: reference
                 options:
                   collection: authors
@@ -3734,8 +3734,8 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: reviewer
-                label: 'Reviewed by'
-                description: 'Optional second pair of eyes.'
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
                 type: reference
                 options:
                   collection: authors
@@ -3744,43 +3744,43 @@ content:
                   search: 'fields.name,fields.id'
               -
                 name: intro
-                label: Introduction
+                label: Вступление
                 type: text
-                description: 'One or two sentences under the title.'
+                description: 'Одно-два предложения под заголовком.'
               -
                 name: image
-                label: 'Featured image'
+                label: 'Главное изображение'
                 type: image
                 options:
                   media: content
-                description: 'Shown under the introduction and used as the social preview. Upload the largest version you have — the engine produces every size it needs.'
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
               -
                 name: image_alt
-                label: 'Featured image: alt text'
+                label: 'Главное изображение: alt-текст'
                 type: string
-                description: 'What the image shows, for screen readers and search engines. Defaults to the title.'
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
               -
                 name: image_caption
-                label: 'Featured image: caption'
+                label: 'Главное изображение: подпись'
                 type: string
-                description: 'Optional, printed under the image.'
+                description: 'Необязательно, выводится под изображением.'
               -
                 name: body
-                label: 'Main content'
+                label: 'Основной текст'
                 type: rich-text
                 options:
                   format: markdown
                   media: content
-                description: 'Use the image button in the toolbar to place pictures inside the text. They are made responsive automatically.'
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
                 name: faq
                 component: faq
               -
                 name: related
-                label: 'Related pages'
+                label: 'Похожие страницы'
                 type: string
                 list: true
-                description: 'Optional. Page ids, e.g. "reviews/candy-ai".'
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
               -
                 name: seo
                 component: seo
@@ -3811,8 +3811,8 @@ content:
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
   -
     name: products
-    label: Products
-    description: 'One file per product, shared by every country. Articles reference a product — they never copy its data.'
+    label: Продукты
+    description: 'Один файл на продукт, общий для всех стран. Статьи ссылаются на продукт, а не копируют его данные.'
     type: collection
     path: data/products
     format: yaml
@@ -3838,81 +3838,81 @@ content:
     fields:
       -
         name: name
-        label: 'Product name'
+        label: 'Название продукта'
         type: string
         required: true
       -
         name: slug
-        label: 'Product id'
+        label: 'Идентификатор продукта'
         type: string
         required: true
-        description: 'Lowercase id used by articles and affiliate links, e.g. "candy-ai". Also becomes the file name.'
+        description: 'Идентификатор для статей и партнёрских ссылок, например "candy-ai". Он же становится именем файла.'
         pattern:
           regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-          message: 'Use lowercase letters, numbers and single hyphens.'
+          message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
       -
         name: website
-        label: 'Official website'
+        label: 'Официальный сайт'
         type: string
       -
         name: logo
-        label: Logo
+        label: Логотип
         type: image
         options:
           media: products
       -
         name: rating
-        label: 'Editorial rating'
+        label: 'Оценка редакции'
         type: number
         options:
           min: 0
           max: 5
           step: 0.1
-        description: 'Out of 5. Used on cards, tables and in Review structured data.'
+        description: 'По пятибалльной шкале. Используется в карточках, таблицах и микроразметке Review.'
       -
         name: free_tier
-        label: 'Has a free tier'
+        label: 'Есть бесплатный тариф'
         type: boolean
         default: false
       -
         name: launched
-        label: Launched
+        label: 'Год запуска'
         type: number
       -
         name: category
-        label: 'Schema category'
+        label: 'Категория schema.org'
         type: string
         default: LifestyleApplication
         hidden: true
       -
         name: platforms
-        label: Platforms
+        label: Платформы
         type: string
-        description: 'e.g. "Web, iOS, Android".'
+        description: 'Например, «Web, iOS, Android».'
       -
         name: features
-        label: 'Key features'
+        label: 'Ключевые возможности'
         type: string
         list: true
       -
         name: price
-        label: 'Default price'
+        label: 'Базовая цена'
         type: object
         fields:
           -
             name: amount
-            label: 'Price per month'
+            label: 'Цена в месяц'
             type: number
           -
             name: period
-            label: 'Billing period'
+            label: 'Период оплаты'
             type: string
             default: month
             hidden: true
       -
         name: geo
-        label: 'Country overrides'
-        description: 'Only fill in what differs from the defaults above.'
+        label: 'Переопределения по странам'
+        description: 'Заполняйте только то, что отличается от значений выше.'
         type: object
         fields:
           -
@@ -3922,31 +3922,31 @@ content:
             fields:
               -
                 name: tagline
-                label: 'One-line summary'
+                label: 'Краткое описание'
                 type: text
               -
                 name: best_for
-                label: 'Best for'
+                label: 'Лучше всего для'
                 type: string
               -
                 name: availability
-                label: Availability
+                label: Доступность
                 type: select
                 default: available
                 options:
-                  values: [{ value: available, label: Available }, { value: limited, label: Limited }, { value: unavailable, label: 'Not available' }]
+                  values: [{ value: available, label: Доступен }, { value: limited, label: Ограниченно }, { value: unavailable, label: Недоступен }]
               -
                 name: price
-                label: Price
+                label: Цена
                 type: object
                 fields:
-                  - { name: amount, label: 'Price per month', type: number }
-                  - { name: period, label: 'Billing period', type: string, default: month, hidden: true }
+                  - { name: amount, label: 'Цена в месяц', type: number }
+                  - { name: period, label: 'Период оплаты', type: string, default: month, hidden: true }
               -
                 name: rating
-                label: 'Rating override'
+                label: 'Оценка для этой страны'
                 type: number
-                description: 'Leave empty to use the global rating.'
+                description: 'Оставьте пустым, чтобы использовать общую оценку.'
                 options:
                   min: 0
                   max: 5
@@ -3958,31 +3958,31 @@ content:
             fields:
               -
                 name: tagline
-                label: 'One-line summary'
+                label: 'Краткое описание'
                 type: text
               -
                 name: best_for
-                label: 'Best for'
+                label: 'Лучше всего для'
                 type: string
               -
                 name: availability
-                label: Availability
+                label: Доступность
                 type: select
                 default: available
                 options:
-                  values: [{ value: available, label: Available }, { value: limited, label: Limited }, { value: unavailable, label: 'Not available' }]
+                  values: [{ value: available, label: Доступен }, { value: limited, label: Ограниченно }, { value: unavailable, label: Недоступен }]
               -
                 name: price
-                label: Price
+                label: Цена
                 type: object
                 fields:
-                  - { name: amount, label: 'Price per month', type: number }
-                  - { name: period, label: 'Billing period', type: string, default: month, hidden: true }
+                  - { name: amount, label: 'Цена в месяц', type: number }
+                  - { name: period, label: 'Период оплаты', type: string, default: month, hidden: true }
               -
                 name: rating
-                label: 'Rating override'
+                label: 'Оценка для этой страны'
                 type: number
-                description: 'Leave empty to use the global rating.'
+                description: 'Оставьте пустым, чтобы использовать общую оценку.'
                 options:
                   min: 0
                   max: 5
@@ -3994,39 +3994,39 @@ content:
             fields:
               -
                 name: tagline
-                label: 'One-line summary'
+                label: 'Краткое описание'
                 type: text
               -
                 name: best_for
-                label: 'Best for'
+                label: 'Лучше всего для'
                 type: string
               -
                 name: availability
-                label: Availability
+                label: Доступность
                 type: select
                 default: available
                 options:
-                  values: [{ value: available, label: Available }, { value: limited, label: Limited }, { value: unavailable, label: 'Not available' }]
+                  values: [{ value: available, label: Доступен }, { value: limited, label: Ограниченно }, { value: unavailable, label: Недоступен }]
               -
                 name: price
-                label: Price
+                label: Цена
                 type: object
                 fields:
-                  - { name: amount, label: 'Price per month', type: number }
-                  - { name: period, label: 'Billing period', type: string, default: month, hidden: true }
+                  - { name: amount, label: 'Цена в месяц', type: number }
+                  - { name: period, label: 'Период оплаты', type: string, default: month, hidden: true }
               -
                 name: rating
-                label: 'Rating override'
+                label: 'Оценка для этой страны'
                 type: number
-                description: 'Leave empty to use the global rating.'
+                description: 'Оставьте пустым, чтобы использовать общую оценку.'
                 options:
                   min: 0
                   max: 5
                   step: 0.1
   -
     name: affiliates
-    label: 'Affiliate links'
-    description: 'One file per product. Buttons pick the right link automatically from the product and the country.'
+    label: 'Партнёрские ссылки'
+    description: 'Один файл на продукт. Кнопки сами подбирают нужную ссылку по продукту и стране.'
     type: collection
     path: data/affiliates
     format: yaml
@@ -4049,21 +4049,21 @@ content:
     fields:
       -
         name: product
-        label: 'Product id'
+        label: 'Идентификатор продукта'
         type: string
         required: true
-        description: 'Must match the product id, e.g. "candy-ai".'
+        description: 'Должен совпадать с идентификатором продукта, например "candy-ai".'
         pattern:
           regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-          message: 'Use lowercase letters, numbers and single hyphens.'
+          message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
       -
         name: default
-        label: 'Fallback link'
+        label: 'Запасная ссылка'
         type: string
-        description: 'Used for any country without its own link.'
+        description: 'Используется для стран без собственной ссылки.'
       -
         name: geo
-        label: 'Country links'
+        label: 'Ссылки по странам'
         type: object
         fields:
           -
@@ -4073,7 +4073,7 @@ content:
             fields:
               -
                 name: url
-                label: 'Affiliate URL'
+                label: 'Партнёрская ссылка'
                 type: string
           -
             name: jp
@@ -4082,7 +4082,7 @@ content:
             fields:
               -
                 name: url
-                label: 'Affiliate URL'
+                label: 'Партнёрская ссылка'
                 type: string
           -
             name: nl
@@ -4091,12 +4091,12 @@ content:
             fields:
               -
                 name: url
-                label: 'Affiliate URL'
+                label: 'Партнёрская ссылка'
                 type: string
   -
     name: authors
-    label: Authors
-    description: 'Shared byline registry. Pages reference an author by id.'
+    label: Авторы
+    description: 'Общий справочник авторов. Страницы ссылаются на автора по идентификатору.'
     type: collection
     path: data/authors
     format: yaml
@@ -4120,27 +4120,27 @@ content:
     fields:
       -
         name: name
-        label: 'Display name'
+        label: 'Отображаемое имя'
         type: string
         required: true
       -
         name: id
-        label: 'Author id'
+        label: 'Идентификатор автора'
         type: string
         required: true
-        description: 'Lowercase id used by pages, e.g. "m-keller".'
+        description: 'Идентификатор для страниц, например "m-keller".'
         pattern:
           regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-          message: 'Use lowercase letters, numbers and single hyphens.'
+          message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
       -
         name: avatar
-        label: Photo
+        label: Фото
         type: image
         options:
           media: content
       -
         name: role
-        label: 'Role per language'
+        label: 'Должность по языкам'
         type: object
         fields:
           -
@@ -4157,49 +4157,49 @@ content:
             type: string
   -
     name: network
-    label: Network
+    label: Сеть
     type: group
     items:
       -
         name: network_settings
-        label: 'Navigation & SEO'
-        description: 'Menu structure and structured-data switches for every country at once.'
+        label: 'Навигация и SEO'
+        description: 'Структура меню и переключатели микроразметки — сразу для всех стран.'
         type: file
         path: config/common.yml
         format: yaml
         fields:
           -
             name: navigation
-            label: Menus
-            description: 'One structure for the whole network; each country supplies its own labels.'
+            label: Меню
+            description: 'Одна структура на всю сеть; подписи каждая страна задаёт у себя.'
             type: object
             fields:
               -
                 name: main
-                label: 'Main menu'
-                description: 'Header menu.'
+                label: 'Главное меню'
+                description: 'Меню в шапке.'
                 type: object
                 list:
                   collapsible: { collapsed: false, summary: '{fields.label} ({fields.id})' }
                 fields:
-                  - { name: id, label: 'Page id', type: string, required: true, description: 'e.g. "reviews", "about", "rankings/best-ai-girlfriend". Countries that do not have the page simply skip the item.' }
-                  - { name: label, label: 'Label key', type: string, required: true, description: 'Which entry of "Menu labels" to show. Add the same key to every country under Site settings.' }
-                  - { name: weight, label: Order, type: number, description: 'Lower numbers come first.' }
+                  - { name: id, label: 'Идентификатор страницы', type: string, required: true, description: 'Например, "reviews", "about", "rankings/best-ai-girlfriend". Страны без такой страницы просто пропустят пункт.' }
+                  - { name: label, label: 'Ключ подписи', type: string, required: true, description: 'Какую запись из «Пунктов меню» показывать. Тот же ключ нужно добавить каждой стране в «Настройках сайта».' }
+                  - { name: weight, label: Порядок, type: number, description: 'Меньшие числа идут первыми.' }
               -
                 name: footer
-                label: 'Footer menu'
-                description: 'Footer menu.'
+                label: 'Меню в подвале'
+                description: 'Меню в подвале.'
                 type: object
                 list:
                   collapsible: { collapsed: false, summary: '{fields.label} ({fields.id})' }
                 fields:
-                  - { name: id, label: 'Page id', type: string, required: true, description: 'e.g. "reviews", "about", "rankings/best-ai-girlfriend". Countries that do not have the page simply skip the item.' }
-                  - { name: label, label: 'Label key', type: string, required: true, description: 'Which entry of "Menu labels" to show. Add the same key to every country under Site settings.' }
-                  - { name: weight, label: Order, type: number, description: 'Lower numbers come first.' }
+                  - { name: id, label: 'Идентификатор страницы', type: string, required: true, description: 'Например, "reviews", "about", "rankings/best-ai-girlfriend". Страны без такой страницы просто пропустят пункт.' }
+                  - { name: label, label: 'Ключ подписи', type: string, required: true, description: 'Какую запись из «Пунктов меню» показывать. Тот же ключ нужно добавить каждой стране в «Настройках сайта».' }
+                  - { name: weight, label: Порядок, type: number, description: 'Меньшие числа идут первыми.' }
           -
             name: schema
-            label: 'Structured data'
-            description: 'Which schema.org blocks the engine emits. Turn something off only if search guidelines change.'
+            label: Микроразметка
+            description: 'Какие блоки schema.org выводит движок. Отключайте только при изменении требований поисковых систем.'
             type: object
             fields:
               -
@@ -4220,34 +4220,34 @@ content:
                 type: boolean
               -
                 name: article
-                label: 'Article (rankings, comparisons, guides)'
+                label: 'Article (рейтинги, сравнения, гайды)'
                 type: boolean
               -
                 name: review
-                label: 'Review (review pages with a rating)'
+                label: 'Review (страницы обзоров с оценкой)'
                 type: boolean
               -
                 name: faq
                 label: FAQPage
                 type: boolean
-                description: 'Valid markup either way; Google limits FAQ rich results to a few site categories.'
+                description: 'Разметка корректна в любом случае; расширенные сниппеты FAQ Google показывает лишь части сайтов.'
           -
             name: affiliate
-            label: 'Affiliate links'
+            label: 'Партнёрские ссылки'
             type: object
             fields:
               -
                 name: rel
-                label: 'rel attribute'
+                label: 'Атрибут rel'
                 type: string
-                description: 'Applied to every monetised outbound link. Keep "sponsored" in it.'
+                description: 'Добавляется ко всем партнёрским ссылкам. Оставьте в нём "sponsored".'
               -
                 name: target
-                label: 'Link target'
+                label: 'Открывать ссылку'
                 type: string
               -
                 name: redirect_base
-                label: 'Redirect service'
+                label: 'Сервис редиректов'
                 type: string
                 readonly: true
-                description: 'Read-only. When set, buttons point at go.<domain>/<product>/<country> instead of the network URL.'
+                description: 'Только для чтения. Если задан, кнопки ведут на go.<домен>/<продукт>/<страна>.'

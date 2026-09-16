@@ -121,9 +121,30 @@ Pages CMS commits straight to the default branch (`main`). That is intentional
 here: the editorial gate is the `status` field, not a Git branch — non-technical
 editors should never see branches or pull requests.
 
-Every commit to `main` triggers `.github/workflows/deploy.yml`, which validates,
-builds and deploys. `Draft` and `Review` pages are committed like anything else
-but are never rendered into production output, so saving a draft is always safe.
+`Draft` and `Review` pages are committed like anything else but are never
+rendered into production output, so saving a draft is always safe.
+
+**A commit does not reach production on its own.** The repository variable
+`PUBLISHER` is set to `studio`, so `.github/workflows/deploy.yml` validates and
+builds but stops before deploying — see the table in the README. Work saved in
+Pages CMS goes live when someone pulls `main` into the Studio workspace and
+publishes from there:
+
+```sh
+git pull                                  # bring the editors' commits in
+php scripts/studio.php worker --deploy    # or press Publish in Studio
+```
+
+This is the price of having two editors and one publisher. If you would rather
+have Pages CMS deploy by itself, delete the `PUBLISHER` variable — but then stop
+publishing from Studio, or the two will overwrite each other.
+
+> **Known issue.** Every Actions run on this repository has ended in
+> `startup_failure` since 2026-09-15, before this pipeline was restored. The
+> workflow files parse and both workflows are registered, so the cause is at
+> account level — most likely the Actions spending limit on a private
+> repository. Until that is resolved there is no pre-publication validation in
+> CI; run `./scripts/validate` locally before publishing.
 
 ## Media
 

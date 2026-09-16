@@ -59,6 +59,15 @@ $sourceGeo = Network::geo($source);
 
 /* ------------------------------------------------------------- GEO config */
 
+// The source GEO's title already carries its own market ("AI Girlfriend Ranking
+// France"), so appending the new one produced "… France Nederland". Strip the
+// source market back off to recover the bare brand before appending.
+$brand = trim(str_replace(
+    (string) ($sourceGeo['geo']['name'] ?? ''),
+    '',
+    (string) ($sourceGeo['title'] ?? 'AI Girlfriend Ranking')
+)) ?: 'AI Girlfriend Ranking';
+
 $config = [
     'geo' => [
         'code'         => $code,
@@ -86,13 +95,13 @@ $config = [
         'locale'  => $preset['locale'] ?? 'en_US',
         'enabled' => true,
     ]],
-    'title'       => ($sourceGeo['title'] ?? 'AI Girlfriend Ranking') . ' ' . ($preset['name'] ?? strtoupper($code)),
+    'title'       => $brand . ' ' . ($preset['name'] ?? strtoupper($code)),
     'baseline'    => $sourceGeo['baseline'] ?? '',
     'description' => $sourceGeo['description'] ?? '',
     'pages'       => ['dir' => 'content/' . $code],
     'routes'      => Network::common()['routes'] ?? [],
     'organization' => [
-        'name'       => ($sourceGeo['organization']['name'] ?? 'AI Girlfriend Ranking'),
+        'name'       => $brand . ' ' . ($preset['name'] ?? strtoupper($code)),
         'legal_name' => $sourceGeo['organization']['legal_name'] ?? '',
         'email'      => 'editorial@' . $domain,
         'logo'       => $sourceGeo['organization']['logo'] ?? '/images/brand/logo.svg',

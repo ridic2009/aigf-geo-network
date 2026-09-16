@@ -21,7 +21,7 @@ languages:
     name: Nederland
     locale: nl_NL
     enabled: true
-title: 'AI Girlfriend Ranking France Nederland'
+title: 'AI Girlfriend Ranking Nederland'
 baseline: 'Tests indépendants des applications de compagnon IA'
 description: "Tests indépendants et classements des applications d'IA girlfriend et de compagnon IA, évalués par notre rédaction."
 pages:
@@ -32,7 +32,7 @@ routes:
   guides: guides
   rankings: ''
 organization:
-  name: 'AI Girlfriend Ranking France'
+  name: 'AI Girlfriend Ranking Nederland'
   legal_name: 'AIGR Media'
   email: editorial@aigirlfriendranking-netherlands.site
   logo: /images/brand/logo.svg
