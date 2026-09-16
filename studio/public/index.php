@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
-use AiGf\Tools\{Network, Model, StudioStore, StudioAuth, StudioCatalog, StudioContent, StudioHistory, StudioSites, StudioPreview};
+use AiGf\Tools\{Network, Model, StudioStore, StudioAuth, StudioCatalog, StudioContent, StudioHistory, StudioInsight, StudioSites, StudioPreview};
 
 $path = rawurldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/');
 $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || getenv('STUDIO_HTTPS') === '1';
@@ -95,6 +95,16 @@ try {
                 case 'history-restore':
                     $restored = StudioStore::transaction(fn (&$s) => StudioHistory::restore($user, (string) ($input['path'] ?? ''), (string) ($input['sha'] ?? ''), $s));
                     response(['ok' => true, 'path' => $restored]);
+                case 'markdown':
+                    // The preview pane renders with the same parser the build
+                    // uses. Safe mode on: this HTML goes straight into the DOM,
+                    // and an author's raw tags must stay visible as text.
+                    StudioAuth::requireSite($user, $site);
+                    $body = (string) ($input['body'] ?? '');
+                    if (strlen($body) > 400_000) { throw new InvalidArgumentException('Текст слишком большой для предпросмотра.'); }
+                    $parser = new Parsedown();
+                    $parser->setSafeMode(true);
+                    response(['ok' => true, 'html' => $parser->text($body)]);
                 case 'history-baseline':
                     StudioAuth::requireAdmin($user);
                     response(['ok' => true, 'recorded' => StudioHistory::baseline($user['login'])]);
@@ -141,7 +151,9 @@ try {
             case 'pages':
                 StudioAuth::requireSite($user, $site);
                 $records = [];
-                foreach (\AiGf\Tools\ContentScanner::scan($site) as $p) { $records[$p['relative']] = ['page' => $p['relative'], 'title' => $p['front_matter']['title'] ?? '', 'type' => $p['front_matter']['type'] ?? 'static', 'state' => 'source', 'source_status' => $p['front_matter']['status'] ?? 'draft', 'revision' => 0]; }
+                foreach (\AiGf\Tools\ContentScanner::scan($site) as $p) { $records[$p['relative']] = ['page' => $p['relative'], 'title' => $p['front_matter']['title'] ?? '', 'type' => $p['front_matter']['type'] ?? 'static', 'state' => 'source', 'source_status' => $p['front_matter']['status'] ?? 'draft', 'revision' => 0,
+                    // the editor links to pages by their built URL, not by file name
+                    'path' => $p['path'] === '' ? '/' : '/' . trim($p['path'], '/') . '/', 'product' => $p['front_matter']['product'] ?? null]; }
                 $docs = StudioStore::transaction(fn (&$s) => array_values($s['documents']));
                 foreach ($docs as $doc) { if ($doc['site'] === $site) { $records[$doc['page']] = ['page' => $doc['page'], 'title' => $doc['front_matter']['title'] ?? '', 'type' => $doc['front_matter']['type'], 'state' => $doc['state'], 'revision' => $doc['revision'], 'owner' => $doc['owner']]; } }
                 response(['ok' => true, 'pages' => array_values($records)]);
@@ -150,6 +162,10 @@ try {
                 response(['ok' => true, 'products' => StudioCatalog::list($user), 'markets' => StudioCatalog::markets(),
                     'redirect_base' => Network::common()['affiliate']['redirect_base'] ?? '']);
             case 'product': response(['ok' => true] + StudioCatalog::get($user, (string) ($_GET['id'] ?? '')));
+            case 'seo':
+                // Both views walk the same index; scoping happens inside it.
+                response(['ok' => true, 'audit' => StudioInsight::audit($user, $_GET['site'] ?? null),
+                    'hreflang' => StudioInsight::hreflang($user)]);
             case 'history':
                 StudioAuth::requireAdmin($user);
                 StudioHistory::ensure();
@@ -176,8 +192,15 @@ try {
                 $settings = Network::geo($site ?: 'us');
                 $settings['navigation'] = Network::resolved($site ?: 'us')['navigation'];
                 $settings['routes'] = Network::routes($site ?: 'us');
+                $manual = $settings['redirects'] ?? [];
+                $automatic = [];
+                try {
+                    foreach (\AiGf\Tools\Redirects::map($site ?: 'us') as $old => $new) {
+                        if (!isset($manual[$old])) { $automatic[$old] = $new; }
+                    }
+                } catch (Throwable) { /* a broken map is reported by validation, not here */ }
                 foreach (Model::types($site ?: 'us') as $type) { if (isset($type['section'])) { $settings['routes'][$type['section']] ??= $type['section']; } }
-                response(['ok' => true, 'config' => $settings, 'themes' => $themes, 'models' => $models]);
+                response(['ok' => true, 'config' => $settings, 'themes' => $themes, 'models' => $models, 'redirects_auto' => $automatic]);
             case 'jobs':
                 $jobs = StudioStore::transaction(fn (&$s) => array_reverse(array_values($s['jobs'])));
                 $visible = [];

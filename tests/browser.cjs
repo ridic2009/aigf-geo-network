@@ -118,6 +118,33 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   const inUse=await (await request(context,'product-delete',{id:'candy-ai'})).json();
   check(!inUse.ok && /использ/.test(inUse.message||''),'a product referenced by a page cannot be deleted');
 
+  // SEO: the two things only visible across pages.
+  const seo=await (await context.request.get(url+'/api?action=seo')).json();
+  const group=seo.hreflang.find(g=>g.sites.length>1);
+  check(!!group && group.keys.length>0,'the hreflang matrix pairs pages across markets by translation_key');
+  check(seo.audit.checked>0 && Array.isArray(seo.audit.findings),'the content audit walks every page it can see');
+  const thin=seo.audit.findings.find(f=>f.code==='thin');
+  check(!!thin && /слов|знаков/.test(thin.message),'thin pages are reported with their length');
+  await page.goto(url+'/?view=seo');await page.getByRole('heading',{name:'SEO',exact:true}).waitFor();
+  await page.getByRole('tab',{name:'Переводы',exact:true}).click();
+  check((await page.locator('.tab-panel:not([hidden]) table').count())>0,'the translation matrix renders in the browser');
+
+  // Redirects live in the site config and must never form a loop.
+  const loop=await (await request(context,'site-save',{site:'browser-us',title:'Northstar Reviews',baseurl:'https://browser.example.com/',
+    brand:'northstar',market:'us',language:'en',locale:'en_US',hreflang:'en-US',translation_group:'northstar',
+    redirects:[{from:'/a/',to:'/b/'},{from:'/b/',to:'/a/'}]})).json();
+  check(!loop.ok && /Цикл|цикл/.test(loop.message||''),'a redirect loop is refused');
+  const good=await request(context,'site-save',{site:'browser-us',title:'Northstar Reviews',baseurl:'https://browser.example.com/',
+    brand:'northstar',market:'us',language:'en',locale:'en_US',hreflang:'en-US',translation_group:'northstar',
+    redirects:[{from:'old-home',to:'/'}]});
+  check(good.ok(),'a redirect to a published page is accepted and normalised');
+  const withRedirect=await (await context.request.get(url+'/api?action=settings&site=browser-us')).json();
+  check(withRedirect.config.redirects['/old-home/']==='/','redirect paths are stored with leading and trailing slashes');
+
+  // The editor: preview uses the same parser as the build, and raw HTML stays text.
+  const rendered=await (await request(context,'markdown',{site:'browser-us',body:'## Заголовок\n\n<script>alert(1)</script>\n'})).json();
+  check(rendered.html.includes('<h2>')&&!rendered.html.includes('<script>'),'the preview renders Markdown and neutralises raw HTML');
+
   // History: what Git used to provide, now visible in the app.
   const historyDenied=await editor.request.get(url+'/api?action=history');
   check(historyDenied.status()===403,'the edit history is admin-only');

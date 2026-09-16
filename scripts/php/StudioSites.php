@@ -5,6 +5,14 @@ use Symfony\Component\Yaml\Yaml;
 
 final class StudioSites
 {
+    /** Normalises a redirect path to the /leading/and/trailing/ form the server matches. */
+    private static function path(string $value): string
+    {
+        $value = trim($value);
+        if ($value === '' || $value === '/') { return $value === '/' ? '/' : ''; }
+        return '/' . trim($value, '/') . '/';
+    }
+
     public static function save(array $user, string $id, array $input, bool $create = false): array
     {
         StudioAuth::requireAdmin($user);
@@ -111,6 +119,22 @@ final class StudioSites
                     }
                 }
             }
+            if (isset($input['redirects'])) {
+                if (!is_array($input['redirects']) || count($input['redirects']) > 500) { throw new \InvalidArgumentException('Не больше 500 редиректов.'); }
+                $map = [];
+                foreach ($input['redirects'] as $rule) {
+                    $from = self::path((string) ($rule['from'] ?? ''));
+                    $to = self::path((string) ($rule['to'] ?? ''));
+                    if ($from === '' && $to === '') { continue; }
+                    if (!Redirects::validPath($from) || !Redirects::validPath($to)) {
+                        throw new \InvalidArgumentException('Адрес редиректа: внутренний путь вида /old/ — латиница, цифры, дефисы.');
+                    }
+                    if ($from === $to) { throw new \InvalidArgumentException('Редирект сам на себя: ' . $from); }
+                    if (isset($map[$from])) { throw new \InvalidArgumentException('Старый адрес указан дважды: ' . $from); }
+                    $map[$from] = $to;
+                }
+                $config['redirects'] = $map;
+            }
             if ($previous !== null && parse_url($previous, PHP_URL_HOST) !== $parts['host']) {
                 $config['previous_domains'] = array_values(array_unique(array_merge($config['previous_domains'] ?? [], [parse_url($previous, PHP_URL_HOST)])));
             }
@@ -126,6 +150,10 @@ final class StudioSites
                     if (!isset(Model::types($id)[$page['front_matter']['type'] ?? 'static'])) {
                         throw new \InvalidArgumentException('Модель не поддерживает тип страницы ' . $page['relative'] . '. Сначала перенесите её в совместимый тип.');
                     }
+                }
+                if (isset($input['redirects'])) {
+                    $issues = Redirects::validate($id);
+                    if ($issues) { throw new \InvalidArgumentException($issues[0]['message']); }
                 }
                 if (!$create && isset($input['routes'])) {
                     $newSections = ContentScanner::generatedSections($id, ContentScanner::scan($id));

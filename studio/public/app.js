@@ -43,6 +43,7 @@ const paths = {
   close:'M6 6l12 12M18 6 6 18',
   tag:'M20.5 12.5 12 21 3 12V3h9zM7.5 7.5h.01',
   history:'M3 12a9 9 0 1 0 2.6-6.4M3 4v4h4M12 7.5V12l3 2',
+  chart:'M4 20V10M10 20V4M16 20v-7M22 20H2',
   chain:'M10.5 13.5a4.5 4.5 0 0 0 6.6.4l2.4-2.4a4.5 4.5 0 0 0-6.4-6.4l-1.4 1.4M13.5 10.5a4.5 4.5 0 0 0-6.6-.4l-2.4 2.4a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4',
 };
 function icon(name) {
@@ -165,6 +166,7 @@ function shell(options, ...children) {
     h('nav', {class:'nav', 'aria-label':'Разделы'},
       navLink('grid', 'Все сайты', {view:'sites'}, view === 'sites'),
       site ? navLink('doc', 'Материалы', {view:'pages', site}, ['pages', 'editor'].includes(view)) : null,
+      navLink('chart', 'SEO', {view:'seo'}, view === 'seo'),
       navLink('rocket', 'Публикации', {view:'jobs'}, view === 'jobs'),
       site && admin ? navLink('gear', 'Настройки сайта', {view:'settings', site}, view === 'settings') : null,
       admin ? h('p', {class:'nav__label'}, 'Администрирование') : null,
@@ -356,6 +358,7 @@ function field(name, rule, value, path, schema) {
     for (const [key, child] of Object.entries(rule.fields || {})) { const f = field(key, child, value?.[key], path + '.' + key, schema); group.append(f); readers[key] = f; }
     wrap.append(group);
     wrap.read = () => Object.fromEntries(Object.entries(readers).map(([k, f]) => [k, f.read()]));
+    wrap.write = value => { for (const [key, f] of Object.entries(readers)) f.write(value?.[key]); };
     return wrap;
   }
   if (type === 'list') {
@@ -384,6 +387,7 @@ function field(name, rule, value, path, schema) {
     paint();
     wrap.append(group);
     wrap.read = collect;
+    wrap.write = next => { values = Array.isArray(next) ? next : []; paint(); };
     return wrap;
   }
   let control;
@@ -427,6 +431,156 @@ function field(name, rule, value, path, schema) {
     wrap.append(h('div', {class:'dropzone'}, preview, upload));
   }
   wrap.read = () => type === 'boolean' ? control.checked : type === 'number' ? (control.value === '' ? null : Number(control.value)) : control.value;
+  wrap.write = value => {
+    if (type === 'boolean') { control.checked = !!value; return; }
+    control.value = value == null ? '' : String(value);
+    if (type === 'image') { const preview = wrap.querySelector('.dropzone__preview'); if (preview) { preview.src = control.value; preview.classList.toggle('is-hidden', !control.value); } }
+  };
+  return wrap;
+}
+
+/* ------------------------------------------------------------ text editor
+   A bare textarea is fine for a paragraph and miserable for a 1500-word
+   review. This adds the three things a copywriter actually needs: formatting
+   without remembering Markdown, a preview rendered by the same parser the
+   build uses, and a count of what has been written. */
+
+const wordCount = text => {
+  const plain = text
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/^[ \t]{0,3}#{1,6}[ \t]+/gm, '')
+    .replace(/[*_`>|-]+/g, ' ')
+    .trim();
+  return {words: plain ? plain.split(/\s+/).length : 0, chars: plain.length};
+};
+
+function markdownEditor(textarea, site) {
+  const wrap = h('div', {class:'editor-pane'});
+  const preview = h('div', {class:'md-preview', 'aria-live':'polite'});
+  const counter = h('span', {class:'md-count'});
+
+  /** Wraps the selection, or drops a marker where the caret is. */
+  const around = (before, after = before) => {
+    const {selectionStart:from, selectionEnd:to, value} = textarea;
+    const picked = value.slice(from, to) || 'текст';
+    textarea.value = value.slice(0, from) + before + picked + after + value.slice(to);
+    textarea.focus();
+    textarea.setSelectionRange(from + before.length, from + before.length + picked.length);
+    textarea.dispatchEvent(new Event('input', {bubbles:true}));
+  };
+  /** Prefixes every selected line — lists, quotes and headings work that way. */
+  const lines = prefix => {
+    const {selectionStart:from, selectionEnd:to, value} = textarea;
+    const start = value.lastIndexOf('\n', from - 1) + 1;
+    const end = value.indexOf('\n', to) === -1 ? value.length : value.indexOf('\n', to);
+    const block = value.slice(start, end).split('\n').map(line => line.startsWith(prefix) ? line.slice(prefix.length) : prefix + line).join('\n');
+    textarea.value = value.slice(0, start) + block + value.slice(end);
+    textarea.focus();
+    textarea.setSelectionRange(start, start + block.length);
+    textarea.dispatchEvent(new Event('input', {bubbles:true}));
+  };
+  const insert = text => {
+    const {selectionStart:from, selectionEnd:to, value} = textarea;
+    textarea.value = value.slice(0, from) + text + value.slice(to);
+    textarea.focus();
+    textarea.setSelectionRange(from + text.length, from + text.length);
+    textarea.dispatchEvent(new Event('input', {bubbles:true}));
+  };
+
+  const tool = (label, title, fn) => h('button', {type:'button', class:'md-tool', title, 'aria-label':title, onclick:fn}, label);
+
+  const linkDialog = h('dialog', {class:'link-dialog'});
+  const openLinks = guard(async () => {
+    const {pages} = await api('pages', undefined, {site});
+    const usable = pages.filter(p => p.path);
+    const search = h('input', {type:'search', placeholder:'Название, адрес или товар…', 'aria-label':'Найти страницу'});
+    const list = h('div', {class:'link-list'});
+    const paint = () => {
+      const query = search.value.trim().toLowerCase();
+      const found = usable.filter(p => `${p.title} ${p.path} ${p.product || ''}`.toLowerCase().includes(query));
+      list.replaceChildren(...(found.length ? found.slice(0, 60).map(p => h('button', {type:'button', class:'link-item', onclick:() => {
+        linkDialog.close();
+        insert(`[${p.title || p.path}](${p.path})`);
+      }},
+        h('strong', {}, p.title || p.path),
+        h('span', {}, p.path),
+        p.product ? h('span', {class:'chip'}, p.product) : null)) : [h('p', {class:'muted small'}, 'Ничего не найдено.')]));
+    };
+    search.addEventListener('input', paint);
+    paint();
+    linkDialog.replaceChildren(
+      h('header', {}, h('strong', {}, 'Ссылка на страницу сайта'), iconButton('close', 'Закрыть', () => linkDialog.close())),
+      h('div', {class:'card__body'}, h('div', {class:'search'}, icon('search'), search), list));
+    linkDialog.showModal();
+    search.focus();
+  });
+
+  const modes = h('div', {class:'md-modes', role:'radiogroup', 'aria-label':'Режим редактора'});
+
+  const toolbar = h('div', {class:'md-toolbar', role:'toolbar', 'aria-label':'Форматирование'},
+    tool('Ж', 'Полужирный (Ctrl+B)', () => around('**')),
+    tool('К', 'Курсив (Ctrl+I)', () => around('*')),
+    h('span', {class:'md-sep'}),
+    tool('H2', 'Подзаголовок', () => lines('## ')),
+    tool('H3', 'Подзаголовок третьего уровня', () => lines('### ')),
+    h('span', {class:'md-sep'}),
+    tool('•', 'Маркированный список', () => lines('- ')),
+    tool('1.', 'Нумерованный список', () => lines('1. ')),
+    tool('❝', 'Цитата', () => lines('> ')),
+    h('span', {class:'md-sep'}),
+    tool('🔗', 'Внешняя ссылка', () => around('[', '](https://)')),
+    h('button', {type:'button', class:'md-tool md-tool--wide', onclick:openLinks}, icon('doc'), 'Страница сайта'),
+    modes);
+
+  const setMode = mode => {
+    wrap.dataset.mode = mode;
+    modes.querySelectorAll('button').forEach(b => {
+      const on = b.dataset.mode === mode;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    });
+    try { localStorage.setItem('studio:editor-mode', mode); } catch { /* private mode */ }
+    if (mode !== 'write') render();
+  };
+  for (const [mode, label] of [['write', 'Текст'], ['split', 'Рядом'], ['preview', 'Предпросмотр']]) {
+    modes.append(h('button', {type:'button', class:'md-mode', role:'radio', 'data-mode':mode, onclick:() => setMode(mode)}, label));
+  }
+
+  let timer = null, lastRendered = null;
+  const render = () => {
+    if (wrap.dataset.mode === 'write' || textarea.value === lastRendered) return;
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      const body = textarea.value;
+      try {
+        const {html} = await api('markdown', {site, body});
+        lastRendered = body;
+        preview.innerHTML = html || '<p class="muted small">Пусто.</p>';
+      } catch { preview.textContent = 'Предпросмотр недоступен.'; }
+    }, 400);
+  };
+
+  const count = () => {
+    const {words, chars} = wordCount(textarea.value);
+    counter.textContent = `${words} ${plural(words, 'слово', 'слова', 'слов')} · ${chars} ${plural(chars, 'знак', 'знака', 'знаков')}`;
+  };
+  textarea.addEventListener('input', () => { count(); render(); });
+  textarea.addEventListener('keydown', event => {
+    if (!(event.ctrlKey || event.metaKey)) return;
+    const key = event.key.toLowerCase();
+    if (key === 'b') { event.preventDefault(); around('**'); }
+    if (key === 'i') { event.preventDefault(); around('*'); }
+  });
+
+  wrap.append(toolbar,
+    h('div', {class:'md-body'}, textarea, preview),
+    h('div', {class:'md-foot'}, counter, linkDialog));
+  count();
+  let saved = 'write';
+  try { saved = localStorage.getItem('studio:editor-mode') || 'write'; } catch { /* private mode */ }
+  setMode(['write', 'split', 'preview'].includes(saved) ? saved : 'write');
   return wrap;
 }
 
@@ -462,6 +616,7 @@ function blocksEditor(value, schema) {
     h('button', {type:'button', class:'btn--sm', onclick:() => { values = collect(); values.push({type}); paint(); setDirty(true); }}, icon('plus'), def.label))));
   root.append(body);
   root.read = collect;
+  root.write = next => { values = Array.isArray(next) ? next : []; paint(); };
   return root;
 }
 
@@ -708,8 +863,8 @@ async function editorView(site, page) {
   contentBody.append(
     h('div', {class:'field'},
       h('label', {for:'field-body'}, 'Основной текст'),
-      h('small', {class:'field__hint'}, 'Markdown: ## подзаголовок, **выделение**, [ссылка](/adres/). Заголовок страницы берётся из поля выше.'),
-      body));
+      h('small', {class:'field__hint'}, 'Заголовок страницы берётся из поля выше — в тексте начинайте с «##».'),
+      markdownEditor(body, site)));
 
   const card = (title, hint, ...bodies) => h('section', {class:'card'},
     h('div', {class:'card__head'}, h('div', {}, h('h2', {}, title), hint ? h('p', {}, hint) : null)), ...bodies);
@@ -734,18 +889,57 @@ async function editorView(site, page) {
   ].filter(Boolean));
   form.append(editorTabs);
 
-  const save = async () => {
+  const collect = () => {
     const fm = Object.fromEntries(Object.entries(readers).map(([k, f]) => [k, f.read()]));
     fm.type = doc.front_matter.type;
     fm.blocks = blocks.read();
-    const saved = await api('save', {site, page, revision:doc.revision, front_matter:fm, body:body.value});
+    return {front_matter:fm, body:body.value};
+  };
+
+  const save = async () => {
+    const payload = collect();
+    const saved = await api('save', {site, page, revision:doc.revision, ...payload});
     if (!saved.ok) { errorsPanel(saved.errors, errors); fail('Проверьте выделенные поля.'); return false; }
+    recovery.forget();
     setDirty(false);
     done('Сохранено.');
     await render();
     return true;
   };
   form.addEventListener('submit', guard(async event => { event.preventDefault(); await save(); }));
+
+  /* A closed tab, a flat battery or a stray reload used to cost an hour of
+     writing. Unsaved work is mirrored into this browser and offered back on
+     return — never applied silently, because the file may have moved on. */
+  const recovery = (() => {
+    const key = `studio:draft:${site}:${page}`;
+    let timer = null;
+    const read = () => {
+      try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch { return null; }
+    };
+    const forget = () => { clearTimeout(timer); try { localStorage.removeItem(key); } catch { /* private mode */ } };
+    const keep = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        try {
+          localStorage.setItem(key, JSON.stringify({revision:doc.revision, at:Date.now(), ...collect()}));
+        } catch { /* quota or private mode: autosave is a convenience, not a guarantee */ }
+      }, 800);
+    };
+    const apply = stored => {
+      for (const [name, f] of Object.entries(readers)) {
+        if (stored.front_matter[name] !== undefined) f.write(stored.front_matter[name]);
+      }
+      blocks.write(stored.front_matter.blocks);
+      body.value = stored.body;
+      body.dispatchEvent(new Event('input', {bubbles:true}));
+      setDirty(true);
+    };
+    return {key, read, forget, keep, apply};
+  })();
+
+  form.addEventListener('input', recovery.keep);
+  body.addEventListener('input', recovery.keep);
 
   const transition = action => guard(async () => {
     if (dirty) { fail('Сначала сохраните изменения — согласование относится к конкретной ревизии.'); return; }
@@ -805,11 +999,29 @@ async function editorView(site, page) {
 
   if (!editable) form.querySelectorAll('input,textarea,select,button').forEach(control => control.disabled = true);
 
+  const recovered = h('div');
+  const stored = editable ? recovery.read() : null;
+  if (stored && stored.revision === doc.revision && stored.body !== doc.body) {
+    const bar = h('div', {class:'notice-card notice-card--alert'}, icon('alert'),
+      h('div', {class:'recovery'},
+        h('div', {},
+          h('strong', {}, 'В этом браузере остались несохранённые правки'),
+          h('p', {class:'muted small'}, 'Автосохранение от ' + ago(new Date(stored.at).toISOString()) + '. На сервере их нет.')),
+        h('div', {class:'recovery__actions'},
+          h('button', {type:'button', class:'primary btn--sm', onclick:() => { recovery.apply(stored); bar.remove(); done('Правки восстановлены. Проверьте и сохраните.'); }}, 'Восстановить'),
+          h('button', {type:'button', class:'btn--sm', onclick:() => { recovery.forget(); bar.remove(); }}, 'Отклонить'))));
+    recovered.append(bar);
+  } else if (stored) {
+    // The document moved on since the autosave, so the copy is stale, not useful.
+    recovery.forget();
+  }
+
   shell({
     title:null,
     breadcrumb:[['Сайты', {view:'sites'}], [sites.find(s => s.id === site)?.title || site, {view:'pages', site}], doc.front_matter.title || 'Новый материал'],
     actions:[badge(doc.state)],
   },
+    recovered,
     errors,
     h('div', {class:'editor-grid'}, form, rail),
     savebar);
@@ -901,6 +1113,28 @@ async function settingsView(site, create) {
     const navCard = section('Навигация', 'Ссылки появятся после публикации соответствующих страниц. ID главной — index.');
     bodyEl.append(nav);
     panels.push({id:'navigation', label:'Навигация', icon:'menu', panel:h('div', {class:'tab-panel'}, navCard)});
+
+    // Only the manual map is editable. The redirects derived from the aliases of
+    // a renamed published page are shown, because otherwise a 301 appears out of
+    // nowhere and nobody can find where it is configured.
+    const manual = Object.entries(c.redirects || {}).map(([from, to]) => ({from, to}));
+    const redirects = field('redirects', {type:'list', label:'Редиректы', hideLabel:true,
+      items:{type:'object', fields:{from:{label:'Старый адрес, например /old-page/'}, to:{label:'Куда вести, например /reviews/new-page/'}}}}, manual, 'redirects', {});
+    extra.redirects = redirects;
+    const auto = Object.entries(result.redirects_auto || {});
+    const redirectCard = section('Редиректы', 'Постоянные 301 внутри сайта. Адреса пишутся со слэшами: /old/ → /reviews/new/. Цель должна быть опубликована, циклы отклоняются при сохранении.');
+    bodyEl.append(redirects);
+    if (auto.length) {
+      bodyEl.append(h('div', {class:'mt-5'},
+        h('p', {class:'field__label'}, 'Появились сами, после переименования страниц'),
+        h('p', {class:'muted small'}, 'Они живут в поле aliases соответствующей страницы. Чтобы убрать такой редирект, правьте страницу.'),
+        h('div', {class:'table-card mt-3'}, h('table', {class:'table'},
+          h('thead', {}, h('tr', {}, h('th', {}, 'Старый адрес'), h('th', {}, 'Ведёт на'))),
+          h('tbody', {}, auto.map(([from, to]) => h('tr', {},
+            h('td', {}, h('span', {class:'mono'}, from)),
+            h('td', {}, h('span', {class:'mono'}, to)))))))));
+    }
+    panels.push({id:'redirects', label:'Редиректы', icon:'back', panel:h('div', {class:'tab-panel'}, redirectCard)});
   }
 
   form.addEventListener('input', () => setDirty(true));
@@ -1190,6 +1424,82 @@ async function productView(id, create) {
 const plural = (n, one, few, many) => n % 10 === 1 && n % 100 !== 11 ? one
   : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? few : many;
 
+/* --------------------------------------------------------------------- seo
+   Two questions the build cannot answer, because both only exist between
+   pages: where the translations have holes, and what is wrong across a site. */
+
+const auditCodes = {
+  duplicate:'Дубли', orphan:'Нет входящих ссылок', thin:'Мало текста',
+  alt:'Изображения без alt', noindex:'Закрыта от индексации',
+};
+
+async function seoView(site) {
+  const {audit, hreflang} = await api('seo', undefined, site ? {site} : {});
+
+  /* ---- audit ---- */
+  const errors = audit.findings.filter(f => f.level === 'error').length;
+  const tone = errors ? 'alert' : audit.findings.length ? 'info' : 'check';
+  const auditRows = audit.findings.map(finding => h('tr', {},
+    h('td', {}, link(finding.title || finding.page, {view:'editor', site:finding.site, page:finding.page, ...(finding.field ? {} : {})}, 'table__title'),
+      h('span', {class:'table__path'}, finding.site + ' · ' + finding.page)),
+    h('td', {class:'shrink'}, h('span', {class:'chip chip--' + (finding.level === 'error' ? 'danger' : 'warn')}, auditCodes[finding.code] || finding.code)),
+    h('td', {}, h('span', {class:'muted small'}, finding.message)),
+    h('td', {class:'shrink'}, finding.status === 'published' ? badge('published') : badge('draft'))));
+
+  const auditPanel = h('div', {class:'tab-panel'},
+    h('div', {class:'notice-card notice-card--' + tone}, icon(tone),
+      h('div', {},
+        h('strong', {}, audit.findings.length
+          ? `${audit.findings.length} ${plural(audit.findings.length, 'замечание', 'замечания', 'замечаний')} на ${audit.checked} ${plural(audit.checked, 'странице', 'страницах', 'страницах')}`
+          : 'Замечаний нет'),
+        h('p', {class:'muted small'}, 'Это не блокирует публикацию. Сборка отдельно проверяет обязательные поля, ссылки и разметку — здесь только то, что видно между страницами.'))),
+    audit.findings.length
+      ? h('div', {class:'table-card'}, h('table', {class:'table'},
+          h('thead', {}, h('tr', {}, h('th', {}, 'Страница'), h('th', {}, 'Что'), h('th', {}, 'Подробности'), h('th', {}, 'Состояние'))),
+          h('tbody', {}, auditRows)))
+      : h('div', {class:'table-card'}, emptyState('Всё чисто', 'Дублей, пустых alt и страниц без входящих ссылок не нашлось.')));
+
+  /* ---- hreflang ---- */
+  const groups = hreflang.map(group => {
+    const head = h('tr', {}, h('th', {}, 'Ключ перевода'),
+      ...group.sites.map(s => h('th', {}, s.market.toUpperCase(), s.staging ? h('span', {class:'chip chip--warn'}, 'тест') : null)));
+    const rows = group.keys.map(row => h('tr', {},
+      h('td', {}, h('span', {class:'table__title'}, row.title), h('span', {class:'table__path'}, row.key)),
+      ...group.sites.map(s => {
+        const cell = row.sites[s.id];
+        if (!cell) return h('td', {class:'shrink'}, h('span', {
+          class:'chip chip--' + (s.staging ? 'muted' : 'danger'),
+          title:s.staging ? 'Перевода нет, но сайт тестовый — в hreflang он не участвует' : 'Перевода нет: страница выпадает из hreflang этой группы',
+        }, s.staging ? '—' : 'нет'));
+        return h('td', {class:'shrink'}, link(cell.status === 'published' ? 'есть' : 'черновик',
+          {view:'editor', site:s.id, page:cell.page},
+          'chip chip--' + (cell.status === 'published' ? 'ok' : 'warn')));
+      })));
+    return h('section', {class:'card'},
+      h('div', {class:'card__head'}, h('div', {},
+        h('h2', {}, 'Группа переводов: ' + group.group),
+        h('p', {}, group.sites.length + ' ' + plural(group.sites.length, 'сайт', 'сайта', 'сайтов')
+          + ' · ' + group.keys.length + ' ' + plural(group.keys.length, 'ключ', 'ключа', 'ключей')
+          + (group.untranslatable.length ? ' · без ключа: ' + group.untranslatable.length : '')))),
+      h('div', {class:'table-wrap'}, h('table', {class:'table'}, h('thead', {}, head), h('tbody', {}, rows))),
+      group.untranslatable.length
+        ? h('div', {class:'card__body'}, h('p', {class:'muted small'},
+            'Без translation_key, поэтому не связываются с другими странами: '
+            + group.untranslatable.slice(0, 6).map(u => u.site + '/' + u.page).join(', ')
+            + (group.untranslatable.length > 6 ? ' и ещё ' + (group.untranslatable.length - 6) : '')))
+        : null);
+  });
+
+  shell({
+    title:'SEO',
+    subtitle:'Проверки, которые видны только поверх всей сети.',
+    breadcrumb:['SEO'],
+  }, tabs([
+    {id:'audit', label:'Аудит', icon:'check', panel:auditPanel},
+    {id:'hreflang', label:'Переводы', icon:'sites', panel:h('div', {class:'tab-panel'}, groups.length ? groups : emptyState('Групп переводов нет', 'Свяжите сайты общей группой переводов в настройках.'))},
+  ]));
+}
+
 /* ----------------------------------------------------------------- history
    What Git used to provide. Every write Studio makes to content, config or
    data is recorded, so a publication can be compared with what it replaced
@@ -1305,6 +1615,7 @@ async function render() {
     else if (view === 'settings' || view === 'new-site') await settingsView(site, view === 'new-site');
     else if (view === 'catalog') await catalogView();
     else if (view === 'product') await productView(p.get('id') || '', p.get('create') === '1');
+    else if (view === 'seo') await seoView(p.get('site'));
     else if (view === 'history') await historyView(p.get('path'));
     else if (view === 'version') await versionView(p.get('path') || '', p.get('sha'));
     else if (view === 'jobs') await jobsView();

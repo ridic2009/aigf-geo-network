@@ -55,6 +55,7 @@ SEO specialist / copywriter
           │
           ├── version history      every write to content/config/data
           ├── catalogue            products, prices, affiliate links
+          ├── SEO                  cross-site audit, hreflang matrix, redirects
           └── publication queue
                   │
                   ▼

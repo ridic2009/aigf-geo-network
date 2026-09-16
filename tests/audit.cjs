@@ -72,7 +72,16 @@ const focusRings = () => {
   for (const el of nodes) {
     el.focus();
     const s = getComputedStyle(el);
-    const ring = (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0) || /inset|0px 0px 0px/.test(s.boxShadow);
+    // A control may delegate its ring to a wrapper styled with :focus-within,
+    // which is a legitimate pattern for composite editors. Walk every such
+    // ancestor: the nearest one is often a bare layout div.
+    let wrapped = false;
+    for (let up = el.parentElement; up && !wrapped; up = up.parentElement) {
+      if (!up.matches(':focus-within')) break;
+      const style = getComputedStyle(up);
+      wrapped = /inset|0px 0px 0px/.test(style.boxShadow) || (style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) > 0);
+    }
+    const ring = (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0) || /inset|0px 0px 0px/.test(s.boxShadow) || wrapped;
     if (!ring) bad.push(el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\s+/).join('.') : ''));
   }
   return [...new Set(bad)];
