@@ -677,6 +677,11 @@ $config = [
             'merge' => true,
         ],
         'commit' => [
+            // Attribute the commit to the collaborator who made it, not to the
+            // Pages CMS app. With several writers sharing one installation
+            // token, the app identity makes the history useless for answering
+            // "who changed this page".
+            'identity' => 'user',
             'templates' => [
                 'create' => 'content: add {filename}',
                 'update' => 'content: update {filename}',

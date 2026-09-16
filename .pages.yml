@@ -40,6 +40,7 @@ settings:
   content:
     merge: true
   commit:
+    identity: user
     templates:
       create: 'content: add {filename}'
       update: 'content: update {filename}'
