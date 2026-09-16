@@ -41,6 +41,7 @@ const paths = {
   inbox:'M3 13h5l1.5 3h5L16 13h5M3 13l3-8h12l3 8v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
   back:'M19 12H5M12 19l-7-7 7-7',
   close:'M6 6l12 12M18 6 6 18',
+  chain:'M10.5 13.5a4.5 4.5 0 0 0 6.6.4l2.4-2.4a4.5 4.5 0 0 0-6.4-6.4l-1.4 1.4M13.5 10.5a4.5 4.5 0 0 0-6.6-.4l-2.4 2.4a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4',
 };
 function icon(name) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -91,8 +92,12 @@ function ago(value) {
   return new Date(value).toLocaleDateString('ru', {day:'numeric', month:'short'});
 }
 
+/** Brings a field into view even when it sits on a closed tab or group. */
 function revealField(target) {
-  for (let parent = target?.parentElement; parent; parent = parent.parentElement) if (parent.tagName === 'DETAILS') parent.open = true;
+  for (let parent = target?.parentElement; parent; parent = parent.parentElement) {
+    if (parent.tagName === 'DETAILS') parent.open = true;
+    if (parent.dataset?.tab) parent.parentElement.show(parent.dataset.tab);
+  }
   target?.scrollIntoView({block:'center'});
 }
 
@@ -196,6 +201,114 @@ function emptyState(text, hint, action) {
   return h('div', {class:'empty'}, icon('inbox'), h('strong', {}, text), hint ? h('p', {}, hint) : null, action || null);
 }
 
+/**
+ * Tab group.
+ * items: [{id, label, icon, hint, panel}]
+ *
+ * Inactive panels are hidden, never detached: saving reads every field back
+ * from the DOM, so a removed panel would be written out as empty. Hidden form
+ * controls still keep their values, which is exactly what we need.
+ *
+ * The open tab is mirrored into ?tab= with replaceState, not navigate(), so
+ * switching tabs never re-renders the view or throws away unsaved edits — but
+ * a reload or a shared link still lands on the same tab.
+ */
+function tabs(items, param = 'tab') {
+  const list = h('div', {class:'tabs', role:'tablist'});
+  const wrap = h('div', {class:'tabset'}, list);
+  const buttons = new Map();
+
+  const show = (id, remember = true) => {
+    if (!buttons.has(id)) id = items[0].id;
+    for (const item of items) {
+      const on = item.id === id;
+      const tab = buttons.get(item.id);
+      tab.classList.toggle('active', on);
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      tab.tabIndex = on ? 0 : -1;
+      item.panel.hidden = !on;
+    }
+    wrap.active = id;
+    if (remember) {
+      const query = params();
+      query.set(param, id);
+      history.replaceState(null, '', '/?' + query);
+    }
+  };
+
+  items.forEach((item, index) => {
+    const tabId = 'tab-' + item.id;
+    const panelId = 'panel-' + item.id;
+    Object.assign(item.panel, {id:panelId, hidden:true});
+    item.panel.dataset.tab = item.id;
+    item.panel.setAttribute('role', 'tabpanel');
+    item.panel.setAttribute('aria-labelledby', tabId);
+
+    const tab = h('button', {
+      type:'button', class:'tab', id:tabId, role:'tab', 'aria-controls':panelId,
+      onclick:() => show(item.id),
+      onkeydown:event => {
+        const step = {ArrowRight:1, ArrowLeft:-1, Home:-index, End:items.length - 1 - index}[event.key];
+        if (step === undefined) return;
+        event.preventDefault();
+        const next = items[(index + step + items.length) % items.length];
+        show(next.id);
+        buttons.get(next.id).focus();
+      },
+    }, item.icon ? icon(item.icon) : null, h('span', {}, item.label), h('span', {class:'tab__flag', hidden:true}));
+
+    buttons.set(item.id, tab);
+    list.append(tab);
+    wrap.append(item.panel);
+  });
+
+  wrap.show = show;
+  wrap.tabFor = id => buttons.get(id);
+  show(params().get(param) || items[0].id, false);
+  return wrap;
+}
+
+/**
+ * Filter strip. Looks like the tab bar but filters the list below instead of
+ * swapping panels, so it is a radio group rather than a tablist.
+ */
+function segmented(items, value, onchange) {
+  const strip = h('div', {class:'tabs tabs--filter', role:'radiogroup'});
+  const paint = next => {
+    value = next;
+    strip.querySelectorAll('.tab').forEach(node => {
+      const on = node.dataset.value === String(next);
+      node.classList.toggle('active', on);
+      node.setAttribute('aria-checked', on ? 'true' : 'false');
+      node.tabIndex = on ? 0 : -1;
+    });
+    onchange(next);
+  };
+  for (const item of items) {
+    strip.append(h('button', {
+      type:'button', class:'tab', role:'radio', 'data-value':item.id,
+      onclick:() => paint(item.id),
+    }, h('span', {}, item.label), h('span', {class:'tab__count'}, item.count)));
+  }
+  paint(value);
+  return strip;
+}
+
+/** Marks tabs whose panel holds a field the server rejected. */
+function flagTabs() {
+  document.querySelectorAll('.tab__flag').forEach(flag => { flag.hidden = true; flag.textContent = ''; });
+  document.querySelectorAll('.tabset').forEach(set => {
+    for (const panel of set.querySelectorAll(':scope > [role="tabpanel"]')) {
+      const count = panel.querySelectorAll('[aria-invalid="true"]').length;
+      const flag = set.tabFor(panel.dataset.tab)?.querySelector('.tab__flag');
+      if (!flag || !count) continue;
+      flag.hidden = false;
+      flag.textContent = String(count);
+      flag.title = count + ' ' + (count === 1 ? 'поле требует внимания' : 'полей требуют внимания');
+    }
+  });
+}
+
 function errorsPanel(issues, container) {
   document.querySelectorAll('[aria-invalid="true"]').forEach(control => {
     control.removeAttribute('aria-invalid');
@@ -203,7 +316,7 @@ function errorsPanel(issues, container) {
     document.getElementById(control.id + '-error')?.remove();
   });
   container.replaceChildren();
-  if (!issues?.length) return;
+  if (!issues?.length) { flagTabs(); return; }
   container.append(h('section', {class:'error-summary', tabindex:'-1', role:'alert'},
     h('h2', {}, 'Исправьте перед продолжением'),
     h('ul', {}, issues.map(issue => h('li', {}, h('a', {href:issue.edit_url || '#field-' + (issue.field || 'body').replaceAll('.', '-'), onclick:event => {
@@ -223,6 +336,7 @@ function errorsPanel(issues, container) {
       control.after(h('small', {id, class:'field-error'}, issue.message));
     }
   }
+  flagTabs();
   container.firstElementChild.focus();
 }
 
@@ -405,7 +519,6 @@ async function usersView() {
       h('div', {class:'field'}, h('label', {for:'new-role'}, 'Роль'), role),
       h('div', {class:'field'}, h('label', {for:'new-scopes'}, 'Доступные сайты'), scopes, h('small', {class:'field__hint'}, 'ID через запятую, * — все сайты.')),
       h('button', {type:'submit', class:'primary'}, 'Создать участника')));
-  dialog.querySelector('header button svg path').setAttribute('d', 'M6 6l12 12M18 6 6 18');
 
   const add = h('button', {type:'button', class:'primary', onclick:() => dialog.showModal()}, icon('plus'), 'Добавить участника');
   shell({
@@ -419,7 +532,7 @@ async function usersView() {
 }
 
 async function sitesView() {
-  const cards = sites.map(site => h('article', {class:'site-card'},
+  const card = site => h('article', {class:'site-card'},
     h('div', {class:'site-card__top'},
       h('span', {class:'site-card__mark'}, monogram(site.identity?.market || site.title)),
       h('div', {class:'site-card__head'},
@@ -432,14 +545,28 @@ async function sitesView() {
       h('span', {class:'chip'}, site.identity.theme)),
     h('div', {class:'site-card__foot'},
       link('Материалы', {view:'pages', site:site.id}, 'button primary'),
-      session.user.role === 'admin' ? link('Настройки', {view:'settings', site:site.id}, 'button') : null)));
+      session.user.role === 'admin' ? link('Настройки', {view:'settings', site:site.id}, 'button') : null));
+
+  // One engine, many GEOs: with a dozen sites a flat grid stops being readable,
+  // so group by brand. A single-brand workspace gets no headings.
+  const byBrand = new Map();
+  for (const site of sites) {
+    const brand = site.identity?.brand || '—';
+    if (!byBrand.has(brand)) byBrand.set(brand, []);
+    byBrand.get(brand).push(site);
+  }
+  const groups = [...byBrand.keys()].sort().map(brand => byBrand.size > 1
+    ? h('section', {class:'site-group'},
+        h('h2', {class:'site-group__title'}, brand, h('span', {class:'site-group__count'}, byBrand.get(brand).length)),
+        h('div', {class:'site-grid'}, byBrand.get(brand).map(card)))
+    : h('div', {class:'site-grid'}, byBrand.get(brand).map(card)));
 
   shell({
     title:'Сайты',
     subtitle:sites.length + (sites.length % 10 === 1 && sites.length % 100 !== 11 ? ' сайт' : [2,3,4].includes(sites.length % 10) && ![12,13,14].includes(sites.length % 100) ? ' сайта' : ' сайтов') + ' в рабочем пространстве',
     breadcrumb:['Сайты'],
     actions:session.user.role === 'admin' ? [link('Новый сайт', {view:'new-site'}, 'button primary')] : [],
-  }, sites.length ? h('div', {class:'site-grid'}, cards) : emptyState('Сайтов пока нет', 'Создайте первый сайт, чтобы начать.'));
+  }, sites.length ? groups : emptyState('Сайтов пока нет', 'Создайте первый сайт, чтобы начать.'));
 }
 
 async function pagesView(site) {
@@ -447,26 +574,69 @@ async function pagesView(site) {
   const current = sites.find(s => s.id === site);
 
   const search = h('input', {type:'search', placeholder:'Название или путь…', 'aria-label':'Найти материал'});
-  const state = h('select', {'aria-label':'Фильтр по состоянию'}, h('option', {value:''}, 'Любое состояние'),
-    Object.entries(labels).filter(([k]) => !['staging','production'].includes(k)).map(([k, v]) => h('option', {value:k}, v)));
-  const count = h('span', {class:'toolbar__count'});
   const tbody = h('tbody');
 
+  // Workflow stages, not raw states: an editor thinks "что у меня в работе",
+  // not "draft or publication_failed". Every state belongs to exactly one
+  // stage, so nothing can disappear from all of them at once.
+  const stages = [
+    {id:'', label:'Все', states:null},
+    {id:'source', label:'Исходники', states:['source']},
+    {id:'work', label:'В работе', states:['draft', 'publication_failed', 'cancelled']},
+    {id:'review', label:'На проверке', states:['review', 'approved']},
+    {id:'live', label:'Опубликовано', states:['published', 'publishing', 'queued', 'built']},
+  ];
+  const inStage = (page, stage) => !stage.states || stage.states.includes(page.state);
+  let stage = stages.find(s => s.id === (params().get('stage') || '')) || stages[0];
+
+  const sectionOf = page => page.page.includes('/') ? page.page.slice(0, page.page.lastIndexOf('/')) : '';
+  const sectionLabel = key => '/' + (key === '' ? '' : key + '/');
+
   const paint = () => {
-    const visible = pages.filter(p => (!state.value || p.state === state.value) && `${p.title} ${p.page}`.toLowerCase().includes(search.value.toLowerCase()));
-    count.textContent = visible.length === pages.length ? `${pages.length} материалов` : `${visible.length} из ${pages.length}`;
-    tbody.replaceChildren(...visible.map(p => h('tr', {},
-      h('td', {}, link(p.title || 'Без названия', {view:'editor', site, page:p.page}, 'table__title'),
-        h('span', {class:'table__path'}, p.page)),
-      h('td', {class:'shrink muted'}, schema.types[p.type]?.label || p.type),
-      h('td', {class:'shrink'}, badge(p.state)))));
-    if (!visible.length) tbody.replaceChildren(h('tr', {}, h('td', {colspan:'3'},
-      emptyState(pages.length ? 'Ничего не найдено' : 'Материалов пока нет',
-        pages.length ? 'Измените условия поиска.' : 'Создайте первый материал для этого сайта.'))));
+    const query = search.value.trim().toLowerCase();
+    const visible = pages.filter(p => inStage(p, stage) && `${p.title} ${p.page}`.toLowerCase().includes(query));
+
+    if (!visible.length) {
+      tbody.replaceChildren(h('tr', {}, h('td', {colspan:'3'},
+        emptyState(pages.length ? 'Ничего не найдено' : 'Материалов пока нет',
+          pages.length ? 'Измените условия поиска или выберите другое состояние.' : 'Создайте первый материал для этого сайта.'))));
+      return;
+    }
+
+    // Group by folder so the list mirrors the structure of the site.
+    const bySection = new Map();
+    for (const page of visible) {
+      const key = sectionOf(page);
+      if (!bySection.has(key)) bySection.set(key, []);
+      bySection.get(key).push(page);
+    }
+    const rows = [];
+    for (const key of [...bySection.keys()].sort()) {
+      const group = bySection.get(key);
+      if (bySection.size > 1) rows.push(h('tr', {class:'table__group'},
+        h('th', {colspan:'3', scope:'rowgroup'}, h('span', {}, sectionLabel(key)), h('span', {class:'table__group-count'}, group.length))));
+      for (const p of group) rows.push(h('tr', {},
+        h('td', {}, link(p.title || 'Без названия', {view:'editor', site, page:p.page}, 'table__title'),
+          h('span', {class:'table__path'}, p.page)),
+        h('td', {class:'shrink muted'}, schema.types[p.type]?.label || p.type),
+        h('td', {class:'shrink'}, badge(p.state))));
+    }
+    tbody.replaceChildren(...rows);
   };
+
+  // An empty stage is noise; keep the selected one so the strip never jumps.
+  const filter = segmented(
+    stages.map(s => ({id:s.id, label:s.label, count:pages.filter(p => inStage(p, s)).length}))
+      .filter(s => s.count || s.id === '' || s.id === stage.id),
+    stage.id,
+    id => {
+      stage = stages.find(s => s.id === id) || stages[0];
+      const query = params();
+      id ? query.set('stage', id) : query.delete('stage');
+      history.replaceState(null, '', '/?' + query);
+      paint();
+    });
   search.addEventListener('input', paint);
-  state.addEventListener('change', paint);
-  paint();
 
   const type = h('select', {id:'new-type', 'aria-label':'Тип страницы'}, Object.entries(schema.types).filter(([k]) => k !== 'homepage').map(([k, v]) => h('option', {value:k}, v.label)));
   const slug = h('input', {id:'new-slug', placeholder:'novyy-obzor', 'aria-label':'Адрес страницы', pattern:'[a-z0-9]+(?:-[a-z0-9]+)*', required:true});
@@ -482,7 +652,6 @@ async function pagesView(site) {
       h('div', {class:'field'}, h('label', {for:'new-slug'}, 'Адрес'), slug,
         h('small', {class:'field__hint'}, 'Строчные латинские буквы, цифры и дефисы.')),
       h('button', {type:'submit', class:'primary'}, 'Создать и открыть')));
-  dialog.querySelector('header button svg path').setAttribute('d', 'M6 6l12 12M18 6 6 18');
 
   shell({
     title:'Материалы',
@@ -490,9 +659,7 @@ async function pagesView(site) {
     breadcrumb:[['Сайты', {view:'sites'}], 'Материалы'],
     actions:[h('button', {type:'button', class:'primary', onclick:() => dialog.showModal()}, icon('plus'), 'Новый материал')],
   },
-    h('div', {class:'toolbar'},
-      h('div', {class:'search'}, icon('search'), search),
-      state, count),
+    h('div', {class:'toolbar'}, filter, h('div', {class:'search'}, icon('search'), search)),
     h('div', {class:'table-card'}, h('table', {class:'table'},
       h('thead', {}, h('tr', {}, h('th', {}, 'Материал'), h('th', {}, 'Тип'), h('th', {}, 'Состояние'))), tbody)),
     dialog);
@@ -509,37 +676,56 @@ async function editorView(site, page) {
   const readers = {};
   const form = h('form', {class:'editor-form'});
 
-  const contentCard = h('section', {class:'card'},
-    h('div', {class:'card__head'}, h('div', {}, h('h2', {}, 'Содержание'))));
+  // Four jobs, four tabs: write the page, assemble its sections, tune how it
+  // looks in search, fill in the metadata you touch once a year.
   const contentBody = h('div', {class:'card__body'});
-  contentCard.append(contentBody);
+  const mediaBody = h('div', {class:'card__body'});
+  const creditsBody = h('div', {class:'card__body'});
+  const relationsBody = h('div', {class:'card__body'});
 
-  const advanced = h('details', {}, h('summary', {}, 'Обложка, авторы и служебные поля'));
-  const body = h('textarea', {id:'field-body', name:'body', rows:16, class:'body-editor'}, doc.body);
+  const body = h('textarea', {id:'field-body', name:'body', rows:18, class:'body-editor'}, doc.body);
   body.addEventListener('input', () => setDirty(true));
 
+  const groups = {
+    image:mediaBody, image_alt:mediaBody,
+    author:creditsBody, reviewer:creditsBody, date:creditsBody, updated:creditsBody,
+    canonical:relationsBody, breadcrumb_title:relationsBody, related:relationsBody, translation_key:relationsBody,
+  };
   for (const [name, rule] of Object.entries(schema.types[doc.front_matter.type].fields)) {
     const f = field(name, rule, doc.front_matter[name], name, schema);
     readers[name] = f;
     if (name === 'seo' || name === 'indexing') continue;
     if (name === 'slug' && doc.front_matter.type === 'homepage') continue;
-    if (['canonical','image','image_alt','breadcrumb_title','date','updated','author','reviewer','related','translation_key'].includes(name)) { advanced.append(f); continue; }
-    contentBody.append(f);
+    (groups[name] || contentBody).append(f);
   }
   contentBody.append(
     h('div', {class:'field'},
       h('label', {for:'field-body'}, 'Основной текст'),
       h('small', {class:'field__hint'}, 'Markdown: ## подзаголовок, **выделение**, [ссылка](/adres/). Заголовок страницы берётся из поля выше.'),
-      body),
-    advanced);
+      body));
 
-  const seoCard = h('section', {class:'card'},
-    h('div', {class:'card__head'}, h('div', {}, h('h2', {}, 'Поисковая выдача'),
-      h('p', {}, 'Canonical, hreflang и языковые теги формируются движком автоматически.'))),
-    h('div', {class:'card__body'}, readers.seo, readers.indexing));
+  const card = (title, hint, ...bodies) => h('section', {class:'card'},
+    h('div', {class:'card__head'}, h('div', {}, h('h2', {}, title), hint ? h('p', {}, hint) : null)), ...bodies);
 
   const blocks = blocksEditor(doc.front_matter.blocks, schema);
-  form.append(contentCard, seoCard, blocks);
+  const metaPanel = h('div', {class:'tab-panel'},
+    mediaBody.children.length ? card('Обложка', 'Изображение для карточек и шапки статьи.', mediaBody) : null,
+    creditsBody.children.length ? card('Авторство и даты', 'Показываются читателю и уходят в разметку Schema.org.', creditsBody) : null,
+    relationsBody.children.length ? card('Связи и адреса', 'Связанные материалы, хлебные крошки и ключ перевода для hreflang.', relationsBody) : null);
+
+  // A model without cover, author or relation fields gets no "служебное" tab
+  // rather than an empty one.
+  const editorTabs = tabs([
+    {id:'content', label:'Содержание', icon:'doc',
+     panel:h('div', {class:'tab-panel'}, card('Содержание', 'Заголовок, вступление и основной текст страницы.', contentBody))},
+    {id:'blocks', label:'Блоки', icon:'grid', panel:h('div', {class:'tab-panel'}, blocks)},
+    {id:'seo', label:'Поиск', icon:'search',
+     panel:h('div', {class:'tab-panel'}, card('Поисковая выдача',
+       'Canonical, hreflang и языковые теги формируются движком автоматически.',
+       h('div', {class:'card__body'}, readers.seo, readers.indexing)))},
+    metaPanel.children.length ? {id:'meta', label:'Служебное', icon:'gear', panel:metaPanel} : null,
+  ].filter(Boolean));
+  form.append(editorTabs);
 
   const save = async () => {
     const fm = Object.fromEntries(Object.entries(readers).map(([k, f]) => [k, f.read()]));
@@ -579,7 +765,6 @@ async function editorView(site, page) {
       h('header', {}, h('strong', {}, 'Предпросмотр · ссылка живёт один час'),
         iconButton('close', 'Закрыть', () => { dialog.close(); dialog.remove(); })),
       h('iframe', {src:preview.url, title:'Предпросмотр страницы', sandbox:'allow-same-origin'}));
-    dialog.querySelector('header button svg path').setAttribute('d', 'M6 6l12 12M18 6 6 18');
     document.body.append(dialog);
     dialog.showModal();
     done('Предпросмотр готов.');
@@ -637,9 +822,16 @@ async function settingsView(site, create) {
   const c = result.config;
   const identity = c.site_identity;
   const fields = {};
-  const form = h('form', {class:'card'});
-  const bodyEl = h('div', {class:'card__body'});
+  const form = h('form', {class:'settings-form'});
   const error = h('p', {role:'alert', class:'field-error'});
+
+  /** A titled group of fields; `input()` writes into whichever one is open. */
+  let bodyEl;
+  const section = (title, hint) => {
+    bodyEl = h('div', {class:'card__body'});
+    return h('section', {class:'card'},
+      h('div', {class:'card__head'}, h('div', {}, h('h2', {}, title), hint ? h('p', {}, hint) : null)), bodyEl);
+  };
 
   function input(key, label, value, type = 'text', options = null, hint = null) {
     const control = options
@@ -650,6 +842,7 @@ async function settingsView(site, create) {
     bodyEl.append(h('div', {class:'field'}, h('label', {for:control.id}, label), control, hint ? h('small', {class:'field__hint'}, hint) : null));
   }
 
+  const basics = section('Основное', 'Как сайт называется и по какому адресу живёт.');
   if (create) {
     input('site', 'Уникальный ID сайта', '', 'text', null, 'Латиница, цифры, дефис. Он же — имя каталога контента.');
     input('from', 'Копировать настройки с', sites[0]?.id || 'us', 'text', Object.fromEntries(sites.map(s => [s.id, s.title])));
@@ -657,43 +850,54 @@ async function settingsView(site, create) {
   input('title', 'Название', create ? '' : c.title);
   input('description', 'Описание', create ? '' : c.description);
   input('baseurl', 'Домен', create ? 'https://' : c.baseurl, 'text', null, 'DNS, Nginx и сертификат настраивает администратор сервера.');
+
+  const market = section('Рынок и язык', 'Определяют валюту, формат дат и связи между языковыми версиями.');
   input('brand', 'Бренд', create ? 'new-brand' : identity.brand);
   input('market', 'Рынок / страна', identity.market);
   input('language', 'Язык', identity.language);
   input('locale', 'Локаль', identity.locale);
   input('hreflang', 'Язык и регион для поиска', c.geo.hreflang);
   input('translation_group', 'Группа переводов', create ? 'new-brand' : identity.translation_group, 'text', null, 'Сайты одной группы связываются между собой через hreflang.');
+
+  const look = section('Оформление', 'Набор полей у страниц и внешний вид сайта.');
   input('model', 'Модель страниц', identity.model, 'text', result.models);
   input('theme', 'Тема оформления', identity.theme, 'text', result.themes);
   input('accent', 'Акцентный цвет', c.appearance?.tokens?.['c-accent'] || '#6b42d9', 'color');
+
+  const publishing = section('Публикация', 'Как сайт ведёт себя при сборке сети и в поиске.');
   input('staging', 'Тестовый сайт: запретить индексацию', create ? true : !!c.geo.staging, 'checkbox');
   input('enabled', 'Включать в общую сборку', create ? false : !!c.geo.enabled, 'checkbox');
+  bodyEl.append(h('p', {class:'muted small'}, 'Настройки применяются при следующей сборке и публикации.'), error);
 
   const extra = {};
-  if (!create) {
-    const routes = field('routes', {type:'object', label:'Адреса разделов', fields:Object.fromEntries(Object.keys(c.routes || {}).map(key => [key, {label:key}]))}, c.routes, 'routes', {});
-    bodyEl.append(h('details', {}, h('summary', {}, 'Адреса разделов'),
-      h('p', {class:'muted small'}, 'Префиксы без ведущего и конечного «/». Старые адреса опубликованных страниц получат 301. Изменение сбрасывает одобрение затронутых черновиков.'),
-      routes));
-    extra.routes = routes;
+  const panels = [{id:'general', label:'Основное', icon:'gear',
+    panel:h('div', {class:'tab-panel'}, basics, market, look, publishing)}];
 
-    const uiSchema = values => Object.fromEntries(Object.entries(values).map(([key, value]) => [key, typeof value === 'object' ? {type:'object', label:key, fields:uiSchema(value)} : {type:'text', label:key}]));
-    const ui = field('ui', {type:'object', label:'Тексты интерфейса', fields:uiSchema(c.ui)}, c.ui, 'ui', {});
-    bodyEl.append(h('details', {}, h('summary', {}, 'Переводы и подписи'), ui));
+  if (!create) {
+    const routes = field('routes', {type:'object', label:'Адреса разделов', hideLabel:true, fields:Object.fromEntries(Object.keys(c.routes || {}).map(key => [key, {label:key}]))}, c.routes, 'routes', {});
+    extra.routes = routes;
+    const routesCard = section('Адреса разделов', 'Префиксы без ведущего и конечного «/». Старые адреса опубликованных страниц получат 301. Изменение сбрасывает одобрение затронутых черновиков.');
+    bodyEl.append(routes);
+    panels.push({id:'routes', label:'Адреса', icon:'chain', panel:h('div', {class:'tab-panel'}, routesCard)});
+
+    // Interface labels are single-line strings; 'text' would render a textarea.
+    const uiSchema = values => Object.fromEntries(Object.entries(values).map(([key, value]) => [key, typeof value === 'object' ? {type:'object', label:key, fields:uiSchema(value)} : {label:key}]));
+    const ui = field('ui', {type:'object', label:'Тексты интерфейса', hideLabel:true, fields:uiSchema(c.ui)}, c.ui, 'ui', {});
     extra.ui = ui;
+    const uiCard = section('Переводы и подписи', 'Надписи кнопок, разделов и служебных блоков на языке сайта.');
+    bodyEl.append(ui);
+    panels.push({id:'labels', label:'Тексты', icon:'doc', panel:h('div', {class:'tab-panel'}, uiCard)});
 
     const navValues = Object.fromEntries(['main','footer'].map(menu => [menu, (c.navigation?.[menu] || []).map(item => ({id:item.id, text:item.text || c.ui.nav[item.label] || item.id}))]));
-    const nav = field('navigation', {type:'object', label:'Меню сайта', fields:Object.fromEntries([['main','Основное меню'],['footer','Подвал']].map(([key, label]) => [key, {type:'list', label, items:{type:'object', fields:{id:{label:'ID страницы (about или reviews/example)'}, text:{label:'Подпись'}}}}]))}, navValues, 'navigation', {});
-    bodyEl.append(h('details', {}, h('summary', {}, 'Навигация'),
-      h('p', {class:'muted small'}, 'Ссылки появятся после публикации соответствующих страниц. ID главной — index.'),
-      nav));
+    const nav = field('navigation', {type:'object', label:'Меню сайта', hideLabel:true, fields:Object.fromEntries([['main','Основное меню'],['footer','Подвал']].map(([key, label]) => [key, {type:'list', label, items:{type:'object', fields:{id:{label:'ID страницы (about или reviews/example)'}, text:{label:'Подпись'}}}}]))}, navValues, 'navigation', {});
     extra.navigation = nav;
+    const navCard = section('Навигация', 'Ссылки появятся после публикации соответствующих страниц. ID главной — index.');
+    bodyEl.append(nav);
+    panels.push({id:'navigation', label:'Навигация', icon:'menu', panel:h('div', {class:'tab-panel'}, navCard)});
   }
 
   form.addEventListener('input', () => setDirty(true));
-  bodyEl.append(h('p', {class:'muted small'}, 'Настройки применяются при следующей сборке и публикации.'), error);
-  form.append(h('div', {class:'card__head'}, h('div', {}, h('h2', {}, create ? 'Новый сайт' : 'Настройки сайта'),
-    h('p', {}, 'Бренд, рынок, язык и оформление задаются для каждого сайта независимо.'))), bodyEl);
+  form.append(tabs(panels));
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -714,6 +918,10 @@ async function settingsView(site, create) {
       h('button', {type:'submit', class:'primary', onclick:() => form.requestSubmit()}, create ? 'Создать сайт' : 'Сохранить')));
 
   shell({
+    title:create ? 'Новый сайт' : 'Настройки сайта',
+    subtitle:create
+      ? 'Бренд, рынок, язык и оформление задаются для каждого сайта независимо.'
+      : (sites.find(s => s.id === site)?.title || site),
     breadcrumb:[['Сайты', {view:'sites'}], create ? 'Новый сайт' : (sites.find(s => s.id === site)?.title || site), create ? null : 'Настройки'].filter(Boolean),
   }, form, savebar);
   setDirty(false);
@@ -731,7 +939,6 @@ async function jobsView() {
       const dialog = h('dialog', {},
         h('header', {}, h('strong', {}, 'Журнал задания ' + job.id), iconButton('close', 'Закрыть', () => { dialog.close(); dialog.remove(); })),
         h('pre', {}, result.log));
-      dialog.querySelector('header button svg path').setAttribute('d', 'M6 6l12 12M18 6 6 18');
       document.body.append(dialog);
       dialog.showModal();
     }), 'btn--sm') : null)));

@@ -38,8 +38,8 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   await page.locator('#setting-theme').selectOption('editorial');await page.getByRole('button',{name:'Создать сайт',exact:true}).click();
   await page.getByText('Northstar Reviews').first().waitFor();check(true,'new brand/site created through UI');
   await page.goto(url+'/?view=settings&site=browser-us');
-  await page.getByText('Переводы и подписи',{exact:true}).click();await page.locator('#field-ui-labels-home').fill('Our home');
-  await page.getByText('Адреса разделов',{exact:true}).first().click();await page.locator('#field-routes-reviews').fill('tested');
+  await page.getByRole('tab',{name:'Тексты',exact:true}).click();await page.locator('#field-ui-labels-home').fill('Our home');
+  await page.getByRole('tab',{name:'Адреса',exact:true}).click();await page.locator('#field-routes-reviews').fill('tested');
   await page.locator('.savebar .primary').click();await page.getByText('Настройки сохранены.').waitFor();
   const updatedSettings=await (await context.request.get(url+'/api?action=settings&site=browser-us')).json();
   check(updatedSettings.config.ui.labels.home==='Our home' && updatedSettings.config.routes.reviews==='tested','site settings expose translations and route prefixes');
@@ -59,9 +59,15 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   if(worker.status!==0) console.log(worker.stdout+worker.stderr);
   check(worker.status===0 && worker.stdout.includes('built'),'HTTP queue consumed by real CLI worker without deploying');
   await page.goto(url+'/?view=editor&site=browser-us&page=index.md');await page.getByRole('heading',{name:'Содержание',exact:true}).waitFor();
-  await page.getByRole('button',{name:'Текст',exact:true}).click();await page.locator('#field-blocks-0-heading').fill('Why trust our reviews');await page.locator('#field-blocks-0-body').fill('Every review follows a clear editorial checklist.');
+  await page.getByRole('tab',{name:'Блоки',exact:true}).click();await page.getByRole('button',{name:'Текст',exact:true}).click();await page.locator('#field-blocks-0-heading').fill('Why trust our reviews');await page.locator('#field-blocks-0-body').fill('Every review follows a clear editorial checklist.');
   await page.locator('.savebar .primary').click();await page.getByText(/Ревизия\s*2/).first().waitFor();
   check(true,'block editor saves typed data and invalidates approval');
+  // Inactive tabs are hidden, never detached: saving reads every field back from
+  // the DOM, so a removed panel would be written out as empty.
+  const kept=await (await context.request.get(url+'/api?action=document&site=browser-us&page=index.md')).json();
+  check(kept.document.front_matter.seo.title==='Northstar Reviews','fields on an inactive tab survive a save');
+  check(kept.document.body.includes('Welcome to Northstar Reviews'),'body on an inactive tab survives a save');
+  check(new URL(page.url()).searchParams.get('tab')==='blocks','the open tab is shareable through the URL');
   const submittedUI=await (await request(context,'transition',{site:home.site,page:home.page,revision:2,transition:'submit'})).json();
   check(submittedUI.ok,'browser-generated form with blank optional fields passes submission');
   await request(editor,'transition',{site:home.site,page:home.page,revision:2,transition:'approve'});
@@ -69,13 +75,17 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   const secondWorker=spawnSync(php,[path.join(root,'scripts/studio.php'),'worker'],{env,cwd:root,encoding:'utf8',windowsHide:true});
   if(secondWorker.status!==0) console.log(secondWorker.stdout+secondWorker.stderr);
   check(secondWorker.status===0 && secondWorker.stdout.includes('built'),'full browser-generated document and blocks build without optional-field errors');
-  await page.reload();await page.getByRole('heading',{name:'Содержание',exact:true}).waitFor();
+  await page.reload();await page.getByRole('tab',{name:'Содержание',exact:true}).click();
   await page.screenshot({path:path.join(root,'reports/studio-editor.png'),fullPage:true});
   await page.getByRole('button',{name:'Предпросмотр',exact:true}).click();await page.getByRole('dialog').waitFor({timeout:20000});
   await page.frameLocator('iframe').getByRole('heading',{name:'Why trust our reviews'}).waitFor();check(true,'Cecil preview renders the saved block with actual site template');
   const frame=page.frames().find(f=>f.url().includes('/preview/'));const previewUrl=frame.url();
   const anonymous=await browser.newContext();const blocked=await anonymous.request.get(previewUrl);check(blocked.status()===401,'preview URL cannot be read anonymously');
   await page.getByRole('dialog').getByRole('button',{name:'Закрыть',exact:true}).click();
+  await page.goto(url+'/?view=sites');await page.getByRole('heading',{name:'Сайты',exact:true}).waitFor();
+  check((await page.locator('.site-group__title').count())===2,'sites are grouped by brand once the workspace holds more than one');
+  await page.screenshot({path:path.join(root,'reports/studio-sites.png'),fullPage:true});
+  await page.goto(url+'/?view=editor&site=browser-us&page=index.md');await page.getByRole('tab',{name:'Содержание',exact:true}).waitFor();
   await page.setViewportSize({width:390,height:844});
   // let the drawer transition finish and the toasts expire, otherwise the
   // reference screenshot catches the sidebar mid-slide
