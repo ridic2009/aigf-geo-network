@@ -76,6 +76,10 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   if(secondWorker.status!==0) console.log(secondWorker.stdout+secondWorker.stderr);
   check(secondWorker.status===0 && secondWorker.stdout.includes('built'),'full browser-generated document and blocks build without optional-field errors');
   await page.reload();await page.getByRole('tab',{name:'Содержание',exact:true}).click();
+  // An <input> with no type attribute once matched none of the form selectors
+  // and rendered at the browser's default 27px next to 37px siblings.
+  const short=await page.evaluate(()=>[...document.querySelectorAll('input:not([type=checkbox]):not([type=color]):not([type=file])')].filter(i=>i.offsetParent).map(i=>[i.id||i.name||i.type,Math.round(i.getBoundingClientRect().height)]).filter(([,h])=>h<34));
+  check(short.length===0,'every text field carries the form styling: '+JSON.stringify(short));
   await page.screenshot({path:path.join(root,'reports/studio-editor.png'),fullPage:true});
   await page.getByRole('button',{name:'Предпросмотр',exact:true}).click();await page.getByRole('dialog').waitFor({timeout:20000});
   await page.frameLocator('iframe').getByRole('heading',{name:'Why trust our reviews'}).waitFor();check(true,'Cecil preview renders the saved block with actual site template');

@@ -21,12 +21,14 @@
   --line-strong: #d3d7e0;
   --ink: #16181d;
   --ink-2: #454b57;
-  --muted: #6d7481;
-  --faint: #99a0ad;
+  --muted: #636a77;
+  --faint: #7b8290;
 
   /* brand */
   --accent: #5a53d6;
   --accent-hover: #4a43c4;
+  --accent-fill: #5a53d6;
+  --accent-fill-hover: #4a43c4;
   --accent-soft: #eeedfc;
   --accent-ink: #3c35a8;
   --on-accent: #ffffff;
@@ -75,10 +77,12 @@
     --line-strong: #333a45;
     --ink: #e8eaef;
     --ink-2: #b9bfca;
-    --muted: #8e96a3;
-    --faint: #6d7481;
+    --muted: #99a1ae;
+    --faint: #7d8592;
 
     --accent: #7b74ee;
+    --accent-fill: #5b52d4;
+    --accent-fill-hover: #655cdd;
     --accent-hover: #8f89f2;
     --accent-soft: #221f45;
     --accent-ink: #b6b1f7;
@@ -136,7 +140,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--s5) 0; }
   top: var(--s2);
   z-index: 100;
   padding: var(--s2) var(--s4);
-  background: var(--accent);
+  background: var(--accent-fill);
   color: var(--on-accent);
   border-radius: var(--r);
 }
@@ -227,7 +231,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--s5) 0; }
   font-weight: 600;
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--faint);
+  color: var(--muted);
 }
 .nav__item {
   display: flex;
@@ -257,7 +261,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--s5) 0; }
   width: 32px; height: 32px;
   flex: none;
   border-radius: var(--r-full);
-  background: var(--accent);
+  background: var(--accent-fill);
   color: var(--on-accent);
   font-size: 12px;
   font-weight: 700;
@@ -297,7 +301,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--s5) 0; }
   font-weight: 600;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.breadcrumb__sep { color: var(--line-strong); }
+.breadcrumb__sep { color: var(--muted); }
 
 .topbar__actions { margin-left: auto; display: flex; align-items: center; gap: var(--s2); }
 
@@ -343,11 +347,11 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--s5) 0; }
 .btn svg, button svg { width: 15px; height: 15px; flex: none; }
 
 .btn--primary, .primary {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent-fill);
+  border-color: var(--accent-fill);
   color: var(--on-accent);
 }
-.btn--primary:hover, .primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn--primary:hover, .primary:hover { background: var(--accent-fill-hover); border-color: var(--accent-fill-hover); }
 
 .btn--ghost, .quiet {
   background: transparent;
@@ -409,8 +413,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: var(--s5) 0; }
 .field__hint { font-size: 12px; color: var(--muted); }
 .field-error, .field__error { font-size: 12px; color: var(--danger); }
 
-input[type=text], input[type=search], input[type=password], input[type=number],
-input[type=date], input[type=email], input[type=url], textarea, select {
+/* Deny-list, not allow-list: an <input> with no type attribute is a text field
+   and used to fall through every allow-list selector, rendering unstyled. */
+input:not([type=checkbox], [type=radio], [type=color], [type=file], [type=range], [type=submit], [type=button]),
+textarea, select {
   width: 100%;
   min-height: 34px;
   padding: 7px var(--s3);
@@ -425,13 +431,13 @@ input:hover, textarea:hover, select:hover { border-color: var(--muted); }
 input:focus, textarea:focus, select:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 input[aria-invalid=true], textarea[aria-invalid=true], select[aria-invalid=true] {
   border-color: var(--danger);
 }
 input[aria-invalid=true]:focus, textarea[aria-invalid=true]:focus {
-  box-shadow: 0 0 0 3px var(--danger-soft);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 28%, transparent);
 }
 textarea { resize: vertical; line-height: 1.6; }
 
@@ -444,15 +450,30 @@ select {
   background-size: 15px;
 }
 
-input[type=color] { width: 48px; padding: 3px; min-height: 34px; }
+@media (prefers-color-scheme: dark) {
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2399a1ae' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M4 6.5 8 10.5l4-4'/%3E%3C/svg%3E");
+  }
+}
+
+/* Left to the browser this keeps a light chrome even in the dark theme. */
+input[type=color] {
+  width: 52px;
+  padding: 3px;
+  min-height: 34px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
 input[type=file] { border: 0; padding: 0; min-height: 0; }
 
 /* checkbox as a switch — a bare browser checkbox reads as unfinished */
 input[type=checkbox] {
   appearance: none;
   flex: none;
-  width: 36px;
-  height: 20px;
+  width: 40px;
+  height: 24px;
   margin: 0;
   border-radius: var(--r-full);
   background: var(--line-strong);
@@ -464,8 +485,8 @@ input[type=checkbox] {
 input[type=checkbox]::after {
   content: "";
   position: absolute;
-  top: 2px; left: 2px;
-  width: 16px; height: 16px;
+  top: 3px; left: 3px;
+  width: 18px; height: 18px;
   border-radius: var(--r-full);
   background: #fff;
   box-shadow: var(--shadow-1);
@@ -534,7 +555,7 @@ fieldset:not(:has(textarea)):not(:has(fieldset)):not(:has(.repeat-list)) {
   margin-right: auto;
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--faint);
+  color: var(--muted);
 }
 
 details {
@@ -696,8 +717,8 @@ details > .field, details > fieldset { margin: 0 var(--s4) var(--s4); padding-le
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
-.tab.active .tab__count { background: var(--accent-soft); color: var(--accent); }
-.tab__flag { background: var(--danger); color: #fff; }
+.tab.active .tab__count { background: var(--accent-soft); color: var(--accent-ink); }
+.tab__flag { background: var(--danger-soft); color: var(--danger); box-shadow: inset 0 0 0 1px var(--danger); }
 .tab-panel { display: flex; flex-direction: column; gap: var(--s5); }
 .tab-panel[hidden] { display: none; }
 /* Settings are short values; the full content width would strand the labels. */
@@ -716,7 +737,7 @@ table.table { width: 100%; border-collapse: collapse; }
   font-weight: 600;
   letter-spacing: .03em;
   text-transform: uppercase;
-  color: var(--faint);
+  color: var(--muted);
   text-align: left;
   white-space: nowrap;
 }
@@ -729,7 +750,10 @@ table.table { width: 100%; border-collapse: collapse; }
 .table tbody tr:hover { background: var(--surface-2); }
 .table__title { font-weight: 600; color: var(--ink); }
 .table__title:hover { color: var(--accent); text-decoration: none; }
-.table__path { display: block; font-family: var(--mono); font-size: 11px; color: var(--faint); margin-top: 2px; }
+/* The text is ~19px tall in a 44px row; stretch the hit target over the cell. */
+.table tbody td:first-child { position: relative; }
+.table__title::after { content: ""; position: absolute; inset: 0; }
+.table__path { display: block; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; }
 .table__num { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; }
 .table td.shrink { width: 1%; white-space: nowrap; }
 
@@ -743,7 +767,7 @@ table.table { width: 100%; border-collapse: collapse; }
   font-weight: 600;
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--faint);
+  color: var(--muted);
 }
 .site-group__count {
   padding: 0 6px;
@@ -865,7 +889,7 @@ table.table { width: 100%; border-collapse: collapse; }
   font-weight: 600;
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--faint);
+  color: var(--muted);
   margin-bottom: var(--s3);
 }
 .rail-status { display: flex; flex-direction: column; gap: var(--s2); }
@@ -900,7 +924,7 @@ table.table { width: 100%; border-collapse: collapse; }
 }
 .timeline li:last-child::after { display: none; }
 .timeline strong { display: block; font-weight: 600; color: var(--ink-2); }
-.timeline span { color: var(--faint); font-size: 11px; }
+.timeline span { color: var(--muted); font-size: 11px; }
 
 /* blocks */
 .block-list { display: flex; flex-direction: column; gap: var(--s3); }

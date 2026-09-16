@@ -364,7 +364,7 @@ function field(name, rule, value, path, schema) {
     const paint = () => {
       list.replaceChildren();
       values.forEach((item, i) => {
-        const child = field(String(i + 1), {...(rule.items || {type:'string'}), hideLabel:true}, item, path + '.' + i, schema);
+        const child = field(String(i + 1), {...(rule.items || {type:'string'}), hideLabel:true, label:label + ' ' + (i + 1)}, item, path + '.' + i, schema);
         const row = h('div', {class:'repeat-item'}, h('div', {class:'repeat-tools'},
           h('span', {}, String(i + 1).padStart(2, '0')),
           iconButton('up', 'Выше', () => { values = collect(); if (i > 0) [values[i-1], values[i]] = [values[i], values[i-1]]; paint(); setDirty(true); }),
@@ -397,7 +397,10 @@ function field(name, rule, value, path, schema) {
   }
   control.name = path;
   control.addEventListener('input', () => { control.removeAttribute('aria-invalid'); setDirty(true); });
-  if (!rule.hideLabel) wrap.append(h('label', {for:id}, label));
+  // A row in a list hides its label to avoid repeating it; the control still
+  // needs a name, or a screen reader announces a bare "edit text".
+  if (rule.hideLabel) control.setAttribute('aria-label', label);
+  else wrap.append(h('label', {for:id}, label));
   wrap.append(control);
   if (rule.hint) wrap.append(h('small', {class:'field__hint'}, rule.hint));
   if (type === 'image') {
