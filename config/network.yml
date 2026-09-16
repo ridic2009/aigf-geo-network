@@ -42,4 +42,6 @@ geos:
   mx: { name: 'México', language: es, locale: es_MX, hreflang: es-MX, currency: MXN, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/Mexico_City, domain: 'aigirlfriendranking-mexico.site' }
 
 # hreflang x-default target (must be an existing, enabled GEO).
-x_default: us
+# The network has no English site, so no GEO is a natural fallback for visitors
+# who match none of fr/nl/jp. FR is the widest-reach language of the three.
+x_default: fr

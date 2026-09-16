@@ -19,20 +19,6 @@ price:
   period: month
 
 geo:
-  us:
-    availability: available
-    tagline: 'The strongest memory and conversation quality of the apps we tested.'
-    best_for: 'Conversation quality'
-    price:
-      amount: 15.99
-      period: month
-  de:
-    availability: available
-    tagline: 'Das beste Gedächtnis und die natürlichsten Gespräche im Test.'
-    best_for: 'Gesprächsqualität'
-    price:
-      amount: 15.99
-      period: month
   fr:
     availability: available
     tagline: 'La meilleure mémoire et la conversation la plus naturelle de notre test.'

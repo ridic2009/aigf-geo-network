@@ -23,20 +23,6 @@ price:
   period: month
 
 geo:
-  us:
-    availability: available
-    tagline: 'The most complete AI companion app we tested, with strong image generation.'
-    best_for: 'Image generation'
-    price:
-      amount: 12.99
-      period: month
-  de:
-    availability: available
-    tagline: 'Die vollständigste KI-Begleiter-App im Test, mit starker Bildgenerierung.'
-    best_for: 'Bildgenerierung'
-    price:
-      amount: 12.99
-      period: month
   fr:
     availability: available
     tagline: "L'application de compagnon IA la plus complète de notre test, avec une excellente génération d'images."
