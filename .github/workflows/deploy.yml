@@ -1,0 +1,151 @@
+name: Build and deploy
+
+# Production pipeline. Pages CMS commits to `main`; this workflow does the rest:
+#
+#   validation -> Cecil build -> SEO + link checks -> deploy -> release switch
+#
+# If anything before the deploy step fails, production is left untouched.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'data/**'
+      - 'config/**'
+      - 'engine/**'
+      - 'static/**'
+      - 'scripts/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '.pages.yml'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+    inputs:
+      geo:
+        description: 'GEO to deploy (empty = every enabled GEO)'
+        required: false
+        default: ''
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validate and build
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    timeout-minutes: 20
+    outputs:
+      geos: ${{ steps.targets.outputs.geos }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, gd, dom, simplexml, fileinfo
+          coverage: none
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist --no-dev
+
+      - name: Resolve target GEOs
+        id: targets
+        run: |
+          if [ -n "${{ github.event.inputs.geo }}" ]; then
+            echo "geos=${{ github.event.inputs.geo }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "geos=$(php scripts/geo.php list)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate data, CMS schema and content
+        run: php scripts/validate.php ${{ steps.targets.outputs.geos }}
+
+      # Content validation, Cecil build, SEO checks, internal link checks and
+      # sitemap consistency all run inside build-all.
+      - name: Build
+        run: php scripts/build-all.php --optimize ${{ steps.targets.outputs.geos }}
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
+          if-no-files-found: error
+
+  deploy:
+    # Studio is the sole publisher when this repository variable is set.
+    if: vars.PUBLISHER != 'studio'
+    name: Deploy to production
+    runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
+    needs: build
+    timeout-minutes: 20
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist --no-dev
+
+      - name: Download build output
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      # DEPLOY_HOSTS may list several servers (production + backup), comma or
+      # space separated. Every one of them receives the same release.
+      - name: Configure SSH
+        run: |
+          install -d -m 700 ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          for host in $(echo "${DEPLOY_HOSTS}" | tr ',' ' '); do
+            ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$host" >> ~/.ssh/known_hosts 2>/dev/null
+          done
+        env:
+          DEPLOY_HOSTS: ${{ secrets.DEPLOY_HOSTS || secrets.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+
+      - name: Deploy
+        run: sh scripts/deploy-all ${{ needs.build.outputs.geos }}
+        env:
+          DEPLOY_HOSTS: ${{ secrets.DEPLOY_HOSTS || secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_ROOT: ${{ secrets.DEPLOY_ROOT }}
+          KEEP_RELEASES: '5'
+          GIT_COMMIT: ${{ github.sha }}
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Deployment"
+            echo ""
+            echo "- Commit: \`${{ github.sha }}\`"
+            echo "- GEOs: \`${{ needs.build.outputs.geos }}\`"
+            echo "- Result: ${{ job.status }}"
+            echo ""
+            echo "Release history per site: \`/srv/www/<domain>/releases.log\` on the VPS."
+            echo "Roll back with: \`./scripts/rollback <geo>\`"
+          } >> "$GITHUB_STEP_SUMMARY"
