@@ -1,4 +1,98 @@
-extends_geo: jp
+geo:
+  code: jp
+  name: 日本
+  country_code: JP
+  hreflang: ja-JP
+  enabled: true
+  staging: false
+  timezone: Asia/Tokyo
+  currency:
+    code: JPY
+    symbol: ¥
+    position: before
+    decimals: 0
+    decimal_separator: .
+    thousands_separator: ','
+baseurl: 'https://aigirlfriendranking-japan.site/'
+language: ja
+languages:
+  -
+    code: ja
+    name: 日本
+    locale: ja_JP
+    enabled: true
+title: 'AI Girlfriend Ranking 日本'
+baseline: AIコンパニオンアプリの独立レビュー
+description: AI彼女・AIコンパニオンアプリの独立したレビューとランキング。編集部が実際にアカウントを作って検証しています。
+pages:
+  dir: content/jp
+  default:
+    404:
+      title: ページが見つかりません
+routes:
+  reviews: review
+  compare: compare
+  guides: guide
+  rankings: ''
+organization:
+  name: 'AI Girlfriend Ranking 日本'
+  legal_name: 'AIGR Media'
+  email: editorial@aigirlfriendranking-japan.site
+  logo: /images/brand/logo.svg
+ui:
+  nav:
+    ranking: 最高のAI彼女アプリ
+    reviews: レビュー
+    compare: 比較
+    guides: ガイド
+    about: 運営者情報
+    disclosure: アフィリエイトについて
+    privacy: プライバシーポリシー
+  sections:
+    reviews: レビュー
+    compare: 比較
+    guides: ガイド
+    rankings: ランキング
+  labels:
+    home: ホーム
+    not_found_text: このページは存在しないか、アドレスが間違っています。
+    skip_to_content: 本文へスキップ
+    menu: メニュー
+    main_navigation: メインナビゲーション
+    footer_navigation: フッターナビゲーション
+    close: 閉じる
+    read_review: レビューを読む
+    visit_site: 公式サイトへ
+    try_now: '%s を試す'
+    pros: メリット
+    cons: デメリット
+    rating: 評価
+    out_of: /
+    score: スコア
+    rank: 順位
+    product: サービス
+    features: 主な機能
+    price: 料金
+    from: 約
+    per_month: /月
+    free_tier: 無料プラン
+    'yes': あり
+    'no': なし
+    verdict: 総評
+    best_for: おすすめ用途
+    faq: よくある質問
+    toc: このページの内容
+    updated: 更新日
+    published: 公開日
+    author: 執筆者
+    reviewed_by: 監修
+    related: 関連記事
+    all_reviews: すべてのレビュー
+    back_to_top: ページ上部へ
+    affiliate_notice: 当サイトのリンク経由でご登録いただいた場合、報酬を受け取ることがあります。評価や順位には影響しません。
+    availability_available: 利用可能
+    availability_limited: 一部制限あり
+    availability_unavailable: 利用不可
 site:
   id: jp
   brand: aigf
@@ -8,3 +102,5 @@ site:
   translation_group: aigf
   model: reviews
   theme: classic
+previous_domains:
+  - jp.45.140.14.7.sslip.io

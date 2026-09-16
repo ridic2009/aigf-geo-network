@@ -1,43 +1,40 @@
 geo:
-  code: fr
-  name: France
-  country_code: FR
-  hreflang: fr-FR
-  enabled: true
-  staging: false
-  timezone: Europe/Paris
+  code: nl
+  name: Nederland
+  country_code: NL
+  hreflang: nl-NL
+  enabled: false
+  timezone: Europe/Amsterdam
   currency:
     code: EUR
     symbol: €
     position: after
     decimals: 2
     decimal_separator: ','
-    thousands_separator: ' '
-baseurl: 'https://aigirlfriendranking-france.site/'
-language: fr
+    thousands_separator: .
+  staging: true
+baseurl: 'http://nl.45.140.14.7.sslip.io/'
+language: nl
 languages:
   -
-    code: fr
-    name: Français
-    locale: fr_FR
+    code: nl
+    name: Nederland
+    locale: nl_NL
     enabled: true
-title: 'AI Girlfriend Ranking France'
+title: 'AI Girlfriend Ranking France Nederland'
 baseline: 'Tests indépendants des applications de compagnon IA'
 description: "Tests indépendants et classements des applications d'IA girlfriend et de compagnon IA, évalués par notre rédaction."
 pages:
-  dir: content/fr
-  default:
-    404:
-      title: 'Page introuvable'
+  dir: content/nl
 routes:
-  reviews: avis
-  compare: comparatif
+  reviews: reviews
+  compare: compare
   guides: guides
   rankings: ''
 organization:
   name: 'AI Girlfriend Ranking France'
   legal_name: 'AIGR Media'
-  email: redaction@aigirlfriendranking-france.site
+  email: editorial@aigirlfriendranking-netherlands.site
   logo: /images/brand/logo.svg
 ui:
   nav:
@@ -94,13 +91,13 @@ ui:
     availability_limited: Limitée
     availability_unavailable: 'Non disponible'
 site:
-  id: fr
+  id: nl
   brand: aigf
-  market: fr
-  language: fr
-  locale: fr_FR
+  market: nl
+  language: nl
+  locale: nl_NL
   translation_group: aigf
   model: reviews
   theme: classic
 previous_domains:
-  - fr.45.140.14.7.sslip.io
+  - aigirlfriendranking-netherlands.site

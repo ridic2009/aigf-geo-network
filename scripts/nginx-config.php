@@ -168,7 +168,10 @@ foreach ($codes as $code) {
     $name = strtoupper($code);
     $listen6Line80 = $listen6 === '' ? '' : "    listen {$listen6}80;
 ";
-    $listen6Line443 = $listen6 === '' ? '' : "    listen {$listen6}443 ssl;
+    // "listen ... ssl http2" rather than the newer "http2 on;" directive: the
+    // production server runs nginx 1.24, where "http2 on;" does not exist yet.
+    // This form is understood by both 1.24 and 1.25+.
+    $listen6Line443 = $listen6 === '' ? '' : "    listen {$listen6}443 ssl http2;
 ";
 
 $common = <<<CONF
@@ -239,8 +242,8 @@ server {
 }
 
 server {
-    listen {$listen}443 ssl;
-{$listen6Line443}    http2 on;
+    listen {$listen}443 ssl http2;
+{$listen6Line443}
     server_name www.{$domain};
 
     ssl_certificate     /etc/letsencrypt/live/{$domain}/fullchain.pem;
@@ -251,8 +254,8 @@ server {
 }
 
 server {
-    listen {$listen}443 ssl;
-{$listen6Line443}    http2 on;
+    listen {$listen}443 ssl http2;
+{$listen6Line443}
     server_name {$domain};
 
     ssl_certificate     /etc/letsencrypt/live/{$domain}/fullchain.pem;
