@@ -125,9 +125,13 @@
 {%- endif -%}
 
 {#- FAQPage: same source of truth as the visual FAQ component -#}
-{%- if S.faq|default(false) and page.faq|default([])|length > 0 -%}
+{%- set faq_items = page.faq|default([]) -%}
+{%- for block in page.blocks|default([]) -%}
+    {%- if block.type == 'faq' -%}{%- set faq_items = faq_items|merge(block.items) -%}{%- endif -%}
+{%- endfor -%}
+{%- if S.faq|default(false) and faq_items|length > 0 -%}
     {%- set qa = [] -%}
-    {%- for item in page.faq -%}
+    {%- for item in faq_items -%}
         {%- set qa = qa|merge([{
             '@type': 'Question',
             'name': item.question,

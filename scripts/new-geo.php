@@ -123,7 +123,7 @@ Cli::ok('config/geos/' . $code . '.yml created');
 
 /* --------------------------------------------------------- content skeleton */
 
-$sections = ['reviews', 'rankings', 'compare', 'guides'];
+$sections = array_values(array_filter(Network::typeSections($code)));
 foreach ($sections as $section) {
     $dir = Network::path('content', $code, $section);
     if (!is_dir($dir)) {

@@ -1,0 +1,10 @@
+extends_geo: jp
+site:
+  id: jp
+  brand: aigf
+  market: jp
+  language: ja
+  locale: ja_JP
+  translation_group: aigf
+  model: reviews
+  theme: classic

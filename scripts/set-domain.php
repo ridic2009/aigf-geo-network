@@ -67,28 +67,13 @@ $wasStaging = Network::isStaging($code);
 
 /* --------------------------------------------------------- rewrite the file */
 
-$file = Network::path('config', 'geos', $code . '.yml');
-$yaml = (string) file_get_contents($file);
-
-$updated = preg_replace('/^(\s*baseurl:).*$/m', "$1 '" . $baseUrl . "'", $yaml, 1);
-if ($updated === null || $updated === $yaml && $previous !== $baseUrl) {
-    Cli::error('Could not find `baseurl:` in ' . $file);
-    exit(1);
-}
-$yaml = $updated;
-
-// staging flag lives inside the `geo:` block, right after `enabled:`
-$yaml = preg_replace('/^\s*staging:.*\n/m', '', $yaml) ?? $yaml;
-if ($staging || (!$production && $wasStaging)) {
-    $yaml = preg_replace('/^(\s*enabled:.*\n)/m', "$1  staging: true\n", $yaml, 1) ?? $yaml;
-}
-
-file_put_contents($file, $yaml);
-
 $nowStaging = $staging || (!$production && $wasStaging);
-
-Cli::title(\sprintf('%s: %s -> %s', strtoupper($code), $previous, $baseUrl));
-Cli::ok('config/geos/' . $code . '.yml updated' . ($nowStaging ? ' (staging: noindex + robots Disallow)' : ' (production)'));
+\AiGf\Tools\StudioSites::save(['login' => 'cli', 'role' => 'admin', 'sites' => ['*']], $code, [
+    'baseurl' => $baseUrl,
+    'staging' => $nowStaging,
+    'enabled' => Network::isEnabled($code),
+]);
+Cli::ok('Domain updated; the previous domain is retained for 301 redirects.');
 
 /* ------------------------------------------------------------- regenerate */
 
@@ -110,11 +95,6 @@ $exit === 0
 
 $oldHost = (string) parse_url($previous, \PHP_URL_HOST);
 if ($oldHost !== '' && $oldHost !== $host) {
-    $oldVhost = Network::path('infra', 'nginx', 'sites', $oldHost . '.conf');
-    if (is_file($oldVhost)) {
-        unlink($oldVhost);
-        Cli::info('removed the previous vhost infra/nginx/sites/' . $oldHost . '.conf');
-    }
     $oldDist = Network::path('dist', $oldHost);
     if (is_dir($oldDist)) {
         Builder::removeDirectory($oldDist);

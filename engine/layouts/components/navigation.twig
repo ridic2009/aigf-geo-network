@@ -16,7 +16,7 @@
         <li class="nav__item">
             <a class="nav__link{{ target.id == page.id ? ' is-current' : '' }}"
                href="{{ url(target, {canonical: false}) }}"
-               {{ target.id == page.id ? 'aria-current="page"' : '' }}>{{ attribute(ui.nav, item.label)|default(target.title) }}</a>
+               {{ target.id == page.id ? 'aria-current="page"' : '' }}>{{ item.text|default(attribute(ui.nav, item.label|default(''))|default(target.title)) }}</a>
         </li>
             {%- endif -%}
         {%- endif -%}

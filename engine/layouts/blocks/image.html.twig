@@ -1,0 +1,4 @@
+<figure class="content-block">
+<img src="{{ block.src }}" alt="{{ block.alt }}" loading="lazy" decoding="async">
+{% if block.caption|default('') %}<figcaption>{{ block.caption }}</figcaption>{% endif %}
+</figure>

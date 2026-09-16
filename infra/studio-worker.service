@@ -1,0 +1,22 @@
+[Unit]
+Description=MiniCMS Studio publication worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=minicms
+Group=minicms
+WorkingDirectory=/srv/minicms
+EnvironmentFile=/etc/minicms-studio.env
+ExecStart=/usr/bin/php /srv/minicms/scripts/studio.php worker --deploy
+TimeoutStartSec=30min
+UMask=0077
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/srv/minicms
+
+# Adapt User, paths and PHP location before installing. SSH authentication and
+# known_hosts must be configured for this account. No credentials belong here.

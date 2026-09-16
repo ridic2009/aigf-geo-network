@@ -1,0 +1,13 @@
+label: Каталог услуг
+types:
+  homepage: {label: Главная, section: null, layout: index, fields: {}}
+  static: {label: Страница, section: null, layout: _default/page, fields: {}}
+  service:
+    label: Услуга
+    section: services
+    layout: _default/page
+    fields:
+      provider: {label: Исполнитель, type: string, required: true, display: true}
+      category: {label: Категория, type: string, options: [Консалтинг, Разработка, Обучение], display: true}
+      score: {label: Оценка редакции, type: number, minimum: 0, maximum: 10, display: true}
+      tested_on: {label: Дата проверки, type: date, display: true}

@@ -1,0 +1,58 @@
+label: Обзоры и рейтинги
+# The same schema drives Studio forms, Pages CMS fields and build validation.
+types:
+  homepage:
+    label: Главная
+    section: null
+    layout: index
+    fields:
+      hero_cta: {label: Страница главной кнопки, type: string}
+      top_products_title: {label: Заголовок подборки, type: string}
+      top_products: {label: Товары на главной, type: list, items: {type: product}}
+  static:
+    label: Страница
+    section: null
+    layout: _default/page
+    fields: {}
+  review:
+    label: Обзор
+    section: reviews
+    layout: reviews/page
+    fields:
+      product: {label: Продукт, type: product, required: true}
+      verdict: {label: Наш вердикт, type: text}
+      pros: {label: Плюсы, type: list, items: {type: string}}
+      cons: {label: Минусы, type: list, items: {type: string}}
+  ranking:
+    label: Рейтинг
+    section: rankings
+    layout: rankings/page
+    fields:
+      ranking:
+        label: Позиции рейтинга
+        type: list
+        required: true
+        min_items: 1
+        items:
+          type: object
+          fields:
+            product: {label: Продукт, type: product, required: true}
+            badge: {label: Номинация, type: string}
+            highlight: {label: Почему выбран, type: text}
+  comparison:
+    label: Сравнение
+    section: compare
+    layout: compare/page
+    fields:
+      products: {label: Сравниваемые продукты, type: list, required: true, min_items: 2, items: {type: product}}
+  guide:
+    label: Руководство
+    section: guides
+    layout: guides/page
+    fields:
+      products: {label: Упоминаемые продукты, type: list, items: {type: product}}
+  landing:
+    label: Лендинг из блоков
+    section: landings
+    layout: _default/page
+    fields: {}

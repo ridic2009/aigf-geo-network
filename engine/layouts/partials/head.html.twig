@@ -34,7 +34,8 @@
     <link rel="canonical" href="{{ canonical }}">
 
 {#- hreflang: one logical page, N GEO variants -#}
-{%- set alternates = site.hreflang|default({})[page.translation_key|default('')]|default([]) -%}
+{%- set translation_group = site.site_identity.translation_group|default('aigf') -%}
+{%- set alternates = site.hreflang|default({})[translation_group ~ ':' ~ page.translation_key|default(page.id)]|default([]) -%}
 {%- if alternates|length > 1 and do_index %}
 {% for alt in alternates %}    <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}">
 {% endfor %}
@@ -58,5 +59,6 @@
 
     <link rel="icon" href="/images/brand/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="{{ url(asset('css/main.css')|minify, {canonical: false}) }}">
+    <link rel="stylesheet" href="/{{ site.theme_asset }}">
 
 {% include 'partials/schema.html.twig' %}

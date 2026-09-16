@@ -1,5 +1,27 @@
 # AIGF GEO Network
 
+## MiniCMS Studio
+
+The project now includes a local editorial application with server-enforced roles,
+review/approval/publication states, independent site/market/language settings,
+configurable content models, themes, typed blocks and URL migrations.
+
+```sh
+composer install
+php scripts/studio.php serve
+```
+
+Open **http://127.0.0.1:8787** and create the first administrator.
+See **[the Studio guide (Russian)](docs/studio.md)** for the workflow, server setup,
+release archives and recovery. Studio requires the PHP `zip` extension.
+
+Choose one publishing workflow: Studio or the existing Git/Pages CMS pipeline.
+For Studio, set GitHub repository variable `PUBLISHER=studio`, disable the old
+pull-deploy timer, and keep a persistent backed-up workspace. Studio drafts and
+accounts live in `.studio/`; successful publications are not committed to Git automatically.
+The rest of this README describes the original Git-based workflow, which remains
+available to trusted maintainers.
+
 A static, multi-country network of SEO/affiliate review sites built from **one
 engine, one deployment pipeline and N GEO configurations**.
 

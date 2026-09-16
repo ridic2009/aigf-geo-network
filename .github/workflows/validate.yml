@@ -26,14 +26,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: mbstring, intl, gd, dom, simplexml, fileinfo
+          extensions: mbstring, intl, gd, dom, simplexml, fileinfo, zip
           coverage: none
 
       - name: Cache Composer packages
         uses: actions/cache@v4
         with:
           path: vendor
-          key: composer-${{ hashFiles('composer.json') }}
+          key: composer-${{ hashFiles('composer.lock') }}
           restore-keys: composer-
 
       - name: Install dependencies
@@ -44,6 +44,19 @@ jobs:
 
       - name: Build every GEO
         run: php scripts/build-all.php --optimize
+
+      - name: Studio workflow and recovery integration tests
+        run: php tests/run.php
+
+      - name: Redirect helper tests
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+
+      - name: Deployment shell syntax
+        run: |
+          sh -n scripts/deploy
+          sh -n scripts/rollback
+          sh -n scripts/lib/deploy-common.sh
+          bash -n infra/auto-deploy.sh
 
       - name: Summary
         if: always()

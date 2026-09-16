@@ -31,6 +31,7 @@ for arg in "$@"; do
 done
 
 [ -n "$GEO" ] || die "Usage: scripts/rollback <geo> [release] [--list] [--host=IP]"
+case "$RELEASE" in *[!a-zA-Z0-9_-]*) die "Invalid release id" ;; esac
 
 if [ -n "$ONLY_HOST" ]; then
     DEPLOY_HOSTS="$ONLY_HOST"
@@ -53,18 +54,22 @@ fi
 
 FAILED=""
 for HOST in $(host_list); do
+    if ! acquire_lock "$HOST" "$SITE_ROOT"; then FAILED="$FAILED $HOST"; continue; fi
     if ssh_run "$HOST" "set -eu
         cd '$SITE_ROOT/releases'
         CURRENT=\$(basename \"\$(readlink '$SITE_ROOT/current')\")
         TARGET='$RELEASE'
         if [ -z \"\$TARGET\" ]; then
-            TARGET=\$(ls -1t | grep -v \"^\$CURRENT\$\" | head -n 1)
+            TARGET=\$(for entry in \$(ls -1 | sort -r); do
+                if [ \"\$entry\" != \"\$CURRENT\" ] && [ -f \"\$entry/.verified\" ]; then echo \"\$entry\"; break; fi
+            done)
         fi
         [ -n \"\$TARGET\" ] || { echo 'No previous release to roll back to.'; exit 1; }
         [ -d \"\$TARGET\" ] || { echo \"Release \$TARGET does not exist.\"; exit 1; }
         test -f \"\$TARGET/index.html\" || { echo \"Release \$TARGET is incomplete.\"; exit 1; }
         ln -sfn '$SITE_ROOT/releases/'\"\$TARGET\" '$SITE_ROOT/current.tmp'
         mv -Tf '$SITE_ROOT/current.tmp' '$SITE_ROOT/current'
+        sudo -n /usr/local/sbin/minicms-redirects '$DOMAIN'
         printf '%s\trollback\t%s\n' \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" \"\$TARGET\" >> '$SITE_ROOT/releases.log'
         echo \"rolled back: \$CURRENT -> \$TARGET\"
     "; then

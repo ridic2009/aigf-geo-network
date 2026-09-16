@@ -33,8 +33,7 @@ final class Builder
 
         /* 2. Cecil build ---------------------------------------------- */
         $configs = [
-            'config/common.yml',
-            'config/geos/' . $geoCode . '.yml',
+            Network::buildConfig($geoCode),
         ];
         $generated = Network::path(...explode('/', Prepare::OUTPUT));
         if (is_file($generated)) {
@@ -43,7 +42,7 @@ final class Builder
 
         $command = [
             \PHP_BINARY,
-            Network::path('vendor', 'cecil', 'cecil', 'bin', 'cecil'),
+            Network::codeRoot() . '/vendor/cecil/cecil/bin/cecil',
             'build',
             '--config=' . implode(',', $configs),
             '--output=' . $output,
@@ -76,6 +75,7 @@ final class Builder
 
         /* 3. output verification -------------------------------------- */
         $absolute = Network::path(...explode(\DIRECTORY_SEPARATOR, $output));
+        Redirects::write($geoCode, $absolute);
         if (empty($options['skip-validation'])) {
             $result = (new OutputValidator())->validate($geoCode, $absolute, !empty($options['drafts']));
             $warnings += \count($result['warnings']);
@@ -100,17 +100,20 @@ final class Builder
      */
     public static function run(array $command, ?string $cwd = null): array
     {
-        $descriptors = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
+        // File streams avoid a stdout/stderr pipe deadlock on large build errors.
+        $out = tmpfile();
+        $err = tmpfile();
+        $descriptors = [1 => $out, 2 => $err];
         $process = proc_open($command, $descriptors, $pipes, $cwd ?? Network::root());
         if (!\is_resource($process)) {
             return [1, '', 'Unable to start: ' . implode(' ', $command)];
         }
-        $stdout = (string) stream_get_contents($pipes[1]);
-        $stderr = (string) stream_get_contents($pipes[2]);
-        fclose($pipes[1]);
-        fclose($pipes[2]);
-
-        return [proc_close($process), $stdout, $stderr];
+        $exit = proc_close($process);
+        rewind($out); rewind($err);
+        $stdout = (string) stream_get_contents($out);
+        $stderr = (string) stream_get_contents($err);
+        fclose($out); fclose($err);
+        return [$exit, $stdout, $stderr];
     }
 
     public static function countFiles(string $dir, string $extension): int
@@ -132,6 +135,11 @@ final class Builder
 
     public static function removeDirectory(string $dir): void
     {
+        $resolved = realpath($dir);
+        $root = realpath(Network::root());
+        if ($resolved !== false && ($root === false || !str_starts_with(str_replace('\\', '/', $resolved), str_replace('\\', '/', $root) . '/dist/'))) {
+            throw new \RuntimeException('Refusing to remove a directory outside workspace dist/: ' . $dir);
+        }
         if (!is_dir($dir)) {
             return;
         }

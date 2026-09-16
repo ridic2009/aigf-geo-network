@@ -19,7 +19,7 @@ use AiGf\Tools\Prepare;
 [$args, $options] = Cli::parse($argv);
 $codes = Cli::resolveGeos($args);
 
-Prepare::run();
+Prepare::run(array_values(array_unique(array_merge(Network::codes(true), $codes))));
 
 $results = [];
 $started = microtime(true);

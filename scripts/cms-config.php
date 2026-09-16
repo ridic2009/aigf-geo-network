@@ -277,7 +277,7 @@ function siteSettingsFile(string $code, array $ui): array
         'label'       => 'Site settings',
         'description' => 'Name, description and every piece of interface text for this country.',
         'type'        => 'file',
-        'path'        => 'config/geos/' . $code . '.yml',
+        'path'        => str_replace('\\', '/', substr(Network::configFile($code), strlen(Network::root()) + 1)),
         'format'      => 'yaml',
         'fields'      => [
             ['name' => 'title', 'label' => 'Site name', 'type' => 'string', 'required' => true, 'description' => 'Used in the header, in <title> and in Organization/WebSite structured data.'],
@@ -438,128 +438,53 @@ function collection(string $name, string $label, string $path, string $descripti
 
 /* ------------------------------------------------------------ per-GEO tree */
 
+function modelCmsFields(array $fields): array
+{
+    $out = [];
+    foreach ($fields as $name => $rule) {
+        $type = $rule['type'] ?? 'string';
+        if ($type === 'list') {
+            $child = modelCmsFields([$name => array_merge($rule['items'] ?? ['type' => 'string'], ['label' => $rule['label'] ?? $name])])[0];
+            $child['list'] = true;
+            $out[] = $child;
+            continue;
+        }
+        if ($type === 'product') {
+            $field = productReference($name, $rule['label'] ?? $name);
+        } else {
+            $field = ['name' => $name, 'label' => $rule['label'] ?? $name, 'type' => $type === 'url' ? 'string' : $type];
+            if ($type === 'object') { $field['fields'] = modelCmsFields($rule['fields'] ?? []); }
+        }
+        if (!empty($rule['required'])) { $field['required'] = true; }
+        if (isset($rule['options'])) { $field['type'] = 'select'; $field['options'] = ['values' => $rule['options']]; }
+        $out[] = $field;
+    }
+    return $out;
+}
+
 function geoGroup(string $code, array $ui): array
 {
     $geo = Network::geo($code);
-    $label = (string) ($geo['geo']['name'] ?? strtoupper($code));
-    $base = 'content/' . $code;
-
-    $items = [];
-
-    $items[] = siteSettingsFile($code, $ui);
-
-    $items[] = [
-        'name'        => $code . '_home',
-        'label'       => 'Homepage',
-        'description' => 'The front page of this country.',
-        'type'        => 'file',
-        'path'        => $base . '/index.md',
-        'format'      => 'yaml-frontmatter',
-        'fields'      => array_merge(
-            baseFields('homepage', false),
-            [
-                ['name' => 'hero_cta', 'label' => 'Hero button target', 'type' => 'string', 'description' => 'Page id the main button links to, e.g. "rankings/best-ai-girlfriend".'],
-                ['name' => 'top_products_title', 'label' => 'Top products heading', 'type' => 'string'],
-                productReference('top_products', 'Top products', true, 'Products shown as cards on the homepage.'),
-            ],
-            metaFields(),
-            contentFields(),
-            tailFields()
-        ),
-    ];
-
-    $items[] = collection(
-        $code . '_pages',
-        'Pages',
-        $base,
-        'About, privacy, affiliate disclosure and other standalone pages.',
-        array_merge(baseFields('static'), metaFields(), contentFields(), tailFields()),
-        view(['title', 'slug', 'status', 'updated'])
-    );
-    $items[\count($items) - 1]['exclude'] = ['index.md'];
-
-    $items[] = collection(
-        $code . '_reviews',
-        'Reviews',
-        $base . '/reviews',
-        'One review per product. The product database supplies logo, rating, price and the affiliate link.',
-        array_merge(
-            baseFields('review'),
-            [productReference('product', 'Product', false, 'Which product this review is about.')],
-            metaFields(),
-            contentFields(),
-            [
-                ['name' => 'verdict', 'label' => 'Our verdict', 'type' => 'text', 'description' => 'Short editorial conclusion, shown in a highlighted box.'],
-                ['name' => 'pros', 'label' => 'Pros', 'type' => 'string', 'list' => true],
-                ['name' => 'cons', 'label' => 'Cons', 'type' => 'string', 'list' => true],
-            ],
-            tailFields()
-        ),
-        view(['title', 'product', 'status', 'updated'])
-    );
-
-    $items[] = collection(
-        $code . '_rankings',
-        'Rankings',
-        $base . '/rankings',
-        'Ordered "best of" pages. The table and the cards are generated from the list below.',
-        array_merge(
-            baseFields('ranking'),
-            metaFields(),
-            [[
-                'name'        => 'ranking',
-                'label'       => 'Ranking',
-                'type'        => 'object',
-                'description' => 'In order: position 1 first.',
-                'list'        => ['collapsible' => ['collapsed' => false, 'summary' => '{index}. {fields.product}']],
-                'fields'      => [
-                    productReference('product', 'Product'),
-                    ['name' => 'badge', 'label' => 'Badge', 'type' => 'string', 'description' => 'e.g. "Best overall".'],
-                    ['name' => 'highlight', 'label' => 'Why it ranks here', 'type' => 'text'],
-                ],
-            ]],
-            contentFields(),
-            tailFields()
-        ),
-        view(['title', 'slug', 'status', 'updated'])
-    );
-
-    $items[] = collection(
-        $code . '_compare',
-        'Comparisons',
-        $base . '/compare',
-        'Head-to-head pages. The comparison table is generated from the product database.',
-        array_merge(
-            baseFields('comparison'),
-            [productReference('products', 'Products compared', true, 'Pick at least two.')],
-            metaFields(),
-            contentFields(),
-            tailFields()
-        ),
-        view(['title', 'slug', 'status', 'updated'])
-    );
-
-    $items[] = collection(
-        $code . '_guides',
-        'Guides',
-        $base . '/guides',
-        'Long-form editorial content.',
-        array_merge(
-            baseFields('guide'),
-            [productReference('products', 'Products mentioned', true, 'Optional.')],
-            metaFields(),
-            contentFields(),
-            tailFields()
-        ),
-        view(['title', 'slug', 'status', 'updated'])
-    );
-
-    return [
-        'name'  => 'geo_' . $code,
-        'label' => $label,
-        'type'  => 'group',
-        'items' => $items,
-    ];
+    $base = $geo['pages']['dir'];
+    $items = [siteSettingsFile($code, $ui)];
+    foreach (\AiGf\Tools\Model::types($code) as $type => $definition) {
+        $fields = array_merge(baseFields($type, $type !== 'homepage'), metaFields(), contentFields(), modelCmsFields($definition['fields'] ?? []), tailFields());
+        $fields[] = ['name' => 'aliases', 'label' => 'Предыдущие адреса', 'type' => 'string', 'list' => true, 'readonly' => true];
+        $blocks = [];
+        foreach (\AiGf\Tools\Model::blocks() as $block => $def) {
+            $blocks[] = ['name' => $block, 'label' => $def['label'], 'fields' => modelCmsFields($def['fields'])];
+        }
+        $fields[] = ['name' => 'blocks', 'label' => 'Блоки страницы', 'type' => 'block', 'list' => true, 'blockKey' => 'type', 'blocks' => $blocks];
+        if ($type === 'homepage') {
+            $items[] = ['name' => $code . '_home', 'label' => $definition['label'], 'type' => 'file', 'path' => $base . '/index.md', 'format' => 'yaml-frontmatter', 'fields' => $fields];
+            continue;
+        }
+        $path = $base . (empty($definition['section']) ? '' : '/' . $definition['section']);
+        $item = collection($code . '_' . $type, $definition['label'], $path, '', $fields, view(['title', 'slug', 'status', 'updated']));
+        if (empty($definition['section'])) { $item['exclude'] = ['index.md']; }
+        $items[] = $item;
+    }
+    return ['name' => 'site_' . $code, 'label' => $geo['title'] . ' — ' . $code, 'type' => 'group', 'items' => $items];
 }
 
 /* ------------------------------------------------------ business data trees */
@@ -567,8 +492,12 @@ function geoGroup(string $code, array $ui): array
 function geoOverrideFields(array $codes, array $fields): array
 {
     $out = [];
+    $seen = [];
     foreach ($codes as $code) {
         $geo = Network::geo($code);
+        $code = $geo['site_identity']['market'];
+        if (isset($seen[$code])) { continue; }
+        $seen[$code] = true;
         $out[] = [
             'name'   => $code,
             'label'  => (string) ($geo['geo']['name'] ?? strtoupper($code)) . ' (' . strtoupper($code) . ')',
@@ -826,7 +755,7 @@ if ($lang !== 'en') {
             }
             if (isset($dictionary[$value])) {
                 $node[$key] = $dictionary[$value];
-            } elseif (trim($value) !== '' && !preg_match('/^[a-z0-9_-]+$/', $value)) {
+            } elseif (trim($value) !== '' && !preg_match('/^[a-z0-9_-]+$/', $value) && !preg_match('/[А-Яа-яЁё]/u', $value)) {
                 $missing[$value] = true;
             }
         }

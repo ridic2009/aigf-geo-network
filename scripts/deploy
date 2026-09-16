@@ -50,14 +50,18 @@ require_hosts
 
 DOMAIN=$(geo_host "$GEO")
 SRC="$ROOT_DIR/dist/$DOMAIN"
-[ -n "$RELEASE" ] || RELEASE=$(date -u +%Y%m%d-%H%M%S)
+[ -n "$RELEASE" ] || RELEASE="$(date -u +%Y%m%d-%H%M%S)-$$"
+case "$RELEASE" in *[!a-zA-Z0-9_-]*|'') die "Invalid release id" ;; esac
+case "$KEEP_RELEASES" in *[!0-9]*|'') die "KEEP_RELEASES must be an integer >= 2" ;; esac
+[ "$KEEP_RELEASES" -ge 2 ] || die "KEEP_RELEASES must be at least 2"
 
 if [ "$DO_BUILD" -eq 1 ]; then
-    php "$ROOT_DIR/scripts/build.php" "$GEO"
+    php "$CODE_ROOT/scripts/build.php" "$GEO"
 fi
 
 [ -d "$SRC" ] || die "No build output in dist/$DOMAIN — run ./scripts/build $GEO first."
 [ -f "$SRC/index.html" ] || die "dist/$DOMAIN has no index.html: refusing to deploy a broken build."
+[ ! -f "$SRC/.preview" ] || die "Preview output cannot be deployed."
 
 FILE_COUNT=$(find "$SRC" -type f | wc -l | tr -d ' ')
 printf '\n== Deploying %s (%s) release %s to %s server(s)\n' \
@@ -67,10 +71,11 @@ FAILED=""
 for HOST in $(host_list); do
     SITE_ROOT="$DEPLOY_ROOT/$DOMAIN"
     TARGET="$SITE_ROOT/releases/$RELEASE"
+    if ! acquire_lock "$HOST" "$SITE_ROOT"; then FAILED="$FAILED $HOST"; continue; fi
 
-    if ! ssh_run "$HOST" "mkdir -p '$TARGET' '$SITE_ROOT/releases'"; then
+    if ! ssh_run "$HOST" "test ! -e '$TARGET' && mkdir -p '$TARGET'"; then
         FAILED="$FAILED $HOST"
-        printf '  [ERROR] %s: cannot create the release directory\n' "$HOST" >&2
+        printf '  [ERROR] %s: release already exists or cannot be created\n' "$HOST" >&2
         continue
     fi
 
@@ -96,37 +101,69 @@ for HOST in $(host_list); do
         continue
     fi
 
+    # Remember the exact previously served release, never guess by directory mtime.
+    if ! PREVIOUS=$(ssh_run "$HOST" "readlink '$SITE_ROOT/current' || true"); then
+        FAILED="$FAILED $HOST"
+        continue
+    fi
+    PREVIOUS_ID=${PREVIOUS##*/}
+    case "$PREVIOUS_ID" in *[!a-zA-Z0-9_-]*) die "Invalid previous release id" ;; esac
+
     # Verify on the server, then switch atomically.
     if ssh_run "$HOST" "set -eu
         test -f '$TARGET/index.html' || { echo 'release is missing index.html'; exit 1; }
         test -f '$TARGET/sitemap.xml' || { echo 'release is missing sitemap.xml'; exit 1; }
-        ln -sfn '$TARGET' '$SITE_ROOT/current.tmp'
-        mv -Tf '$SITE_ROOT/current.tmp' '$SITE_ROOT/current'
+        test -f '$TARGET/redirects.json' || { echo 'release is missing redirects.json'; exit 1; }
+        find '$TARGET' -type d -exec chmod 755 {} +
+        find '$TARGET' -type f -exec chmod 644 {} +
+        ln -sfn '$TARGET' '$SITE_ROOT/current.tmp.$RELEASE'
+        mv -Tf '$SITE_ROOT/current.tmp.$RELEASE' '$SITE_ROOT/current'
         printf '%s\t%s\t%s\n' \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" '$RELEASE' '${GIT_COMMIT:-manual}' >> '$SITE_ROOT/releases.log'
-        cd '$SITE_ROOT/releases'
-        ls -1t | tail -n +\$(( $KEEP_RELEASES + 1 )) | xargs -r rm -rf
+        sudo -n /usr/local/sbin/minicms-redirects '$DOMAIN'
     "; then
         ok "$HOST: $DOMAIN serving release $RELEASE ($FILE_COUNT files)"
     else
         FAILED="$FAILED $HOST"
-        printf '  [ERROR] %s: release switch failed, previous release still live\n' "$HOST" >&2
+        printf '  [ERROR] %s: activation failed; restoring the exact previous release\n' "$HOST" >&2
+        if [ -n "$PREVIOUS_ID" ]; then
+            DEPLOY_LOCK_TOKEN="$ACTIVE_LOCK_TOKEN" sh "$SCRIPT_DIR/rollback" "$GEO" "$PREVIOUS_ID" --host="$HOST" || info "$HOST: rollback failed; operator intervention required"
+        else
+            ssh_run "$HOST" "if [ \"\$(readlink '$SITE_ROOT/current')\" = '$TARGET' ]; then rm -f '$SITE_ROOT/current'; sudo -n /usr/local/sbin/minicms-redirects '$DOMAIN'; fi" || true
+        fi
         continue
     fi
 
     # Verify the live server, then undo the switch if it is not healthy.
     if [ "$SMOKE" -eq 1 ]; then
-        if php "$ROOT_DIR/scripts/smoke.php" "$GEO" --origin="$HOST" --quiet; then
+        if php "$CODE_ROOT/scripts/smoke.php" "$GEO" --origin="$HOST" --quiet; then
             ok "$HOST: smoke test passed"
         else
             printf '  [ERROR] %s: smoke test failed — rolling back\n' "$HOST" >&2
-            if sh "$SCRIPT_DIR/rollback" "$GEO" --host="$HOST"; then
+            if [ -n "$PREVIOUS_ID" ] && DEPLOY_LOCK_TOKEN="$ACTIVE_LOCK_TOKEN" sh "$SCRIPT_DIR/rollback" "$GEO" "$PREVIOUS_ID" --host="$HOST"; then
                 printf '  [ERROR] %s: rolled back to the previous release\n' "$HOST" >&2
             else
                 printf '  [ERROR] %s: ROLLBACK ALSO FAILED — check this server now\n' "$HOST" >&2
+                if [ -z "$PREVIOUS_ID" ]; then
+                    ssh_run "$HOST" "if [ \"\$(readlink '$SITE_ROOT/current')\" = '$TARGET' ]; then rm -f '$SITE_ROOT/current'; sudo -n /usr/local/sbin/minicms-redirects '$DOMAIN'; fi" || true
+                fi
             fi
             FAILED="$FAILED $HOST"
+            continue
         fi
     fi
+    # Prune only after health checks. Always protect both current and predecessor.
+    ssh_run "$HOST" "set -eu
+        if [ '$SMOKE' -eq 1 ]; then touch '$TARGET/.verified'; fi
+        cd '$SITE_ROOT/releases'
+        count=0
+        for entry in \$(ls -1 | sort -r); do
+            test -d \"\$entry\" || continue
+            count=\$((count + 1))
+            if [ \"\$count\" -gt '$KEEP_RELEASES' ] && [ \"\$entry\" != '$RELEASE' ] && [ \"\$entry\" != '$PREVIOUS_ID' ]; then
+                rm -rf -- \"\$entry\"
+            fi
+        done
+    " || info "$HOST: release is live, but old-release cleanup failed"
 done
 
 if [ -n "$FAILED" ]; then

@@ -1,0 +1,6 @@
+<section class="content-block">
+{% if block.heading|default('') %}<h2>{{ block.heading }}</h2>{% endif %}
+<div class="card-grid">{% for pid in block.products %}{% if products[pid] is defined %}
+{% include 'components/product-card.twig' with {'product': products[pid], 'rank': loop.index} %}
+{% endif %}{% endfor %}</div>
+</section>

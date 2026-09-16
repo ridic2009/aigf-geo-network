@@ -1,0 +1,5 @@
+<div class="content-block table-scroll" role="region" aria-label="{{ block.caption }}" tabindex="0">
+<table><caption>{{ block.caption }}</caption>
+<thead><tr>{% for column in block.columns %}<th scope="col">{{ column }}</th>{% endfor %}</tr></thead>
+<tbody>{% for row in block.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table></div>

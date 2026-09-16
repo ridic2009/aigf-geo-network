@@ -31,7 +31,7 @@ if (\count($codes) !== 1) {
 }
 $code = $codes[0];
 
-Prepare::run();
+Prepare::run(array_values(array_unique(array_merge(Network::codes(true), $codes))));
 
 Cli::title(\sprintf('Building %s (%s)', strtoupper($code), Network::host($code)));
 $started = microtime(true);

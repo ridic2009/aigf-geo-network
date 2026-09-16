@@ -1,0 +1,12 @@
+label: Журнал
+tokens:
+  c-bg: '#fffdf8'
+  c-bg-alt: '#f2eee4'
+  c-text: '#252820'
+  c-muted: '#5b6253'
+  c-border: '#d8d8ca'
+  c-accent: '#285d42'
+  c-accent-dark: '#173a28'
+  radius: 3px
+  container: 1200px
+  container-narrow: 780px

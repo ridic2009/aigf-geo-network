@@ -1,0 +1,12 @@
+label: Классическая
+tokens:
+  c-bg: '#ffffff'
+  c-bg-alt: '#f6f7fb'
+  c-text: '#16181d'
+  c-muted: '#5b6270'
+  c-border: '#e2e5ec'
+  c-accent: '#6b42d9'
+  c-accent-dark: '#4f2fa8'
+  radius: 10px
+  container: 1140px
+  container-narrow: 760px

@@ -1,0 +1,5 @@
+<section class="content-block block-callout">
+{% if block.heading|default('') %}<h2>{{ block.heading }}</h2>{% endif %}
+{% if block.body|default('') %}<div class="prose">{{ block.body|markdown_to_html|raw }}</div>{% endif %}
+<a class="btn btn--primary" href="{{ block.url }}">{{ block.label }}</a>
+</section>

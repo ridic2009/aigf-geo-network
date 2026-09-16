@@ -45,11 +45,12 @@ final class Prepare
             ];
 
             foreach (self::indexableEntries($code) as $key => $url) {
-                $hreflang[$key][] = [
+                $group = $geo['site_identity']['translation_group'];
+                $hreflang[$group . ':' . $key][] = [
                     'geo'       => $code,
                     'hreflang'  => (string) ($geo['geo']['hreflang'] ?? $code),
                     'url'       => $url,
-                    'x_default' => $code === $xDefault,
+                    'x_default' => $code === ($geo['site_identity']['x_default'] ?? $xDefault),
                 ];
             }
         }
@@ -84,6 +85,7 @@ final class Prepare
      */
     private static function indexableEntries(string $code): array
     {
+        if (Network::isStaging($code)) { return []; }
         $pages = ContentScanner::scan($code);
         $entries = [];
 

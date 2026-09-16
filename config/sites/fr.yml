@@ -1,0 +1,10 @@
+extends_geo: fr
+site:
+  id: fr
+  brand: aigf
+  market: fr
+  language: fr
+  locale: fr_FR
+  translation_group: aigf
+  model: reviews
+  theme: classic

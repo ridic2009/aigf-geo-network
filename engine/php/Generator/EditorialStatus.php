@@ -35,6 +35,12 @@ final class EditorialStatus extends AbstractGenerator implements GeneratorInterf
             }
 
             $status = (string) $page->getVariable('status', 'published');
+            // These aliases are handled as HTTP 301s by the release manifest.
+            // Cecil's built-in alias generator would emit conflicting HTML stubs.
+            $page->unVariable('aliases');
+            $types = (array) $this->config->get('page_types');
+            $definition = $types[$page->getVariable('type', '')] ?? [];
+            if (isset($definition['layout'])) { $page->setVariable('layout', $definition['layout']); }
 
             if (!\in_array($status, self::STATUSES, true)) {
                 $this->builder->getLogger()->error(\sprintf(

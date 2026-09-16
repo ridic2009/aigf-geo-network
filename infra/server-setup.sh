@@ -16,7 +16,7 @@ WEB_ROOT=${WEB_ROOT:-/srv/www}
 echo "==> Packages"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
-apt-get install -y -qq nginx rsync certbot python3-certbot-nginx ufw fail2ban
+apt-get install -y -qq nginx rsync certbot python3 python3-certbot-nginx ufw fail2ban
 
 echo "==> Deploy user"
 if ! id -u "$DEPLOY_USER" >/dev/null 2>&1; then
@@ -45,9 +45,21 @@ done
 [ -f /etc/nginx/snippets/aigf-affiliate-map.conf ] || echo 'map $uri $aigf_affiliate { default ""; }' > /etc/nginx/snippets/aigf-affiliate-map.conf
 # The deploy user only needs to reload nginx, nothing else.
 cat >/etc/sudoers.d/aigf-deploy <<EOF
-$DEPLOY_USER ALL=(root) NOPASSWD: /usr/bin/systemctl reload nginx, /usr/sbin/nginx -t
+$DEPLOY_USER ALL=(root) NOPASSWD: /usr/bin/systemctl reload nginx, /usr/sbin/nginx -t, /usr/local/sbin/minicms-redirects *
 EOF
 chmod 440 /etc/sudoers.d/aigf-deploy
+HELPER_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+if [ -f "$HELPER_DIR/apply-redirects.py" ]; then
+    install -o root -g root -m 755 "$HELPER_DIR/apply-redirects.py" /usr/local/sbin/minicms-redirects
+else
+    echo "    REQUIRED before deploying: install infra/apply-redirects.py as /usr/local/sbin/minicms-redirects (root:root, 0755)"
+fi
+python3 - "$WEB_ROOT" <<'PY'
+import json, sys
+from pathlib import Path
+Path('/etc/minicms-deploy.json').write_text(json.dumps({'web_root': sys.argv[1]}))
+PY
+chmod 644 /etc/minicms-deploy.json
 
 # The distribution ships `gzip on;` in nginx.conf; our snippet sets the whole
 # gzip block, and nginx rejects a duplicate directive.

@@ -1,0 +1,13 @@
+label: Тёмная
+tokens:
+  c-bg: '#111827'
+  c-bg-alt: '#1f2937'
+  c-text: '#f3f4f6'
+  c-muted: '#bac4d3'
+  c-border: '#475569'
+  c-accent: '#c4b5fd'
+  c-accent-dark: '#ddd6fe'
+  c-on-accent: '#111827'
+  radius: 16px
+  container: 1180px
+  container-narrow: 760px

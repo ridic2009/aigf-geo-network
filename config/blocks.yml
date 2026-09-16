@@ -1,0 +1,48 @@
+text:
+  label: Текст
+  template: blocks/text
+  fields:
+    heading: {label: Заголовок, type: string}
+    body: {label: Текст, type: text, required: true}
+image:
+  label: Изображение
+  template: blocks/image
+  fields:
+    src: {label: Изображение, type: image, required: true}
+    alt: {label: Описание изображения, type: string, required: true}
+    caption: {label: Подпись, type: string}
+cta:
+  label: Кнопка и призыв
+  template: blocks/cta
+  fields:
+    heading: {label: Заголовок, type: string}
+    body: {label: Текст, type: text}
+    label: {label: Текст кнопки, type: string, required: true}
+    url: {label: Адрес, type: url, required: true}
+products:
+  label: Карточки продуктов
+  template: blocks/products
+  fields:
+    heading: {label: Заголовок, type: string}
+    products: {label: Продукты, type: list, required: true, min_items: 1, items: {type: product}}
+faq:
+  label: Вопросы и ответы
+  template: blocks/faq
+  fields:
+    items:
+      label: Вопросы
+      type: list
+      required: true
+      min_items: 1
+      items:
+        type: object
+        fields:
+          question: {label: Вопрос, type: string, required: true}
+          answer: {label: Ответ, type: text, required: true}
+table:
+  label: Таблица
+  template: blocks/table
+  fields:
+    caption: {label: Название таблицы, type: string, required: true}
+    columns: {label: Колонки, type: list, required: true, min_items: 1, items: {type: string}}
+    rows: {label: Строки, type: list, items: {type: list, items: {type: string}}}

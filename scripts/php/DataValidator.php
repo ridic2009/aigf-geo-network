@@ -21,14 +21,12 @@ final class DataValidator
         $this->errors = [];
         $this->warnings = [];
 
-        $geoCodes = Network::codes(false);
+        $geoCodes = array_unique(array_merge(Network::codes(false), array_map(static fn ($id) => Network::geo($id)['site_identity']['market'], Network::codes(false))));
         $products = Network::products();
         $affiliates = Network::affiliates();
         $authors = Network::authors();
 
-        if ($products === []) {
-            $this->error('data/products', 'No products defined.');
-        }
+        // Models without product fields (e.g. services) may use an empty catalogue.
 
         foreach ($products as $id => $product) {
             $where = 'data/products/' . $id . '.yml';

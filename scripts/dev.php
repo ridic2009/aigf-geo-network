@@ -46,7 +46,7 @@ $command = [
     \PHP_BINARY,
     Network::path('vendor', 'cecil', 'cecil', 'bin', 'cecil'),
     'serve',
-    '--config=config/common.yml,config/geos/' . $code . '.yml,' . Prepare::OUTPUT . ',' . $devConfig,
+    '--config=' . Network::buildConfig($code) . ',' . Prepare::OUTPUT . ',' . $devConfig,
     '--port=' . (string) ($options['port'] ?? '8000'),
     '--incremental',
 ];

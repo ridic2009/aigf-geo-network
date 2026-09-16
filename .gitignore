@@ -29,3 +29,10 @@ Thumbs.db
 
 # Deploy keys (generated locally, never committed)
 /.secrets/
+
+# Studio accounts, unpublished revisions, jobs and local release archives
+/.studio/
+
+# Python helper/test bytecode
+__pycache__/
+*.pyc

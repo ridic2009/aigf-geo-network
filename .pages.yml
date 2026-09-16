@@ -153,8 +153,8 @@ content:
     type: group
     items:
       -
-        name: geo_de
-        label: Deutschland
+        name: site_de
+        label: 'AI Girlfriend Ranking Deutschland — de'
         type: group
         items:
           -
@@ -162,7 +162,7 @@ content:
             label: 'Настройки сайта'
             description: 'Название, описание и все надписи интерфейса для этой страны.'
             type: file
-            path: config/geos/de.yml
+            path: config/sites/de.yml
             format: yaml
             fields:
               -
@@ -226,8 +226,7 @@ content:
                   - { name: enabled, label: 'В эфире', type: boolean, readonly: true, description: 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.' }
           -
             name: de_home
-            label: 'Главная страница'
-            description: 'Главная страница этой страны.'
+            label: Главная
             type: file
             path: content/de/index.md
             format: yaml-frontmatter
@@ -255,26 +254,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: hero_cta
-                label: 'Кнопка в шапке ведёт на'
-                type: string
-                description: 'Идентификатор страницы для главной кнопки, например "rankings/best-ai-girlfriend".'
-              -
-                name: top_products_title
-                label: 'Заголовок блока с продуктами'
-                type: string
-              -
-                name: top_products
-                label: 'Продукты на главной'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Продукты, которые показываются карточками на главной.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -335,6 +314,24 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: hero_cta
+                label: 'Страница главной кнопки'
+                type: string
+              -
+                name: top_products_title
+                label: 'Заголовок подборки'
+                type: string
+              -
+                name: top_products
+                label: 'Товары на главной'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -352,10 +349,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: de_pages
-            label: Страницы
-            description: 'О нас, политика конфиденциальности, партнёрский дисклеймер и другие отдельные страницы.'
+            name: de_static
+            label: Страница
+            description: ''
             type: collection
             path: content/de
             format: yaml-frontmatter
@@ -491,12 +507,31 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
             exclude:
               - index.md
           -
-            name: de_reviews
-            label: Обзоры
-            description: 'Один обзор на продукт. Логотип, рейтинг, цена и партнёрская ссылка подставляются из базы продуктов.'
+            name: de_review
+            label: Обзор
+            description: ''
             type: collection
             path: content/de/reviews
             format: yaml-frontmatter
@@ -507,7 +542,7 @@ content:
             view:
               fields:
                 - title
-                - product
+                - slug
                 - status
                 - updated
               primary: title
@@ -555,16 +590,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: product
-                label: Продукт
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                description: 'О каком продукте этот обзор.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -625,10 +650,19 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: product
+                label: Продукт
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                required: true
+              -
                 name: verdict
-                label: 'Итог редакции'
+                label: 'Наш вердикт'
                 type: text
-                description: 'Краткий вывод, выводится в выделенном блоке.'
               -
                 name: pros
                 label: Плюсы
@@ -657,10 +691,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: de_rankings
-            label: Рейтинги
-            description: 'Рейтинговые страницы. Таблица и карточки генерируются из списка ниже.'
+            name: de_ranking
+            label: Рейтинг
+            description: ''
             type: collection
             path: content/de/rankings
             format: yaml-frontmatter
@@ -749,17 +802,6 @@ content:
                   label: '{fields.name}'
                   search: 'fields.name,fields.id'
               -
-                name: ranking
-                label: Рейтинг
-                type: object
-                description: 'По порядку: первым идёт первое место.'
-                list:
-                  collapsible: { collapsed: false, summary: '{index}. {fields.product}' }
-                fields:
-                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' } }
-                  - { name: badge, label: Плашка, type: string, description: 'Например, «Лучший в целом».' }
-                  - { name: highlight, label: 'Почему это место', type: text }
-              -
                 name: intro
                 label: Вступление
                 type: text
@@ -790,6 +832,15 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -807,10 +858,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: de_compare
-            label: Сравнения
-            description: 'Страницы сравнения. Таблица сравнения строится из базы продуктов.'
+            name: de_comparison
+            label: Сравнение
+            description: ''
             type: collection
             path: content/de/compare
             format: yaml-frontmatter
@@ -870,17 +940,6 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
-                name: products
-                label: 'Сравниваемые продукты'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Выберите минимум два.'
-              -
                 name: date
                 label: 'Дата публикации'
                 type: date
@@ -940,6 +999,16 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: products
+                label: 'Сравниваемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -957,10 +1026,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: de_guides
-            label: Гайды
-            description: 'Большие редакционные материалы.'
+            name: de_guide
+            label: Руководство
+            description: ''
             type: collection
             path: content/de/guides
             format: yaml-frontmatter
@@ -1020,16 +1108,173 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
                 name: products
-                label: 'Упомянутые продукты'
+                label: 'Упоминаемые продукты'
                 type: reference
                 options:
                   collection: products
                   value: '{fields.slug}'
                   label: '{fields.name}'
                   search: 'fields.name,fields.slug'
-                  multiple: true
-                description: Необязательно.
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+          -
+            name: de_landing
+            label: 'Лендинг из блоков'
+            description: ''
+            type: collection
+            path: content/de/landings
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: landing
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -1107,9 +1352,28 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
       -
-        name: geo_fr
-        label: France
+        name: site_fr
+        label: 'AI Girlfriend Ranking France — fr'
         type: group
         items:
           -
@@ -1117,7 +1381,7 @@ content:
             label: 'Настройки сайта'
             description: 'Название, описание и все надписи интерфейса для этой страны.'
             type: file
-            path: config/geos/fr.yml
+            path: config/sites/fr.yml
             format: yaml
             fields:
               -
@@ -1181,8 +1445,7 @@ content:
                   - { name: enabled, label: 'В эфире', type: boolean, readonly: true, description: 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.' }
           -
             name: fr_home
-            label: 'Главная страница'
-            description: 'Главная страница этой страны.'
+            label: Главная
             type: file
             path: content/fr/index.md
             format: yaml-frontmatter
@@ -1210,26 +1473,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: hero_cta
-                label: 'Кнопка в шапке ведёт на'
-                type: string
-                description: 'Идентификатор страницы для главной кнопки, например "rankings/best-ai-girlfriend".'
-              -
-                name: top_products_title
-                label: 'Заголовок блока с продуктами'
-                type: string
-              -
-                name: top_products
-                label: 'Продукты на главной'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Продукты, которые показываются карточками на главной.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -1290,6 +1533,24 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: hero_cta
+                label: 'Страница главной кнопки'
+                type: string
+              -
+                name: top_products_title
+                label: 'Заголовок подборки'
+                type: string
+              -
+                name: top_products
+                label: 'Товары на главной'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -1307,10 +1568,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: fr_pages
-            label: Страницы
-            description: 'О нас, политика конфиденциальности, партнёрский дисклеймер и другие отдельные страницы.'
+            name: fr_static
+            label: Страница
+            description: ''
             type: collection
             path: content/fr
             format: yaml-frontmatter
@@ -1446,12 +1726,31 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
             exclude:
               - index.md
           -
-            name: fr_reviews
-            label: Обзоры
-            description: 'Один обзор на продукт. Логотип, рейтинг, цена и партнёрская ссылка подставляются из базы продуктов.'
+            name: fr_review
+            label: Обзор
+            description: ''
             type: collection
             path: content/fr/reviews
             format: yaml-frontmatter
@@ -1462,7 +1761,7 @@ content:
             view:
               fields:
                 - title
-                - product
+                - slug
                 - status
                 - updated
               primary: title
@@ -1510,16 +1809,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: product
-                label: Продукт
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                description: 'О каком продукте этот обзор.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -1580,10 +1869,19 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: product
+                label: Продукт
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                required: true
+              -
                 name: verdict
-                label: 'Итог редакции'
+                label: 'Наш вердикт'
                 type: text
-                description: 'Краткий вывод, выводится в выделенном блоке.'
               -
                 name: pros
                 label: Плюсы
@@ -1612,10 +1910,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: fr_rankings
-            label: Рейтинги
-            description: 'Рейтинговые страницы. Таблица и карточки генерируются из списка ниже.'
+            name: fr_ranking
+            label: Рейтинг
+            description: ''
             type: collection
             path: content/fr/rankings
             format: yaml-frontmatter
@@ -1704,17 +2021,6 @@ content:
                   label: '{fields.name}'
                   search: 'fields.name,fields.id'
               -
-                name: ranking
-                label: Рейтинг
-                type: object
-                description: 'По порядку: первым идёт первое место.'
-                list:
-                  collapsible: { collapsed: false, summary: '{index}. {fields.product}' }
-                fields:
-                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' } }
-                  - { name: badge, label: Плашка, type: string, description: 'Например, «Лучший в целом».' }
-                  - { name: highlight, label: 'Почему это место', type: text }
-              -
                 name: intro
                 label: Вступление
                 type: text
@@ -1745,6 +2051,15 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -1762,10 +2077,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: fr_compare
-            label: Сравнения
-            description: 'Страницы сравнения. Таблица сравнения строится из базы продуктов.'
+            name: fr_comparison
+            label: Сравнение
+            description: ''
             type: collection
             path: content/fr/compare
             format: yaml-frontmatter
@@ -1825,17 +2159,6 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
-                name: products
-                label: 'Сравниваемые продукты'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Выберите минимум два.'
-              -
                 name: date
                 label: 'Дата публикации'
                 type: date
@@ -1895,6 +2218,16 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: products
+                label: 'Сравниваемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -1912,10 +2245,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: fr_guides
-            label: Гайды
-            description: 'Большие редакционные материалы.'
+            name: fr_guide
+            label: Руководство
+            description: ''
             type: collection
             path: content/fr/guides
             format: yaml-frontmatter
@@ -1975,16 +2327,173 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
                 name: products
-                label: 'Упомянутые продукты'
+                label: 'Упоминаемые продукты'
                 type: reference
                 options:
                   collection: products
                   value: '{fields.slug}'
                   label: '{fields.name}'
                   search: 'fields.name,fields.slug'
-                  multiple: true
-                description: Необязательно.
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+          -
+            name: fr_landing
+            label: 'Лендинг из блоков'
+            description: ''
+            type: collection
+            path: content/fr/landings
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: landing
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -2062,9 +2571,28 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
       -
-        name: geo_jp
-        label: 日本
+        name: site_jp
+        label: 'AI Girlfriend Ranking 日本 — jp'
         type: group
         items:
           -
@@ -2072,7 +2600,7 @@ content:
             label: 'Настройки сайта'
             description: 'Название, описание и все надписи интерфейса для этой страны.'
             type: file
-            path: config/geos/jp.yml
+            path: config/sites/jp.yml
             format: yaml
             fields:
               -
@@ -2136,8 +2664,7 @@ content:
                   - { name: enabled, label: 'В эфире', type: boolean, readonly: true, description: 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.' }
           -
             name: jp_home
-            label: 'Главная страница'
-            description: 'Главная страница этой страны.'
+            label: Главная
             type: file
             path: content/jp/index.md
             format: yaml-frontmatter
@@ -2165,26 +2692,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: hero_cta
-                label: 'Кнопка в шапке ведёт на'
-                type: string
-                description: 'Идентификатор страницы для главной кнопки, например "rankings/best-ai-girlfriend".'
-              -
-                name: top_products_title
-                label: 'Заголовок блока с продуктами'
-                type: string
-              -
-                name: top_products
-                label: 'Продукты на главной'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Продукты, которые показываются карточками на главной.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -2245,6 +2752,24 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: hero_cta
+                label: 'Страница главной кнопки'
+                type: string
+              -
+                name: top_products_title
+                label: 'Заголовок подборки'
+                type: string
+              -
+                name: top_products
+                label: 'Товары на главной'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -2262,10 +2787,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: jp_pages
-            label: Страницы
-            description: 'О нас, политика конфиденциальности, партнёрский дисклеймер и другие отдельные страницы.'
+            name: jp_static
+            label: Страница
+            description: ''
             type: collection
             path: content/jp
             format: yaml-frontmatter
@@ -2401,12 +2945,31 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
             exclude:
               - index.md
           -
-            name: jp_reviews
-            label: Обзоры
-            description: 'Один обзор на продукт. Логотип, рейтинг, цена и партнёрская ссылка подставляются из базы продуктов.'
+            name: jp_review
+            label: Обзор
+            description: ''
             type: collection
             path: content/jp/reviews
             format: yaml-frontmatter
@@ -2417,7 +2980,7 @@ content:
             view:
               fields:
                 - title
-                - product
+                - slug
                 - status
                 - updated
               primary: title
@@ -2465,16 +3028,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: product
-                label: Продукт
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                description: 'О каком продукте этот обзор.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -2535,10 +3088,19 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: product
+                label: Продукт
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                required: true
+              -
                 name: verdict
-                label: 'Итог редакции'
+                label: 'Наш вердикт'
                 type: text
-                description: 'Краткий вывод, выводится в выделенном блоке.'
               -
                 name: pros
                 label: Плюсы
@@ -2567,10 +3129,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: jp_rankings
-            label: Рейтинги
-            description: 'Рейтинговые страницы. Таблица и карточки генерируются из списка ниже.'
+            name: jp_ranking
+            label: Рейтинг
+            description: ''
             type: collection
             path: content/jp/rankings
             format: yaml-frontmatter
@@ -2659,17 +3240,6 @@ content:
                   label: '{fields.name}'
                   search: 'fields.name,fields.id'
               -
-                name: ranking
-                label: Рейтинг
-                type: object
-                description: 'По порядку: первым идёт первое место.'
-                list:
-                  collapsible: { collapsed: false, summary: '{index}. {fields.product}' }
-                fields:
-                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' } }
-                  - { name: badge, label: Плашка, type: string, description: 'Например, «Лучший в целом».' }
-                  - { name: highlight, label: 'Почему это место', type: text }
-              -
                 name: intro
                 label: Вступление
                 type: text
@@ -2700,6 +3270,15 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -2717,10 +3296,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: jp_compare
-            label: Сравнения
-            description: 'Страницы сравнения. Таблица сравнения строится из базы продуктов.'
+            name: jp_comparison
+            label: Сравнение
+            description: ''
             type: collection
             path: content/jp/compare
             format: yaml-frontmatter
@@ -2780,17 +3378,6 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
-                name: products
-                label: 'Сравниваемые продукты'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Выберите минимум два.'
-              -
                 name: date
                 label: 'Дата публикации'
                 type: date
@@ -2850,6 +3437,16 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: products
+                label: 'Сравниваемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -2867,10 +3464,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: jp_guides
-            label: Гайды
-            description: 'Большие редакционные материалы.'
+            name: jp_guide
+            label: Руководство
+            description: ''
             type: collection
             path: content/jp/guides
             format: yaml-frontmatter
@@ -2930,16 +3546,173 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
                 name: products
-                label: 'Упомянутые продукты'
+                label: 'Упоминаемые продукты'
                 type: reference
                 options:
                   collection: products
                   value: '{fields.slug}'
                   label: '{fields.name}'
                   search: 'fields.name,fields.slug'
-                  multiple: true
-                description: Необязательно.
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+          -
+            name: jp_landing
+            label: 'Лендинг из блоков'
+            description: ''
+            type: collection
+            path: content/jp/landings
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: landing
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -3017,9 +3790,28 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
       -
-        name: geo_us
-        label: 'United States'
+        name: site_us
+        label: 'AI Girlfriend Ranking — us'
         type: group
         items:
           -
@@ -3027,7 +3819,7 @@ content:
             label: 'Настройки сайта'
             description: 'Название, описание и все надписи интерфейса для этой страны.'
             type: file
-            path: config/geos/us.yml
+            path: config/sites/us.yml
             format: yaml
             fields:
               -
@@ -3091,8 +3883,7 @@ content:
                   - { name: enabled, label: 'В эфире', type: boolean, readonly: true, description: 'Только для чтения. Страна включается, когда готовы DNS, сертификат и контент.' }
           -
             name: us_home
-            label: 'Главная страница'
-            description: 'Главная страница этой страны.'
+            label: Главная
             type: file
             path: content/us/index.md
             format: yaml-frontmatter
@@ -3120,26 +3911,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: hero_cta
-                label: 'Кнопка в шапке ведёт на'
-                type: string
-                description: 'Идентификатор страницы для главной кнопки, например "rankings/best-ai-girlfriend".'
-              -
-                name: top_products_title
-                label: 'Заголовок блока с продуктами'
-                type: string
-              -
-                name: top_products
-                label: 'Продукты на главной'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Продукты, которые показываются карточками на главной.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -3200,6 +3971,24 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: hero_cta
+                label: 'Страница главной кнопки'
+                type: string
+              -
+                name: top_products_title
+                label: 'Заголовок подборки'
+                type: string
+              -
+                name: top_products
+                label: 'Товары на главной'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -3217,10 +4006,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: us_pages
-            label: Страницы
-            description: 'О нас, политика конфиденциальности, партнёрский дисклеймер и другие отдельные страницы.'
+            name: us_static
+            label: Страница
+            description: ''
             type: collection
             path: content/us
             format: yaml-frontmatter
@@ -3356,12 +4164,31 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
             exclude:
               - index.md
           -
-            name: us_reviews
-            label: Обзоры
-            description: 'Один обзор на продукт. Логотип, рейтинг, цена и партнёрская ссылка подставляются из базы продуктов.'
+            name: us_review
+            label: Обзор
+            description: ''
             type: collection
             path: content/us/reviews
             format: yaml-frontmatter
@@ -3372,7 +4199,7 @@ content:
             view:
               fields:
                 - title
-                - product
+                - slug
                 - status
                 - updated
               primary: title
@@ -3420,16 +4247,6 @@ content:
                 pattern:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
-              -
-                name: product
-                label: Продукт
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                description: 'О каком продукте этот обзор.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -3490,10 +4307,19 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: product
+                label: Продукт
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                required: true
+              -
                 name: verdict
-                label: 'Итог редакции'
+                label: 'Наш вердикт'
                 type: text
-                description: 'Краткий вывод, выводится в выделенном блоке.'
               -
                 name: pros
                 label: Плюсы
@@ -3522,10 +4348,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: us_rankings
-            label: Рейтинги
-            description: 'Рейтинговые страницы. Таблица и карточки генерируются из списка ниже.'
+            name: us_ranking
+            label: Рейтинг
+            description: ''
             type: collection
             path: content/us/rankings
             format: yaml-frontmatter
@@ -3614,17 +4459,6 @@ content:
                   label: '{fields.name}'
                   search: 'fields.name,fields.id'
               -
-                name: ranking
-                label: Рейтинг
-                type: object
-                description: 'По порядку: первым идёт первое место.'
-                list:
-                  collapsible: { collapsed: false, summary: '{index}. {fields.product}' }
-                fields:
-                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' } }
-                  - { name: badge, label: Плашка, type: string, description: 'Например, «Лучший в целом».' }
-                  - { name: highlight, label: 'Почему это место', type: text }
-              -
                 name: intro
                 label: Вступление
                 type: text
@@ -3655,6 +4489,15 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -3672,10 +4515,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: us_compare
-            label: Сравнения
-            description: 'Страницы сравнения. Таблица сравнения строится из базы продуктов.'
+            name: us_comparison
+            label: Сравнение
+            description: ''
             type: collection
             path: content/us/compare
             format: yaml-frontmatter
@@ -3735,17 +4597,6 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
-                name: products
-                label: 'Сравниваемые продукты'
-                type: reference
-                options:
-                  collection: products
-                  value: '{fields.slug}'
-                  label: '{fields.name}'
-                  search: 'fields.name,fields.slug'
-                  multiple: true
-                description: 'Выберите минимум два.'
-              -
                 name: date
                 label: 'Дата публикации'
                 type: date
@@ -3805,6 +4656,16 @@ content:
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
               -
+                name: products
+                label: 'Сравниваемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
                 name: faq
                 component: faq
               -
@@ -3822,10 +4683,29 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
           -
-            name: us_guides
-            label: Гайды
-            description: 'Большие редакционные материалы.'
+            name: us_guide
+            label: Руководство
+            description: ''
             type: collection
             path: content/us/guides
             format: yaml-frontmatter
@@ -3885,16 +4765,173 @@ content:
                   regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
                   message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
                 name: products
-                label: 'Упомянутые продукты'
+                label: 'Упоминаемые продукты'
                 type: reference
                 options:
                   collection: products
                   value: '{fields.slug}'
                   label: '{fields.name}'
                   search: 'fields.name,fields.slug'
-                  multiple: true
-                description: Необязательно.
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+          -
+            name: us_landing
+            label: 'Лендинг из блоков'
+            description: ''
+            type: collection
+            path: content/us/landings
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: landing
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
               -
                 name: date
                 label: 'Дата публикации'
@@ -3972,6 +5009,25 @@ content:
               -
                 name: canonical
                 component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
   -
     name: products
     label: Продукты

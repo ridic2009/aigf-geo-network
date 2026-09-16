@@ -45,6 +45,24 @@
     {% endif %}
 
     {% block main %}{% endblock %}
+    {% set model_fields = site.page_types[page.type|default('static')].fields|default({}) %}
+    {% if model_fields|filter(f => f.display|default(false))|length %}
+    <div class="container container--narrow"><dl class="model-details">
+    {% for key, field in model_fields %}
+        {% if field.display|default(false) and attribute(page, key)|default(null) is not null %}
+        <dt>{{ field.label|default(key) }}</dt><dd>{% if field.type == 'date' %}{{ attribute(page, key)|date('Y-m-d') }}{% else %}{{ attribute(page, key) }}{% endif %}</dd>
+        {% endif %}
+    {% endfor %}
+    </dl></div>
+    {% endif %}
+    {% if page.blocks|default([])|length %}
+    <div class="container content-blocks">
+        {% for block in page.blocks %}
+            {% set definition = site.block_types[block.type]|default(null) %}
+            {% if definition %}{% include definition.template ~ '.html.twig' with {'block': block} %}{% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
 </main>
 
 {% include 'components/footer.twig' %}

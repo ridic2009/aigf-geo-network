@@ -22,6 +22,12 @@ LOG=${LOG:-$REPO_DIR/var/auto-deploy.log}
 LOCK=${LOCK:-$REPO_DIR/var/auto-deploy.lock}
 FORCE=0
 
+# Never reset a working Studio checkout or compete with its publication queue.
+if [ "${PUBLISHER:-git}" = studio ] || [ -f "$REPO_DIR/.studio/state.json" ]; then
+    echo 'Studio publishing is enabled; Git pull deployment is disabled.'
+    exit 0
+fi
+
 for arg in "$@"; do
     case "$arg" in
         --force) FORCE=1 ;;
@@ -46,9 +52,11 @@ cd "$REPO_DIR"
 
 git fetch --quiet origin "$BRANCH"
 LOCAL=$(git rev-parse HEAD)
+LAST_SUCCESS_FILE="$REPO_DIR/var/last-successful-commit"
+LAST_SUCCESS=$(cat "$LAST_SUCCESS_FILE" 2>/dev/null || true)
 REMOTE=$(git rev-parse "origin/$BRANCH")
 
-if [ "$LOCAL" = "$REMOTE" ] && [ "$FORCE" -eq 0 ]; then
+if [ "$LAST_SUCCESS" = "$REMOTE" ] && [ "$FORCE" -eq 0 ]; then
     exit 0   # nothing new — stay quiet, the timer runs often
 fi
 
@@ -58,7 +66,7 @@ git log --oneline "${LOCAL}..${REMOTE}" 2>/dev/null | head -5 | sed 's/^/       
 
 git reset --hard --quiet "origin/$BRANCH"
 
-if ! git diff --quiet "${LOCAL}" HEAD -- composer.json composer.lock 2>/dev/null; then
+if [ "$LAST_SUCCESS" != "$REMOTE" ] || ! git diff --quiet "${LOCAL}" HEAD -- composer.json composer.lock 2>/dev/null; then
     log "dependencies changed, running composer install"
     composer install --no-interaction --no-progress --prefer-dist --no-dev --quiet
 fi
@@ -80,3 +88,5 @@ if ! GIT_COMMIT="$REMOTE" DEPLOY_HOSTS=localhost sh scripts/deploy-all >>"$LOG" 
 fi
 
 log "deployed ${REMOTE:0:8}"
+printf '%s\n' "$REMOTE" > "$LAST_SUCCESS_FILE.tmp"
+mv "$LAST_SUCCESS_FILE.tmp" "$LAST_SUCCESS_FILE"

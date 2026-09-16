@@ -17,7 +17,43 @@
 
 set -eu
 
-ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ACTIVE_LOCK_HOST=""
+ACTIVE_LOCK_PATH=""
+ACTIVE_LOCK_TOKEN=""
+
+release_lock() {
+    if [ -n "$ACTIVE_LOCK_HOST" ]; then
+        ssh_run "$ACTIVE_LOCK_HOST" "if [ \"\$(cat '$ACTIVE_LOCK_PATH/token' 2>/dev/null)\" = '$ACTIVE_LOCK_TOKEN' ]; then rm -f '$ACTIVE_LOCK_PATH/token'; rmdir '$ACTIVE_LOCK_PATH'; fi" \
+            || printf '  [ERROR] Unable to release deployment lock on %s; inspect it before retrying.\n' "$ACTIVE_LOCK_HOST" >&2
+        ACTIVE_LOCK_HOST=""
+    fi
+}
+
+acquire_lock() {
+    release_lock
+    lock_host=$1
+    lock_path="$2/.deployment-lock"
+    if [ -n "${DEPLOY_LOCK_TOKEN:-}" ]; then
+        # Nested automatic rollback runs under the parent's server lock.
+        ssh_run "$lock_host" "test \"\$(cat '$lock_path/token' 2>/dev/null)\" = '$DEPLOY_LOCK_TOKEN'"
+        return
+    fi
+    lock_token="$(date -u +%Y%m%d%H%M%S)-$$"
+    if ssh_run "$lock_host" "mkdir -p '$2'; mkdir '$lock_path' && printf '%s' '$lock_token' > '$lock_path/token'"; then
+        ACTIVE_LOCK_HOST=$lock_host
+        ACTIVE_LOCK_PATH=$lock_path
+        ACTIVE_LOCK_TOKEN=$lock_token
+        return 0
+    fi
+    printf '  [ERROR] %s: deployment lock unavailable. Another publish may be running.\n' "$lock_host" >&2
+    return 1
+}
+
+trap 'release_lock' 0
+trap 'exit 130' 1 2 15
+
+CODE_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ROOT_DIR=${MINICMS_ROOT:-$CODE_ROOT}
 
 DEPLOY_USER=${DEPLOY_USER:-deploy}
 DEPLOY_PORT=${DEPLOY_PORT:-22}
@@ -63,15 +99,15 @@ host_count() {
 }
 
 geo_host() {
-    php "$ROOT_DIR/scripts/geo.php" host "$1"
+    php "$CODE_ROOT/scripts/geo.php" host "$1"
 }
 
 geo_list() {
-    php "$ROOT_DIR/scripts/geo.php" list
+    php "$CODE_ROOT/scripts/geo.php" list
 }
 
 ssh_run() {
     _host=$1
     shift
-    ssh -p "$DEPLOY_PORT" -o StrictHostKeyChecking=accept-new "$DEPLOY_USER@$_host" "$@"
+    ssh -p "$DEPLOY_PORT" -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=10 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=accept-new "$DEPLOY_USER@$_host" "$@"
 }

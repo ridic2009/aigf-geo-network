@@ -179,6 +179,11 @@ $common = <<<CONF
 
     include /etc/nginx/snippets/aigf-security-headers.conf;
     include /etc/nginx/snippets/aigf-static-cache.conf;
+    # Only root-owned, validated directives are included (never release-writable code).
+    include /etc/nginx/aigf-redirects/{$domain}/*.conf;
+    location = /redirects.nginx.conf { deny all; }
+    location = /redirects.json { deny all; }
+    location = /_redirects { deny all; }
 
     # Pretty URLs: /reviews/candy-ai/ -> /reviews/candy-ai/index.html
     location / {
@@ -264,6 +269,26 @@ CONF;
     $file = $sitesDir . \DIRECTORY_SEPARATOR . $domain . '.conf';
     file_put_contents($file, $vhost);
     Cli::ok(\sprintf('%s: infra/nginx/sites/%s.conf', $name, $domain));
+    foreach (Network::geo($code)['previous_domains'] ?? [] as $oldDomain) {
+        if (!preg_match('/^[a-z0-9.-]+$/D', $oldDomain) || $oldDomain === $domain) {
+            throw new RuntimeException('Invalid previous domain.');
+        }
+        foreach (Network::codes(false) as $other) {
+            if (Network::host($other) === $oldDomain) { throw new RuntimeException('Previous domain is used by another site: ' . $oldDomain); }
+        }
+        $redirectVhost = "# Domain migration: keep DNS and certificates for this hostname.\nserver {\n"
+            . "    listen {$listen}80;\n    server_name {$oldDomain} www.{$oldDomain};\n"
+            . "    location ^~ /.well-known/acme-challenge/ { root /var/www/certbot; }\n"
+            . '    location / { return 301 ' . rtrim(Network::baseUrl($code), '/') . '$request_uri; }' . "\n}\n";
+        if (!$httpOnly) {
+            $redirectVhost .= "server {\n    listen {$listen}443 ssl;\n    server_name {$oldDomain} www.{$oldDomain};\n"
+                . "    ssl_certificate /etc/letsencrypt/live/{$oldDomain}/fullchain.pem;\n"
+                . "    ssl_certificate_key /etc/letsencrypt/live/{$oldDomain}/privkey.pem;\n"
+                . '    return 301 ' . rtrim(Network::baseUrl($code), '/') . '$request_uri;' . "\n}\n";
+        }
+        file_put_contents($sitesDir . '/' . $oldDomain . '.conf', $redirectVhost);
+        Cli::ok($oldDomain . ': generated 301 redirect to ' . $domain);
+    }
 }
 
 Cli::title('Install on the server');

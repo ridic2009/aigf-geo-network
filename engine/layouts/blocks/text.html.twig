@@ -1,0 +1,4 @@
+<section class="content-block prose">
+{% if block.heading|default('') %}<h2>{{ block.heading }}</h2>{% endif %}
+{{ block.body|markdown_to_html|raw }}
+</section>

@@ -24,6 +24,11 @@
     --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 4px 12px rgba(16, 24, 40, .05);
 }
 
+.content-block { margin-block: 2.5rem; }
+.content-blocks { padding-block-end: 2rem; }
+.block-callout { padding: 2rem; border-radius: var(--radius); background: var(--c-bg-alt); }
+.table-scroll { overflow-x: auto; }
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
@@ -240,8 +245,8 @@ p, ul, ol, table { margin: 0 0 1rem; }
     cursor: pointer;
     text-align: center;
 }
-.btn--primary { background: var(--c-accent); color: #fff; }
-.btn--primary:hover { background: var(--c-accent-dark); color: #fff; }
+.btn--primary { background: var(--c-accent); color: var(--c-on-accent, #fff); }
+.btn--primary:hover { background: var(--c-accent-dark); color: var(--c-on-accent, #fff); }
 .btn--ghost { border-color: var(--c-border); color: var(--c-text); background: #fff; }
 .btn--ghost:hover { border-color: var(--c-accent); color: var(--c-accent); }
 .btn--small { padding: .45rem .8rem; font-size: .875rem; }

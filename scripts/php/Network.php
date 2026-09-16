@@ -20,7 +20,25 @@ final class Network
 
     public static function root(): string
     {
-        return \dirname(__DIR__, 2);
+        return getenv('MINICMS_ROOT') ?: self::codeRoot();
+    }
+
+    public static function codeRoot(): string { return \dirname(__DIR__, 2); }
+
+    public static function reset(): void { self::$common = null; self::$geoCache = []; }
+
+    public static function assertId(string $id): void
+    {
+        if (!preg_match('/^[a-z][a-z0-9_-]{0,63}$/D', $id)) {
+            throw new \InvalidArgumentException('Некорректный ID: ' . $id);
+        }
+    }
+
+    public static function configFile(string $id): string
+    {
+        self::assertId($id);
+        $site = self::path('config', 'sites', $id . '.yml');
+        return is_file($site) ? $site : self::path('config', 'geos', $id . '.yml');
     }
 
     public static function path(string ...$parts): string
@@ -51,7 +69,7 @@ final class Network
     public static function codes(bool $onlyEnabled = true): array
     {
         $codes = [];
-        foreach (glob(self::path('config', 'geos', '*.yml')) ?: [] as $file) {
+        foreach (array_merge(glob(self::path('config', 'geos', '*.yml')) ?: [], glob(self::path('config', 'sites', '*.yml')) ?: []) as $file) {
             $code = basename($file, '.yml');
             if (str_starts_with($code, '_')) {
                 continue; // templates
@@ -63,25 +81,79 @@ final class Network
         }
         sort($codes);
 
-        return $codes;
+        return array_values(array_unique($codes));
     }
 
     public static function exists(string $code): bool
     {
-        return is_file(self::path('config', 'geos', $code . '.yml'));
+        return is_file(self::configFile($code));
     }
 
     public static function geo(string $code): array
     {
         if (!isset(self::$geoCache[$code])) {
-            $file = self::path('config', 'geos', $code . '.yml');
+            $file = self::configFile($code);
             if (!is_file($file)) {
                 throw new \RuntimeException(\sprintf('Unknown GEO "%s": config/geos/%s.yml does not exist.', $code, $code));
             }
-            self::$geoCache[$code] = Yaml::parseFile($file) ?? [];
+            $config = Yaml::parseFile($file) ?? [];
+            if (isset($config['extends_geo'])) {
+                self::assertId((string) $config['extends_geo']);
+                $base = Yaml::parseFile(self::path('config', 'geos', $config['extends_geo'] . '.yml')) ?? [];
+                $config = self::merge($base, $config);
+                unset($config['extends_geo']);
+            }
+            $identity = $config['site'] ?? [];
+            $identity = array_replace([
+                'id' => $code, 'brand' => 'aigf', 'market' => $config['geo']['code'] ?? $code,
+                'language' => $config['language'] ?? 'en', 'locale' => $config['languages'][0]['locale'] ?? 'en_US',
+                'translation_group' => 'aigf', 'model' => 'reviews', 'theme' => 'classic',
+            ], $identity);
+            $identity['id'] = $code;
+            $config['site_identity'] = $identity;
+            $config['site'] = $identity;
+            $config['geo']['code'] = $identity['market'];
+            $config['language'] = $identity['language'];
+            $config['languages'][0]['code'] = $identity['language'];
+            $config['languages'][0]['locale'] = $identity['locale'];
+            $config['pages']['dir'] ??= 'content/' . $code;
+            self::$geoCache[$code] = $config;
         }
 
         return self::$geoCache[$code];
+    }
+
+    /** Replace lists, recursively merge mappings (numeric list merging duplicates menu entries). */
+    public static function merge(array $base, array $overrides): array
+    {
+        foreach ($overrides as $key => $value) {
+            $base[$key] = is_array($value) && !array_is_list($value) && isset($base[$key]) && is_array($base[$key])
+                ? self::merge($base[$key], $value) : $value;
+        }
+        return $base;
+    }
+
+    public static function resolved(string $id): array
+    {
+        $config = self::merge(self::common(), self::geo($id));
+        $config['page_types'] = Model::types($id);
+        $config['block_types'] = Model::blocks();
+        $config['theme_asset'] = Theme::asset($id);
+        return $config;
+    }
+
+    public static function buildConfig(string $id): string
+    {
+        $relative = '.cecil/generated/sites/' . $id . '.yml';
+        $path = self::path(...explode('/', $relative));
+        if (!is_dir(dirname($path))) { mkdir(dirname($path), 0700, true); }
+        $config = self::resolved($id);
+        $asset = $config['theme_asset'];
+        file_put_contents(dirname($path) . '/' . $asset, Theme::css($id));
+        // Cecil copies this generated asset in both build and live-preview modes.
+        $config['static']['mounts']['../.cecil/generated/sites/' . $asset] = $asset;
+        file_put_contents($path, Yaml::dump($config, 20, 2));
+        return $relative;
     }
 
     /**
@@ -143,16 +215,16 @@ final class Network
         return (array) (self::geo($code)['ui']['sections'] ?? []);
     }
 
-    public static function pageTypes(): array
+    public static function pageTypes(?string $site = null): array
     {
-        return (array) (self::common()['page_types'] ?? []);
+        return $site === null ? (array) (self::common()['page_types'] ?? []) : Model::types($site);
     }
 
     /** page type => section (null for root-level types). */
-    public static function typeSections(): array
+    public static function typeSections(?string $site = null): array
     {
         $map = [];
-        foreach (self::pageTypes() as $type => $def) {
+        foreach (self::pageTypes($site) as $type => $def) {
             $map[$type] = $def['section'] ?? null;
         }
 

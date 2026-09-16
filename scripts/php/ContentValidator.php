@@ -27,7 +27,7 @@ final class ContentValidator
         $products = Network::products();
         $affiliates = Network::affiliates();
         $authors = Network::authors();
-        $typeSections = Network::typeSections();
+        $typeSections = Network::typeSections($geoCode);
         $ids = array_column($pages, 'id');
 
         if ($pages === []) {
@@ -159,14 +159,9 @@ final class ContentValidator
                 $referenced[] = (string) $entry['product'];
             }
 
-            if ($type === 'review' && !isset($fm['product'])) {
-                $this->error($where, 'A review page must reference a product (field: product).');
-            }
-            if ($type === 'comparison' && \count((array) ($fm['products'] ?? [])) < 2) {
-                $this->error($where, 'A comparison page must reference at least two products (field: products).');
-            }
-            if ($type === 'ranking' && \count((array) ($fm['ranking'] ?? [])) < 1) {
-                $this->error($where, 'A ranking page must have at least one ranking entry (field: ranking).');
+            $rules = Model::types($geoCode)[$type]['fields'] ?? [];
+            foreach (array_merge(Model::validateFields($fm, $rules), Model::validateBlocks($fm['blocks'] ?? [])) as $issue) {
+                $this->errors[] = $issue + ['where' => $where];
             }
 
             foreach (array_unique($referenced) as $pid) {
@@ -219,6 +214,7 @@ final class ContentValidator
         $this->validateInternalLinks($geoCode, $pages, $seenPaths);
         $this->validateNavigation($geoCode, $ids, $pages);
 
+        foreach (Redirects::validate($geoCode) as $issue) { $this->errors[] = $issue; }
         return $this->result();
     }
 
@@ -256,7 +252,7 @@ final class ContentValidator
 
     private function validateNavigation(string $geoCode, array $ids, array $pages): void
     {
-        $navigation = (array) (Network::common()['navigation'] ?? []);
+        $navigation = (array) (Network::resolved($geoCode)['navigation'] ?? []);
         $sections = array_keys(ContentScanner::generatedSections($geoCode, $pages));
         $labels = (array) (Network::geo($geoCode)['ui']['nav'] ?? []);
 
@@ -282,7 +278,7 @@ final class ContentValidator
             return false;
         }
 
-        return !empty($entry['geo'][$geoCode]['url']) || !empty($entry['default']);
+        return !empty($entry['geo'][Network::geo($geoCode)['site_identity']['market']]['url']) || !empty($entry['default']);
     }
 
     private function error(string $where, string $message): void
@@ -297,6 +293,6 @@ final class ContentValidator
 
     private function result(): array
     {
-        return ['errors' => $this->errors, 'warnings' => $this->warnings];
+        return ['errors' => array_map([Diagnostics::class, 'enrich'], $this->errors), 'warnings' => array_map([Diagnostics::class, 'enrich'], $this->warnings)];
     }
 }
