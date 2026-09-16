@@ -42,6 +42,7 @@ const paths = {
   back:'M19 12H5M12 19l-7-7 7-7',
   close:'M6 6l12 12M18 6 6 18',
   tag:'M20.5 12.5 12 21 3 12V3h9zM7.5 7.5h.01',
+  history:'M3 12a9 9 0 1 0 2.6-6.4M3 4v4h4M12 7.5V12l3 2',
   chain:'M10.5 13.5a4.5 4.5 0 0 0 6.6.4l2.4-2.4a4.5 4.5 0 0 0-6.4-6.4l-1.4 1.4M13.5 10.5a4.5 4.5 0 0 0-6.6-.4l-2.4 2.4a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4',
 };
 function icon(name) {
@@ -169,6 +170,7 @@ function shell(options, ...children) {
       admin ? h('p', {class:'nav__label'}, 'Администрирование') : null,
       admin ? navLink('plus', 'Новый сайт', {view:'new-site'}, view === 'new-site') : null,
       admin ? navLink('tag', 'Товары', {view:'catalog'}, ['catalog', 'product'].includes(view)) : null,
+      admin ? navLink('history', 'История', {view:'history'}, ['history', 'version'].includes(view)) : null,
       admin ? navLink('users', 'Команда', {view:'users'}, view === 'users') : null),
     h('div', {class:'sidebar__spacer'}),
     h('div', {class:'sidebar__user'},
@@ -1188,6 +1190,110 @@ async function productView(id, create) {
 const plural = (n, one, few, many) => n % 10 === 1 && n % 100 !== 11 ? one
   : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? few : many;
 
+/* ----------------------------------------------------------------- history
+   What Git used to provide. Every write Studio makes to content, config or
+   data is recorded, so a publication can be compared with what it replaced
+   and put back. */
+
+const historyActions = {
+  import:'Снимок при подключении', publish:'Публикация', restore:'Восстановление',
+  'site.created':'Сайт создан', 'site.updated':'Настройки сайта',
+  'product.created':'Товар создан', 'product.updated':'Товар изменён', 'product.deleted':'Товар удалён',
+};
+
+function bytes(n) {
+  if (n < 1024) return n + ' Б';
+  if (n < 1024 * 1024) return Math.round(n / 1024) + ' КБ';
+  return (n / 1024 / 1024).toFixed(1) + ' МБ';
+}
+
+async function historyView(pathFilter) {
+  const {entries, stats, untracked} = await api('history', undefined, pathFilter ? {path:pathFilter} : {});
+
+  const rows = entries.map(entry => h('tr', {},
+    h('td', {}, entry.sha
+      ? link(entry.path, {view:'version', path:entry.path, sha:entry.sha}, 'table__title')
+      : h('span', {class:'table__title'}, entry.path),
+      h('span', {class:'table__path'}, historyActions[entry.action] || entry.action, entry.note ? ' · ' + entry.note : '')),
+    h('td', {class:'shrink'}, entry.sha ? h('span', {class:'chip'}, entry.sha.slice(0, 8)) : h('span', {class:'chip chip--warn'}, 'удалён')),
+    h('td', {class:'shrink muted'}, entry.actor),
+    h('td', {class:'shrink muted'}, ago(entry.at))));
+
+  shell({
+    title:'История правок',
+    subtitle:`${stats.versions} ${plural(stats.versions, 'версия', 'версии', 'версий')} по ${stats.files} ${plural(stats.files, 'файлу', 'файлам', 'файлам')} · ${bytes(stats.bytes)} в хранилище`,
+    breadcrumb:pathFilter ? [['История', {view:'history'}], pathFilter] : ['История'],
+    actions:pathFilter ? [link('Вся история', {view:'history'}, 'button')] : [],
+  },
+    untracked ? h('div', {class:'notice-card'}, icon('alert'),
+      h('div', {},
+        h('strong', {}, untracked + ' ' + plural(untracked, 'файл ещё не в истории', 'файла ещё не в истории', 'файлов ещё не в истории')),
+        h('p', {class:'muted small'}, 'Они появились в рабочем каталоге мимо Studio. Снимите слепок, чтобы дальше отслеживать их изменения.'),
+        h('div', {class:'mt-3'}, h('button', {type:'button', class:'btn--sm', onclick:guard(async () => {
+          const {recorded} = await api('history-baseline', {});
+          done('Записано версий: ' + recorded + '.');
+          await render();
+        })}, 'Снять слепок')))) : null,
+    entries.length
+      ? h('div', {class:'table-card'}, h('table', {class:'table'},
+          h('thead', {}, h('tr', {}, h('th', {}, 'Файл'), h('th', {}, 'Версия'), h('th', {}, 'Кто'), h('th', {}, 'Когда'))),
+          h('tbody', {}, rows)))
+      : h('div', {class:'table-card'}, emptyState('Правок пока нет', 'Здесь появится каждое изменение контента, настроек и товаров.')));
+}
+
+async function versionView(path, sha) {
+  const data = await api('history-version', undefined, sha ? {path, sha} : {path});
+  const isCurrent = data.sha === data.current;
+
+  const diff = h('div', {class:'diff'}, data.diff.length
+    ? data.diff.map(line => h('div', {class:'diff__line diff__line--' + ({' ':'same', '-':'del', '+':'add'}[line.op])},
+        h('span', {class:'diff__gutter'}, line.op === ' ' ? '' : line.op),
+        h('code', {}, line.text || ' ')))
+    : h('p', {class:'muted small'}, 'Файл пуст.'));
+
+  const versions = h('ol', {class:'timeline'}, data.versions.map(version => {
+    const active = version.sha === data.sha;
+    return h('li', {class:active ? 'is-active' : ''},
+      version.sha
+        ? link(historyActions[version.action] || version.action, {view:'version', path, sha:version.sha})
+        : h('strong', {}, 'Файл удалён'),
+      h('span', {}, version.actor + ' · ' + ago(version.at)));
+  }));
+
+  shell({
+    title:path.split('/').pop(),
+    subtitle:path,
+    breadcrumb:[['История', {view:'history'}], path],
+    actions:[link('Все правки файла', {view:'history', path}, 'button')],
+  },
+    h('div', {class:'editor-grid'},
+      h('section', {class:'card'},
+        h('div', {class:'card__head'}, h('div', {},
+          h('h2', {}, data.previous ? 'Что изменилось' : 'Первая версия'),
+          h('p', {}, data.previous
+            ? 'Слева — эта версия по сравнению с предыдущей.'
+            : 'Предыдущей версии нет, показано всё содержимое.'))),
+        diff),
+      h('aside', {class:'editor-rail'},
+        h('section', {class:'card'},
+          h('div', {class:'rail-section'},
+            h('h3', {}, 'Версия'),
+            h('div', {class:'rail-facts'},
+              h('span', {}, 'ID ', h('b', {}, (data.sha || '').slice(0, 12))),
+              h('span', {}, isCurrent ? 'Сейчас на диске' : 'Отличается от файла на диске')),
+            h('div', {class:'mt-3'},
+              isCurrent
+                ? h('p', {class:'muted small'}, 'Это текущее состояние файла.')
+                : h('button', {type:'button', class:'primary', onclick:guard(async () => {
+                    if (!confirm('Вернуть файл ' + path + ' к этой версии? Текущее состояние тоже сохранится в истории.')) return;
+                    await api('history-restore', {path, sha:data.sha});
+                    done('Файл восстановлен. Изменения попадут на сайт при следующей публикации.');
+                    navigate({view:'history', path});
+                  })}, 'Восстановить эту версию')))),
+        h('section', {class:'card'},
+          h('div', {class:'rail-section'}, h('h3', {}, 'Версии файла'), versions)))));
+}
+
 async function render() {
   try {
     session = await api('session');
@@ -1199,6 +1305,8 @@ async function render() {
     else if (view === 'settings' || view === 'new-site') await settingsView(site, view === 'new-site');
     else if (view === 'catalog') await catalogView();
     else if (view === 'product') await productView(p.get('id') || '', p.get('create') === '1');
+    else if (view === 'history') await historyView(p.get('path'));
+    else if (view === 'version') await versionView(p.get('path') || '', p.get('sha'));
     else if (view === 'jobs') await jobsView();
     else if (view === 'users') await usersView();
     else await sitesView();

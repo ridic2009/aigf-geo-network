@@ -139,6 +139,8 @@ final class StudioCatalog
                 Network::reset();
                 throw $e;
             }
+            StudioHistory::recordMany([$productFile, $affiliateFile], $user['login'],
+                $create ? 'product.created' : 'product.updated', 'Товар ' . $id);
             StudioStore::audit($state, $user['login'], $create ? 'product.created' : 'product.updated', ['product' => $id]);
             return self::get($user, $id);
         });
@@ -161,6 +163,8 @@ final class StudioCatalog
                 if (is_file($file)) { unlink($file); }
             }
             Network::reset();
+            StudioHistory::recordMany([Network::path('data', 'products', $id . '.yml'), Network::path('data', 'affiliates', $id . '.yml')],
+                $user['login'], 'product.deleted', 'Товар ' . $id . ' удалён');
             StudioStore::audit($state, $user['login'], 'product.deleted', ['product' => $id]);
         });
     }

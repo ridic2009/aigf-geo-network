@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-# Thin wrapper — see cms-config.php
-set -e
-DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-exec php "$DIR/cms-config.php" "$@"

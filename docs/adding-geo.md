@@ -30,9 +30,9 @@ This creates:
 - `config/geos/es.yml` — domain, language, locale, currency, routes and UI labels
   copied from the source GEO, marked `TODO` for translation
 - `content/es/` with `reviews/`, `rankings/`, `compare/`, `guides/` (each with a
-  `.gitkeep`, because Pages CMS needs the directories to exist in the repository)
+  `.gitkeep`)
 - draft copies of the source GEO's pages (`--no-content` to start empty instead)
-- a regenerated `.pages.yml` and hreflang map
+- a regenerated hreflang map
 
 The new GEO starts with `geo.enabled: false`, so `build-all`, `deploy-all` and
 the hreflang map skip it while it is being prepared. Flip it to `true` once the
@@ -68,7 +68,7 @@ validator reports missing navigation labels as errors.
 
 ## 5. Translate the content
 
-Work in Pages CMS (Sites → España) or directly in `content/es/`. Keep the **file
+Work in Studio (Сайты → España) or directly in `content/es/`. Keep the **file
 names identical** to the other GEOs — that is what links translations together
 for hreflang. Only `slug` and the text change.
 
@@ -92,7 +92,7 @@ Install the vhost and request a certificate — see [deployment.md](deployment.m
 
 ## 8. Connect the CMS
 
-`./scripts/new-geo` already regenerated `.pages.yml`. Commit it; the new country
+`./scripts/new-geo` already regenerated the hreflang map. The new country
 appears under **Sites** the next time an editor loads the CMS.
 
 ## Checklist
@@ -106,7 +106,6 @@ appears under **Sites** the next time an editor loads the CMS.
 - [ ] `./scripts/nginx-config <code>` + vhost installed + certificate issued
 - [ ] `./scripts/build <code>` clean
 - [ ] `./scripts/deploy <code>`
-- [ ] `.pages.yml` committed
 - [ ] hreflang verified: the new URLs appear on the other GEOs after their next build
 
 The last point matters: hreflang is reciprocal. After adding a GEO, rebuild and

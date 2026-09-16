@@ -144,9 +144,6 @@ if (empty($options['no-content'])) {
 
 /* ------------------------------------------------------------- regenerate */
 
-[$exit] = Builder::run([\PHP_BINARY, Network::path('scripts', 'cms-config.php')]);
-Cli::ok($exit === 0 ? '.pages.yml regenerated' : '.pages.yml regeneration FAILED — run ./scripts/cms-config');
-
 [$exit] = Builder::run([\PHP_BINARY, Network::path('scripts', 'prepare.php')]);
 Cli::ok($exit === 0 ? 'network map regenerated' : 'network map regeneration FAILED — run ./scripts/prepare');
 

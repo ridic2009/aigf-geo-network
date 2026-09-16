@@ -1,0 +1,23 @@
+[Unit]
+Description=MiniCMS Studio off-site backup
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=minicms
+Group=minicms
+WorkingDirectory=/srv/minicms
+EnvironmentFile=/etc/minicms-studio.env
+ExecStart=/usr/bin/php /srv/minicms/scripts/backup.php push
+TimeoutStartSec=60min
+UMask=0077
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/srv/minicms
+
+# The backup host needs BACKUP_HOST/BACKUP_USER in the environment file and an
+# SSH key plus known_hosts for this account. The encryption key lives in
+# /srv/minicms/.secrets/backup.key — keep a copy of it off both servers.

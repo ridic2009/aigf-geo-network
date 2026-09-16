@@ -173,6 +173,8 @@ final class StudioSites
                 $fm = ['title' => $config['title'], 'type' => 'homepage', 'status' => 'draft', 'translation_key' => 'index', 'seo' => ['title' => $config['title'], 'description' => $config['description']], 'date' => gmdate('Y-m-d')];
                 file_put_contents($dir . '/index.md', StudioContent::markdown($fm, ''));
             }
+            StudioHistory::recordMany(array_merge([$file], array_keys($originals)), $user['login'],
+                $create ? 'site.created' : 'site.updated', 'Настройки сайта ' . $id);
             StudioStore::audit($state, $user['login'], $create ? 'site.created' : 'site.updated', ['site' => $id]);
             return Network::geo($id);
         });

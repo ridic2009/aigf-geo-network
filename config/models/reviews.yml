@@ -1,5 +1,5 @@
 label: Обзоры и рейтинги
-# The same schema drives Studio forms, Pages CMS fields and build validation.
+# The same schema drives Studio forms and build validation.
 types:
   homepage:
     label: Главная

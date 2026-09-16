@@ -171,4 +171,4 @@ SEO:       Review → Published
 `--drafts` for a production build.
 
 RBAC is deliberately not modelled in v1: the status field plus the CI gate is
-enough. Pages CMS collaborators can be invited by email without GitHub accounts.
+enough. Studio accounts are created on the Команда screen by an administrator.

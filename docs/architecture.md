@@ -24,23 +24,25 @@ and the deployment pipeline are shared.
               │ structured fields
               ▼
 ┌──────────────────────────┐
-│        Pages CMS         │   .pages.yml describes the forms
+│      MiniCMS Studio      │   config/models/*.yml describes the forms
 └─────────────┬────────────┘
-              │ commit (Markdown + YAML)
+              │ approve → publication queue
               ▼
 ┌──────────────────────────┐
-│         GitHub           │   source of truth, private repo
+│   workspace + history    │   source of truth, versioned by Studio
+│   content/ config/ data/ │   .studio/history/ + encrypted backup
 └─────────────┬────────────┘
-              │ push to main
+              │ one approved revision at a time
               ▼
 ┌──────────────────────────────────────────────────────────┐
-│                    GitHub Actions                        │
+│                     Studio worker                        │
 │                                                          │
-│  scripts/validate   data + CMS schema + content          │
+│  scripts/validate   business data + content              │
 │  scripts/prepare    hreflang map + GEO registry          │
 │  cecil build        once per GEO, same engine            │
 │  OutputValidator    canonical, h1, links, sitemap, JSON-LD│
 │  scripts/deploy-all rsync into a new release + switch    │
+│  smoke test         rollback on failure                  │
 └─────────────┬────────────────────────────────────────────┘
               │ ssh + rsync                (fails → nothing is deployed)
               ▼
@@ -81,7 +83,7 @@ exactly once**. Everything else is derived at build time.
 | **Navigation structure** | `navigation:` in `config/common.yml` | header and footer menus in every GEO (labels from `ui.nav`) |
 | **Breadcrumb trail** | `crumbs` computed once in `_default/base.html.twig` | visual breadcrumbs *and* `BreadcrumbList` JSON-LD |
 | **FAQ** | `faq:` in front matter | visual accordion *and* `FAQPage` JSON-LD |
-| **CMS forms** | `config/geos/*.yml` + page-type model, via `scripts/cms-config` | `.pages.yml` |
+| **Editor forms** | `config/models/*.yml` | rendered by Studio |
 
 If you ever find yourself writing a URL, a domain or a price in a second place,
 that is the bug.

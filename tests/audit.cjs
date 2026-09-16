@@ -105,6 +105,7 @@ const focusRings = () => {
       ['catalog', '/?view=catalog'],
       ['product', '/?view=product&id=candy-ai'],
       ['product/market', '/?view=product&id=candy-ai&tab=m-de'],
+      ['history', '/?view=history'],
       ['jobs', '/?view=jobs'],
       ['users', '/?view=users'],
       ['new-site', '/?view=new-site'],

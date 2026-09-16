@@ -12,7 +12,6 @@ declare(strict_types=1);
 require __DIR__ . '/../vendor/autoload.php';
 
 use AiGf\Tools\Cli;
-use AiGf\Tools\CmsConfigValidator;
 use AiGf\Tools\ContentValidator;
 use AiGf\Tools\DataValidator;
 
@@ -33,10 +32,6 @@ $check = static function (string $title, array $result) use (&$totalErrors, &$to
 };
 
 $check('Business data', (new DataValidator())->validate());
-
-if (empty($options['no-cms'])) {
-    $check('Pages CMS schema', (new CmsConfigValidator())->validate());
-}
 
 foreach ($codes as $code) {
     $check('Content ' . strtoupper($code), (new ContentValidator())->validate($code));

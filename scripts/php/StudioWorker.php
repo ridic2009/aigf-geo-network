@@ -111,6 +111,8 @@ final class StudioWorker
                         if (!is_dir(dirname($destination))) { mkdir(dirname($destination), 0755, true); }
                         if (!copy($from, $destination)) { throw new \RuntimeException('Релиз развёрнут, но не удалось сохранить исходник.'); }
                     }
+                    // Keep the previous text of every file this release replaced.
+                    StudioHistory::recordMany(array_keys($changed), $doc['approved_by'] ?? $doc['owner'] ?? 'studio', 'publish', 'Публикация ' . $doc['site'] . '/' . $doc['page']);
                 }
                 $resultState = $deploy ? 'published' : 'built';
             } catch (\Throwable $e) {

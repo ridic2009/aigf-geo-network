@@ -77,7 +77,7 @@ Cli::ok('Domain updated; the previous domain is retained for 301 redirects.');
 
 /* ------------------------------------------------------------- regenerate */
 
-foreach ([['prepare.php', 'hreflang map'], ['cms-config.php', 'CMS schema']] as [$script, $label]) {
+foreach ([['prepare.php', 'hreflang map']] as [$script, $label]) {
     [$exit] = Builder::run([\PHP_BINARY, Network::path('scripts', $script)]);
     $exit === 0 ? Cli::ok($label . ' regenerated') : Cli::warn($label . ' regeneration failed — run ./scripts/' . basename($script, '.php'));
 }

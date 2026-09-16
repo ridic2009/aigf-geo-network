@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__) . '/vendor/autoload.php';
-use AiGf\Tools\{Network, StudioStore, StudioAuth, StudioContent, StudioSites, StudioWorker, StudioPreview, Model, Theme, Redirects, Builder, Prepare, ContentScanner, ReleaseArchive};
+use AiGf\Tools\{Network, StudioStore, StudioAuth, StudioBackup, StudioContent, StudioHistory, StudioSites, StudioWorker, StudioPreview, Model, Theme, Redirects, Builder, Prepare, ContentScanner, ReleaseArchive};
 use Symfony\Component\Yaml\Yaml;
 
 $count = 0;
@@ -144,6 +144,51 @@ try {
     $config['redirects'] = ['/a/' => '/b/', '/b/' => '/a/']; file_put_contents(Network::configFile('us'), Yaml::dump($config, 20, 2)); Network::reset();
     check(Redirects::validate('us') !== [], 'redirect cycles rejected');
     denied(fn () => Builder::removeDirectory($fixture . '/content'), 'build cannot recursively delete source directories');
+    // --- version history: what Git used to give us -------------------------
+    $tracked = $fixture . '/content/us/about.md';
+    StudioHistory::ensure();
+    $first = StudioHistory::versions('content/us/about.md');
+    check(count($first) === 1 && $first[0]['action'] === 'import', 'an existing workspace is baselined into the history');
+    $before = file_get_contents($tracked);
+    file_put_contents($tracked, $before . "\nA line added outside Studio.\n");
+    check(StudioHistory::record($tracked, 'admin', 'publish', 'test') !== null, 'a changed file gets a new version');
+    check(StudioHistory::record($tracked, 'admin', 'publish', 'test') === null, 'an unchanged file is not versioned twice');
+    $versions = StudioHistory::versions('content/us/about.md');
+    check(count($versions) === 2 && $versions[0]['prev'] === $versions[1]['sha'], 'versions form a chain');
+    $diff = StudioHistory::diff(StudioHistory::read($versions[1]['sha']), StudioHistory::read($versions[0]['sha']));
+    $added = array_filter($diff, static fn ($l) => $l['op'] === '+');
+    $removed = array_filter($diff, static fn ($l) => $l['op'] === '-');
+    check($removed === [] && count(array_filter($added, static fn ($l) => $l['text'] === 'A line added outside Studio.')) === 1,
+        'diff shows the added line and reports nothing removed');
+    StudioStore::transaction(function (&$s) use ($admin, $versions) {
+        StudioHistory::restore($admin, 'content/us/about.md', $versions[1]['sha'], $s);
+    });
+    check(file_get_contents($tracked) === $before, 'restoring an old version puts the bytes back');
+    check(count(StudioHistory::versions('content/us/about.md')) === 3, 'a restore is itself recorded');
+    denied(fn () => StudioStore::transaction(fn (&$s) => StudioHistory::restore($author, 'content/us/about.md', $versions[1]['sha'], $s)), 'authors cannot restore versions', 403);
+    denied(fn () => StudioHistory::assertPath('../../etc/passwd'), 'history rejects paths outside the workspace');
+    denied(fn () => StudioHistory::assertPath('vendor/autoload.php'), 'history only tracks editable sources');
+    denied(fn () => StudioHistory::read(str_repeat('f', 64)), 'a missing version is reported, not invented', 404);
+
+    // --- encrypted off-site backup -----------------------------------------
+    putenv('MINICMS_BACKUP_KEY=' . base64_encode(str_repeat("\x01", 32)));
+    $backup = StudioBackup::create($fixture . '/.studio/backups');
+    check($backup['files'] > 10 && is_file($backup['file']), 'backup archives the workspace');
+    $read = StudioBackup::restore($backup['file']);
+    check($read['files'] === $backup['files'], 'backup verifies every checksum');
+    check(in_array('studio/state.json', array_keys($read['manifest']['files']), true), 'backup includes accounts, drafts and the queue');
+    check(count(array_filter(array_keys($read['manifest']['files']), static fn ($p) => str_starts_with($p, 'studio/history/'))) > 0, 'backup includes the version history');
+    $raw = file_get_contents($backup['file']);
+    check(!str_contains($raw, 'Studio integration test') && str_starts_with($raw, 'MCMSBK1'), 'the archive is encrypted at rest');
+    file_put_contents($backup['file'] . '.cut', substr($raw, 0, strlen($raw) - 64));
+    denied(fn () => StudioBackup::restore($backup['file'] . '.cut'), 'a truncated archive is refused');
+    $flip = $raw; $at = intdiv(strlen($flip), 2); $flip[$at] = $flip[$at] === 'A' ? 'B' : 'A';
+    file_put_contents($backup['file'] . '.bad', $flip);
+    denied(fn () => StudioBackup::restore($backup['file'] . '.bad'), 'a tampered archive is refused');
+    putenv('MINICMS_BACKUP_KEY=' . base64_encode(str_repeat("\x02", 32)));
+    denied(fn () => StudioBackup::restore($backup['file']), 'the wrong key cannot read an archive');
+    putenv('MINICMS_BACKUP_KEY');
+
     check(is_file($original . '/content/us/about.md') && !is_file($original . '/content/us/studio-test.md'), 'all tests isolated from user content');
     echo "\n$count checks passed. Fixture: $fixture\n";
 } finally { putenv('MINICMS_ROOT'); putenv('STUDIO_DATA'); Network::reset(); }

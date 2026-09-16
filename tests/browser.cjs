@@ -117,6 +117,20 @@ function check(ok,message){assert.ok(ok,message);checks++;console.log('PASS '+me
   check(removed.ok() && !fs.existsSync(path.join(fixture,'data/affiliates/test-widget.yml')),'deleting an unused product removes its affiliate file too');
   const inUse=await (await request(context,'product-delete',{id:'candy-ai'})).json();
   check(!inUse.ok && /использ/.test(inUse.message||''),'a product referenced by a page cannot be deleted');
+
+  // History: what Git used to provide, now visible in the app.
+  const historyDenied=await editor.request.get(url+'/api?action=history');
+  check(historyDenied.status()===403,'the edit history is admin-only');
+  await page.goto(url+'/?view=history');await page.getByRole('heading',{name:'История правок',exact:true}).waitFor();
+  const logged=await (await context.request.get(url+'/api?action=history')).json();
+  check(logged.stats.versions>0 && logged.entries.some(e=>e.path.startsWith('data/products/')),'every editable source is versioned');
+  const productEdit=logged.entries.find(e=>e.action==='product.updated'||e.action==='product.created');
+  check(!!productEdit,'catalogue writes are recorded in the history');
+  const version=await (await context.request.get(url+'/api?action=history-version&path='+encodeURIComponent(productEdit.path)+'&sha='+productEdit.sha)).json();
+  check(version.diff.length>0 && version.versions.length>=1,'a version can be inspected as a diff');
+  await page.goto(url+'/?view=version&path='+encodeURIComponent(productEdit.path)+'&sha='+productEdit.sha);
+  await page.locator('.diff').waitFor();
+  check((await page.locator('.diff__line').count())>0,'the diff renders in the browser');
   await page.screenshot({path:path.join(root,'reports/studio-sites.png'),fullPage:true});
   await page.goto(url+'/?view=editor&site=browser-us&page=index.md');await page.getByRole('tab',{name:'Содержание',exact:true}).waitFor();
   await page.setViewportSize({width:390,height:844});

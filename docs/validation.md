@@ -27,31 +27,7 @@ release. **Warnings** are printed and do not block.
 | a product has no affiliate file | warning |
 | an enabled GEO has neither its own link nor a fallback | warning |
 
-## 2. Pages CMS schema — `scripts/php/CmsConfigValidator.php`
-
-Pages CMS rejects its entire config on one unknown key, which would lock the
-editors out of the CMS. This mirrors its schema:
-
-| Check | Level |
-| ----- | ----- |
-| unknown key on a content entry, group, field or media source | error |
-| entry `type` is `collection`, `file` or `group` | error |
-| `name` matches `^[a-zA-Z0-9-_]+$` | error |
-| `path` has no leading/trailing slash | error |
-| a collection/file path actually exists in the repository | error |
-| `format` is a supported Pages CMS format | error |
-| `filename` is a string or `{template, field}` | error |
-| a field has exactly one of `type` or `component` | error |
-| field `type` is a supported Pages CMS type | error |
-| `object` has `fields`, `block` has `blocks` | error |
-| `select` has `options.values` | error |
-| `reference` points at a collection that exists | error |
-| `component:` points at a defined component | error |
-| media `input` exists, `output` well formed, `name` present when several sources | error |
-| a `config/` file is exposed without `settings.content.merge: true` | error |
-| no media configuration at all | warning |
-
-## 3. Content — `scripts/php/ContentValidator.php`
+## 2. Content — `scripts/php/ContentValidator.php`
 
 Per GEO, before Cecil runs.
 
@@ -99,7 +75,7 @@ Per GEO, before Cecil runs.
 | a published product has no affiliate link for this GEO | warning |
 | a menu item points at a page this GEO does not have | warning |
 
-## 4. Generated output — `scripts/php/OutputValidator.php`
+## 3. Generated output — `scripts/php/OutputValidator.php`
 
 After Cecil runs, against the files in `dist/<domain>/`.
 

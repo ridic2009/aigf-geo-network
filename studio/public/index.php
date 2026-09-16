@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
-use AiGf\Tools\{Network, Model, StudioStore, StudioAuth, StudioCatalog, StudioContent, StudioSites, StudioPreview};
+use AiGf\Tools\{Network, Model, StudioStore, StudioAuth, StudioCatalog, StudioContent, StudioHistory, StudioSites, StudioPreview};
 
 $path = rawurldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/');
 $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || getenv('STUDIO_HTTPS') === '1';
@@ -92,6 +92,12 @@ try {
                 case 'product-delete':
                     StudioCatalog::delete($user, (string) ($input['id'] ?? ''));
                     response(['ok' => true]);
+                case 'history-restore':
+                    $restored = StudioStore::transaction(fn (&$s) => StudioHistory::restore($user, (string) ($input['path'] ?? ''), (string) ($input['sha'] ?? ''), $s));
+                    response(['ok' => true, 'path' => $restored]);
+                case 'history-baseline':
+                    StudioAuth::requireAdmin($user);
+                    response(['ok' => true, 'recorded' => StudioHistory::baseline($user['login'])]);
                 case 'preview':
                     session_write_close(); response(['ok' => true, 'url' => StudioPreview::create($user, $site, $page)]);
                 case 'upload':
@@ -144,6 +150,25 @@ try {
                 response(['ok' => true, 'products' => StudioCatalog::list($user), 'markets' => StudioCatalog::markets(),
                     'redirect_base' => Network::common()['affiliate']['redirect_base'] ?? '']);
             case 'product': response(['ok' => true] + StudioCatalog::get($user, (string) ($_GET['id'] ?? '')));
+            case 'history':
+                StudioAuth::requireAdmin($user);
+                StudioHistory::ensure();
+                response(['ok' => true, 'stats' => StudioHistory::stats(),
+                    'entries' => StudioHistory::log(['path' => $_GET['path'] ?? null, 'actor' => $_GET['actor'] ?? null], 200),
+                    'untracked' => count(array_filter(StudioHistory::files(), static fn ($f) => StudioHistory::versions(StudioHistory::relative($f) ?? 'content/x') === []))]);
+            case 'history-version':
+                StudioAuth::requireAdmin($user);
+                $path = StudioHistory::assertPath((string) ($_GET['path'] ?? ''));
+                $versions = StudioHistory::versions($path);
+                $sha = (string) ($_GET['sha'] ?? ($versions[0]['sha'] ?? ''));
+                $index = null;
+                foreach ($versions as $i => $version) { if ($version['sha'] === $sha) { $index = $i; break; } }
+                $body = $sha === '' ? '' : StudioHistory::read($sha);
+                $previous = $index === null ? null : ($versions[$index + 1]['sha'] ?? null);
+                response(['ok' => true, 'path' => $path, 'sha' => $sha, 'versions' => $versions,
+                    'body' => $body, 'previous' => $previous,
+                    'diff' => StudioHistory::diff($previous === null ? '' : StudioHistory::read($previous), $body),
+                    'current' => is_file(Network::root() . '/' . $path) ? hash_file('sha256', Network::root() . '/' . $path) : null]);
             case 'settings':
                 StudioAuth::requireAdmin($user);
                 $themes = []; foreach (glob(Network::path('config', 'themes', '*.yml')) as $file) { $themes[basename($file, '.yml')] = \Symfony\Component\Yaml\Yaml::parseFile($file)['label']; }

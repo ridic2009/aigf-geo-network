@@ -22,7 +22,6 @@ Requirements: PHP 8.2+ with `mbstring`, `intl`, `gd`, `dom`, `simplexml`,
 ./scripts/dev de               # live-reload preview on http://localhost:8000
 ./scripts/dev de --port=8080
 ./scripts/prepare              # regenerate the hreflang map (build does this too)
-./scripts/cms-config           # regenerate .pages.yml
 ./scripts/nginx-config         # regenerate infra/nginx/
 ```
 
@@ -108,13 +107,13 @@ Say you want `comparison-hub`.
    headings, meta, disclosure, FAQ and related content come for free.
 
 3. **Create the directory** `content/<geo>/hubs/` with a `.gitkeep` in every GEO
-   (Pages CMS needs the directory to exist in the repository).
+   (so the section exists before its first page).
 
 4. **Add validation** if the type has required fields: one rule in
    `scripts/php/ContentValidator.php`.
 
 5. **Add it to the CMS**: one `collection(...)` call in `geoGroup()` inside
-   `scripts/cms-config.php`, then `./scripts/cms-config`.
+   `config/models/<model>.yml`.
 
 6. `./scripts/validate && ./scripts/build-all`.
 

@@ -6,7 +6,7 @@
 #   1. translate `ui.*` (interface labels)
 #   2. localize `routes.*` (URL prefixes, e.g. reviews -> avis)
 #   3. translate `title` / `description`
-#   4. write content in content/jp/ (or via Pages CMS)
+#   4. write content in content/jp/ (or in Studio)
 # ---------------------------------------------------------------------------
 geo:
   code: jp

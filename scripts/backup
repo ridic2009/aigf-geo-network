@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# scripts/backup create|verify|extract|push|key [options]
+exec php "$(dirname "$0")/backup.php" "$@"
