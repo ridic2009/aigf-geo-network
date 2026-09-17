@@ -3,28 +3,36 @@
 A guide for the SEO specialist and the rewriter. You never need Git, Markdown
 files, YAML, SSH or the server — everything happens in the browser.
 
+The Russian version the editors actually work from is
+[copywriter-guide.md](copywriter-guide.md), and it is also the first item in the
+CMS sidebar. Keep the two in step.
+
 ## What you see when you log in
 
 ```
+Guide
 Sites
-  United States
-  Deutschland
   France
+  日本
+  Nederland
 Products
 Affiliate links
 Authors
+Network
 ```
 
 Open a country and you get its page types:
 
 ```
-Deutschland
+France
+  Site settings
   Homepage
-  Pages            (About, Privacy, Affiliate disclosure)
-  Reviews
-  Rankings
-  Comparisons
-  Guides
+  Page             (About, Privacy, Affiliate disclosure)
+  Review
+  Ranking
+  Comparison
+  Guide
+  Landing
 ```
 
 ## Publishing workflow
@@ -41,8 +49,10 @@ Rewriter moves a page Draft → Review. SEO moves it Review → Published.
 Pages that are not Published are invisible to visitors and to Google: they are
 not built, not in the sitemap, not linked from anywhere.
 
-When you save a Published page, the site rebuilds automatically and the change
-is live in roughly two minutes. There is no separate "deploy" button.
+Publishing is two steps. Setting the status to Published means "approved"; the
+page reaches the live site when someone publishes from Studio, normally the same
+day. Saving in the CMS never deploys by itself — see
+[pages-cms-setup.md](pages-cms-setup.md#branch-and-deployment-behaviour).
 
 ## Adding a review
 

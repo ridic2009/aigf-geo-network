@@ -148,6 +148,23 @@ components:
         type: string
 content:
   -
+    name: guide
+    label: Инструкция
+    description: 'Как работать в этой CMS: статусы, обязательные поля, ссылки между страницами, картинки. Только для чтения.'
+    type: file
+    path: docs/copywriter-guide.md
+    format: yaml-frontmatter
+    operations:
+      delete: false
+    fields:
+      -
+        name: body
+        label: Инструкция
+        type: rich-text
+        readonly: true
+        options:
+          media: false
+  -
     name: sites
     label: Сайты
     description: 'Выберите страну, затем тип страницы.'
@@ -228,6 +245,7 @@ content:
           -
             name: fr_home
             label: Главная
+            description: 'Главная страница этой страны.'
             type: file
             path: content/fr/index.md
             format: yaml-frontmatter
@@ -318,10 +336,12 @@ content:
                 name: hero_cta
                 label: 'Страница главной кнопки'
                 type: string
+                description: 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
               -
                 name: top_products_title
                 label: 'Заголовок подборки'
                 type: string
+                description: 'Заголовок над карточками продуктов.'
               -
                 name: top_products
                 label: 'Товары на главной'
@@ -332,6 +352,7 @@ content:
                   label: '{fields.name}'
                   search: 'fields.name,fields.slug'
                 list: true
+                description: 'Карточки продуктов под кнопкой. Ведут на продукт, а не на статью.'
               -
                 name: faq
                 component: faq
@@ -356,6 +377,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -369,10 +391,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: fr_static
             label: Страница
-            description: ''
+            description: 'Служебные страницы: о нас, конфиденциальность, раскрытие партнёрства. Продуктов в них нет.'
             type: collection
             path: content/fr
             format: yaml-frontmatter
@@ -514,6 +537,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -527,12 +551,13 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
             exclude:
               - index.md
           -
             name: fr_review
             label: Обзор
-            description: ''
+            description: 'Один продукт на страницу. Рейтинг, цена и логотип подставляются из базы продуктов.'
             type: collection
             path: content/fr/reviews
             format: yaml-frontmatter
@@ -698,6 +723,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -711,10 +737,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: fr_ranking
             label: Рейтинг
-            description: ''
+            description: 'Продукты по позициям. Таблица и карточки под ней собираются автоматически.'
             type: collection
             path: content/fr/rankings
             format: yaml-frontmatter
@@ -865,6 +892,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -878,10 +906,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: fr_comparison
             label: Сравнение
-            description: ''
+            description: 'Два и более продукта рядом. Таблица строится из базы продуктов.'
             type: collection
             path: content/fr/compare
             format: yaml-frontmatter
@@ -1033,6 +1062,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -1046,10 +1076,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: fr_guide
             label: Руководство
-            description: ''
+            description: 'Обучающая статья. Продукты необязательны, показываются компактными карточками.'
             type: collection
             path: content/fr/guides
             format: yaml-frontmatter
@@ -1201,6 +1232,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -1214,10 +1246,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: fr_landing
             label: 'Лендинг из блоков'
-            description: ''
+            description: 'Страница, собранная из блоков вместо сплошного текста.'
             type: collection
             path: content/fr/landings
             format: yaml-frontmatter
@@ -1359,6 +1392,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -1372,6 +1406,7 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
       -
         name: site_jp
         label: 'AI Girlfriend Ranking 日本 — jp'
@@ -1447,6 +1482,7 @@ content:
           -
             name: jp_home
             label: Главная
+            description: 'Главная страница этой страны.'
             type: file
             path: content/jp/index.md
             format: yaml-frontmatter
@@ -1537,10 +1573,12 @@ content:
                 name: hero_cta
                 label: 'Страница главной кнопки'
                 type: string
+                description: 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
               -
                 name: top_products_title
                 label: 'Заголовок подборки'
                 type: string
+                description: 'Заголовок над карточками продуктов.'
               -
                 name: top_products
                 label: 'Товары на главной'
@@ -1551,6 +1589,7 @@ content:
                   label: '{fields.name}'
                   search: 'fields.name,fields.slug'
                 list: true
+                description: 'Карточки продуктов под кнопкой. Ведут на продукт, а не на статью.'
               -
                 name: faq
                 component: faq
@@ -1575,6 +1614,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -1588,10 +1628,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: jp_static
             label: Страница
-            description: ''
+            description: 'Служебные страницы: о нас, конфиденциальность, раскрытие партнёрства. Продуктов в них нет.'
             type: collection
             path: content/jp
             format: yaml-frontmatter
@@ -1733,6 +1774,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -1746,12 +1788,13 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
             exclude:
               - index.md
           -
             name: jp_review
             label: Обзор
-            description: ''
+            description: 'Один продукт на страницу. Рейтинг, цена и логотип подставляются из базы продуктов.'
             type: collection
             path: content/jp/reviews
             format: yaml-frontmatter
@@ -1917,6 +1960,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -1930,10 +1974,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: jp_ranking
             label: Рейтинг
-            description: ''
+            description: 'Продукты по позициям. Таблица и карточки под ней собираются автоматически.'
             type: collection
             path: content/jp/rankings
             format: yaml-frontmatter
@@ -2084,6 +2129,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -2097,10 +2143,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: jp_comparison
             label: Сравнение
-            description: ''
+            description: 'Два и более продукта рядом. Таблица строится из базы продуктов.'
             type: collection
             path: content/jp/compare
             format: yaml-frontmatter
@@ -2252,6 +2299,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -2265,10 +2313,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: jp_guide
             label: Руководство
-            description: ''
+            description: 'Обучающая статья. Продукты необязательны, показываются компактными карточками.'
             type: collection
             path: content/jp/guides
             format: yaml-frontmatter
@@ -2420,6 +2469,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -2433,10 +2483,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: jp_landing
             label: 'Лендинг из блоков'
-            description: ''
+            description: 'Страница, собранная из блоков вместо сплошного текста.'
             type: collection
             path: content/jp/landings
             format: yaml-frontmatter
@@ -2578,6 +2629,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -2591,6 +2643,7 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
       -
         name: site_nl
         label: 'AI Girlfriend Ranking Nederland — nl'
@@ -2666,6 +2719,7 @@ content:
           -
             name: nl_home
             label: Главная
+            description: 'Главная страница этой страны.'
             type: file
             path: content/nl/index.md
             format: yaml-frontmatter
@@ -2756,10 +2810,12 @@ content:
                 name: hero_cta
                 label: 'Страница главной кнопки'
                 type: string
+                description: 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
               -
                 name: top_products_title
                 label: 'Заголовок подборки'
                 type: string
+                description: 'Заголовок над карточками продуктов.'
               -
                 name: top_products
                 label: 'Товары на главной'
@@ -2770,6 +2826,7 @@ content:
                   label: '{fields.name}'
                   search: 'fields.name,fields.slug'
                 list: true
+                description: 'Карточки продуктов под кнопкой. Ведут на продукт, а не на статью.'
               -
                 name: faq
                 component: faq
@@ -2794,6 +2851,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -2807,10 +2865,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: nl_static
             label: Страница
-            description: ''
+            description: 'Служебные страницы: о нас, конфиденциальность, раскрытие партнёрства. Продуктов в них нет.'
             type: collection
             path: content/nl
             format: yaml-frontmatter
@@ -2952,6 +3011,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -2965,12 +3025,13 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
             exclude:
               - index.md
           -
             name: nl_review
             label: Обзор
-            description: ''
+            description: 'Один продукт на страницу. Рейтинг, цена и логотип подставляются из базы продуктов.'
             type: collection
             path: content/nl/reviews
             format: yaml-frontmatter
@@ -3136,6 +3197,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -3149,10 +3211,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: nl_ranking
             label: Рейтинг
-            description: ''
+            description: 'Продукты по позициям. Таблица и карточки под ней собираются автоматически.'
             type: collection
             path: content/nl/rankings
             format: yaml-frontmatter
@@ -3303,6 +3366,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -3316,10 +3380,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: nl_comparison
             label: Сравнение
-            description: ''
+            description: 'Два и более продукта рядом. Таблица строится из базы продуктов.'
             type: collection
             path: content/nl/compare
             format: yaml-frontmatter
@@ -3471,6 +3536,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -3484,10 +3550,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: nl_guide
             label: Руководство
-            description: ''
+            description: 'Обучающая статья. Продукты необязательны, показываются компактными карточками.'
             type: collection
             path: content/nl/guides
             format: yaml-frontmatter
@@ -3639,6 +3706,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -3652,10 +3720,11 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
             name: nl_landing
             label: 'Лендинг из блоков'
-            description: ''
+            description: 'Страница, собранная из блоков вместо сплошного текста.'
             type: collection
             path: content/nl/landings
             format: yaml-frontmatter
@@ -3797,6 +3866,7 @@ content:
                 type: string
                 list: true
                 readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
               -
                 name: blocks
                 label: 'Блоки страницы'
@@ -3810,6 +3880,7 @@ content:
                   - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
                   - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
   -
     name: products
     label: Продукты

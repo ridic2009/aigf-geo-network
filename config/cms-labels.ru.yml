@@ -259,6 +259,27 @@ About: 'О нас'
 Disclosure: 'Партнёрский дисклеймер'
 Privacy: 'Конфиденциальность'
 
+# --- in-app guide ----------------------------------------------------------
+Guide: 'Инструкция'
+'How to work in this CMS: statuses, required fields, links between pages, images. Read-only.': 'Как работать в этой CMS: статусы, обязательные поля, ссылки между страницами, картинки. Только для чтения.'
+
+# --- page types ------------------------------------------------------------
+'About, privacy, affiliate disclosure — pages with no product data.': 'Служебные страницы: о нас, конфиденциальность, раскрытие партнёрства. Продуктов в них нет.'
+'One product per page. Rating, price and logo come from the product database.': 'Один продукт на страницу. Рейтинг, цена и логотип подставляются из базы продуктов.'
+'An ordered list of products. The table and the cards below it are generated.': 'Продукты по позициям. Таблица и карточки под ней собираются автоматически.'
+'Two or more products side by side, built from the product database.': 'Два и более продукта рядом. Таблица строится из базы продуктов.'
+'An explainer. Products are optional and shown as compact cards.': 'Обучающая статья. Продукты необязательны, показываются компактными карточками.'
+'A page assembled from blocks instead of one body text.': 'Страница, собранная из блоков вместо сплошного текста.'
+
+# --- field hints -----------------------------------------------------------
+'Page id of the article the big button points at, e.g. "rankings/best-ai-girlfriend". The button takes its text from that page and appears only once the page is published.': 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
+'Heading above the product cards.': 'Заголовок над карточками продуктов.'
+'Product cards under the button. They link to the product, not to an article.': 'Карточки продуктов под кнопкой. Ведут на продукт, а не на статью.'
+'Page blocks': 'Блоки страницы'
+'Optional building blocks — text, image, table, call to action — shown after the main content. A normal article does not need them.': 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
+'Previous addresses': 'Предыдущие адреса'
+'Read-only. Addresses this page used to have. They keep old links working.': 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
+
 # --- remaining -------------------------------------------------------------
 'The front page of this country.': 'Главная страница этой страны.'
 'Page id': 'Идентификатор страницы'

@@ -409,6 +409,73 @@ function networkSettingsFile(): array
     ];
 }
 
+/**
+ * The copywriter guide, opened inside the CMS as the first sidebar item.
+ *
+ * Editors have no repository access, and nothing else in the interface explains
+ * the model: page key versus URL, what a status does, how one page links to
+ * another. The field is read-only so the guide cannot be saved over by someone
+ * who opened it looking for a form.
+ */
+function guideFile(): array
+{
+    return [
+        'name'        => 'guide',
+        'label'       => 'Guide',
+        'description' => 'How to work in this CMS: statuses, required fields, links between pages, images. Read-only.',
+        'type'        => 'file',
+        'path'        => 'docs/copywriter-guide.md',
+        'format'      => 'yaml-frontmatter',
+        'operations'  => ['delete' => false],
+        'fields'      => [
+            [
+                'name'     => 'body',
+                'label'    => 'Guide',
+                'type'     => 'rich-text',
+                'readonly' => true,
+                'options'  => ['media' => false],
+            ],
+        ],
+    ];
+}
+
+/**
+ * One line per page type, shown above the list of entries. The page-type model
+ * is shared with Studio and carries labels only, so the CMS wording lives here.
+ *
+ * @return array<string, string>
+ */
+function typeDescriptions(): array
+{
+    return [
+        'homepage'   => 'The front page of this country.',
+        'static'     => 'About, privacy, affiliate disclosure — pages with no product data.',
+        'review'     => 'One product per page. Rating, price and logo come from the product database.',
+        'ranking'    => 'An ordered list of products. The table and the cards below it are generated.',
+        'comparison' => 'Two or more products side by side, built from the product database.',
+        'guide'      => 'An explainer. Products are optional and shown as compact cards.',
+        'landing'    => 'A page assembled from blocks instead of one body text.',
+    ];
+}
+
+/**
+ * Hints for the fields editors ask about most. Page ids in particular are
+ * invisible in the interface: an editor sees titles, the field wants
+ * "<folder>/<page key>".
+ *
+ * @return array<string, string>
+ */
+function fieldHints(): array
+{
+    return [
+        'hero_cta'           => 'Page id of the article the big button points at, e.g. "rankings/best-ai-girlfriend". The button takes its text from that page and appears only once the page is published.',
+        'top_products_title' => 'Heading above the product cards.',
+        'top_products'       => 'Product cards under the button. They link to the product, not to an article.',
+        'blocks'             => 'Optional building blocks — text, image, table, call to action — shown after the main content. A normal article does not need them.',
+        'aliases'            => 'Read-only. Addresses this page used to have. They keep old links working.',
+    ];
+}
+
 function view(array $fields, string $sort = 'updated'): array
 {
     return [
@@ -467,20 +534,28 @@ function geoGroup(string $code, array $ui): array
     $geo = Network::geo($code);
     $base = $geo['pages']['dir'];
     $items = [siteSettingsFile($code, $ui)];
+    $hints = fieldHints();
+    $descriptions = typeDescriptions();
     foreach (\AiGf\Tools\Model::types($code) as $type => $definition) {
         $fields = array_merge(baseFields($type, $type !== 'homepage'), metaFields(), contentFields(), modelCmsFields($definition['fields'] ?? []), tailFields());
-        $fields[] = ['name' => 'aliases', 'label' => 'Предыдущие адреса', 'type' => 'string', 'list' => true, 'readonly' => true];
+        $fields[] = ['name' => 'aliases', 'label' => 'Previous addresses', 'type' => 'string', 'list' => true, 'readonly' => true];
         $blocks = [];
         foreach (\AiGf\Tools\Model::blocks() as $block => $def) {
             $blocks[] = ['name' => $block, 'label' => $def['label'], 'fields' => modelCmsFields($def['fields'])];
         }
-        $fields[] = ['name' => 'blocks', 'label' => 'Блоки страницы', 'type' => 'block', 'list' => true, 'blockKey' => 'type', 'blocks' => $blocks];
+        $fields[] = ['name' => 'blocks', 'label' => 'Page blocks', 'type' => 'block', 'list' => true, 'blockKey' => 'type', 'blocks' => $blocks];
+        foreach ($fields as $i => $field) {
+            if (isset($hints[$field['name']]) && !isset($field['description'])) {
+                $fields[$i]['description'] = $hints[$field['name']];
+            }
+        }
+        $description = $descriptions[$type] ?? '';
         if ($type === 'homepage') {
-            $items[] = ['name' => $code . '_home', 'label' => $definition['label'], 'type' => 'file', 'path' => $base . '/index.md', 'format' => 'yaml-frontmatter', 'fields' => $fields];
+            $items[] = ['name' => $code . '_home', 'label' => $definition['label'], 'description' => $description, 'type' => 'file', 'path' => $base . '/index.md', 'format' => 'yaml-frontmatter', 'fields' => $fields];
             continue;
         }
         $path = $base . (empty($definition['section']) ? '' : '/' . $definition['section']);
-        $item = collection($code . '_' . $type, $definition['label'], $path, '', $fields, view(['title', 'slug', 'status', 'updated']));
+        $item = collection($code . '_' . $type, $definition['label'], $path, $description, $fields, view(['title', 'slug', 'status', 'updated']));
         if (empty($definition['section'])) { $item['exclude'] = ['index.md']; }
         $items[] = $item;
     }
@@ -698,6 +773,7 @@ $config = [
         'canonical' => canonicalComponent(),
     ],
     'content' => [
+        guideFile(),
         [
             'name'        => 'sites',
             'label'       => 'Sites',

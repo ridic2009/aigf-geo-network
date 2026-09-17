@@ -397,3 +397,5 @@ node tests/audit.cjs http://127.0.0.1:8788 <login> <password>   # design audit
 | [docs/deployment.md](docs/deployment.md) | VPS provisioning, Nginx, TLS, Cloudflare, releases, rollback |
 | [docs/adding-geo.md](docs/adding-geo.md) | Adding a country end to end |
 | [docs/validation.md](docs/validation.md) | Every check, and what to do when it fires |
+| [docs/copywriter-guide.md](docs/copywriter-guide.md) | The editors' manual, in Russian — also served read-only inside Pages CMS |
+| [docs/pages-cms-setup.md](docs/pages-cms-setup.md) | Pages CMS schema, access, in-app guide |

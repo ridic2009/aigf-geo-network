@@ -54,6 +54,37 @@ missing collections, collection paths that do not exist in the repository). Page
 CMS rejects its whole config on a single unknown key, so this check is worth
 having in CI.
 
+## The guide inside the CMS
+
+The first item in the sidebar, **Инструкция**, is `docs/copywriter-guide.md`
+rendered in the CMS itself:
+
+```yaml
+content:
+  - name: guide
+    type: file
+    path: docs/copywriter-guide.md
+    format: yaml-frontmatter
+    operations: { delete: false }
+    fields:
+      - { name: body, type: rich-text, readonly: true }
+```
+
+One file serves both audiences — a rewriter reads it in the app, an
+administrator links to it on GitHub — so the two cannot drift apart. `readonly`
+means an editor who opens it looking for a form cannot save over it, and
+`operations.delete` keeps it from disappearing. Editing it is a normal commit
+from someone with repository access.
+
+Pages CMS has no help of its own beyond field hints, and collaborators have no
+repository access, so without this entry the manual only exists somewhere they
+were told about once by email.
+
+Field-level hints carry the rest: every page type has a one-line description
+above its list, and the fields editors ask about — the hero button's page id,
+page blocks, previous addresses — explain themselves in place. All of it goes
+through `config/cms-labels.ru.yml` like every other string.
+
 ## Configuration files edited through the CMS
 
 Two kinds of configuration are exposed as forms:
