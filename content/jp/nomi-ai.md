@@ -1,7 +1,7 @@
 ---
 title: Nomi.ai レビュー（2026年）：最も人間らしいAIコンパニオン？
 slug: nomi-ai
-status: published
+status: draft
 type: static
 translation_key: nomi-ai
 date: 2026-09-16
