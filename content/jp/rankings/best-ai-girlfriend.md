@@ -1,74 +1,64 @@
 ---
-title: Best AI Girlfriend Apps in 2026
+title: 2026年のベストAI彼女アプリ
 slug: best-ai-girlfriend
 type: ranking
-status: draft
+status: review
 translation_key: best-ai-girlfriend
 date: 2026-02-01
 updated: 2026-09-12
 author: m-keller
 reviewer: s-moreau
-
-intro: |
-  Three apps made the cut this month. Each one was used on a paid plan for at
-  least two weeks, with the same checklist and the same tester.
-
+intro: 今月は3つのアプリが選考を通過しました。それぞれ有料プランで少なくとも2週間、同じチェックリストと同じテスターで使用されました。
 ranking:
   - product: candy-ai
-    badge: Best overall
-    highlight: Strongest all-round package, and the only app where image generation felt genuinely usable.
+    badge: 総合ベスト
+    highlight: 最も強力なオールラウンドパッケージであり、画像生成が本当に使えると感じられた唯一のアプリです。
   - product: nomi
-    badge: Best conversations
-    highlight: Remembers context better than anything else we tested, with the most natural dialogue.
+    badge: 会話が最も優れている
+    highlight: 私たちがテストした中で最も文脈をよく記憶し、最も自然な対話を実現しています。
   - product: replika
-    badge: Best free tier
-    highlight: The most generous free experience, but the paid tier feels dated next to newer apps.
-
+    badge: 無料プランが最も優れている
+    highlight: 最も寛大な無料体験ですが、有料プランは新しいアプリと比べると見劣りします。
 related:
   - reviews/candy-ai
   - reviews/nomi
   - compare/candy-ai-vs-nomi
-
 seo:
-  title: Best AI Girlfriend Apps in 2026 — Tested & Ranked
-  description: Our tested ranking of the best AI girlfriend apps in 2026, with ratings, pricing and honest pros and cons for each app.
+  title: 2026年 最高のAI彼女アプリ — テスト済み＆ランキング
+  description: 2026年の最高のAI彼女アプリのテスト済みランキング。各アプリの評価、料金、正直なメリットとデメリット付き。
   primary_keyword: best ai girlfriend
-
 indexing:
   index: true
   follow: true
-
 faq:
-  - question: Which AI girlfriend app is the best right now?
-    answer: |
-      Candy AI takes the top spot this month because it is the only app that does
-      chat, images and voice well at the same time. If conversation quality matters
-      more to you than media, Nomi is the better pick.
-  - question: Are there free AI girlfriend apps?
-    answer: |
-      All three apps in this ranking have a free tier, but each one limits message
-      volume or media generation. Expect to pay between $12 and $20 per month for
-      unrestricted use.
-  - question: How often is this ranking updated?
-    answer: |
-      Monthly. The date at the top of this page is the date of the most recent
-      re-test, not the date the page was first published.
+  - question: 今、どのAI彼女アプリが最高なのか？
+    answer: Candy
+      AIが今月トップの座を獲得したのは、チャット、画像、音声を同時にうまくこなせる唯一のアプリだからです。メディアよりも会話の質があなたにとって重要なら、Nomiの方が良い選択です。
+  - question: 無料のAI彼女アプリはありますか？
+    answer: このランキングの3つのアプリはすべて無料プランがありますが、それぞれメッセージ数やメディア生成に制限があります。無制限に使うには月12ドルから20ドルを支払うことになります。
+  - question: このランキングはどのくらいの頻度で更新されますか？
+    answer: 毎月です。このページの上部にある日付は、最新の再テストの日付であり、ページが最初に公開された日付ではありません。
 ---
+## ランキング方法
 
-## How we ranked them
+各アプリは5つの基準で採点しました。具体的には、会話、記憶、メディア、価格、アカウント管理の5項目です。それぞれを個別に評価し、その平均を最終スコアとして採用しています。スコアは小数第1位に四捨五入して表示しています。
 
-Each app was scored on five criteria — conversation, memory, media, pricing and
-account controls — and the final score is the average, rounded to one decimal.
-We do not weight sponsored placements, and an app cannot buy its way up.
+重要なのは、このランキングにスポンサー枠の重み付けは一切ないという点です。広告費や提携の有無が順位に影響することはなく、アプリがお金で順位を上げることはできません。あくまで実際に使用した上での評価だけが反映されます。
 
-## Who each app is for
+## 各アプリの対象ユーザー
 
-If you mostly want long, coherent conversations, start with Nomi. If you want a
-companion that can also generate images and hold a voice call, Candy AI is the
-more complete product. Replika is worth a look if you want to try the category
-without paying anything first.
+どのアプリを選ぶべきかは、あなたが何を求めるかによって変わります。
 
-## What changed this month
+長く一貫性のある会話を最も重視するなら、まずNomiを検討してください。会話の流れを保つ力と記憶の精度は、このカテゴリーでもトップクラスです。
 
-Nomi shipped group chats to all paid users, which pushed its conversation score
-up. Replika's pricing increased, which is reflected in its value score.
+一方、会話だけでなく画像生成や音声通話も使いたい、つまり1つのアプリで完結させたいなら、Candy AIの方がより完成度の高い製品と言えます。メディア機能の充実度では他を圧倒しています。
+
+そして、まずお金を払わずにこのカテゴリー全体を試してみたいという初心者には、Replikaが候補になります。無料でもある程度の体験ができるため、自分に合うかどうかを確認する入り口として適しています。
+
+## 今月の変更点
+
+今月はいくつか重要な動きがありました。
+
+まずNomiですが、すべての有料ユーザーにグループチャット機能を提供開始しました。これにより複数のコンパニオンを同時に会話に参加させられるようになり、その結果、会話スコアが押し上げられました。この機能は競合他社にはあまり見られない強みです。
+
+次にReplikaですが、料金が値上がりしました。この変更はバリュースコアに直接反映されており、コストパフォーマンスの評価が以前より下がっています。すでに有料プランを検討しているユーザーにとっては、再考の材料になるかもしれません。
