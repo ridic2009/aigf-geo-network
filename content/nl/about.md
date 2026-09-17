@@ -1,46 +1,35 @@
 ---
-title: À propos
-slug: a-propos
+title: Over ons
+slug: over-ons
 type: static
 status: draft
 translation_key: about
 date: 2026-01-10
 updated: 2026-08-20
-
 intro: |
-  Qui rédige ces tests, comment nous testons et comment nous gagnons de l'argent.
-
+  Wie deze tests schrijft, hoe we testen en hoe we geld verdienen.
 seo:
-  title: À propos d'AI Girlfriend Ranking — notre méthode de test
-  description: Qui nous sommes, comment nous testons les applications de compagnon IA, et comment fonctionnent nos notes et nos liens d'affiliation.
-  primary_keyword: à propos ai girlfriend ranking
-
+  title: Over AI Girlfriend Ranking — onze testmethode
+  description: Wie we zijn, hoe we AI-compagnon-apps testen, en hoe onze scores en
+    affiliatielinks werken.
+  primary_keyword: over ai girlfriend ranking
 indexing:
   index: true
   follow: true
 ---
+## Wie we zijn
 
-## Qui nous sommes
+AI Girlfriend Ranking is een onafhankelijke testsite voor AI-compagnon-apps. Hetzelfde kleine team test elke app op elke markt waar we publiceren: een score betekent overal hetzelfde.
 
-AI Girlfriend Ranking est un site de tests indépendant consacré aux applications
-de compagnon IA. La même petite équipe teste chaque application sur chaque marché
-où nous publions : une note veut dire la même chose sur tous nos sites.
+## Hoe we testen
 
-## Comment nous testons
+Elke app wordt minstens twee weken op een betaald account gebruikt voordat we een score geven. We beoordelen vijf criteria — gesprek, geheugen, media, prijs en accountbeheer — en controleren de score vóór elke maandelijkse update.
 
-Chaque application est utilisée sur un compte payant pendant au moins deux
-semaines avant d'être notée. Nous évaluons cinq critères — conversation, mémoire,
-média, tarif et contrôles du compte — et vérifions la note avant chaque mise à
-jour mensuelle.
+## Hoe we geld verdienen
 
-## Comment nous gagnons de l'argent
+Sommige links zijn affiliatielinks. Als u zich via zo’n link aanmeldt, kunnen we een commissie ontvangen zonder extra kosten voor u. Dat verandert nooit een score. Zie onze
+[affiliatie-openbaarmaking](/affiliatie-openbaarmaking/).
 
-Certains liens sont des liens d'affiliation. Si vous vous inscrivez via l'un
-d'eux, nous pouvons percevoir une commission sans surcoût pour vous. Cela ne
-change jamais une note. Voir notre
-[divulgation d'affiliation](/divulgation-affiliation/).
+## Correcties
 
-## Corrections
-
-Si une information est erronée ou obsolète, écrivez-nous : nous la corrigeons et
-datons la correction.
+Klopt iets niet of is het verouderd, mail ons: we corrigeren het en dateren de correctie.
