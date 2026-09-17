@@ -29,6 +29,11 @@ faq:
       詳しくは[アフィリエイトについて](/affiliate/)をご覧ください。
 top_products:
   - nomi
+blocks:
+  - type: products
+    heading: Nomi.ai レビュー（2026年）：最も人間らしいAIコンパニオン？
+    products:
+      - nomi
 ---
 ## このサイトについて
 
