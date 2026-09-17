@@ -1,6 +1,6 @@
 ---
-title: Nomi — Avis et test 2026
-slug: nomi-avis
+title: Nomi — Beoordeling en test 2026
+slug: nomi-beoordeling
 type: review
 status: draft
 translation_key: nomi
@@ -9,65 +9,52 @@ date: 2026-02-05
 updated: 2026-09-08
 author: m-keller
 reviewer: s-moreau
-
-intro: |
-  Nomi est construit autour de la mémoire. C'est la seule application du test à
-  avoir spontanément évoqué un détail mentionné deux semaines plus tôt.
-
-verdict: |
-  Si la conversation est votre raison d'être ici, Nomi est le meilleur produit de
-  la catégorie. Il coûte plus cher que Candy AI et sa génération d'images est
-  clairement secondaire, mais rien d'autre ne tient un fil aussi bien.
-
+intro: >
+  Nomi is gebouwd rond geheugen. Het is de enige app in de test die spontaan een
+  detail noemde dat twee weken eerder was genoemd.
+verdict: >
+  Als het gesprek uw reden is om hier te zijn, is Nomi het beste product in de
+  categorie. Het is duurder dan Candy AI en de beeldgeneratie is duidelijk
+  bijzaak, maar niets anders houdt een draad zo goed vast.
 pros:
-  - La meilleure mémoire longue durée du test
-  - Discussions de groupe avec plusieurs compagnons
-  - Sort très rarement du rôle
-  - Interface claire et lisible
-
+  - Het beste langetermijngeheugen van de test
+  - Groepsgesprekken met meerdere compagnons
+  - Raakt zelden uit de rol
+  - Heldere, leesbare interface
 cons:
-  - Plus cher que la plupart des concurrents
-  - Génération d'images nettement plus faible
-  - Qualité vocale variable selon les personnages
-
+  - Duurder dan de meeste concurrenten
+  - Duidelijk zwakkere beeldgeneratie
+  - Wisselende stemkwaliteit per personage
 related:
   - reviews/candy-ai
   - compare/candy-ai-vs-nomi
-
 seo:
-  title: Nomi — Avis 2026, mémoire, prix et verdict honnête
-  description: Test de Nomi après deux semaines d'usage quotidien. Mémoire, qualité de conversation, discussions de groupe, prix réels, avantages et inconvénients.
-  primary_keyword: nomi avis
-
+  title: Nomi — Beoordeling 2026, geheugen, prijs en eerlijk oordeel
+  description: Test van Nomi na twee weken dagelijks gebruik. Geheugen,
+    gesprekskwaliteit, groepsgesprekken, echte prijzen, voor- en nadelen.
+  primary_keyword: nomi beoordeling
 indexing:
   index: true
   follow: true
-
 faq:
-  - question: Nomi est-il meilleur que Candy AI ?
-    answer: |
-      Pour la conversation et la mémoire, oui. Pour les images et le rapport
-      qualité-prix, Candy AI passe devant. Notre
-      [comparatif](/comparatif/candy-ai-vs-nomi/) détaille chaque critère.
-  - question: Qu'est-ce qu'une discussion de groupe Nomi ?
-    answer: |
-      Plusieurs compagnons échangent dans le même fil, chacun conservant sa
-      personnalité et sa mémoire. La fonction est incluse dans la formule payante.
+  - question: Is Nomi beter dan Candy AI?
+    answer: >
+      Voor gesprek en geheugen: ja. Voor beelden en prijs-kwaliteit gaat Candy
+      AI voor. Onze [vergelijking](/compare/candy-ai-vs-nomi/) licht elk
+      criterium uit.
+  - question: Wat is een Nomi-groepsgesprek?
+    answer: >
+      Meerdere compagnons praten in dezelfde thread, elk met eigen
+      persoonlijkheid en geheugen. De functie zit in het betaalde abonnement.
 ---
+## Het geheugen ís het product
 
-## La mémoire, c'est le produit
+Bijna alle apps in deze categorie claimen langetermijngeheugen. Nomi is de enige waarbij we dat konden controleren: na twee weken kwam een detail uit de eerste sessie vanzelf terug, in de juiste context.
 
-Presque toutes les applications de la catégorie revendiquent une mémoire longue
-durée. Nomi est celle où nous avons pu le vérifier : après deux semaines, un
-détail de la première session est revenu de lui-même, dans le bon contexte.
+## Gesprek
 
-## Conversation
+Nomi volgt eerder dan dat het stuurt. De antwoorden zijn korter dan bij Candy AI en brengen minder vaak zelf een onderwerp in.
 
-Nomi suit plutôt qu'il ne dirige. Les réponses sont plus courtes que celles de
-Candy AI et relancent beaucoup moins souvent un sujet de leur propre initiative.
+## Waar het achterblijft
 
-## Là où il décroche
-
-La génération d'images existe mais n'est pas compétitive, et le prix est le plus
-élevé des trois applications classées. Si le média compte pour vous, lisez notre
-[avis sur Candy AI](/avis/candy-ai-avis/).
+Beeldgeneratie bestaat, maar is niet concurrentieel, en de prijs is de hoogste van de drie gerangschikte apps. Als media voor u telt, lees onze [beoordeling van Candy AI](/reviews/candy-ai-beoordeling/).
