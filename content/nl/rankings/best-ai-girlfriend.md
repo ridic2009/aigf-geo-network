@@ -1,6 +1,6 @@
 ---
-title: Meilleures applications de petite amie IA en 2026
-slug: meilleure-petite-amie-ia
+title: Beste AI-vriendin-apps in 2026
+slug: beste-ai-vriendin
 type: ranking
 status: draft
 translation_key: best-ai-girlfriend
@@ -8,68 +8,58 @@ date: 2026-02-01
 updated: 2026-09-12
 author: m-keller
 reviewer: s-moreau
-
-intro: |
-  Trois applications sont retenues ce mois-ci. Chacune a été utilisée au moins
-  deux semaines sur un abonnement payant, avec la même grille et le même testeur.
-
+intro: >
+  Deze maand houden we drie apps over. Elke app is minstens twee weken gebruikt
+  op een betaald abonnement, met dezelfde beoordelingslijst en dezelfde tester.
 ranking:
   - product: candy-ai
-    badge: Meilleur choix global
-    highlight: L'offre la plus complète, et la seule application où la génération d'images est réellement exploitable.
+    badge: Beste keuze overall
+    highlight: Het meest complete aanbod, en de enige app waarin beeldgeneratie echt
+      bruikbaar is.
   - product: nomi
-    badge: Meilleures conversations
-    highlight: Retient le contexte mieux que tout ce que nous avons testé, avec le dialogue le plus naturel.
+    badge: Beste gesprekken
+    highlight: Houdt context beter vast dan alles wat we hebben getest, met de
+      natuurlijkste dialoog.
   - product: replika
-    badge: Meilleure version gratuite
-    highlight: L'offre gratuite la plus généreuse, mais la version payante paraît datée face aux applications récentes.
-
+    badge: Beste gratis versie
+    highlight: Het ruimste gratis aanbod, maar de betaalde versie oogt gedateerd
+      naast recentere apps.
 related:
   - reviews/candy-ai
   - reviews/nomi
   - compare/candy-ai-vs-nomi
-
 seo:
-  title: Meilleures petites amies IA en 2026 — testées et classées
-  description: Notre classement testé des meilleures applications de petite amie IA en 2026, avec notes, tarifs et avis honnêtes.
-  primary_keyword: meilleure petite amie ia
-
+  title: Beste AI-vriendinnen in 2026 — getest en gerangschikt
+  description: Onze geteste ranglijst van de beste AI-vriendin-apps in 2026, met
+    scores, prijzen en eerlijke beoordelingen.
+  primary_keyword: beste ai vriendin
 indexing:
   index: true
   follow: true
-
 faq:
-  - question: Quelle est la meilleure application de petite amie IA actuellement ?
-    answer: |
-      Candy AI prend la première place ce mois-ci car c'est la seule application qui
-      gère bien à la fois le chat, les images et la voix. Si la conversation compte
-      plus que le média, Nomi est le meilleur choix.
-  - question: Existe-t-il des applications gratuites ?
-    answer: |
-      Les trois applications du classement ont une version gratuite, mais chacune
-      limite le volume de messages ou la génération d'images. Comptez entre 12 et
-      20 euros par mois pour un usage sans restriction.
-  - question: À quelle fréquence ce classement est-il mis à jour ?
-    answer: |
-      Chaque mois. La date en haut de page correspond au dernier nouveau test, pas
-      à la première publication.
+  - question: Wat is nu de beste AI-vriendin-app?
+    answer: >
+      Candy AI staat deze maand bovenaan omdat het de enige app is die chat,
+      beelden én stem goed aankan. Als het gesprek zwaarder weegt dan media, is
+      Nomi de beste keuze.
+  - question: Zijn er gratis apps?
+    answer: >
+      De drie apps in de ranglijst hebben een gratis versie, maar elk beperkt
+      het aantal berichten of de beeldgeneratie. Reken op 12 tot 20 euro per
+      maand voor onbeperkt gebruik.
+  - question: Hoe vaak wordt deze ranglijst bijgewerkt?
+    answer: >
+      Elke maand. De datum bovenaan de pagina is die van de laatste nieuwe test,
+      niet van de eerste publicatie.
 ---
+## Onze ranglijstmethode
 
-## Notre méthode de classement
+Elke app krijgt een score op vijf criteria — gesprek, geheugen, media, prijs en accountbeheer. De eindscore is het gemiddelde, afgerond op een tiende. Een plaats is niet te koop.
 
-Chaque application est notée sur cinq critères — conversation, mémoire, média,
-tarif et contrôles du compte. La note finale est la moyenne arrondie au dixième.
-Une place ne s'achète pas.
+## Voor wie welke app is
 
-## À qui s'adresse chaque application
+Voor lange, consistente gesprekken begint u bij Nomi. Voor een compagnon die ook beelden kan maken en een spraakgesprek aankan, is Candy AI het meest complete product. Replika laat u de categorie ontdekken zonder te betalen.
 
-Pour des conversations longues et cohérentes, commencez par Nomi. Pour un
-compagnon capable aussi de générer des images et de passer un appel vocal, Candy
-AI est le produit le plus complet. Replika permet de découvrir la catégorie sans
-payer.
+## Wat er deze maand veranderde
 
-## Ce qui a changé ce mois-ci
-
-Nomi a déployé les discussions de groupe à tous les abonnés payants, ce qui fait
-monter sa note de conversation. Replika a augmenté ses tarifs, ce qui se reflète
-dans sa note de rapport qualité-prix.
+Nomi heeft groepsgesprekken uitgerold naar alle betalende abonnees, waardoor de gespreksscore stijgt. Replika heeft de prijzen verhoogd; dat zie je terug in de prijs-kwaliteitscore.
