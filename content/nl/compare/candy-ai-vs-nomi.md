@@ -11,53 +11,43 @@ date: 2026-02-10
 updated: 2026-09-11
 author: m-keller
 reviewer: s-moreau
-
-intro: |
-  Les deux applications occupent le haut de notre classement, mais ne visent pas
-  le même public. Voici la version courte de deux semaines de test parallèle.
-
+intro: >
+  Beide apps staan bovenaan onze ranglijst, maar ze mikken niet op hetzelfde
+  publiek. Dit is de korte versie van twee weken parallel testen.
 related:
   - reviews/candy-ai
   - reviews/nomi
   - rankings/best-ai-girlfriend
-
 seo:
-  title: Candy AI vs Nomi (2026) — laquelle choisir ?
-  description: Candy AI et Nomi comparés sur la conversation, la mémoire, les images, la voix et le prix, après deux semaines de test parallèle.
+  title: Candy AI vs Nomi (2026) — welke kies je?
+  description: Candy AI en Nomi vergeleken op gesprek, geheugen, beelden, stem en
+    prijs, na twee weken parallel testen.
   primary_keyword: candy ai vs nomi
-
 indexing:
   index: true
   follow: true
-
 faq:
-  - question: Lequel est le moins cher, Candy AI ou Nomi ?
-    answer: |
-      Candy AI est le moins cher des deux en formule mensuelle. Les prix exacts pour
-      ce marché figurent dans le tableau comparatif ci-dessus.
-  - question: Peut-on utiliser les deux ?
-    answer: |
-      Oui, et plusieurs de nos testeurs le font. Si vous n'en payez qu'une, choisissez
-      selon que vous privilégiez les fonctions média ou la profondeur de conversation.
+  - question: Welke is goedkoper, Candy AI of Nomi?
+    answer: >
+      Candy AI is de goedkoopste van de twee in een maandelijks abonnement. De
+      exacte prijzen voor deze markt staan in de vergelijkingstabel hierboven.
+  - question: Kun je beide gebruiken?
+    answer: >
+      Ja, en verschillende van onze testers doen dat. Betaalt u er maar één,
+      kies dan naar gelang u mediafuncties of gespreksdiepte belangrijker vindt.
 ---
+## Het korte antwoord
 
-## La réponse courte
+Kies **Candy AI** als u één abonnement wilt voor chat, beelden en stem. Kies **Nomi** als gesprekskwaliteit en geheugen het belangrijkst zijn en gegenereerde beelden u niet interesseren.
 
-Choisissez **Candy AI** si vous voulez un abonnement couvrant le chat, les images
-et la voix. Choisissez **Nomi** si la qualité de conversation et la mémoire sont
-l'essentiel et que les images générées vous indiffèrent.
+## Gesprek
 
-## Conversation
+Nomi wint. Het houdt een draad langer vast, blijft consistenter in de rol en volgt uw initiatief in plaats van te sturen.
 
-Nomi l'emporte. Il tient un fil plus longtemps, reste plus constant dans le rôle
-et suit votre initiative au lieu de diriger.
+## Media
 
-## Média
+Candy AI wint ruim. De beeldgeneratie houdt het personage van beeld tot beeld coherent — het lastigste punt in deze categorie.
 
-Candy AI l'emporte largement. Sa génération d'images garde le personnage cohérent
-d'une image à l'autre, ce qui est le point le plus difficile de la catégorie.
+## Prijs en prijs-kwaliteit
 
-## Prix et rapport qualité-prix
-
-Candy AI est moins cher et couvre davantage de fonctions par euro dépensé. Nomi
-facture plus cher un produit plus étroit, mais excellent dans son domaine.
+Candy AI is goedkoper en dekt meer functies per uitgegeven euro. Nomi vraagt meer voor een smaller product, dat in zijn vak wel excellent is.
