@@ -1,0 +1,22 @@
+name: Sweetdream ai
+slug: sweetdream
+website: https://sweetdream.ai
+rating: 4.5
+free_tier: true
+category: LifestyleApplication
+price:
+  amount: 10
+  period: month
+geo:
+  fr:
+    availability: available
+    price:
+      period: month
+  jp:
+    availability: available
+    price:
+      period: month
+  nl:
+    availability: available
+    price:
+      period: month
