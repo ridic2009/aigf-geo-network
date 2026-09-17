@@ -279,11 +279,20 @@ CONF;
         foreach (Network::codes(false) as $other) {
             if (Network::host($other) === $oldDomain) { throw new RuntimeException('Previous domain is used by another site: ' . $oldDomain); }
         }
+        // A rehearsal hostname usually never had a certificate: its vhost was
+        // generated with --http-only. Emitting an HTTPS redirect for it points
+        // nginx at a certificate that does not exist, and nginx then refuses to
+        // load *any* configuration. The previous vhost is in this repository,
+        // so ask it rather than guessing.
+        $previousVhost = $sitesDir . '/' . $oldDomain . '.conf';
+        $hadHttps = is_file($previousVhost)
+            && preg_match('/^\s*ssl_certificate\s/m', (string) file_get_contents($previousVhost)) === 1;
+
         $redirectVhost = "# Domain migration: keep DNS and certificates for this hostname.\nserver {\n"
             . "    listen {$listen}80;\n    server_name {$oldDomain} www.{$oldDomain};\n"
             . "    location ^~ /.well-known/acme-challenge/ { root /var/www/certbot; }\n"
             . '    location / { return 301 ' . rtrim(Network::baseUrl($code), '/') . '$request_uri; }' . "\n}\n";
-        if (!$httpOnly) {
+        if (!$httpOnly && $hadHttps) {
             $redirectVhost .= "server {\n    listen {$listen}443 ssl;\n    server_name {$oldDomain} www.{$oldDomain};\n"
                 . "    ssl_certificate /etc/letsencrypt/live/{$oldDomain}/fullchain.pem;\n"
                 . "    ssl_certificate_key /etc/letsencrypt/live/{$oldDomain}/privkey.pem;\n"

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #
-# Pull-based deployment. Runs on the VPS from a systemd timer and does what
-# GitHub Actions would do, without depending on it:
+# Pull-based deployment: this is what publishes the network.
+#
+# Pages CMS commits to `main`; this runs on the VPS from a systemd timer and
+# does the rest, without depending on GitHub Actions:
 #
 #   git fetch -> is there anything new? -> validate -> build -> release switch
 #
@@ -21,12 +23,6 @@ BRANCH=${BRANCH:-main}
 LOG=${LOG:-$REPO_DIR/var/auto-deploy.log}
 LOCK=${LOCK:-$REPO_DIR/var/auto-deploy.lock}
 FORCE=0
-
-# Never reset a working Studio checkout or compete with its publication queue.
-if [ "${PUBLISHER:-git}" = studio ] || [ -f "$REPO_DIR/.studio/state.json" ]; then
-    echo 'Studio publishing is enabled; Git pull deployment is disabled.'
-    exit 0
-fi
 
 for arg in "$@"; do
     case "$arg" in
