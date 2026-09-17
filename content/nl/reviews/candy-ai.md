@@ -1,6 +1,6 @@
 ---
-title: Candy AI — Avis et test 2026
-slug: candy-ai-avis
+title: Candy AI — Beoordeling en test 2026
+slug: candy-ai-beoordeling
 type: review
 status: draft
 translation_key: candy-ai
@@ -9,76 +9,61 @@ date: 2026-02-03
 updated: 2026-09-09
 author: m-keller
 reviewer: s-moreau
-
-intro: |
-  Candy AI est l'application de compagnon IA la plus complète de notre test :
-  chat, images et voix dans un seul abonnement, avec moins d'aspérités que ses rivales.
-
-verdict: |
-  Candy AI occupe la première place de notre classement car c'est la seule
-  application où les trois piliers — conversation, images et voix — fonctionnent
-  dans la même formule. L'interface est chargée et la version gratuite trop
-  limitée, mais le produit payant tient ses promesses.
-
+intro: >
+  Candy AI is de meest complete AI-compagnon-app in onze test: chat, beelden en
+  stem in één abonnement, met minder ruwe randjes dan de concurrentie.
+verdict: >
+  Candy AI staat bovenaan onze ranglijst omdat het de enige app is waarin de
+  drie pijlers — gesprek, beelden en stem — in hetzelfde abonnement werken. De
+  interface is vol en de gratis versie te beperkt, maar het betaalde product
+  houdt zijn beloften.
 pros:
-  - Génération d'images réellement fidèle au personnage
-  - Réponses vocales incluses dans la formule standard
-  - Tarification mensuelle claire, sans abonnement annuel imposé
-  - Les personnages gardent leur personnalité sur de longues sessions
-
+  - Beeldgeneratie die echt bij het personage blijft
+  - Stemantwoorden in het standaardabonnement
+  - Duidelijke maandprijs, zonder verplicht jaarabonnement
+  - Personages houden hun persoonlijkheid over lange sessies
 cons:
-  - Version gratuite trop limitée pour se faire un avis
-  - Interface très dense
-  - La mémoire perd parfois des détails de plusieurs semaines
-
+  - Gratis versie te beperkt om een oordeel te vormen
+  - Zeer drukke interface
+  - Het geheugen verliest soms details van meerdere weken
 related:
   - reviews/nomi
   - compare/candy-ai-vs-nomi
-
 seo:
-  title: Candy AI — Avis 2026, fonctionnalités, prix et verdict
-  description: Test de Candy AI après deux semaines sur un abonnement payant. Fonctions, prix réels, qualité des images, avantages et inconvénients.
-  primary_keyword: candy ai avis
-
+  title: Candy AI — Beoordeling 2026, functies, prijs en oordeel
+  description: Test van Candy AI na twee weken op een betaald abonnement.
+    Functies, echte prijzen, beeldkwaliteit, voor- en nadelen.
+  primary_keyword: candy ai beoordeling
 indexing:
   index: true
   follow: true
-
 faq:
-  - question: Combien coûte Candy AI ?
-    answer: |
-      La formule standard est facturée au mois et inclut le chat, la génération
-      d'images et les réponses vocales. Le prix en vigueur pour ce marché figure
-      dans la fiche produit ci-dessus.
-  - question: Existe-t-il une version gratuite de Candy AI ?
-    answer: |
-      Oui, mais elle est limitée : peu de messages et très peu de générations
-      d'images. De quoi voir l'interface, pas de quoi juger l'application.
-  - question: Candy AI se souvient-il des conversations précédentes ?
-    answer: |
-      Au sein d'un personnage, oui. Lors du test, les détails de la même semaine
-      étaient retrouvés de façon fiable, ceux d'il y a plus d'un mois parfois non.
+  - question: Hoeveel kost Candy AI?
+    answer: >
+      Het standaardabonnement wordt maandelijks gefactureerd en omvat chat,
+      beeldgeneratie en stemantwoorden. De geldende prijs voor deze markt staat
+      in de productfiche hierboven.
+  - question: Is er een gratis versie van Candy AI?
+    answer: >
+      Ja, maar die is beperkt: weinig berichten en zeer weinig beeldgeneraties.
+      Genoeg om de interface te zien, niet om de app te beoordelen.
+  - question: Onthoudt Candy AI eerdere gesprekken?
+    answer: >
+      Binnen één personage wel. Tijdens de test kwamen details van dezelfde week
+      betrouwbaar terug; details van meer dan een maand geleden soms niet.
 ---
+## Wat u krijgt
 
-## Ce que vous obtenez
+Candy AI bundelt drie dingen die de meeste concurrenten apart verkopen: tekstchat met een blijvend personage, beeldgeneratie gekoppeld aan dat personage, en stemantwoorden. In twee weken dagelijks gebruik was de beeldfunctie het sterke punt: de visuals bleven herkenbaar.
 
-Candy AI réunit trois choses que la plupart des concurrents vendent séparément :
-un chat texte avec un personnage persistant, la génération d'images liée à ce
-personnage, et des réponses vocales. En deux semaines d'usage quotidien, la
-fonction image a été le point fort : les visuels restaient reconnaissables.
+## Gesprekskwaliteit
 
-## Qualité de conversation
+De dialoog loopt soepel en blijft in de rol. Lange sessies houden stand, al stuurt de app het gesprek vaker dan Nomi.
 
-Le dialogue est fluide et reste dans le rôle. Les longues sessions tiennent bien,
-même si l'application oriente la conversation plus volontiers que Nomi.
+## De prijs in de praktijk
 
-## Le tarif en pratique
+Eén betaald abonnement, maandelijks gefactureerd. Geen verplicht jaarabonnement en geen verborgen creditsysteem voor de basis-chat, maar intensief beeldgebruik kan een redelijke gebruikslimiet raken.
 
-Une seule formule payante, facturée au mois. Pas d'abonnement annuel imposé ni de
-système de crédits caché pour le chat de base, mais un usage intensif des images
-peut atteindre une limite d'usage raisonnable.
+## Voor wie het niet is
 
-## Pour qui ce n'est pas fait
-
-Si seules la conversation et la mémoire vous intéressent, vous payez pour des
-fonctions inutilisées. Lisez d'abord notre [avis sur Nomi](/avis/nomi-avis/).
+Als alleen gesprek en geheugen u interesseren, betaalt u voor ongebruikte functies. Lees eerst onze [beoordeling van Nomi](/reviews/nomi-beoordeling/).
