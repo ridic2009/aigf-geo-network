@@ -2,7 +2,7 @@
 title: Nomi — Beoordeling en test 2026
 slug: nomi-beoordeling
 type: review
-status: draft
+status: review
 translation_key: nomi
 product: nomi
 date: 2026-02-05
