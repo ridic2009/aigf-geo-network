@@ -2,7 +2,7 @@
 title: Over ons
 slug: over-ons
 type: static
-status: review
+status: published
 translation_key: about
 date: 2026-01-10
 updated: 2026-08-20

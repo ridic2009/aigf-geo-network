@@ -2,7 +2,7 @@
 title: Affiliatie-openbaarmaking
 slug: affiliatie-openbaarmaking
 type: static
-status: review
+status: published
 translation_key: affiliate-disclosure
 date: 2026-01-10
 updated: 2026-08-20

@@ -94,6 +94,36 @@ final class Builder
     }
 
     /**
+     * A temporary stream for a child process to write into.
+     *
+     * `tmpfile()` returns false when the system temp directory is not writable
+     * — which happened on the publisher host and turned every build into a
+     * fatal ValueError from proc_open(), because the descriptor array then
+     * contained `false`. The repository's own var/ directory is writable by
+     * definition: the process that builds there also writes dist/.
+     *
+     * @return resource
+     */
+    private static function capture()
+    {
+        $stream = @tmpfile();
+        if (\is_resource($stream)) {
+            return $stream;
+        }
+
+        $dir = Network::root() . '/var/tmp';
+        if (!is_dir($dir) && !@mkdir($dir, 0700, true) && !is_dir($dir)) {
+            throw new \RuntimeException('No writable temporary directory: neither the system one nor ' . $dir . '.');
+        }
+        $stream = @fopen(tempnam($dir, 'build-'), 'w+b');
+        if (!\is_resource($stream)) {
+            throw new \RuntimeException('Cannot open a temporary file in ' . $dir . '.');
+        }
+
+        return $stream;
+    }
+
+    /**
      * @param string[] $command
      *
      * @return array{0: int, 1: string, 2: string}
@@ -101,8 +131,8 @@ final class Builder
     public static function run(array $command, ?string $cwd = null): array
     {
         // File streams avoid a stdout/stderr pipe deadlock on large build errors.
-        $out = tmpfile();
-        $err = tmpfile();
+        $out = self::capture();
+        $err = self::capture();
         $descriptors = [1 => $out, 2 => $err];
         $process = proc_open($command, $descriptors, $pipes, $cwd ?? Network::root());
         if (!\is_resource($process)) {

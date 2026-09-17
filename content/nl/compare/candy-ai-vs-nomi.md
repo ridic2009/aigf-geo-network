@@ -2,7 +2,7 @@
 title: Candy AI vs Nomi
 slug: candy-ai-vs-nomi
 type: comparison
-status: review
+status: published
 translation_key: candy-ai-vs-nomi
 products:
   - candy-ai

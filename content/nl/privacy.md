@@ -2,7 +2,7 @@
 title: Privacybeleid
 slug: privacy
 type: static
-status: review
+status: published
 translation_key: privacy
 date: 2026-01-10
 updated: 2026-08-20

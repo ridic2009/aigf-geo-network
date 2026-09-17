@@ -3,27 +3,27 @@ geo:
   name: Nederland
   country_code: NL
   hreflang: nl-NL
-  enabled: false
+  enabled: true
   timezone: Europe/Amsterdam
   currency:
     code: EUR
     symbol: €
     position: after
     decimals: 2
-    decimal_separator: ","
+    decimal_separator: ','
     thousands_separator: .
-  staging: true
-baseurl: http://nl.45.140.14.7.sslip.io/
+  staging: false
+baseurl: 'https://aigirlfriendranking-netherlands.site/'
 language: nl
 languages:
-  - code: nl
+  -
+    code: nl
     name: Nederland
     locale: nl_NL
     enabled: true
-title: AI Girlfriend Ranking Nederland
-baseline: Onafhankelijke tests van AI-compagnon-apps
-description: Onafhankelijke tests en ranglijsten van AI-vriendin- en
-  AI-compagnon-apps, beoordeeld door onze redactie.
+title: 'AI Girlfriend Ranking Nederland'
+baseline: 'Onafhankelijke tests van AI-compagnon-apps'
+description: 'Onafhankelijke tests en ranglijsten van AI-vriendin- en AI-compagnon-apps, beoordeeld door onze redactie.'
 pages:
   dir: content/nl
 routes:
@@ -31,17 +31,17 @@ routes:
   compare: compare
   guides: guides
 organization:
-  name: AI Girlfriend Ranking Nederland
-  legal_name: AIGR Media
+  name: 'AI Girlfriend Ranking Nederland'
+  legal_name: 'AIGR Media'
   email: editorial@aigirlfriendranking-netherlands.site
   logo: /images/brand/logo.svg
 ui:
   nav:
-    ranking: Beste AI-vriendinnen
+    ranking: 'Beste AI-vriendinnen'
     reviews: Beoordelingen
     compare: Vergelijkingen
     guides: Gidsen
-    about: Over ons
+    about: 'Over ons'
     disclosure: Affiliatie-openbaarmaking
     privacy: Privacy
   sections:
@@ -51,15 +51,15 @@ ui:
     rankings: Ranglijsten
   labels:
     home: Home
-    not_found_text: Deze pagina bestaat niet meer, of het adres is verkeerd ingevoerd.
-    skip_to_content: Naar de inhoud
+    not_found_text: 'Deze pagina bestaat niet meer, of het adres is verkeerd ingevoerd.'
+    skip_to_content: 'Naar de inhoud'
     menu: Menu
     main_navigation: Hoofdnavigatie
     footer_navigation: Voettekstnavigatie
     close: Sluiten
-    read_review: Lees de beoordeling
-    visit_site: Bezoek de site
-    try_now: Probeer %s
+    read_review: 'Lees de beoordeling'
+    visit_site: 'Bezoek de site'
+    try_now: 'Probeer %s'
     pros: Voordelen
     cons: Nadelen
     rating: Beoordeling
@@ -67,29 +67,28 @@ ui:
     score: Score
     rank: Rang
     product: Dienst
-    features: Belangrijkste functies
+    features: 'Belangrijkste functies'
     price: Prijs
     from: vanaf
     per_month: /maand
-    free_tier: Gratis versie
-    yes: Ja
-    no: Nee
-    verdict: Ons oordeel
-    best_for: Ideaal voor
-    faq: Veelgestelde vragen
-    toc: Op deze pagina
+    free_tier: 'Gratis versie'
+    'yes': Ja
+    'no': Nee
+    verdict: 'Ons oordeel'
+    best_for: 'Ideaal voor'
+    faq: 'Veelgestelde vragen'
+    toc: 'Op deze pagina'
     updated: Bijgewerkt
     published: Gepubliceerd
     author: Auteur
-    reviewed_by: Gecontroleerd door
-    related: Lees ook
-    all_reviews: Alle beoordelingen
-    back_to_top: Naar boven
-    affiliate_notice: We kunnen een commissie ontvangen via de links op deze pagina.
-      Dit beïnvloedt onze beoordelingen nooit.
+    reviewed_by: 'Gecontroleerd door'
+    related: 'Lees ook'
+    all_reviews: 'Alle beoordelingen'
+    back_to_top: 'Naar boven'
+    affiliate_notice: 'We kunnen een commissie ontvangen via de links op deze pagina. Dit beïnvloedt onze beoordelingen nooit.'
     availability_available: Beschikbaar
     availability_limited: Beperkt
-    availability_unavailable: Niet beschikbaar
+    availability_unavailable: 'Niet beschikbaar'
 site:
   id: nl
   brand: aigf
@@ -100,4 +99,4 @@ site:
   model: reviews
   theme: classic
 previous_domains:
-  - aigirlfriendranking-netherlands.site
+  - nl.45.140.14.7.sslip.io

@@ -1,7 +1,7 @@
 ---
 title: AI Girlfriend Ranking Nederland
 type: homepage
-status: draft
+status: published
 translation_key: home
 date: 2026-01-15
 updated: 2026-09-15
