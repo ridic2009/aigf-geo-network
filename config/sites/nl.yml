@@ -81,15 +81,15 @@ ui:
     updated: Bijgewerkt
     published: Gepubliceerd
     author: Auteur
-    reviewed_by: Vérifié par
-    related: À lire aussi
-    all_reviews: Tous les avis
-    back_to_top: Haut de page
-    affiliate_notice: Nous pouvons percevoir une commission via les liens de cette
-      page. Cela n'influence jamais nos notes.
-    availability_available: Disponible
-    availability_limited: Limitée
-    availability_unavailable: Non disponible
+    reviewed_by: Gecontroleerd door
+    related: Lees ook
+    all_reviews: Alle beoordelingen
+    back_to_top: Naar boven
+    affiliate_notice: We kunnen een commissie ontvangen via de links op deze pagina.
+      Dit beïnvloedt onze beoordelingen nooit.
+    availability_available: Beschikbaar
+    availability_limited: Beperkt
+    availability_unavailable: Niet beschikbaar
 site:
   id: nl
   brand: aigf
