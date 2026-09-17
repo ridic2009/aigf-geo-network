@@ -1,45 +1,34 @@
 ---
-title: Politique de confidentialité
-slug: confidentialite
+title: Privacybeleid
+slug: privacy
 type: static
 status: draft
 translation_key: privacy
 date: 2026-01-10
 updated: 2026-08-20
-
 intro: |
-  Ce que ce site collecte, et ce qu'il ne collecte pas.
-
+  Wat deze site verzamelt, en wat niet.
 seo:
-  title: Politique de confidentialité
-  description: Quelles données ce site collecte, comment elles sont utilisées et comment nous contacter à ce sujet.
-  primary_keyword: politique de confidentialité
-
+  title: Privacybeleid
+  description: Welke gegevens deze site verzamelt, hoe ze worden gebruikt en hoe u
+    ons daarover kunt bereiken.
+  primary_keyword: privacybeleid
 indexing:
   index: true
   follow: true
 ---
+## Verzamelde gegevens
 
-## Données collectées
+Deze site bestaat uit statische bestanden. Er is geen gebruikersaccount, geen commentsysteem en geen formulier. We plaatsen geen advertentiecookies en verkopen geen gegevens.
 
-Ce site est un ensemble de fichiers statiques. Il n'y a ni compte utilisateur, ni
-système de commentaires, ni formulaire. Nous ne déposons pas de cookies
-publicitaires et ne vendons aucune donnée.
+## Serverlogs
 
-## Journaux serveur
+Onze host slaat standaard toegangslogs op (IP-adres, user-agent, opgevraagde URL, tijdstempel) voor beveiliging en storingsoplossing. Deze logs worden beperkt bewaard en niet gebruikt om profielen op te bouwen.
 
-Notre hébergeur enregistre des journaux d'accès standard (adresse IP, agent
-utilisateur, URL demandée, horodatage) à des fins de sécurité et de dépannage. Ces
-journaux sont conservés pour une durée limitée et ne servent pas à établir de
-profils.
+## Uitgaande links
 
-## Liens sortants
-
-Lorsque vous suivez un lien vers un éditeur, c'est sa politique de confidentialité
-qui s'applique. Certains liens comportent un paramètre de campagne permettant à
-l'éditeur d'attribuer la recommandation.
+Als u een link naar een uitgever volgt, geldt diens privacybeleid. Sommige links bevatten een campagneparameter zodat de uitgever de aanbeveling kan toeschrijven.
 
 ## Contact
 
-Toute question relative à cette politique peut être adressée à l'adresse indiquée
-en pied de page.
+Vragen over dit beleid kunt u sturen naar het adres in de voettekst.
