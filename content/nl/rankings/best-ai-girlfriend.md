@@ -2,7 +2,7 @@
 title: Beste AI-vriendin-apps in 2026
 slug: beste-ai-vriendin
 type: ranking
-status: draft
+status: review
 translation_key: best-ai-girlfriend
 date: 2026-02-01
 updated: 2026-09-12
