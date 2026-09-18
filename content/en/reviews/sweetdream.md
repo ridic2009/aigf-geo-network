@@ -66,3 +66,7 @@ In this category “free” usually means twenty messages and a paywall. Here th
 ## Where it falls behind
 
 Memory is shorter than [Nomi](/reviews/nomi-review/) — a week-old detail comes and goes. The builder is thin next to [Camsoda AI](/reviews/camsoda-ai-review/). Long sessions repeat phrasing more than the top three.
+
+## Who I would send here
+
+Someone who has never paid for one of these apps. Power users should skip to [Nomi](/reviews/nomi-review/) or [Camsoda AI](/reviews/camsoda-ai-review/) after a free week.
