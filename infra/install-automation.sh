@@ -45,7 +45,12 @@ done
 
 # The previous timer did the same job without convergence; two of them would
 # fight over the same lock file.
-if systemctl list-unit-files 2>/dev/null | grep -q '^aigf-auto-deploy.timer'; then
+#
+# Checking the file rather than `systemctl list-unit-files | grep -q`: under
+# `set -o pipefail` grep closes the pipe on its first match, systemctl dies of
+# SIGPIPE, and the whole condition reads as false — so the old timer survived
+# the first run of this installer.
+if [ -f /etc/systemd/system/aigf-auto-deploy.timer ]; then
     systemctl disable --now aigf-auto-deploy.timer >/dev/null 2>&1 || true
     rm -f /etc/systemd/system/aigf-auto-deploy.timer /etc/systemd/system/aigf-auto-deploy.service
     echo "    removed the old aigf-auto-deploy timer"
