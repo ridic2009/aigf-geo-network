@@ -82,3 +82,7 @@ Content policy is the other split. Accounts created after early 2023 sit behind 
 Pay if you already like the free chat and want voice plus relationship modes. Do not pay hoping it will catch Candy or Nomi. The extra money buys polish on the same personality, not a different product.
 
 The free tier is the reason it still belongs in a beginner conversation. The paid plan is why it does not belong in the top seven.
+
+## After the 2023 policy change
+
+I tested a new account, because that is what a reader signing up tonight gets. Do not buy Pro on a YouTube review filmed in 2022.
