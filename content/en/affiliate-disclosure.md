@@ -6,35 +6,26 @@ status: published
 translation_key: affiliate-disclosure
 date: 2026-01-10
 updated: 2026-09-18
-
-intro: |
-  How the affiliate links on this site work, and what they do not influence.
-
+intro: >
+  Some links on this site pay us a commission. Here is what that means, and what
+  it does not buy.
 seo:
   title: Affiliate Disclosure
-  description: How AI Girlfriend Ranking earns money from affiliate links, and why that does not affect our ratings or rankings.
+  description: How AI Girlfriend Ranking earns commissions, and why that never
+    moves a rating or a ranking slot.
   primary_keyword: affiliate disclosure
-
 indexing:
   index: true
   follow: true
 ---
-
 ## What an affiliate link is
 
-Some outbound links on this site are affiliate links. If you follow one and take
-out a paid plan, we may earn a commission from the provider. You pay the same
-price either way.
+If you follow a marked link and take a paid plan, we may earn a commission from the provider. Your price does not change.
 
-## What it does not change
+## What it does not buy
 
-Ratings, positions in the ranking and the lists of pros and cons are set by the
-editorial team before any commercial conversation. A provider cannot buy a
-position, have criticism removed, or have a competitor dropped. Apps with no
-affiliate programme are tested and ranked exactly like the rest — two of the
-seven apps in our current ranking pay us nothing.
+Ratings, ranking slots, and the pros/cons lists are set before any commercial email. A provider cannot buy a place, have a criticism removed, or have a rival dropped. Apps with no affiliate programme are tested the same way. Two of the seven apps on the current ranking pay us nothing.
 
 ## How to spot them
 
-Affiliate links carry the `sponsored` attribute in the page source and always sit
-next to a notice that says so.
+Affiliate links carry `sponsored` in the page source and sit next to a notice that says so.
