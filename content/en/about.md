@@ -6,41 +6,30 @@ status: published
 translation_key: about
 date: 2026-01-10
 updated: 2026-09-18
-
-intro: |
-  Who writes these tests, how we test, and how we make our money.
-
+intro: >
+  Who writes these tests, how the two-week method works, and how the site pays
+  for itself.
 seo:
   title: About AI Girlfriend Ranking — How We Test
-  description: Who we are, how we test AI companion apps, and how our ratings and affiliate links work.
+  description: Who writes these reviews, the two-week paid-account method, and how
+    affiliate links never move a score.
   primary_keyword: about ai girlfriend ranking
-
 indexing:
   index: true
   follow: true
 ---
+## Who is behind this
 
-## Who we are
+AI Girlfriend Ranking is a small editorial test site for AI companion apps. The same people score every market we publish in — this English edition, plus French, Japanese and Dutch. A 4.2 here is a 4.2 there.
 
-AI Girlfriend Ranking is an independent testing site for AI companion apps. The
-same small team tests every app on every market we publish in — this English
-edition, and our French, Japanese and Dutch ones. A rating means the same thing
-on all of them.
+## How I test
 
-## How we test
+Paid account. Daily use. At least two weeks before a score. Five things: conversation, memory, media, price, and the controls you get over your data. I re-check before the monthly update. I do not bump a rating off a changelog.
 
-Every app is used on a paid account for at least two weeks before it is scored.
-We look at five things — conversation, memory, media, price and the controls you
-get over your account — and we re-check the score before each monthly update.
+## How the lights stay on
 
-## How we make our money
-
-Some links are affiliate links. If you sign up through one, we may earn a
-commission at no extra cost to you. It never changes a rating: scores are set
-before any commercial conversation and are not revisited afterwards. See our
-[affiliate disclosure](/affiliate-disclosure/).
+Some links are affiliate links. If you subscribe through one, we may earn a commission. You pay the same price. Scores are locked before anyone from the company talks to us. See the [affiliate disclosure](/affiliate-disclosure/).
 
 ## Corrections
 
-If something here is wrong or out of date, tell us. We correct it and date the
-correction.
+If something is wrong or stale, write to the footer address. We fix it and date the fix.
