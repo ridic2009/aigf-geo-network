@@ -66,3 +66,7 @@ Replies stayed short. I carried every scene. Memory between sessions was close t
 ## What I would open instead
 
 If the low price is the appeal but you want the app to hold up its end, [Secret Desires](/reviews/secret-desires-review/) is the step up. If you want the cheapest way to find out whether the category is for you at all, use [Sweetdream](/reviews/sweetdream-review/) and pay nothing.
+
+## Who this is actually for
+
+A reader who wants uncensored chat tonight and will not pay Candy or Secret Desires prices. Not someone who wants a relationship that survives until next weekend.
