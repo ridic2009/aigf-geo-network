@@ -63,3 +63,7 @@ This category changes every quarter. Half-price for twelve months is a good deal
 4. Multiply media use by the metered rate, then add renewal.
 
 In my testing that lands between $10 and $20 a month for ordinary use, and above $30 if you lean on images every day.
+
+## A worked example
+
+A $12.99 plan with 100 image tokens, four tokens a picture, 40 pictures in a heavy week: the “$13 app” is already a $25 month. That is why headline price is not the ranking.
