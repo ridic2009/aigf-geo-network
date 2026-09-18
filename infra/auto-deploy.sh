@@ -69,9 +69,15 @@ fi
 
 # build-all runs data, CMS-schema and content validation first, and verifies the
 # generated HTML afterwards. A non-zero exit means nothing gets published.
+# Says something only when the answer changes: a failure that repeats every two
+# minutes must not become thirty messages an hour.
+notify() { bash "$REPO_DIR/infra/notify.sh" deploy "$1" "$2" || true; }
+
 log "building"
 if ! php scripts/build-all.php --optimize >>"$LOG" 2>&1; then
     log "BUILD FAILED — production untouched, still serving the previous release"
+    notify fail "Сборка не прошла на коммите ${REMOTE:0:8}. Сайты продолжают отдавать прошлый релиз. Причина — в конце var/auto-deploy.log:
+$(tail -5 "$LOG")"
     exit 1
 fi
 
@@ -80,9 +86,12 @@ fi
 log "deploying"
 if ! GIT_COMMIT="$REMOTE" DEPLOY_HOSTS=localhost sh scripts/deploy-all >>"$LOG" 2>&1; then
     log "DEPLOY FAILED — check the log above; failed sites were rolled back"
+    notify fail "Выкладка коммита ${REMOTE:0:8} не удалась, релиз откатан. Причина — в конце var/auto-deploy.log:
+$(tail -8 "$LOG")"
     exit 1
 fi
 
 log "deployed ${REMOTE:0:8}"
+notify ok "Выложен коммит ${REMOTE:0:8}."
 printf '%s\n' "$REMOTE" > "$LAST_SUCCESS_FILE.tmp"
 mv "$LAST_SUCCESS_FILE.tmp" "$LAST_SUCCESS_FILE"

@@ -1,0 +1,11 @@
+[Unit]
+Description=Check main every two minutes and publish what changed
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+AccuracySec=30s
+Unit=aigf-deploy.service
+
+[Install]
+WantedBy=timers.target

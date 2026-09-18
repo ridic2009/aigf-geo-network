@@ -1,0 +1,13 @@
+[Unit]
+Description=AIGF network: check every live site the way a visitor would
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=deploy
+WorkingDirectory=/srv/aigf-network
+Environment=REPO_DIR=/srv/aigf-network
+EnvironmentFile=-/etc/aigf.env
+ExecStart=/bin/bash /srv/aigf-network/infra/healthcheck.sh
+TimeoutStartSec=300

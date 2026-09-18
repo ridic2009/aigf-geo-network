@@ -1,0 +1,21 @@
+[Unit]
+# One unit does both halves of publishing: root makes the server match the
+# repository, then the unprivileged deploy user builds and releases. Splitting
+# them into two timers would let a release run against a server that had not
+# converged yet, which is exactly how a stub vhost served 404 for a day.
+Description=AIGF network: converge the server, then publish what is on main
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/srv/aigf-network
+Environment=REPO_DIR=/srv/aigf-network
+Environment=BRANCH=main
+EnvironmentFile=-/etc/aigf.env
+
+# Convergence needs root; it is deliberately the only part that does.
+ExecStartPre=/bin/bash /srv/aigf-network/infra/converge.sh
+ExecStart=/usr/sbin/runuser -u deploy -- /bin/bash /srv/aigf-network/infra/auto-deploy.sh
+
+TimeoutStartSec=900

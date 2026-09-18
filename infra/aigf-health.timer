@@ -1,0 +1,11 @@
+[Unit]
+Description=Check the live sites every ten minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=10min
+AccuracySec=1min
+Unit=aigf-health.service
+
+[Install]
+WantedBy=timers.target
