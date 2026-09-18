@@ -1,7 +1,7 @@
 ---
 title: Sweetdream.ai レビュー（2026年）：機能、料金、正直な評価
 slug: sweetdream-ai
-status: review
+status: published
 type: review
 translation_key: sweetdream
 date: 2026-09-16

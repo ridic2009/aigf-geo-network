@@ -2,7 +2,7 @@
 title: Candy AIレビュー2026
 slug: candy-ai
 type: review
-status: review
+status: published
 translation_key: candy-ai
 product: candy-ai
 date: 2026-02-03

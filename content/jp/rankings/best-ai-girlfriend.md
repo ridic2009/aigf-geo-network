@@ -2,7 +2,7 @@
 title: 2026年のベストAI彼女アプリ
 slug: best-ai-girlfriend
 type: ranking
-status: review
+status: published
 translation_key: best-ai-girlfriend
 date: 2026-02-01
 updated: 2026-09-12

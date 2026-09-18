@@ -2,7 +2,7 @@
 title: Nomi.ai レビュー（2026年）：最も人間らしいAIコンパニオン？
 slug: nomi-ai
 type: review
-status: review
+status: published
 translation_key: nomi
 product: nomi
 date: 2026-02-05
