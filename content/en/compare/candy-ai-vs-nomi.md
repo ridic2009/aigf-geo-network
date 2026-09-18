@@ -61,3 +61,7 @@ Candy AI, and not close. Character stayed recognisable from one picture to the n
 ## Money
 
 Candy AI costs less and covers more per dollar. Nomi charges more for a narrower thing it does extremely well. Neither forced me onto an annual plan. Neither free tier is enough to judge the paid product. Full write-ups: [Candy AI](/reviews/candy-ai-review/) and [Nomi](/reviews/nomi-review/).
+
+## If you can only keep one tab
+
+I kept Candy AI for evenings I wanted a picture and a voice in the same place. I kept Nomi for commutes and late texts.
