@@ -86,3 +86,7 @@ If I want the whole kit without juggling three subscriptions, **Candy AI**. If I
 ## What moved this month
 
 Nomi gave group chat to every paying subscriber, which lifted conversation. Camsoda AI is new on the list after the builder went from three steps to six. Joi comes in last: cheapest door in, thinnest room behind it.
+
+## What this list is not
+
+Not every AI companion on the internet. The seven I would still discuss tonight. [Replika](/reviews/replika-review/) is the famous miss for paid use; the free tier still matters.
