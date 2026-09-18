@@ -29,3 +29,7 @@ Ratings, ranking slots, and the pros/cons lists are set before any commercial em
 ## How to spot them
 
 Affiliate links carry `sponsored` in the page source and sit next to a notice that says so.
+
+## Two apps that pay us nothing
+
+They still sit on the ranking if they earned the score. Commissions fund hosting and paid test accounts, not a better number.
