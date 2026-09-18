@@ -1,11 +1,14 @@
 {# Review page: one product, editorial verdict, pros/cons, CTA. #}
 {% extends '_default/article.html.twig' %}
 
-{% block lead %}
+{% block hero %}
     {%- set product = page.product is defined ? products[page.product]|default(null) : null -%}
     {%- if product %}
-        {% include 'components/product-card.twig' with { 'product': product } %}
+        {% include 'components/product-hero.twig' with { 'product': product } %}
     {%- endif %}
+{% endblock %}
+
+{% block lead %}
 
     {%- if page.verdict|default(null) %}
     <section class="verdict">

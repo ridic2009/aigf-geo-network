@@ -90,6 +90,8 @@ ui:
     availability_available: Available
     availability_limited: Limited
     availability_unavailable: 'Not available'
+    platforms: Platforms
+    launched: Launched
 site:
   id: en
   brand: aigf

@@ -40,8 +40,13 @@ final class DataValidator
             if (isset($product['rating']) && (!is_numeric($product['rating']) || $product['rating'] < 0 || $product['rating'] > 5)) {
                 $this->error($where, 'rating must be a number between 0 and 5.');
             }
-            if (isset($product['logo']) && !is_file(Network::path('static', ...explode('/', ltrim((string) $product['logo'], '/'))))) {
-                $this->error($where, \sprintf('logo file not found in static/: %s', $product['logo']));
+            // A missing logo or screenshot is a broken image on a money page,
+            // and the hero falls back to its branded panel only when the field
+            // is absent — not when it points at a file that is not there.
+            foreach (['logo', 'screenshot'] as $asset) {
+                if (isset($product[$asset]) && !is_file(Network::path('static', ...explode('/', ltrim((string) $product[$asset], '/'))))) {
+                    $this->error($where, \sprintf('%s file not found in static/: %s', $asset, $product[$asset]));
+                }
             }
             foreach (array_keys((array) ($product['geo'] ?? [])) as $code) {
                 if (!\in_array((string) $code, $geoCodes, true)) {

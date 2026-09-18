@@ -1,0 +1,72 @@
+{#
+  The first screen of a review: what the app looks like, what it scores, and the
+  button. A reader who lands here from search decides in a few seconds, so the
+  visual, the rating, the price and the call to action all sit above the fold
+  and the prose starts underneath.
+
+  `product` is already merged (global defaults + GEO overrides) by the base
+  layout. Without a screenshot the visual falls back to a branded panel built
+  from the product's own initial, so a page never looks unfinished.
+
+  params: product (map)
+#}
+{%- import 'helpers/format.twig' as fmt -%}
+{%- set L = site.ui.labels -%}
+<section class="product-hero">
+    <div class="product-hero__visual{{ product.screenshot|default(null) ? '' : ' product-hero__visual--fallback' }}">
+        {%- if product.screenshot|default(null) %}
+        <img src="{{ product.screenshot }}" alt="{{ product.name }}" width="960" height="600" loading="eager" decoding="async">
+        {%- else %}
+        <span class="product-hero__monogram" aria-hidden="true">{{ product.name|slice(0, 1) }}</span>
+        {%- endif %}
+    </div>
+
+    <div class="product-hero__body">
+        <div class="product-hero__head">
+            {%- if product.logo is defined and product.logo %}
+            <img class="product-hero__logo" src="{{ product.logo }}" alt="" width="56" height="56" loading="lazy" decoding="async">
+            {%- endif %}
+            <p class="product-hero__name">{{ product.name }}</p>
+        </div>
+
+        {%- if product.tagline is defined and product.tagline %}
+        <p class="product-hero__tagline">{{ product.tagline }}</p>
+        {%- endif %}
+
+        {% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}
+
+        <div class="product-hero__actions">
+            {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.try_now|format(product.name), 'class': 'btn--primary btn--lg' } %}
+        </div>
+
+        {%- if product.website is defined and product.website %}
+        <p class="product-hero__official">{{ L.visit_site }}:
+            <a href="{{ product.website }}" rel="nofollow noopener" target="_blank">{{ product.website|replace({'https://': '', 'http://': '', 'www.': ''})|trim('/') }}</a>
+        </p>
+        {%- endif %}
+    </div>
+</section>
+
+{# Everything a reader checks before reading a word, in one scannable row. #}
+{%- set facts = [] -%}
+{%- if product.best_for is defined and product.best_for -%}{% set facts = facts|merge([{'label': L.best_for, 'value': product.best_for}]) %}{% endif -%}
+{%- if product.platforms is defined and product.platforms -%}{% set facts = facts|merge([{'label': L.platforms|default('Platforms'), 'value': product.platforms}]) %}{% endif -%}
+{%- if product.price is defined and product.price.amount is defined -%}
+    {% set facts = facts|merge([{'label': L.price, 'value': L.from ~ ' ' ~ fmt.price(product.price.amount, site.geo.currency) ~ L.per_month}]) %}
+{%- endif -%}
+{%- if product.free_tier is defined -%}{% set facts = facts|merge([{'label': L.free_tier, 'value': product.free_tier ? L.yes : L.no}]) %}{% endif -%}
+{%- if product.launched is defined and product.launched -%}{% set facts = facts|merge([{'label': L.launched|default('Launched'), 'value': product.launched}]) %}{% endif -%}
+{%- if product.rating is defined and product.rating -%}
+    {% set facts = facts|merge([{'label': L.rating, 'value': product.rating ~ ' / 5'}]) %}
+{%- endif -%}
+
+{%- if facts|length %}
+<ul class="fact-chips">
+    {%- for fact in facts %}
+    <li class="fact-chip">
+        <span class="fact-chip__label">{{ fact.label }}</span>
+        <span class="fact-chip__value">{{ fact.value }}</span>
+    </li>
+    {%- endfor %}
+</ul>
+{%- endif %}

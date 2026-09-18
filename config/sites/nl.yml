@@ -89,6 +89,8 @@ ui:
     availability_available: Beschikbaar
     availability_limited: Beperkt
     availability_unavailable: 'Niet beschikbaar'
+    platforms: Platforms
+    launched: Gelanceerd
 site:
   id: nl
   brand: aigf

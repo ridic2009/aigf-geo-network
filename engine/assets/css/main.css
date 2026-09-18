@@ -456,3 +456,123 @@ p, ul, ol, table { margin: 0 0 1rem; }
     font-size: .875rem;
     color: var(--c-muted);
 }
+
+/* ==========================================================================
+   Product hero — the first screen of a review.
+   A reader arriving from search decides in seconds: the visual, the score, the
+   price and the button all sit above the fold, and the prose starts below.
+   ========================================================================== */
+
+.product-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: stretch;
+    margin: 1.5rem 0 1rem;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid var(--c-border);
+    border-radius: calc(var(--radius) * 1.6);
+    background: var(--c-bg);
+    box-shadow: var(--shadow);
+}
+
+.product-hero__visual {
+    position: relative;
+    overflow: hidden;
+    align-self: center;
+    border-radius: var(--radius);
+    background: var(--c-bg-alt);
+}
+
+/* Screenshots arrive in whatever shape the vendor's page happens to be, so the
+   frame follows the image rather than cropping its headline off. */
+.product-hero__visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 360px;
+    object-fit: contain;
+}
+
+/* No screenshot yet: a branded panel rather than an empty frame. */
+.product-hero__visual--fallback {
+    aspect-ratio: 16 / 10;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(120% 120% at 15% 10%, color-mix(in srgb, var(--c-accent) 28%, #fff) 0%, transparent 60%),
+        linear-gradient(135deg, color-mix(in srgb, var(--c-accent) 88%, #000) 0%, var(--c-accent) 100%);
+}
+
+.product-hero__monogram {
+    font-size: clamp(3.5rem, 9vw, 6rem);
+    font-weight: 800;
+    line-height: 1;
+    color: #fff;
+    opacity: .92;
+    letter-spacing: -.03em;
+}
+
+.product-hero__body {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    justify-content: center;
+}
+
+.product-hero__kicker {
+    margin: 0;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+}
+
+.product-hero__head { display: flex; align-items: center; gap: .7rem; margin: 0; }
+.product-hero__logo { border-radius: 12px; flex: 0 0 auto; }
+.product-hero__name { margin: 0; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; letter-spacing: -.02em; }
+.product-hero__tagline { margin: 0; color: var(--c-muted); font-size: 1.05rem; }
+.product-hero__actions { margin-top: .4rem; }
+.product-hero__official { margin: 0; font-size: .875rem; color: var(--c-muted); }
+.product-hero__official a { color: inherit; }
+
+.btn--lg {
+    padding: .95rem 1.6rem;
+    font-size: 1.05rem;
+    width: 100%;
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--c-accent) 35%, transparent);
+}
+.btn--lg::after { content: " \2192"; }
+
+/* The facts a reader checks before reading a word. */
+.fact-chips {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: .6rem;
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.fact-chip {
+    padding: .7rem .9rem;
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--c-accent) 7%, var(--c-bg-alt));
+}
+
+.fact-chip__label {
+    display: block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+}
+
+.fact-chip__value { display: block; font-weight: 600; margin-top: .15rem; }
+
+@media (max-width: 720px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-hero__visual { min-height: 180px; }
+}

@@ -11,6 +11,11 @@
         <header class="article__header">
             <h1 class="article__title">{{ page.title }}</h1>
 
+            {#- Sits directly under the title so that the thing being reviewed,
+                its score and its button are on the first screen. A reader who
+                arrives from search decides before reaching the prose. -#}
+            {% block hero %}{% endblock %}
+
             {%- if page.intro|default(null) %}
             <div class="article__intro">{{ page.intro|markdown_to_html|raw }}</div>
             {%- endif %}

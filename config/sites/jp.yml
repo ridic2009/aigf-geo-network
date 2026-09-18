@@ -93,6 +93,8 @@ ui:
     availability_available: 利用可能
     availability_limited: 一部制限あり
     availability_unavailable: 利用不可
+    platforms: 対応環境
+    launched: 提供開始
 site:
   id: jp
   brand: aigf
