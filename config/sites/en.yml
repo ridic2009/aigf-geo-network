@@ -3,7 +3,7 @@ geo:
   name: Worldwide
   country_code: EN
   hreflang: en
-  enabled: false
+  enabled: true
   timezone: America/New_York
   currency:
     code: USD
