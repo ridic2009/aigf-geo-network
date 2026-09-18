@@ -33,3 +33,7 @@ Some links are affiliate links. If you subscribe through one, we may earn a comm
 ## Corrections
 
 If something is wrong or stale, write to the footer address. We fix it and date the fix.
+
+## What we do not do
+
+No pay-to-play slots. No rewriting a con because a partner asked. No press accounts. Longer version: [how we test](/guides/how-we-test/).
