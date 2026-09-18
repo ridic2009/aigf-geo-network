@@ -15,6 +15,11 @@ defaults:
   thousands_separator: '.'
 
 geos:
+  # Not a country: the worldwide English edition, and the natural x-default for
+  # every visitor who matches none of the localized sites. hreflang is the bare
+  # language tag "en", so Google offers it for English queries anywhere rather
+  # than competing with a country-specific one.
+  en: { name: 'Worldwide', language: en, locale: en_US, hreflang: en, currency: USD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/New_York, domain: '' }
   gb: { name: 'United Kingdom', language: en, locale: en_GB, hreflang: en-GB, currency: GBP, symbol: '£', position: before, decimal_separator: '.', thousands_separator: ',', timezone: Europe/London, domain: 'aigirlfriendranking-uk.site' }
   us: { name: 'United States', language: en, locale: en_US, hreflang: en-US, currency: USD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/New_York, domain: 'aigirlfriendranking.com' }
   de: { name: 'Deutschland', language: de, locale: de_DE, hreflang: de-DE, currency: EUR, symbol: '€', timezone: Europe/Berlin, domain: 'aigirlfriendranking-germany.site' }
@@ -42,6 +47,7 @@ geos:
   mx: { name: 'México', language: es, locale: es_MX, hreflang: es-MX, currency: MXN, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/Mexico_City, domain: 'aigirlfriendranking-mexico.site' }
 
 # hreflang x-default target (must be an existing, enabled GEO).
-# The network has no English site, so no GEO is a natural fallback for visitors
-# who match none of fr/nl/jp. FR is the widest-reach language of the three.
-x_default: fr
+# The worldwide English edition: the one page that suits a visitor who matches
+# none of the localized sites. Until it existed, FR held this by default, which
+# meant a French page was offered to everyone who was not French.
+x_default: en

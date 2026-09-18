@@ -1,0 +1,20 @@
+name: Kupid AI
+slug: kupid
+website: 'https://www.kupid.ai/'
+category: LifestyleApplication
+platforms: 'Web, iOS, Android'
+rating: 3.5
+free_tier: true
+
+features:
+  - 'Free chat after sign-up'
+  - 'Appearance and personality builder'
+  - 'Realistic and anime characters'
+  - 'Generated pictures and voice messages'
+  - 'Memory across sessions'
+
+geo:
+  en:
+    availability: available
+    tagline: 'Warm, romance-first companions — but the premium plans are where it gets expensive.'
+    best_for: 'Romantic companionship'

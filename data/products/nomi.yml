@@ -7,22 +7,26 @@ platforms: 'Web, iOS, Android'
 rating: 4.4
 free_tier: true
 launched: 2023
-
 features:
   - 'Long-term memory across sessions'
   - 'Group chats with several companions'
   - 'Roleplay and shared notes'
   - 'Voice calls'
-
 price:
   amount: 15.99
   period: month
-
 geo:
   fr:
     availability: available
     tagline: 'La meilleure mémoire et la conversation la plus naturelle de notre test.'
     best_for: 'Qualité de conversation'
+    price:
+      amount: 15.99
+      period: month
+  en:
+    availability: available
+    tagline: 'The best long-term memory of anything we have tested, and the most natural dialogue.'
+    best_for: 'Conversation quality'
     price:
       amount: 15.99
       period: month

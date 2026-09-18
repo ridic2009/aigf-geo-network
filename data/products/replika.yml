@@ -7,21 +7,25 @@ platforms: 'Web, iOS, Android'
 rating: 4.0
 free_tier: true
 launched: 2017
-
 features:
   - 'Long-running companion relationship'
   - 'Mood and journaling features'
   - 'AR and 3D avatar'
-
 price:
   amount: 19.99
   period: month
-
 geo:
   fr:
     availability: limited
     tagline: 'Le vétéran de la catégorie : abouti, mais plus limité que les applications récentes.'
     best_for: 'Compagnie au quotidien'
+    price:
+      amount: 19.99
+      period: month
+  en:
+    availability: available
+    tagline: 'The most generous free version; the paid one feels dated next to newer apps.'
+    best_for: 'Trying the category for free'
     price:
       amount: 19.99
       period: month

@@ -1,0 +1,103 @@
+geo:
+  code: en
+  name: Worldwide
+  country_code: EN
+  hreflang: en
+  enabled: false
+  timezone: America/New_York
+  currency:
+    code: USD
+    symbol: $
+    position: before
+    decimals: 2
+    decimal_separator: .
+    thousands_separator: ','
+  staging: true
+baseurl: 'http://aigirlfriendranking.site/'
+language: en
+languages:
+  -
+    code: en
+    name: Worldwide
+    locale: en_US
+    enabled: true
+title: 'AI Girlfriend Ranking'
+baseline: 'Independent tests of AI companion apps'
+description: 'Independent, hands-on tests and rankings of AI girlfriend and AI companion apps. Ratings, real prices, pros and cons, updated monthly.'
+pages:
+  dir: content/en
+routes:
+  reviews: reviews
+  compare: compare
+  guides: guides
+  rankings: ''
+organization:
+  name: 'AI Girlfriend Ranking Worldwide'
+  legal_name: 'AIGR Media'
+  email: editorial@en.45.140.14.7.sslip.io
+  logo: /images/brand/logo.svg
+ui:
+  nav:
+    ranking: 'Best AI girlfriends'
+    reviews: Reviews
+    compare: Comparisons
+    guides: Guides
+    about: About
+    disclosure: 'Affiliate disclosure'
+    privacy: Privacy
+  sections:
+    reviews: Reviews
+    compare: Comparisons
+    guides: Guides
+    rankings: Rankings
+  labels:
+    home: Home
+    not_found_text: 'This page no longer exists, or the address was mistyped.'
+    skip_to_content: 'Skip to content'
+    menu: Menu
+    main_navigation: 'Main navigation'
+    footer_navigation: 'Footer navigation'
+    close: Close
+    read_review: 'Read the review'
+    visit_site: 'Visit the site'
+    try_now: 'Try %s'
+    pros: Pros
+    cons: Cons
+    rating: Rating
+    out_of: 'out of'
+    score: Score
+    rank: Rank
+    product: App
+    features: 'Key features'
+    price: Price
+    from: from
+    per_month: /month
+    free_tier: 'Free tier'
+    'yes': 'Yes'
+    'no': 'No'
+    verdict: 'Our verdict'
+    best_for: 'Best for'
+    faq: 'Frequently asked questions'
+    toc: 'On this page'
+    updated: Updated
+    published: Published
+    author: Author
+    reviewed_by: 'Reviewed by'
+    related: 'Read next'
+    all_reviews: 'All reviews'
+    back_to_top: 'Back to top'
+    affiliate_notice: 'We may earn a commission from links on this page. It never changes a rating.'
+    availability_available: Available
+    availability_limited: Limited
+    availability_unavailable: 'Not available'
+site:
+  id: en
+  brand: aigf
+  market: en
+  language: en
+  locale: en_US
+  translation_group: aigf
+  model: reviews
+  theme: classic
+previous_domains:
+  - en.45.140.14.7.sslip.io
