@@ -67,3 +67,7 @@ Looks and personality, realistic or anime, plus dozens of ready-mades. Faster th
 ## Why the score is sixth
 
 Premium is expensive for what you get. Details from a fortnight ago rarely survived. Good at the romance. Priced as if it did more.
+
+## On the phone versus in the browser
+
+I used Kupid more on iOS than on desktop. Short bursts, voice notes, then lock screen. On a laptop it feels thinner than Nomi.
