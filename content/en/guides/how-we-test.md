@@ -70,3 +70,7 @@ These chats are intimate by design. I read the privacy policy, look for encrypti
 ## What a score is not
 
 It is not for sale. Affiliate links, explained in the [disclosure](/affiliate-disclosure/), do not change a ranking slot. We decline pay-to-play. If an app gets worse, the number drops on the next pass. If you spot something stale, the footer address is the correction line.
+
+## What I cannot see
+
+I am not on their servers. I can read the policy, try export/delete, and tell you when the language is fog. Unclear is a finding.
