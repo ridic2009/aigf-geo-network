@@ -67,3 +67,7 @@ It waits. Replies are shorter. It rarely hijacks the topic. For a companion you 
 ## Where it drops off
 
 Pictures are not competitive. Voice quality jumps around by character. You pay more than Candy AI for a narrower kit. If media is why you are here, read the [Candy AI review](/reviews/candy-ai-review/).
+
+## Group chat in practice
+
+Two Nomis in one thread did not collapse into one voice. One used a callback I had only told the other. Slower than Candy. Better manners.
