@@ -78,3 +78,7 @@ One paid plan, billed monthly. No forced annual lock-in, no token pack just to k
 ## Skip it if
 
 You only care about the talk and the memory. You will be paying for a studio you will not use. Read the [Nomi review](/reviews/nomi-review/) first, or the [side-by-side](/compare/candy-ai-vs-nomi/).
+
+## A day-twelve note
+
+I asked for a picture in the same outfit as day three. Hair and face held. Clothes drifted. Best consistency here, still not perfect.
