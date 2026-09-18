@@ -68,3 +68,7 @@ The builder includes what the companion should avoid, not only what it should be
 ## The catches
 
 Browser only. No published price before registration. The community gallery is huge and wildly uneven — I built my own rather than picking from it.
+
+## One scene that did not fall apart
+
+I ran a single scene for forty-odd messages. Setting, limit, and voice all held. On Joi that length would have been me repeating the premise.
