@@ -1,62 +1,60 @@
 ---
-title: AI Girlfriend Ranking
+title: Best AI Girlfriend Apps, Tested in 2026
 type: homepage
 status: published
 translation_key: home
 date: 2026-01-15
 updated: 2026-09-18
 author: editorial-team
-
-intro: |
-  We test AI companion apps methodically: real accounts, real conversations,
-  the same yardstick every time. No paid placements.
-
+intro: >
+  I pay for the plan, talk to the app for two weeks, then score it on the same
+  five things every time. No paid placements. No ranking you can buy.
 hero_cta: rankings/best-ai-girlfriend
-top_products_title: Top rated this month
+top_products_title: What I would open again this month
 top_products:
   - candy-ai
   - sweetdream
   - camsoda-ai
-
 seo:
-  title: AI Girlfriend Apps Tested and Ranked (2026)
-  description: Independent tests of AI girlfriend and AI companion apps. Ratings, real prices, pros and cons, updated every month.
-  primary_keyword: ai girlfriend
-
+  title: Best AI Girlfriend Apps in 2026, Tested Hands-On
+  description: Hands-on ranking of AI girlfriend apps. Real paid accounts,
+    two-week tests, honest prices, and a clear pick for chat, images, or a
+    usable free tier.
+  primary_keyword: best ai girlfriend apps
 indexing:
   index: true
   follow: true
-
 faq:
-  - question: How do you test AI companion apps?
-    answer: |
-      Every app is used daily for at least two weeks on a paid account. We score
-      conversation quality, memory, the media features, how honest the pricing
-      is, and the controls you get over your own account and data.
-  - question: Do the apps you review pay you?
-    answer: |
-      We earn a commission when a reader signs up through some of our links.
-      Ratings are set before any commercial conversation and are never changed
-      afterwards. See our [affiliate disclosure](/affiliate-disclosure/).
+  - question: How do you test AI girlfriend apps?
+    answer: >
+      Paid account, daily use, at least two weeks. Same five scores every time:
+      conversation, memory, media, price, and the controls you get over your
+      data. I write the review after that, not before.
+  - question: Do the apps pay for a better ranking?
+    answer: >
+      No. Some links are affiliate links, so I can earn a commission if you
+      subscribe. The score is locked before anyone from the company talks to us.
+      Details in the [affiliate disclosure](/affiliate-disclosure/).
+  - question: Which app should I try first?
+    answer: >
+      If you want the full kit in one plan, Candy AI. If you care about memory
+      more than pictures, Nomi. If you want to test the category without paying,
+      Sweetdream.
 ---
+If you only read one page, make it the [ranking](/best-ai-girlfriend-apps/). That is the short list: seven apps, what each is actually good at, and what it costs after the intro discount dies.
 
-## What this site is for
+## What I actually do with these apps
 
-The AI companion market moves fast: prices change, features arrive, and apps get
-restricted in a country without warning. This site keeps a tested, dated ranking
-for every market we publish in — the same team, the same scoring, so a rating
-means the same thing here as it does on our French, Japanese and Dutch editions.
+I do not skim a landing page and write a recap. I create a character, talk to it daily, and see whether it still knows my name on day twelve. Prices get checked on a paid account, not on the marketing site.
 
-## What we measure
+| What I score | What I am looking for |
+| --- | --- |
+| Conversation | Does it stay itself over weeks, not just one clever reply? |
+| Memory | Does last Tuesday come back without me prompting it? |
+| Media | Images and voice that belong to the same character |
+| Price | Renewal cost, not the first-month teaser |
+| Controls | Export, delete, and content settings you can actually find |
 
-- **Conversation quality** — does it stay coherent over weeks, not minutes?
-- **Memory** — does it remember what you told it last week?
-- **Media** — images, voice, and how much of it sits behind the paywall.
-- **Price** — what it actually costs per month once the intro offer ends.
-- **Controls** — data export, deletion, and the content settings you get.
+## Start with the ranking, then pick a lane
 
-## Start here
-
-New to the category? The [ranking](/best-ai-girlfriend-apps/) is the short
-version: seven apps, what each is best at, and what it costs. Every entry links
-to the full review behind the score.
+Want one subscription that covers chat, pictures and voice? Start with Candy AI. Want the conversation to feel like someone is still in the room a week later? Jump to Nomi. Not sure you want to pay yet? Sweetdream is the only free tier here that is not a demo.
