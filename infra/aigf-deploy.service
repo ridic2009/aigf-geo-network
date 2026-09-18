@@ -14,6 +14,13 @@ Environment=REPO_DIR=/srv/aigf-network
 Environment=BRANCH=main
 EnvironmentFile=-/etc/aigf.env
 
+# The checkout is updated first, because convergence installs what the
+# repository says — against the previous commit it would install what the
+# repository said two minutes ago, and a release would go out onto a server
+# that had not caught up with it yet.
+ExecStartPre=/usr/sbin/runuser -u deploy -- /usr/bin/git -C /srv/aigf-network fetch --quiet origin main
+ExecStartPre=/usr/sbin/runuser -u deploy -- /usr/bin/git -C /srv/aigf-network reset --hard --quiet origin/main
+
 # Convergence needs root; it is deliberately the only part that does.
 ExecStartPre=/bin/bash /srv/aigf-network/infra/converge.sh
 ExecStart=/usr/sbin/runuser -u deploy -- /bin/bash /srv/aigf-network/infra/auto-deploy.sh

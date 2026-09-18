@@ -133,7 +133,25 @@ if [ "$NGINX_CHANGED" -eq 1 ]; then
 fi
 rm -rf "$BACKUP_DIR"
 
-# --- 5. what a release writes to --------------------------------------------
+# --- 5. the automation itself ------------------------------------------------
+# The units are part of what the repository says the server should be, so a
+# change to them is a commit like any other rather than another root command.
+UNITS_CHANGED=0
+for src in "$REPO_DIR"/infra/aigf-*.service "$REPO_DIR"/infra/aigf-*.timer; do
+    [ -f "$src" ] || continue
+    dst="/etc/systemd/system/$(basename "$src")"
+    cmp -s "$src" "$dst" && continue
+    if [ "$CHECK_ONLY" -eq 1 ]; then problem "$dst differs from the repository"; continue; fi
+    if install -o root -g root -m 644 "$src" "$dst"; then
+        UNITS_CHANGED=1
+        changed "$dst"
+    fi
+done
+if [ "$UNITS_CHANGED" -eq 1 ]; then
+    systemctl daemon-reload && say "  systemd reloaded"
+fi
+
+# --- 6. what a release writes to --------------------------------------------
 # One manual deploy as root leaves releases.log owned by root, and every later
 # release fails at the last step — after the symlink has already moved.
 for dir in "$WEB_ROOT"/*/; do
@@ -149,7 +167,7 @@ for dir in "$WEB_ROOT"/*/; do
     done
 done
 
-# --- 6. the clone itself -----------------------------------------------------
+# --- 7. the clone itself -----------------------------------------------------
 if [ -d "$REPO_DIR/.git" ] && [ "$(stat -c '%U' "$REPO_DIR/.git")" != "$DEPLOY_USER" ]; then
     if [ "$CHECK_ONLY" -eq 1 ]; then
         problem "$REPO_DIR is not owned by $DEPLOY_USER; the publisher cannot update it"
