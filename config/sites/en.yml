@@ -12,8 +12,8 @@ geo:
     decimals: 2
     decimal_separator: .
     thousands_separator: ','
-  staging: true
-baseurl: 'http://aigirlfriendranking.site/'
+  staging: false
+baseurl: 'https://aigirlfriendranking.site/'
 language: en
 languages:
   -
