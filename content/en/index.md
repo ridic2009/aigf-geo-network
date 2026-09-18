@@ -58,3 +58,7 @@ I do not skim a landing page and write a recap. I create a character, talk to it
 ## Start with the ranking, then pick a lane
 
 Want one subscription that covers chat, pictures and voice? Start with Candy AI. Want the conversation to feel like someone is still in the room a week later? Jump to Nomi. Not sure you want to pay yet? Sweetdream is the only free tier here that is not a demo.
+
+## How to read this site
+
+The [ranking](/best-ai-girlfriend-apps/) is the shopping list. The reviews are the receipts. If a free tier is the whole question, start with [Sweetdream](/reviews/sweetdream-review/) or [Replika](/reviews/replika-review/). Method: [how we test](/guides/how-we-test/).
