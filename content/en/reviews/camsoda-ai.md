@@ -70,3 +70,7 @@ Build three companions and each one remembers its own history with you. That sou
 ## What is missing
 
 Web only — no native apps. The price is not on the marketing site; you see it after sign-up, so I will not invent a number here. In a category where the monthly bill is half the decision, that is a real mark against it.
+
+## The first hour tax
+
+Ready-mades are a brochure. The app clicked when I used the six-step builder and filled in the never-bring-this-up field.
