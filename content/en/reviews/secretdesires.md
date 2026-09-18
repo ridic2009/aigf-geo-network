@@ -1,5 +1,5 @@
 ---
-title: Secret Desires Review 2026 — Uncensored, and Consistent With It
+title: Secret Desires Review 2026 — Uncensored, and Still in Character
 slug: secret-desires-review
 type: review
 status: published
@@ -9,67 +9,62 @@ date: 2026-06-18
 updated: 2026-09-18
 author: m-keller
 reviewer: s-moreau
-
-intro: |
-  Plenty of apps advertise unfiltered roleplay. Secret Desires is one of the few
-  where the character still makes sense twenty messages into it.
-
-verdict: |
-  The best uncensored roleplay in the ranking, because consistency is the hard
-  part and this is where it is handled well. Held back by web-only access and by
-  pricing you cannot see before you register.
-
+intro: >
+  Unfiltered roleplay is easy to advertise. Staying the same person twenty
+  messages in is the hard part. Secret Desires is one of the few that still made
+  sense that far into a scene.
+verdict: >
+  The best uncensored roleplay in the ranking because consistency is the hard
+  part and this is where it is handled. Held back by web-only access and by a
+  price you cannot see before you register.
 pros:
-  - Roleplay that stays coherent over long sessions
+  - Roleplay that stays coherent
   - Builder covers looks, voice, personality and limits
-  - Voice calls and short video in the paid plan
+  - Voice calls and short video on paid
   - Memory carries between sessions
-
 cons:
   - Web only, no native apps
-  - Price not published before sign-up
-  - Community gallery quality is uneven
-
+  - Price hidden until signup
+  - Community gallery quality swings
 related:
   - reviews/camsoda-ai
   - rankings/best-ai-girlfriend
-
 seo:
-  title: Secret Desires Review 2026 — Roleplay, Features and Verdict
-  description: Secret Desires tested for two weeks. How consistent the roleplay stays, what the builder covers, and what the paid plan adds.
+  title: Secret Desires Review 2026 — Roleplay That Holds
+  description: "Hands-on Secret Desires review: uncensored roleplay that stays in
+    character, the builder, and the catch of hidden pricing."
   primary_keyword: secret desires review
-
 indexing:
   index: true
   follow: true
-
 faq:
   - question: Is Secret Desires free?
-    answer: |
-      You can create a companion and start chatting without paying. The limits
-      arrive around media and call length rather than the conversation itself.
+    answer: >
+      You can create a companion and start chatting without paying. Limits
+      arrive around media and call length, not the conversation itself.
   - question: What makes the roleplay different?
-    answer: |
-      Consistency. Most apps in this category lose the thread of a scene after a
-      dozen messages; here the character, the setting and the boundaries you set
-      still hold twenty messages later.
+    answer: >
+      Consistency. Most apps lose the thread after a dozen messages. Here the
+      character, the setting and the limits I set still held twenty messages
+      later.
 ---
+![Secret Desires](/images/products/secretdesires.svg)
 
 ## Consistency over novelty
 
-Uncensored is easy. Uncensored *and still in character* is the part most apps in
-this category get wrong: the scene drifts, the personality flattens, and you end
-up steering it back every few messages. Over two weeks, this was the app that
-needed the least steering.
+On most uncensored apps the scene drifts and the personality flattens, and you spend the session steering it back. Over two weeks this was the app that needed the least steering.
 
-## Setting limits
+| | Secret Desires | Joi | Camsoda AI |
+| --- | --- | --- | --- |
+| Roleplay | Stays in scene | You carry it | Whatever you built |
+| Limits in builder | Yes | No | Yes |
+| Native apps | No | No | No |
+| Price before signup | Hidden | Lowest listed | Hidden |
 
-The builder includes what the companion should avoid, not only what it should be.
-That is worth more than it sounds — it is the difference between a companion that
-reads your mood and one that pushes past it.
+## Setting limits matters
+
+The builder includes what the companion should avoid, not only what it should be. That is the difference between a character that reads a boundary and one that walks through it.
 
 ## The catches
 
-Browser only, and no published price before registration. The community gallery
-is large but its quality swings wildly; build your own character rather than
-picking one from it.
+Browser only. No published price before registration. The community gallery is huge and wildly uneven — I built my own rather than picking from it.
