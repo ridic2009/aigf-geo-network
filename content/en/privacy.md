@@ -32,3 +32,7 @@ When you leave for a provider, their privacy policy applies. Some links include 
 ## Contact
 
 Questions go to the address in the footer.
+
+## What we do not have
+
+No newsletter form, no account, no chat widget. If that changes, this policy changes the same day.
