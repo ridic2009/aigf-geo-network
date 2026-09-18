@@ -17,6 +17,7 @@
 set -euo pipefail
 
 REPO_DIR=${REPO_DIR:-/srv/aigf-network}
+DEPLOY_USER=${DEPLOY_USER:-deploy}
 ENV_FILE=/etc/aigf.env
 
 [ "$(id -u)" -eq 0 ] || { echo "run as root" >&2; exit 2; }
@@ -31,11 +32,14 @@ if [ ! -f "$ENV_FILE" ]; then
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
 EOF
-    chmod 600 "$ENV_FILE"
     echo "    created $ENV_FILE — fill in the two values to switch notifications on"
 else
     echo "    $ENV_FILE already exists, left alone"
 fi
+# The publisher and the health check send the messages, and they run as the
+# deploy user: root-only credentials would disable notifications silently.
+chown "root:$DEPLOY_USER" "$ENV_FILE"
+chmod 640 "$ENV_FILE"
 
 echo "==> systemd units"
 for unit in aigf-deploy.service aigf-deploy.timer aigf-health.service aigf-health.timer; do
