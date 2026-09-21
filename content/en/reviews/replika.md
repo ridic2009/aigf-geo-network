@@ -54,6 +54,7 @@ seo:
 indexing:
   index: true
   follow: true
+image: /images/content/68926b238307921ee43cd8b0webflow-replika-app-review-images-1.jpg
 ---
 ## Why it is still on the list
 
@@ -61,13 +62,15 @@ Most people who type “AI girlfriend” into a store land here first. Native iO
 
 That is a real product. It is just no longer the most capable one.
 
-| | Free | Pro (listed ~$19.99/mo) |
-| --- | --- | --- |
+
+|  | Free | Pro (listed ~$19.99/mo) |
+| ----------- | ------------------------- | -------------------------------- |
 | Text chat | Unlimited basic | Better model, relationship modes |
 | Avatar / AR | Yes | Yes |
 | Voice | Limited | Unlocked |
 | NSFW | Blocked on newer accounts | Still tightly filtered |
 | Memory | Fine for a few days | Better, still behind Nomi |
+
 
 ## Two weeks on Pro
 
