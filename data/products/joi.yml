@@ -1,18 +1,34 @@
 name: Joi
 slug: joi
-website: 'https://joi.com/'
+website: https://joi.com/
 category: LifestyleApplication
-platforms: 'Web'
-rating: 3.0
+platforms: Web
+rating: 3
 free_tier: true
-
 features:
-  - 'Uncensored chat'
-  - 'Ready-made characters'
-  - 'Low entry price'
-
+  - Uncensored chat
+  - Ready-made characters
+  - Low entry price
 geo:
   en:
     availability: available
-    tagline: 'The cheapest way into uncensored chat, and it shows in how little else it does.'
-    best_for: 'Uncensored chat on a budget'
+    tagline: The cheapest way into uncensored chat, and it shows in how little else
+      it does.
+    best_for: Uncensored chat on a budget
+    price:
+      period: month
+  fr:
+    availability: available
+    price:
+      period: month
+  jp:
+    availability: available
+    price:
+      period: month
+  nl:
+    availability: available
+    price:
+      period: month
+logo: /images/products/joi.png
+price:
+  period: month
