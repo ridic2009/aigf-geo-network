@@ -48,8 +48,6 @@ faq:
       AI](/reviews/kupid-ai-review/) is the one in this ranking with both iOS
       and Android.
 ---
-![Camsoda AI](/images/products/camsoda-ai.svg)
-
 ## The builder is the product
 
 Six steps: looks, personality, voice, backstory, how it talks to you, and what it should never bring up. That last step is rare, and it is why a character built here drifted less than ones I made elsewhere.

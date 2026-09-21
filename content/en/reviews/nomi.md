@@ -47,8 +47,6 @@ faq:
       Several companions in one thread, each keeping their own personality and
       memory. It is on the paid plan.
 ---
-![Nomi](/images/products/nomi.svg)
-
 ## Memory is the product
 
 I said something small on day two. On day sixteen it came back in passing, not as a party trick. That is the whole pitch. Group chat is the extra: several companions in one thread, each with their own history.

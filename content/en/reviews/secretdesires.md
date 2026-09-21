@@ -48,8 +48,6 @@ faq:
       character, the setting and the limits I set still held twenty messages
       later.
 ---
-![Secret Desires](/images/products/secretdesires.svg)
-
 ## Consistency over novelty
 
 On most uncensored apps the scene drifts and the personality flattens, and you spend the session steering it back. Over two weeks this was the app that needed the least steering.

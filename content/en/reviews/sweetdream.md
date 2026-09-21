@@ -47,8 +47,6 @@ faq:
       Photo, voice and video extras, and the media caps lift. The conversation
       itself is largely the same.
 ---
-![Sweetdream AI](/images/products/sweetdream.svg)
-
 ## It opens with a scene, not a questionnaire
 
 Most of these apps greet you with “who are you and what do you like.” Sweetdream drops you into a situation and lets you answer into it. Over two weeks that made it the easiest one to come back to in the evening, even though it is not the most powerful on paper.

@@ -46,8 +46,6 @@ faq:
       Barely. Inside a session it holds the thread. Between sessions expect to
       re-introduce yourself.
 ---
-![Joi](/images/products/joi.svg)
-
 ## What the price actually buys
 
 Uncensored chat, a stack of ready-made characters, and not much else. For some readers that is the whole product they want. I will not mark an app down for being honest about its size.

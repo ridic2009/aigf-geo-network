@@ -53,8 +53,6 @@ faq:
       Inside one character, yes for the current week. Older than a month:
       sometimes. I would not trust it as a diary.
 ---
-![Candy AI](/images/products/candy-ai.svg)
-
 ## What I actually used
 
 Most apps sell the conversation, then meter the pictures. Candy AI puts chat, image generation and voice on the same plan. I used all three, every day. By the second week the character still looked like herself — that is rarer than the marketing copy suggests.

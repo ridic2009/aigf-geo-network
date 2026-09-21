@@ -47,8 +47,6 @@ faq:
       Chat is free after registration, and that free tier is real. It thins out
       around images and voice, which is where premium starts to matter.
 ---
-![Kupid AI](/images/products/kupid.svg)
-
 ## What it is good at
 
 Warmth. Characters lean affectionate rather than explicit, and they stay that way. A companion you tap through the day on a phone is a different product from one you sit down to on a desktop. Kupid is built for the first.

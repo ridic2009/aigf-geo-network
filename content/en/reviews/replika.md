@@ -55,8 +55,6 @@ indexing:
   index: true
   follow: true
 ---
-![Replika](/images/products/replika.svg)
-
 ## Why it is still on the list
 
 Most people who type “AI girlfriend” into a store land here first. Native iOS and Android apps, a 3D avatar, mood tracking, a journal. It does not try to be uncensored Candy AI. It tries to be a polite companion you could leave on the home screen without explaining it.
