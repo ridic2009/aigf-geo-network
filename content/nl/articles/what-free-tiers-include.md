@@ -81,8 +81,8 @@ laag kan je vertellen dat hij slechter is dan hij is. Waarom dat zo werkt staat 
 
 Van de apps die wij testen is Sweetdream degene wiens gratis laag als product
 leest in plaats van als demo. Dat is de reden dat hij tweede staat in
-[onze ranglijst](/beste-ai-vriendin/) ondanks een betaald plan van 10,00 € — het
-goedkoopste van de groep.
+[onze ranglijst](/beste-ai-vriendin/), met daarbij het goedkoopste betaalde plan
+van de groep: $10,00 volgens de gepubliceerde prijs.
 
 Replika is om een andere reden een onbetaalde twee weken waard: de gratis ervaring
 is de klassieke versie van deze categorie, en laat die je koud, dan gaan de

@@ -135,9 +135,10 @@ dédiée pour le compte et les reçus, les aperçus de notifications désactivé
 une vérification du libellé sur le premier relevé.
 
 Parmi les applications que nous suivons, les offres mensuelles les moins chères —
-Sweetdream à 10,00 €, [Candy AI](/avis/candy-ai-avis/) à 12,99 € — restent assez
+Sweetdream à 10,00 $, [Candy AI](/avis/candy-ai-avis/) à 12,99 $ — restent assez
 modestes pour qu'une carte virtuelle plafonnée soit simple à mettre en place et à
-surveiller.
+surveiller. Prévoyez un plafond légèrement au-dessus de la conversion, puisque le
+montant en euros ne sera connu qu'au premier prélèvement.
 
 Ce que l'application elle-même conserve est une autre question, traitée dans
 [ce qu'elle sait de vous](/articles/ce-que-votre-application-ia-sait-de-vous/).

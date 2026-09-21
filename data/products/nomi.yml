@@ -21,7 +21,6 @@ geo:
     tagline: La meilleure mémoire et la conversation la plus naturelle de notre test.
     best_for: Qualité de conversation
     price:
-      amount: 15.99
       period: month
   en:
     availability: available

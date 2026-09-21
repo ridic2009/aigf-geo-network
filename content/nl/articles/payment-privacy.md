@@ -129,9 +129,11 @@ limiet net boven de maandprijs, een apart e-mailadres voor account en bonnen,
 voorbeeldweergave van meldingen uit, en een controle van de omschrijving op het
 eerste afschrift.
 
-Van de apps die wij volgen zijn de goedkoopste maandplannen — Sweetdream op 10,00 €,
-[Candy AI](/reviews/candy-ai-beoordeling/) op 12,99 € — klein genoeg om een
-gelimiteerde virtuele kaart eenvoudig in te stellen en te volgen.
+Van de apps die wij volgen zijn de goedkoopste maandplannen — Sweetdream op
+$10,00, [Candy AI](/reviews/candy-ai-beoordeling/) op $12,99 — klein genoeg om een
+gelimiteerde virtuele kaart eenvoudig in te stellen en te volgen. Zet de limiet
+iets boven de omrekening: wat er in euro's wordt afgeschreven weet je pas bij de
+eerste incasso.
 
 Wat de app zelf opslaat is een andere vraag, en die staat in
 [wat de app over je weet](/artikelen/wat-de-app-over-je-weet/).

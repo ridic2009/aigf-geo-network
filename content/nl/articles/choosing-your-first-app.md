@@ -94,9 +94,14 @@ schrijfwerk ook. De afweging staat in
 ## 4. Wat kost het in maand drie?
 
 Niet maand één. De introkorting is het product niet. Van de apps die wij volgen
-lopen de gepubliceerde maandprijzen van 10,00 € voor Sweetdream tot 19,99 € voor
-Replika, met [Candy AI](/reviews/candy-ai-beoordeling/) op 12,99 € en
-[Nomi](/reviews/nomi-beoordeling/) op 15,99 €.
+lopen de gepubliceerde maandprijzen van $10,00 voor Sweetdream tot $19,99 voor
+Replika, met [Candy AI](/reviews/candy-ai-beoordeling/) op $12,99 en
+[Nomi](/reviews/nomi-beoordeling/) op $15,99.
+
+Dat zijn de bedragen zoals ze in dollars worden getoond. Wat er werkelijk in
+euro's wordt afgeschreven hangt af van de aanbieder en van je bank — alleen je
+afschrift bevestigt het, wat een extra reden is om er de eerste week naar te
+kijken.
 
 Maar de kop is maar de helft van de vraag, want tegoed voor beelden en stem komt
 er bij verschillende apps bovenop.

@@ -85,8 +85,8 @@ gratuite peut vous la faire croire pire qu'elle n'est. Le mécanisme est dans
 
 Parmi les applications que nous testons, Sweetdream est celle dont l'offre
 gratuite se lit comme un produit et non comme une démonstration. C'est la raison
-de sa deuxième place dans [notre classement](/meilleure-petite-amie-ia/), malgré
-un abonnement payant à 10,00 € — le moins cher du groupe.
+de sa deuxième place dans [notre classement](/meilleure-petite-amie-ia/), avec en
+prime l'abonnement payant le moins cher du groupe : 10,00 $ au tarif affiché.
 
 Replika mérite deux semaines non payées pour une autre raison : son expérience
 gratuite est la version classique de cette catégorie, et si elle vous laisse

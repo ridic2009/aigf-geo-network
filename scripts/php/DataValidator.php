@@ -53,6 +53,7 @@ final class DataValidator
                     $this->error($where, \sprintf('Unknown GEO override "%s".', $code));
                 }
             }
+            $this->checkPrices($where, $product);
             if (!isset($affiliates[$id])) {
                 $this->warn($where, 'No affiliate file: CTAs will link to the official website instead.');
             }
@@ -111,6 +112,61 @@ final class DataValidator
         }
 
         return ['errors' => $this->errors, 'warnings' => $this->warnings];
+    }
+
+    /**
+     * A price is stored in the currency of the market that shows it. The engine
+     * only attaches a symbol — it never converts — so a figure copied from one
+     * market into another renders as a real price that nobody charges. A dollar
+     * amount left in a yen slot becomes ¥13.
+     *
+     * Two signatures are worth catching, and only the first is certain enough
+     * to stop a build.
+     */
+    private function checkPrices(string $where, array $product): void
+    {
+        $byAmount = [];
+
+        foreach (Network::codes(false) as $code) {
+            $override = (array) ($product['geo'][$code] ?? []);
+            // The template merges one level deep, so a GEO that declares `price`
+            // replaces the default object entirely — including dropping `amount`.
+            $price = \array_key_exists('price', $override) ? (array) $override['price'] : (array) ($product['price'] ?? []);
+            $amount = $price['amount'] ?? null;
+            if (!is_numeric($amount)) {
+                continue;
+            }
+            $currency = Network::geo((string) $code)['geo']['currency'] ?? [];
+            $name = (string) ($currency['code'] ?? '?');
+            $byAmount[(string) $amount][$name] = true;
+
+            // A currency with no subunit cannot carry a fractional price, and no
+            // monthly subscription costs thirteen of anything in that currency.
+            if ((int) ($currency['decimals'] ?? 2) === 0) {
+                if ((float) $amount !== floor((float) $amount)) {
+                    $this->error($where, \sprintf(
+                        'GEO "%s" bills in %s, which has no subunit, but the price is %s.',
+                        $code, $name, $amount
+                    ));
+                } elseif ((float) $amount < 100) {
+                    $this->error($where, \sprintf(
+                        'GEO "%s" price of %s %s is not a price anyone charges — it reads like a figure left over from another currency.',
+                        $code, $amount, $name
+                    ));
+                }
+            }
+        }
+
+        // The same number under two different currencies is what copying a price
+        // across markets looks like. It can be legitimate, so it only warns.
+        foreach ($byAmount as $amount => $currencies) {
+            if (\count($currencies) > 1) {
+                $this->warn($where, \sprintf(
+                    'Price %s is used for both %s — check it was converted rather than copied.',
+                    $amount, implode(' and ', array_keys($currencies))
+                ));
+            }
+        }
     }
 
     private function error(string $where, string $message): void

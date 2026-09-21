@@ -98,8 +98,12 @@ faiblesse d'écriture. Le détail est dans
 ## 4. Combien cela coûtera-t-il au troisième mois ?
 
 Pas au premier. La remise d'introduction n'est pas le produit. Parmi les
-applications que nous suivons, les prix mensuels publiés vont de 10,00 € pour
-Sweetdream à 19,99 € pour Replika, avec Candy AI à 12,99 € et Nomi à 15,99 €.
+applications que nous suivons, les tarifs mensuels publiés vont de 10,00 $ pour
+Sweetdream à 19,99 $ pour Replika, avec Candy AI à 12,99 $ et Nomi à 15,99 $.
+
+Ces chiffres sont ceux affichés en dollars. Le montant réellement prélevé en
+euros dépend de l'éditeur et de votre banque : seul votre relevé le confirme,
+ce qui est une raison de plus de le regarder la première semaine.
 
 Mais le prix affiché n'est que la moitié de la question, car les crédits pour les
 images et la voix s'y ajoutent dans plusieurs applications.
