@@ -47,7 +47,7 @@ faq:
       Consistency. Most apps lose the thread after a dozen messages. Here the
       character, the setting and the limits I set still held twenty messages
       later.
-image: /images/content/images-4.jpg
+image: /images/content/images-4-1.jpg
 ---
 ## Consistency over novelty
 
