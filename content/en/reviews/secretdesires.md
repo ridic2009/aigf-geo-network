@@ -47,7 +47,7 @@ faq:
       Consistency. Most apps lose the thread after a dozen messages. Here the
       character, the setting and the limits I set still held twenty messages
       later.
-image: /images/content/images-4-1.jpg
+image: /images/content/secretdesires-ai-review.jpg
 ---
 ## Consistency over novelty
 
