@@ -40,6 +40,7 @@ faq:
       If you want the full kit in one plan, Candy AI. If you care about memory
       more than pictures, Nomi. If you want to test the category without paying,
       Sweetdream.
+image: /images/content/x360.jpg
 ---
 If you only read one page, make it the [ranking](/best-ai-girlfriend-apps/). That is the short list: seven apps, what each is actually good at, and what it costs after the intro discount dies.
 
@@ -47,13 +48,15 @@ If you only read one page, make it the [ranking](/best-ai-girlfriend-apps/). Tha
 
 I do not skim a landing page and write a recap. I create a character, talk to it daily, and see whether it still knows my name on day twelve. Prices get checked on a paid account, not on the marketing site.
 
+
 | What I score | What I am looking for |
-| --- | --- |
+| ------------ | ---------------------------------------------------------- |
 | Conversation | Does it stay itself over weeks, not just one clever reply? |
 | Memory | Does last Tuesday come back without me prompting it? |
 | Media | Images and voice that belong to the same character |
 | Price | Renewal cost, not the first-month teaser |
 | Controls | Export, delete, and content settings you can actually find |
+
 
 ## Start with the ranking, then pick a lane
 
