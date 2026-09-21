@@ -35,13 +35,15 @@ faq:
     answer: >
       Yes, and I did for this test. If you are paying for only one, choose media
       (Candy) or conversation depth (Nomi).
+image: /images/content/0c818bdb26e448de74ee86df657befb1.jpg
 ---
 ## The 30-second pick
 
 Pick **Candy AI** if you want one bill that covers chat, pictures and voice. Pick **Nomi** if the conversation is the product and generated pictures leave you cold.
 
-| | Candy AI | Nomi |
-| --- | --- | --- |
+
+|  | Candy AI | Nomi |
+| ------------ | ------------------------- | ------------------------------- |
 | Best for | All-in-one kit | Memory and talk |
 | Conversation | Fluent, steers the scene | Follows you, shorter replies |
 | Memory | Good for a week | Best in the ranking |
@@ -49,6 +51,7 @@ Pick **Candy AI** if you want one bill that covers chat, pictures and voice. Pic
 | Voice | On the standard plan | Varies by character |
 | Price | Lower, more bundled | Highest of the ranked apps |
 | Free tier | Too thin to judge | Usable, still capped |
+
 
 ## Conversation
 
