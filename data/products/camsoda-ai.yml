@@ -1,19 +1,35 @@
 name: Camsoda AI
 slug: camsoda-ai
-website: 'https://camsoda.ai/'
+website: https://camsoda.ai/
 category: LifestyleApplication
-platforms: 'Web'
+platforms: Web
 rating: 4.5
 free_tier: true
-
 features:
-  - '200+ ready-made companions'
-  - 'Six-step character builder'
-  - 'Per-character memory'
-  - 'Voice messages'
-
+  - 200+ ready-made companions
+  - Six-step character builder
+  - Per-character memory
+  - Voice messages
 geo:
   en:
     availability: available
-    tagline: 'The widest choice of ready-made companions, plus a builder that goes deeper than most.'
-    best_for: 'Custom AI girlfriends'
+    tagline: The widest choice of ready-made companions, plus a builder that goes
+      deeper than most.
+    best_for: Custom AI girlfriends
+    price:
+      period: month
+  fr:
+    availability: available
+    price:
+      period: month
+  jp:
+    availability: available
+    price:
+      period: month
+  nl:
+    availability: available
+    price:
+      period: month
+logo: /images/products/camsoda.png
+price:
+  period: month
