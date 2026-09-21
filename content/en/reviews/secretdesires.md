@@ -47,17 +47,20 @@ faq:
       Consistency. Most apps lose the thread after a dozen messages. Here the
       character, the setting and the limits I set still held twenty messages
       later.
+image: /images/content/images-4.jpg
 ---
 ## Consistency over novelty
 
 On most uncensored apps the scene drifts and the personality flattens, and you spend the session steering it back. Over two weeks this was the app that needed the least steering.
 
-| | Secret Desires | Joi | Camsoda AI |
-| --- | --- | --- | --- |
+
+|  | Secret Desires | Joi | Camsoda AI |
+| ------------------- | -------------- | ------------- | ------------------ |
 | Roleplay | Stays in scene | You carry it | Whatever you built |
 | Limits in builder | Yes | No | Yes |
 | Native apps | No | No | No |
 | Price before signup | Hidden | Lowest listed | Hidden |
+
 
 ## Setting limits matters
 
