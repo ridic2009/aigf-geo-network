@@ -1,6 +1,6 @@
-name: 'Sweetdream ai'
+name: Sweetdream ai
 slug: sweetdream
-website: 'https://sweetdream.ai'
+website: https://sweetdream.ai
 rating: 4.5
 free_tier: true
 category: LifestyleApplication
@@ -22,9 +22,11 @@ geo:
       period: month
   en:
     availability: available
-    tagline: 'A warm, story-driven companion with a genuinely generous free tier.'
-    best_for: 'Emotional depth'
+    tagline: A warm, story-driven companion with a genuinely generous free tier.
+    best_for: Emotional depth
     price:
-      amount: 10.0
+      amount: 10
       period: month
 screenshot: /images/products/sweetdream-screenshot.webp
+logo: /images/products/sweetdream.png
+platforms: web, IOS, android
