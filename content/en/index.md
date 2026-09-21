@@ -15,6 +15,10 @@ top_products:
   - candy-ai
   - sweetdream
   - camsoda-ai
+  - joi
+  - kupid
+  - nomi
+  - replika
 seo:
   title: Best AI Girlfriend Apps in 2026, Tested Hands-On
   description: Hands-on ranking of AI girlfriend apps. Real paid accounts,
