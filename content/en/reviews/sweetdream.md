@@ -46,16 +46,19 @@ faq:
     answer: >
       Photo, voice and video extras, and the media caps lift. The conversation
       itself is largely the same.
+image: /images/content/images-9.jpg
 ---
 ## It opens with a scene, not a questionnaire
 
 Most of these apps greet you with “who are you and what do you like.” Sweetdream drops you into a situation and lets you answer into it. Over two weeks that made it the easiest one to come back to in the evening, even though it is not the most powerful on paper.
 
-| | Free | Paid |
-| --- | --- | --- |
+
+|  | Free | Paid |
+| ---------------------- | -------------------- | ------------------------- |
 | Conversation | Open enough to judge | Same voice, fewer repeats |
 | Photos / voice / video | Capped fast | Limits lift |
 | Memory | Shorter than Nomi | Still shorter than Nomi |
+
 
 ## The free tier is the point
 
