@@ -46,17 +46,20 @@ faq:
     answer: >
       Chat is free after registration, and that free tier is real. It thins out
       around images and voice, which is where premium starts to matter.
+image: /images/content/kupid-ai-homepage.webp
 ---
 ## What it is good at
 
 Warmth. Characters lean affectionate rather than explicit, and they stay that way. A companion you tap through the day on a phone is a different product from one you sit down to on a desktop. Kupid is built for the first.
 
-| | Kupid | Sweetdream | Camsoda AI |
-| --- | --- | --- | --- |
+
+|  | Kupid | Sweetdream | Camsoda AI |
+| ----------- | ---------------------------- | ---------------------- | ------------------ |
 | Native apps | iOS and Android | Browser | Browser |
 | Tone | Romance-first | Story-led | Whatever you build |
 | Free chat | Real, thins out on media | Best free conversation | After signup |
 | Memory | Shallower than the top three | Medium | Per character |
+
 
 ## The builder
 
