@@ -29,6 +29,14 @@
     {%- if org.legal_name is defined %}{% set org_node = org_node|merge({'legalName': org.legal_name}) %}{% endif -%}
     {%- if org.email is defined %}{% set org_node = org_node|merge({'email': org.email}) %}{% endif -%}
     {%- if org.logo is defined %}{% set org_node = org_node|merge({'logo': {'@type': 'ImageObject', 'url': url(org.logo, {canonical: true})}}) %}{% endif -%}
+    {#- sameAs is what ties the social profiles in the footer to this site for
+        search engines. Built from the same config, so filling a profile in the
+        CMS updates the footer and the markup together. -#}
+    {%- set same_as = [] -%}
+    {%- for profile in site.social|default({}) -%}
+        {%- if profile|trim is not empty %}{% set same_as = same_as|merge([profile]) %}{% endif -%}
+    {%- endfor -%}
+    {%- if same_as|length %}{% set org_node = org_node|merge({'sameAs': same_as}) %}{% endif -%}
     {%- set graph = graph|merge([org_node]) -%}
 {%- endif -%}
 

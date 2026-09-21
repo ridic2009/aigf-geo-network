@@ -60,6 +60,7 @@ ui:
     menu: メニュー
     main_navigation: メインナビゲーション
     footer_navigation: フッターナビゲーション
+    social: ソーシャルプロフィール
     close: 閉じる
     read_review: レビューを読む
     visit_site: 公式サイトへ

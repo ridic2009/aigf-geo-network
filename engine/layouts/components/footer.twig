@@ -6,6 +6,8 @@
 
         {% include 'components/navigation.twig' with { 'items': site.navigation.footer, 'menu': 'footer', 'label': ui.labels.footer_navigation } %}
 
+        {% include 'components/social-links.twig' %}
+
         <p class="site-footer__meta">
             &copy; {{ 'now'|date('Y') }} {{ site.organization.name|default(site.title) }}.
             {% if site.organization.email is defined %}<a href="mailto:{{ site.organization.email }}">{{ site.organization.email }}</a>{% endif %}

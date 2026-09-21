@@ -56,6 +56,7 @@ ui:
     menu: Menu
     main_navigation: Hoofdnavigatie
     footer_navigation: Voettekstnavigatie
+    social: 'Sociale profielen'
     close: Sluiten
     read_review: 'Lees de beoordeling'
     visit_site: 'Bezoek de site'

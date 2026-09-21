@@ -1,0 +1,39 @@
+{#
+  Social profiles for this GEO site.
+
+  Values live in config/sites/<geo>.yml under `social:` and are editable in the
+  CMS under Site settings. A network with no URL is simply absent: the whole
+  block disappears while the network has no accounts, and appears the moment
+  one is filled in — no template change needed.
+
+  The same values feed Organization.sameAs in partials/schema.html.twig, which
+  is what actually connects the profiles to the site for search engines.
+
+  Labels are proper nouns and stay untranslated. To swap the text pills for
+  brand icons later, replace the <span> below with an <svg> per network; the
+  configuration, the schema and the footer stay exactly as they are.
+#}
+{%- set L = site.ui.labels -%}
+{%- set social = site.social|default({}) -%}
+{%- set networks = {
+    'x':         'X',
+    'instagram': 'Instagram',
+    'tiktok':    'TikTok',
+    'youtube':   'YouTube',
+    'reddit':    'Reddit',
+    'telegram':  'Telegram',
+    'discord':   'Discord',
+    'facebook':  'Facebook'
+} -%}
+{%- set present = networks|filter((label, key) => social[key]|default('')|trim is not empty) -%}
+{%- if present|length %}
+<nav class="social-links" aria-label="{{ L.social|default('Social profiles') }}">
+    <ul class="social-links__list">
+        {%- for key, label in present %}
+        <li>
+            <a class="social-links__link" href="{{ social[key] }}" rel="me noopener" target="_blank">{{ label }}</a>
+        </li>
+        {%- endfor %}
+    </ul>
+</nav>
+{%- endif %}

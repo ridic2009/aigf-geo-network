@@ -60,6 +60,7 @@ ui:
     menu: Menu
     main_navigation: 'Navigation principale'
     footer_navigation: 'Navigation de pied de page'
+    social: 'Profils sur les réseaux sociaux'
     close: Fermer
     read_review: "Lire l'avis"
     visit_site: 'Visiter le site'

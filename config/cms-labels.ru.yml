@@ -45,9 +45,8 @@ URL: 'Адрес страницы'
 'The address of this page in this country, e.g. "candy-ai-erfahrungen". Lowercase letters, numbers and hyphens only.': 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
 'Use lowercase letters, numbers and single hyphens.': 'Только строчные латинские буквы, цифры и одиночные дефисы.'
 Status: Статус
-'Draft and Review pages are never published to the live site.': 'Страницы в статусе «Черновик» и «На проверке» на сайт не попадают.'
+'A draft never reaches the live site. Saving unfinished work is always safe.': 'Черновик на сайт не попадает. Сохранять незаконченное безопасно.'
 'Draft — work in progress': 'Черновик — в работе'
-'Review — waiting for SEO approval': 'На проверке — ждёт согласования SEO'
 'Published — live': 'Опубликовано — на сайте'
 'Page key': 'Ключ страницы'
 'The same key in every country — this is what links this page to its translations (hreflang). It also becomes the file name.': 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
@@ -173,6 +172,19 @@ Publisher: Издатель
 'Publisher name': 'Название издателя'
 'Legal name': 'Юридическое лицо'
 'Contact email': 'Контактный email'
+'Social profiles': 'Профили в соцсетях'
+"Full profile address, e.g. https://t.me/yourchannel. Leave a network empty and it stays out of the footer. Filled profiles also go into the site's structured data, which is what links them to the site for search engines.": 'Полный адрес профиля, например https://t.me/yourchannel. Пустую сеть в футер не выводим. Заполненные профили попадают и в микроразметку сайта — именно она связывает их с сайтом для поисковых систем.'
+Social: Соцсети
+# Network names are proper nouns: listed so the generator does not report them
+# as untranslated every run.
+'X (Twitter)': 'X (Twitter)'
+Instagram: Instagram
+TikTok: TikTok
+YouTube: YouTube
+Reddit: Reddit
+Telegram: Telegram
+Discord: Discord
+Facebook: Facebook
 'Interface text': 'Надписи интерфейса'
 'Everything the engine writes on the page by itself: menu, buttons, table headings.': 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
 'Menu labels': 'Пункты меню'

@@ -34,13 +34,12 @@ function statusField(): array
     return [
         'type'        => 'select',
         'label'       => 'Status',
-        'description' => 'Draft and Review pages are never published to the live site.',
+        'description' => 'A draft never reaches the live site. Saving unfinished work is always safe.',
         'default'     => 'draft',
         'required'    => true,
         'options'     => [
             'values' => [
                 ['value' => 'draft', 'label' => 'Draft — work in progress'],
-                ['value' => 'review', 'label' => 'Review — waiting for SEO approval'],
                 ['value' => 'published', 'label' => 'Published — live'],
             ],
         ],
@@ -294,6 +293,22 @@ function siteSettingsFile(string $code, array $ui): array
                 ],
             ],
             [
+                'name'        => 'social',
+                'label'       => 'Social profiles',
+                'description' => 'Full profile address, e.g. https://t.me/yourchannel. Leave a network empty and it stays out of the footer. Filled profiles also go into the site\'s structured data, which is what links them to the site for search engines.',
+                'type'        => 'object',
+                'fields'      => [
+                    ['name' => 'x', 'label' => 'X (Twitter)', 'type' => 'string'],
+                    ['name' => 'instagram', 'label' => 'Instagram', 'type' => 'string'],
+                    ['name' => 'tiktok', 'label' => 'TikTok', 'type' => 'string'],
+                    ['name' => 'youtube', 'label' => 'YouTube', 'type' => 'string'],
+                    ['name' => 'reddit', 'label' => 'Reddit', 'type' => 'string'],
+                    ['name' => 'telegram', 'label' => 'Telegram', 'type' => 'string'],
+                    ['name' => 'discord', 'label' => 'Discord', 'type' => 'string'],
+                    ['name' => 'facebook', 'label' => 'Facebook', 'type' => 'string'],
+                ],
+            ],
+            [
                 'name'        => 'ui',
                 'label'       => 'Interface text',
                 'description' => 'Everything the engine writes on the page by itself: menu, buttons, table headings.',
@@ -441,7 +456,7 @@ function guideFile(): array
 
 /**
  * One line per page type, shown above the list of entries. The page-type model
- * is shared with Studio and carries labels only, so the CMS wording lives here.
+ * also drives validation and carries labels only, so the CMS wording lives here.
  *
  * @return array<string, string>
  */
