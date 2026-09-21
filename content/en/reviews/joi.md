@@ -45,17 +45,20 @@ faq:
     answer: >
       Barely. Inside a session it holds the thread. Between sessions expect to
       re-introduce yourself.
+image: /images/content/images-2.jpg
 ---
 ## What the price actually buys
 
 Uncensored chat, a stack of ready-made characters, and not much else. For some readers that is the whole product they want. I will not mark an app down for being honest about its size.
 
-| | Joi | Secret Desires | Sweetdream free |
-| --- | --- | --- | --- |
+
+|  | Joi | Secret Desires | Sweetdream free |
+| ------ | ------------------------- | -------------------------------- | ----------------- |
 | Price | Lowest here | Higher, unpublished until signup | $0 |
 | Chat | Uncensored, short replies | Uncensored, stays in scene | Warm, story-led |
 | Memory | Barely between sessions | Carries over | Medium |
 | Media | Missing / rudimentary | Voice and short video | Capped, then paid |
+
 
 ## Where it ran out on me
 
