@@ -13,6 +13,17 @@
             <a class="btn btn--primary" href="{{ url(site.pages.get(page.hero_cta), {canonical: false}) }}">{{ site.pages.get(page.hero_cta).title }}</a>
         </p>
         {%- endif %}
+        {#- Featured image set in the CMS. It sits below the button on purpose:
+            the ranking link stays on the first screen on a phone. -#}
+        {%- if page.image|default(null) %}
+        <figure class="article__image article__image--hero">
+            {{ image(asset(page.image), { alt: page.image_alt|default(page.title), loading: 'eager', decoding: 'async' })|raw }}
+            {%- if page.image_caption|default(null) %}
+            <figcaption>{{ page.image_caption }}</figcaption>
+            {%- endif %}
+        </figure>
+        {%- endif %}
+
         {% include 'components/affiliate-disclosure.twig' with { 'variant': 'inline' } %}
     </div>
 </section>

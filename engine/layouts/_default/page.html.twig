@@ -9,6 +9,18 @@
             {%- if page.intro|default(null) %}
             <div class="article__intro">{{ page.intro|markdown_to_html|raw }}</div>
             {%- endif %}
+
+            {#- Featured image, same contract as the article layout: Cecil
+                resizes it, converts it and writes the dimensions. -#}
+            {%- if page.image|default(null) %}
+            <figure class="article__image">
+                {{ image(asset(page.image), { alt: page.image_alt|default(page.title), loading: 'eager', decoding: 'async' })|raw }}
+                {%- if page.image_caption|default(null) %}
+                <figcaption>{{ page.image_caption }}</figcaption>
+                {%- endif %}
+            </figure>
+            {%- endif %}
+
             <div class="article__meta">
                 {% include 'components/last-updated.twig' with { 'date': page.date, 'updated': page.updated|default(null) } %}
             </div>

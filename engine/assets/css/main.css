@@ -360,6 +360,46 @@ p, ul, ol, table { margin: 0 0 1rem; }
 .ranking-table__cta { text-align: right; }
 .comparison-table__features { margin: 0; padding-left: 1rem; font-size: .875rem; }
 
+/* A table written in Markdown, or built with the CMS table block, carries no
+   class of its own — it is styled through the box it lands in so that editors
+   get the same table as the engine's own. */
+.prose table, .table-scroll table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .95rem;
+    margin: 1.5rem 0;
+}
+.prose th, .prose td,
+.table-scroll th, .table-scroll td {
+    padding: .7rem .6rem;
+    border-bottom: 1px solid var(--c-border);
+    text-align: left;
+    vertical-align: top;
+}
+.prose thead th, .table-scroll thead th {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--c-muted);
+}
+.prose caption, .table-scroll caption {
+    caption-side: top;
+    text-align: left;
+    font-weight: 600;
+    padding-bottom: .5rem;
+}
+
+/* Markdown tables have no scroll box around them, so the table itself becomes
+   the scroller once the column text stops fitting. */
+@media (max-width: 720px) {
+    .prose table {
+        display: block;
+        width: max-content;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}
+
 /* ---------- CTA ---------- */
 
 .cta {
@@ -456,6 +496,10 @@ p, ul, ol, table { margin: 0 0 1rem; }
     font-size: .875rem;
     color: var(--c-muted);
 }
+
+/* On the homepage the image is decoration, not the subject — capped so the
+   ranking cards stay within reach of the first screen. */
+.article__image--hero img { max-height: 380px; object-fit: cover; }
 
 /* ==========================================================================
    Product hero — the first screen of a review.
