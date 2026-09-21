@@ -36,7 +36,7 @@ related:
   - articles/how-memory-works
   - articles/how-replies-are-generated
 seo:
-  title: Qu'est-ce qu'une Application de Petite Amie IA ? Le Fonctionnement en 2026
+  title: Qu'est-ce qu'une Petite Amie IA ? Le Fonctionnement en 2026
   description: Une explication claire de ce qui tourne dans une application de petite amie IA — le modèle, la fiche de personnage et le filtre — et ce que chacun provoque.
   primary_keyword: application petite amie ia
 indexing:
@@ -88,9 +88,11 @@ La plupart des applications la composent à partir de quatre éléments :
 - les messages récents, mot pour mot.
 
 Les applications où l'on a encore, une semaine plus tard, l'impression que
-quelqu'un est resté dans la pièce sont celles qui gèrent bien les deux éléments du
-milieu. Rien de tout cela n'apparaît sur une page tarifaire, et c'est pourquoi
-juger une application demande des semaines et non une soirée.
+quelqu'un est resté dans la pièce — la raison pour laquelle
+[Nomi](/avis/nomi-avis/) obtient la note qu'il obtient — sont celles qui gèrent
+bien les deux éléments du milieu. Rien de tout cela n'apparaît sur une page
+tarifaire, et c'est pourquoi juger une application demande des semaines et non une
+soirée.
 
 ## Ce que « petite amie IA » recouvre vraiment
 
@@ -101,10 +103,13 @@ L'étiquette s'étire sur des produits qui ne se ressemblent guère :
 - **les applications de jeu de rôle**, conçues pour des scènes et des histoires
   plutôt que pour la continuité ;
 - **les applications centrées sur l'image**, où la discussion existe surtout pour
-  produire des images et de la voix.
+  produire des images et de la voix. [Candy AI](/avis/candy-ai-avis/) en est la
+  plus proche du milieu, en traitant les trois dans un seul abonnement.
 
 Décider laquelle des trois vous voulez réellement élimine environ la moitié de
-n'importe quelle liste avant même que le prix n'entre dans la conversation.
+n'importe quelle liste — y compris [la nôtre](/meilleure-petite-amie-ia/) — avant
+même que le prix n'entre dans la conversation. Les deux applications ci-dessus
+sont d'ailleurs [comparées côte à côte](/comparatif/candy-ai-vs-nomi/).
 
 ## Ce qu'aucune n'est
 

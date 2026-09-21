@@ -81,7 +81,10 @@ cohérent et de loin le plus coûteux, donc réservé aux offres supérieures).
 
 C'est une différence réelle, testable dans une offre gratuite avant de payer.
 Générez quatre images du même personnage dans quatre situations. Si vous obtenez
-quatre femmes différentes, aucun abonnement ne corrigera cela.
+quatre femmes différentes, aucun abonnement ne corrigera cela. La cohérence entre
+images est une grande partie de la raison pour laquelle
+[Candy AI](/avis/candy-ai-avis/) figure en tête de
+[notre classement](/meilleure-petite-amie-ia/).
 
 ## Pourquoi le média est toujours compté
 

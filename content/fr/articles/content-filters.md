@@ -36,7 +36,7 @@ related:
   - articles/what-is-an-ai-girlfriend
   - articles/how-replies-are-generated
 seo:
-  title: Filtres de Contenu des Compagnons IA — Ce que « Sans Censure » Signifie
+  title: Filtres de Contenu IA — Ce que « Sans Censure » Signifie
   description: Comment fonctionne le filtrage dans les applications de petite amie IA, pourquoi des refus surgissent en pleine scène, et pourquoi les plus permissives gardent un plancher.
   primary_keyword: ia sans censure
 indexing:

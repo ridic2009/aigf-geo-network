@@ -97,9 +97,10 @@ silence.
 
 **Survit-elle à une interruption ?** Discutez chaque jour pendant une semaine,
 arrêtez quatre jours, revenez et faites référence à quelque chose de précis du
-deuxième jour. Les applications conçues pour la continuité y arrivent. Celles
-conçues pour des scènes non — et ce n'est pas un défaut chez elles, c'est un
-autre produit.
+deuxième jour. Les applications conçues pour la continuité — la raison pour
+laquelle [Nomi](/avis/nomi-avis/) obtient sa note de conversation dans
+[notre classement](/meilleure-petite-amie-ia/) — y arrivent. Celles conçues pour
+des scènes non, et ce n'est pas un défaut chez elles, c'est un autre produit.
 
 ## Deux habitudes qui aident avec n'importe quelle application
 

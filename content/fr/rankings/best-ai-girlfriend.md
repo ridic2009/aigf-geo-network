@@ -2,7 +2,7 @@
 title: Meilleures applications de petite amie IA en 2026
 slug: meilleure-petite-amie-ia
 type: ranking
-status: draft
+status: published
 translation_key: best-ai-girlfriend
 date: 2026-02-01
 updated: 2026-09-12
