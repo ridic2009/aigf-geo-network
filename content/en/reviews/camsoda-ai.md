@@ -47,6 +47,8 @@ faq:
       No. Browser on desktop and phone. If a native app matters, [Kupid
       AI](/reviews/kupid-ai-review/) is the one in this ranking with both iOS
       and Android.
+image: /images/content/camsoda-ai-1024x664.jpg
+image_alt: camsoda
 ---
 ## The builder is the product
 
