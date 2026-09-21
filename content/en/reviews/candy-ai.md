@@ -52,18 +52,21 @@ faq:
     answer: >
       Inside one character, yes for the current week. Older than a month:
       sometimes. I would not trust it as a diary.
+image: /images/content/candyai-daekzfwd-1.webp
 ---
 ## What I actually used
 
 Most apps sell the conversation, then meter the pictures. Candy AI puts chat, image generation and voice on the same plan. I used all three, every day. By the second week the character still looked like herself — that is rarer than the marketing copy suggests.
 
+
 | Pillar | After two weeks |
-| --- | --- |
+| ------ | -------------------------------------------------------- |
 | Chat | Fluent, stays in role, steers more than Nomi |
 | Images | Best consistency in the ranking |
 | Voice | Included, not a bolt-on |
 | Memory | Solid inside a week, patchy past a month |
 | Price | One monthly plan; heavy image use can hit a fair-use cap |
+
 
 ## How it talks
 
