@@ -33,8 +33,15 @@
 
 html { -webkit-text-size-adjust: 100%; }
 
+/* A short page — an almost empty section index, the 404 — used to leave the
+   footer floating in the middle of the screen with white space under it.
+   The column keeps it on the bottom edge without ever overlapping content. */
 body {
     margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
     font-family: var(--font);
     font-size: 1rem;
     line-height: 1.65;
@@ -189,7 +196,7 @@ p, ul, ol, table { margin: 0 0 1rem; }
 
 /* ---------- layout blocks ---------- */
 
-.main { display: block; }
+.main { display: block; flex: 1 0 auto; }
 .section { padding: 2.5rem 0; }
 .section--alt { background: var(--c-bg-alt); }
 .section__title { margin-bottom: 1.25rem; }
@@ -264,7 +271,8 @@ p, ul, ol, table { margin: 0 0 1rem; }
     -webkit-mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16.8px);
     mask: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 16.8px);
 }
-.rating__stars-fill { display: block; height: 100%; background: var(--c-star); }
+.rating__track { fill: var(--c-border); }
+.rating__stars-fill { fill: var(--c-star); }
 .rating__value { font-weight: 700; font-size: .9rem; }
 
 /* ---------- product card ---------- */
@@ -292,7 +300,10 @@ p, ul, ol, table { margin: 0 0 1rem; }
     font-size: .8rem; font-weight: 700;
 }
 .product-card__head { display: flex; gap: 1rem; align-items: flex-start; }
-.product-card__logo { border-radius: 12px; flex: 0 0 auto; }
+/* Uploaded logos are not all square — a wide banner and a tall mark would
+   otherwise give their cards different heights. A fixed box sized by
+   object-fit keeps every card on the same line without distorting anything. */
+.product-card__logo { border-radius: 12px; flex: 0 0 auto; width: 72px; height: 72px; object-fit: contain; }
 .product-card__name { margin: 0 0 .25rem; }
 .product-card__badge { margin: 0 0 .25rem; font-size: .8rem; color: var(--c-accent); font-weight: 600; }
 .product-card__highlight { color: var(--c-muted); margin-top: .75rem; }
@@ -356,7 +367,18 @@ p, ul, ol, table { margin: 0 0 1rem; }
     color: var(--c-muted);
 }
 .ranking-table__rank { font-weight: 700; width: 3rem; }
-.ranking-table__product { display: flex; align-items: center; gap: .5rem; }
+
+/* A table cell has to stay a table cell. `display: flex` here took the row
+   heading out of the table's row model, so it no longer stretched to the row
+   height and its bottom border sat a few pixels above every other column.
+   Inline layout puts the logo beside the name without leaving the grid. */
+.ranking-table__product img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: .5rem;
+}
 .ranking-table__cta { text-align: right; }
 .comparison-table__features { margin: 0; padding-left: 1rem; font-size: .875rem; }
 
@@ -398,6 +420,29 @@ p, ul, ol, table { margin: 0 0 1rem; }
         max-width: 100%;
         overflow-x: auto;
     }
+}
+
+/* Keep the decision and its action visible when a comparison cannot fit.
+   Native lists/details are also the fallback without container-query support. */
+.product-overview { container-type: inline-size; }
+.product-overview__table { display: none; }
+.product-summaries { display: grid; gap: 1rem; list-style: none; margin: 1.5rem 0; padding: 0; }
+.product-summary { min-width: 0; padding: 1rem; border: 1px solid var(--c-border); border-radius: var(--radius); background: var(--c-bg); }
+.product-summary__head { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+.product-summary__name { margin: 0; font-size: 1.1rem; overflow-wrap: anywhere; }
+.product-summary__rank { color: var(--c-accent); }
+.product-summary__facts { display: grid; gap: .5rem; margin: 1rem 0; }
+.product-summary__facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: .75rem; }
+.product-summary__facts dt { color: var(--c-muted); font-size: .875rem; }
+.product-summary__facts dd { margin: 0; overflow-wrap: anywhere; }
+.product-summary__features { margin: .5rem 0; }
+.product-summary__features summary { padding: .7rem 0; cursor: pointer; }
+.product-summary__features ul { padding-left: 1.25rem; }
+.product-summary__actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.product-summary__actions .btn { flex: 1 1 10rem; min-height: 44px; overflow-wrap: anywhere; }
+@container (min-width: 640px) {
+    .product-summaries { display: none; }
+    .product-overview__table { display: block; }
 }
 
 /* ---------- CTA ---------- */
@@ -529,7 +574,12 @@ p, ul, ol, table { margin: 0 0 1rem; }
 }
 
 /* Screenshots arrive in whatever shape the vendor's page happens to be, so the
-   frame follows the image rather than cropping its headline off. */
+   frame follows the image rather than cropping its headline off. The engine
+   wraps them in <picture>, which is inline and would otherwise leave a strip of
+   background under every screenshot. */
+.product-hero__visual picture,
+.product-card__shot picture { display: block; }
+
 .product-hero__visual img {
     display: block;
     width: 100%;
@@ -574,7 +624,7 @@ p, ul, ol, table { margin: 0 0 1rem; }
 }
 
 .product-hero__head { display: flex; align-items: center; gap: .7rem; margin: 0; }
-.product-hero__logo { border-radius: 12px; flex: 0 0 auto; }
+.product-hero__logo { border-radius: 12px; flex: 0 0 auto; width: 56px; height: 56px; object-fit: contain; }
 .product-hero__name { margin: 0; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; letter-spacing: -.02em; }
 .product-hero__tagline { margin: 0; color: var(--c-muted); font-size: 1.05rem; }
 .product-hero__actions { margin-top: .4rem; }
@@ -620,3 +670,41 @@ p, ul, ol, table { margin: 0 0 1rem; }
     .product-hero { grid-template-columns: 1fr; }
     .product-hero__visual { min-height: 180px; }
 }
+
+/* Ranking cards carry the product's own screen: the ranking is where most
+   readers arrive from search, and a picture of the app outsells a list. */
+.product-card__shot {
+    margin: -1.25rem -1.25rem 1rem;
+    border-radius: var(--radius) var(--radius) 0 0;
+    overflow: hidden;
+    background: var(--c-bg-alt);
+}
+.product-card__shot img { display: block; width: 100%; height: auto; max-height: 220px; object-fit: cover; object-position: top center; }
+
+/* The offer stays reachable on a phone, where the hero scrolls away fast. */
+.sticky-cta {
+    display: none;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 20;
+    align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .75rem;
+    padding: .6rem .9rem;
+    background: color-mix(in srgb, var(--c-bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--c-border);
+    box-shadow: 0 -4px 16px rgba(16, 24, 40, .08);
+}
+.sticky-cta__notice { grid-column: 1 / -1; margin: 0; font-size: .75rem; line-height: 1.4; color: var(--c-muted); }
+.sticky-cta__text { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.sticky-cta__name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sticky-cta__rating { font-size: .8rem; color: var(--c-muted); }
+.sticky-cta .btn { max-width: 55vw; overflow-wrap: anywhere; }
+
+@media (max-width: 720px) {
+    .sticky-cta { display: grid; padding-bottom: max(.6rem, env(safe-area-inset-bottom)); }
+    .page--review { padding-bottom: 12rem; }
+}
+
+@media print { .sticky-cta { display: none; } }
