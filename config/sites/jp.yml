@@ -33,6 +33,7 @@ routes:
   reviews: review
   compare: compare
   guides: guide
+  articles: article
   rankings: ''
 organization:
   name: 'AI Girlfriend Ranking 日本'
@@ -45,6 +46,7 @@ ui:
     reviews: レビュー
     compare: 比較
     guides: ガイド
+    articles: '記事'
     about: 運営者情報
     disclosure: アフィリエイトについて
     privacy: プライバシーポリシー
@@ -52,7 +54,14 @@ ui:
     reviews: レビュー
     compare: 比較
     guides: ガイド
+    articles: '記事'
     rankings: ランキング
+  article_categories:
+    basics: '仕組み'
+    choosing: '選び方'
+    privacy: 'プライバシーと安全性'
+    pricing: '料金とプラン'
+    wellbeing: '関係と心の健康'
   labels:
     home: ホーム
     not_found_text: このページは存在しないか、アドレスが間違っています。

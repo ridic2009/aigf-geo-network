@@ -30,6 +30,7 @@ routes:
   reviews: reviews
   compare: compare
   guides: guides
+  articles: articles
   rankings: ''
 organization:
   name: 'AI Girlfriend Ranking'
@@ -42,6 +43,7 @@ ui:
     reviews: Reviews
     compare: Comparisons
     guides: Guides
+    articles: 'Articles'
     about: About
     disclosure: 'Affiliate disclosure'
     privacy: Privacy
@@ -49,7 +51,14 @@ ui:
     reviews: Reviews
     compare: Comparisons
     guides: Guides
+    articles: 'Articles'
     rankings: Rankings
+  article_categories:
+    basics: 'How it works'
+    choosing: 'Choosing an app'
+    privacy: 'Privacy & safety'
+    pricing: 'Prices & plans'
+    wellbeing: 'Relationships & wellbeing'
   labels:
     home: Home
     not_found_text: 'This page no longer exists, or the address was mistyped.'

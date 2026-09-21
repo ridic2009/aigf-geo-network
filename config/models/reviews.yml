@@ -51,6 +51,24 @@ types:
     layout: guides/page
     fields:
       products: {label: Упоминаемые продукты, type: list, items: {type: product}}
+  article:
+    label: Статья
+    section: articles
+    layout: articles/page
+    fields:
+      category:
+        label: Рубрика
+        type: string
+        required: true
+        # The value is a slug; each GEO translates it through ui.article_categories.
+        options: [basics, choosing, privacy, pricing, wellbeing]
+        option_labels:
+          basics: 'Как это работает'
+          choosing: 'Как выбрать'
+          privacy: 'Приватность и безопасность'
+          pricing: 'Цены и тарифы'
+          wellbeing: 'Отношения и самочувствие'
+      products: {label: Упоминаемые продукты, type: list, items: {type: product}}
   landing:
     label: Лендинг из блоков
     section: landings

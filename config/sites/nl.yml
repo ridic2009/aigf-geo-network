@@ -30,6 +30,7 @@ routes:
   reviews: reviews
   compare: compare
   guides: guides
+  articles: artikelen
 organization:
   name: 'AI Girlfriend Ranking Nederland'
   legal_name: 'AIGR Media'
@@ -41,6 +42,7 @@ ui:
     reviews: Beoordelingen
     compare: Vergelijkingen
     guides: Gidsen
+    articles: 'Artikelen'
     about: 'Over ons'
     disclosure: Affiliatie-openbaarmaking
     privacy: Privacy
@@ -48,7 +50,14 @@ ui:
     reviews: Beoordelingen
     compare: Vergelijkingen
     guides: Gidsen
+    articles: 'Artikelen'
     rankings: Ranglijsten
+  article_categories:
+    basics: 'Hoe het werkt'
+    choosing: 'Een app kiezen'
+    privacy: 'Privacy en veiligheid'
+    pricing: 'Prijzen en abonnementen'
+    wellbeing: 'Relaties en welzijn'
   labels:
     home: Home
     not_found_text: 'Deze pagina bestaat niet meer, of het adres is verkeerd ingevoerd.'

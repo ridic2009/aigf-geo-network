@@ -469,6 +469,7 @@ function typeDescriptions(): array
         'ranking'    => 'An ordered list of products. The table and the cards below it are generated.',
         'comparison' => 'Two or more products side by side, built from the product database.',
         'guide'      => 'An explainer. Products are optional and shown as compact cards.',
+        'article'    => 'An editorial piece. Pick a category — it decides where the article sits on the /articles hub.',
         'landing'    => 'A page assembled from blocks instead of one body text.',
     ];
 }
@@ -538,7 +539,19 @@ function modelCmsFields(array $fields): array
             if ($type === 'object') { $field['fields'] = modelCmsFields($rule['fields'] ?? []); }
         }
         if (!empty($rule['required'])) { $field['required'] = true; }
-        if (isset($rule['options'])) { $field['type'] = 'select'; $field['options'] = ['values' => $rule['options']]; }
+        if (isset($rule['options'])) {
+            $field['type'] = 'select';
+            // The stored value is a slug the engine keys on; `option_labels`
+            // lets an editor pick "How it works" instead of "basics" without
+            // changing what ends up in the file.
+            $labels = $rule['option_labels'] ?? [];
+            $field['options'] = ['values' => array_map(
+                static fn (string $value) => isset($labels[$value])
+                    ? ['value' => $value, 'label' => $labels[$value]]
+                    : $value,
+                $rule['options']
+            )];
+        }
         $out[] = $field;
     }
     return $out;

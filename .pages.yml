@@ -224,8 +224,8 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
-                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: rankings, label: Рейтинги, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
                   - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
               -
                 name: baseurl
@@ -1259,6 +1259,183 @@ content:
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
                 description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
+            name: en_article
+            label: Статья
+            description: 'Редакционная статья. Выберите рубрику — от неё зависит, в каком блоке страницы /articles она окажется.'
+            type: collection
+            path: content/en/articles
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: article
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
+                name: category
+                label: Рубрика
+                type: select
+                required: true
+                options:
+                  values: [{ value: basics, label: 'Как это работает' }, { value: choosing, label: 'Как выбрать' }, { value: privacy, label: 'Приватность и безопасность' }, { value: pricing, label: 'Цены и тарифы' }, { value: wellbeing, label: 'Отношения и самочувствие' }]
+              -
+                name: products
+                label: 'Упоминаемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
+          -
             name: en_landing
             label: 'Лендинг из блоков'
             description: 'Страница, собранная из блоков вместо сплошного текста.'
@@ -1475,8 +1652,8 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
-                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: rankings, label: Рейтинги, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
                   - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
               -
                 name: baseurl
@@ -2510,6 +2687,183 @@ content:
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
                 description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
+            name: fr_article
+            label: Статья
+            description: 'Редакционная статья. Выберите рубрику — от неё зависит, в каком блоке страницы /articles она окажется.'
+            type: collection
+            path: content/fr/articles
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: article
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
+                name: category
+                label: Рубрика
+                type: select
+                required: true
+                options:
+                  values: [{ value: basics, label: 'Как это работает' }, { value: choosing, label: 'Как выбрать' }, { value: privacy, label: 'Приватность и безопасность' }, { value: pricing, label: 'Цены и тарифы' }, { value: wellbeing, label: 'Отношения и самочувствие' }]
+              -
+                name: products
+                label: 'Упоминаемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
+          -
             name: fr_landing
             label: 'Лендинг из блоков'
             description: 'Страница, собранная из блоков вместо сплошного текста.'
@@ -2726,8 +3080,8 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
-                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: rankings, label: Рейтинги, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
                   - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
               -
                 name: baseurl
@@ -3761,6 +4115,183 @@ content:
                   - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
                 description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
           -
+            name: jp_article
+            label: Статья
+            description: 'Редакционная статья. Выберите рубрику — от неё зависит, в каком блоке страницы /articles она окажется.'
+            type: collection
+            path: content/jp/articles
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: article
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
+                name: category
+                label: Рубрика
+                type: select
+                required: true
+                options:
+                  values: [{ value: basics, label: 'Как это работает' }, { value: choosing, label: 'Как выбрать' }, { value: privacy, label: 'Приватность и безопасность' }, { value: pricing, label: 'Цены и тарифы' }, { value: wellbeing, label: 'Отношения и самочувствие' }]
+              -
+                name: products
+                label: 'Упоминаемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
+          -
             name: jp_landing
             label: 'Лендинг из блоков'
             description: 'Страница, собранная из блоков вместо сплошного текста.'
@@ -3977,8 +4508,8 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
-                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: rankings, label: Рейтинги, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
                   - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
               -
                 name: baseurl
@@ -4962,6 +5493,183 @@ content:
                   format: markdown
                   media: content
                 description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
+                name: products
+                label: 'Упоминаемые продукты'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
+                list: true
+              -
+                name: faq
+                component: faq
+              -
+                name: related
+                label: 'Похожие страницы'
+                type: string
+                list: true
+                description: 'Необязательно. Идентификаторы страниц, например "reviews/candy-ai".'
+              -
+                name: seo
+                component: seo
+              -
+                name: indexing
+                component: indexing
+              -
+                name: canonical
+                component: canonical
+              -
+                name: aliases
+                label: 'Предыдущие адреса'
+                type: string
+                list: true
+                readonly: true
+                description: 'Только чтение. Прежние адреса этой страницы — по ним продолжают работать старые ссылки.'
+              -
+                name: blocks
+                label: 'Блоки страницы'
+                type: block
+                list: true
+                blockKey: type
+                blocks:
+                  - { name: text, label: Текст, fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text, required: true }] }
+                  - { name: image, label: Изображение, fields: [{ name: src, label: Изображение, type: image, required: true }, { name: alt, label: 'Описание изображения', type: string, required: true }, { name: caption, label: Подпись, type: string }] }
+                  - { name: cta, label: 'Кнопка и призыв', fields: [{ name: heading, label: Заголовок, type: string }, { name: body, label: Текст, type: text }, { name: label, label: 'Текст кнопки', type: string, required: true }, { name: url, label: Адрес, type: string, required: true }] }
+                  - { name: products, label: 'Карточки продуктов', fields: [{ name: heading, label: Заголовок, type: string }, { name: products, label: Продукты, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, list: true }] }
+                  - { name: faq, label: 'Вопросы и ответы', fields: [{ name: items, label: Вопросы, type: object, fields: [{ name: question, label: Вопрос, type: string, required: true }, { name: answer, label: Ответ, type: text, required: true }], list: true }] }
+                  - { name: table, label: Таблица, fields: [{ name: caption, label: 'Название таблицы', type: string, required: true }, { name: columns, label: Колонки, type: string, list: true }, { name: rows, label: Строки, type: string, list: true }] }
+                description: 'Необязательный конструктор: текст, картинка, таблица, кнопка с призывом. Выводятся после основного текста. Обычной статье они не нужны.'
+          -
+            name: nl_article
+            label: Статья
+            description: 'Редакционная статья. Выберите рубрику — от неё зависит, в каком блоке страницы /articles она окажется.'
+            type: collection
+            path: content/nl/articles
+            format: yaml-frontmatter
+            subfolders: false
+            filename:
+              template: '{fields.translation_key}.md'
+              field: false
+            view:
+              fields:
+                - title
+                - slug
+                - status
+                - updated
+              primary: title
+              sort:
+                - updated
+                - title
+                - status
+              search:
+                - title
+                - slug
+                - seo.title
+              default:
+                sort: updated
+                order: desc
+            fields:
+              -
+                name: title
+                label: Заголовок
+                type: string
+                required: true
+                description: 'Заголовок в начале страницы.'
+              -
+                name: slug
+                label: 'Адрес страницы'
+                type: string
+                required: true
+                description: 'Адрес страницы в этой стране, например "candy-ai-erfahrungen". Только строчные латинские буквы, цифры и дефисы.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: status
+                component: status
+              -
+                name: type
+                type: string
+                default: article
+                hidden: true
+              -
+                name: translation_key
+                label: 'Ключ страницы'
+                type: string
+                required: true
+                description: 'Одинаковый во всех странах — именно он связывает страницу с её переводами (hreflang). Он же становится именем файла.'
+                pattern:
+                  regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+                  message: 'Только строчные латинские буквы, цифры и одиночные дефисы.'
+              -
+                name: date
+                label: 'Дата публикации'
+                type: date
+              -
+                name: updated
+                label: 'Дата обновления'
+                type: date
+                description: 'Показывается на странице и используется как дата в sitemap.'
+              -
+                name: author
+                label: Автор
+                description: 'Кто написал страницу.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: reviewer
+                label: Проверил
+                description: 'Необязательно: кто вычитал материал.'
+                type: reference
+                options:
+                  collection: authors
+                  value: '{fields.id}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.id'
+              -
+                name: intro
+                label: Вступление
+                type: text
+                description: 'Одно-два предложения под заголовком.'
+              -
+                name: image
+                label: 'Главное изображение'
+                type: image
+                options:
+                  media: content
+                description: 'Показывается под вступлением и используется как превью для соцсетей. Загружайте самый большой вариант — все нужные размеры система сделает сама.'
+              -
+                name: image_alt
+                label: 'Главное изображение: alt-текст'
+                type: string
+                description: 'Что на изображении — для скринридеров и поисковых систем. По умолчанию берётся заголовок.'
+              -
+                name: image_caption
+                label: 'Главное изображение: подпись'
+                type: string
+                description: 'Необязательно, выводится под изображением.'
+              -
+                name: body
+                label: 'Основной текст'
+                type: rich-text
+                options:
+                  format: markdown
+                  media: content
+                description: 'Кнопка с картинкой на панели вставляет изображение в текст. Адаптивные версии создаются автоматически.'
+              -
+                name: category
+                label: Рубрика
+                type: select
+                required: true
+                options:
+                  values: [{ value: basics, label: 'Как это работает' }, { value: choosing, label: 'Как выбрать' }, { value: privacy, label: 'Приватность и безопасность' }, { value: pricing, label: 'Цены и тарифы' }, { value: wellbeing, label: 'Отношения и самочувствие' }]
               -
                 name: products
                 label: 'Упоминаемые продукты'

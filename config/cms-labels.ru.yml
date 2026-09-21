@@ -175,6 +175,7 @@ Publisher: Издатель
 'Social profiles': 'Профили в соцсетях'
 "Full profile address, e.g. https://t.me/yourchannel. Leave a network empty and it stays out of the footer. Filled profiles also go into the site's structured data, which is what links them to the site for search engines.": 'Полный адрес профиля, например https://t.me/yourchannel. Пустую сеть в футер не выводим. Заполненные профили попадают и в микроразметку сайта — именно она связывает их с сайтом для поисковых систем.'
 Social: Соцсети
+Articles: Статьи
 # Network names are proper nouns: listed so the generator does not report them
 # as untranslated every run.
 'X (Twitter)': 'X (Twitter)'
@@ -281,6 +282,7 @@ Guide: 'Инструкция'
 'An ordered list of products. The table and the cards below it are generated.': 'Продукты по позициям. Таблица и карточки под ней собираются автоматически.'
 'Two or more products side by side, built from the product database.': 'Два и более продукта рядом. Таблица строится из базы продуктов.'
 'An explainer. Products are optional and shown as compact cards.': 'Обучающая статья. Продукты необязательны, показываются компактными карточками.'
+'An editorial piece. Pick a category — it decides where the article sits on the /articles hub.': 'Редакционная статья. Выберите рубрику — от неё зависит, в каком блоке страницы /articles она окажется.'
 'A page assembled from blocks instead of one body text.': 'Страница, собранная из блоков вместо сплошного текста.'
 
 # --- field hints -----------------------------------------------------------

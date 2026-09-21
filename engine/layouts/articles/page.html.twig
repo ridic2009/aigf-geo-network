@@ -1,0 +1,34 @@
+{#
+  Article page: an editorial piece that belongs to a category and may name the
+  products it talks about.
+
+  It reuses the shared article skeleton, so headings, author, disclosure, table
+  of contents, FAQ and related links behave exactly as they do on a review.
+  Only two things are added: the category the piece sits under, and the cards
+  for the products it mentions.
+#}
+{% extends '_default/article.html.twig' %}
+
+{% block hero %}
+    {%- set cats = site.ui.article_categories|default({}) -%}
+    {%- if page.category|default(null) and cats[page.category] is defined %}
+    <p class="article__kicker">
+        <a class="kicker" href="{{ url(site.pages.get('articles'), {canonical: false}) }}">{{ cats[page.category] }}</a>
+    </p>
+    {%- endif %}
+{% endblock %}
+
+{% block after_body %}
+    {#- The products the piece names. Affiliate handling, rel attributes and the
+        disclosure all come from the shared card, so an article monetises the
+        same way a ranking does and never grows its own link markup. -#}
+    {%- if page.products|default([])|length > 0 %}
+    <section class="article-products">
+        {%- for pid in page.products -%}
+            {%- if products[pid] is defined %}
+                {% include 'components/product-card.twig' with { 'product': products[pid], 'compact': true } %}
+            {%- endif -%}
+        {%- endfor %}
+    </section>
+    {%- endif %}
+{% endblock %}

@@ -33,6 +33,7 @@ routes:
   reviews: avis
   compare: comparatif
   guides: guides
+  articles: articles
   rankings: ''
 organization:
   name: 'AI Girlfriend Ranking France'
@@ -45,6 +46,7 @@ ui:
     reviews: Avis
     compare: Comparatifs
     guides: Guides
+    articles: 'Articles'
     about: 'À propos'
     disclosure: 'Divulgation d’affiliation'
     privacy: Confidentialité
@@ -52,7 +54,14 @@ ui:
     reviews: Avis
     compare: Comparatifs
     guides: Guides
+    articles: 'Articles'
     rankings: Classements
+  article_categories:
+    basics: 'Comment ça marche'
+    choosing: 'Bien choisir'
+    privacy: 'Confidentialité et sécurité'
+    pricing: 'Prix et abonnements'
+    wellbeing: 'Relations et bien-être'
   labels:
     home: Accueil
     not_found_text: "Cette page n'existe plus, ou l'adresse a été mal saisie."

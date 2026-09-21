@@ -163,7 +163,13 @@ routes:
   reviews: reviews
   compare: compare
   guides: guides
+  articles: articles
   rankings: '' # ranking pages live at the root: /best-ai-girlfriend/
+
+# Article categories. The key is stored in the page and never translated; the
+# label shown on the hub comes from each GEO's ui.article_categories, so a
+# category can be renamed in one country without touching the content.
+article_categories: [basics, choosing, privacy, pricing, wellbeing]
 
 # Navigation structure (labels are localized in config/geos/<geo>.yml -> ui.nav).
 # Items reference Cecil page IDs, which are stable across GEOs because the content
@@ -182,6 +188,9 @@ navigation:
     - id: guides
       label: guides
       weight: 40
+    - id: articles
+      label: articles
+      weight: 50
   footer:
     - id: about
       label: about

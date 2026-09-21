@@ -1,0 +1,63 @@
+{#
+  The article hub: every published article on this site, grouped by category.
+
+  Category order comes from site.ui.article_categories, so a GEO decides both
+  the wording and the order of its own hub. A category with nothing published
+  in it is not rendered — an empty heading is worse than no heading.
+
+  Anything with a category the GEO does not define still appears, under the
+  section name, so a piece can never become invisible by holding a stale key.
+#}
+{% extends '_default/base.html.twig' %}
+
+{% block main %}
+<div class="container container--narrow">
+    <header class="article__header">
+        <h1 class="article__title">{{ page.title }}</h1>
+        {%- if page.intro|default(null) %}
+        <div class="article__intro">{{ page.intro|markdown_to_html|raw }}</div>
+        {%- endif %}
+    </header>
+
+    {%- if page.content|default('')|striptags|trim is not empty %}
+    <div class="prose">{{ page.content|raw }}</div>
+    {%- endif %}
+
+    {%- set cats = site.ui.article_categories|default({}) -%}
+    {%- set items = page.pages|filter(p => p.published)|sort_by_date -%}
+    {%- set grouped = [] -%}
+
+    {%- for key, label in cats -%}
+        {%- set group = items|filter(p => p.category|default('') == key) -%}
+        {%- if group|length %}
+        <section class="article-group">
+            <h2 class="article-group__title" id="{{ key }}">{{ label }}</h2>
+            <ul class="link-list link-list--cards">
+                {%- for item in group %}
+                <li>
+                    <a href="{{ url(item, {canonical: false}) }}">{{ item.title }}</a>
+                    {%- if item.seo.description is defined %}<span class="link-list__excerpt">{{ item.seo.description }}</span>{% endif %}
+                </li>
+                {%- endfor %}
+            </ul>
+        </section>
+        {%- endif %}
+        {%- set grouped = grouped|merge(group|map(p => p.id)) -%}
+    {%- endfor -%}
+
+    {%- set orphans = items|filter(p => p.id not in grouped) -%}
+    {%- if orphans|length %}
+    <section class="article-group">
+        <h2 class="article-group__title">{{ site.ui.sections.articles|default(page.title) }}</h2>
+        <ul class="link-list link-list--cards">
+            {%- for item in orphans %}
+            <li>
+                <a href="{{ url(item, {canonical: false}) }}">{{ item.title }}</a>
+                {%- if item.seo.description is defined %}<span class="link-list__excerpt">{{ item.seo.description }}</span>{% endif %}
+            </li>
+            {%- endfor %}
+        </ul>
+    </section>
+    {%- endif %}
+</div>
+{% endblock %}
