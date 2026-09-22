@@ -44,7 +44,7 @@ faq:
       If you want the full kit in one plan, Candy AI. If you care about memory
       more than pictures, Nomi. If you want to test the category without paying,
       Sweetdream.
-image: /images/content/ai-generated-influencers2-1.jpg
+image: /images/content/ai-generated-influencers2-2.jpg
 ---
 If you only read one page, make it the [ranking](/best-ai-girlfriend-apps/). That is the short list: seven apps, what each is actually good at, and what it costs after the intro discount dies.
 
