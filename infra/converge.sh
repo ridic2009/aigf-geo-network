@@ -54,6 +54,22 @@ if [ "$TMP_MODE" != '1777' ] || [ "$TMP_OWNER" != 'root' ]; then
     fi
 fi
 
+# --- 1b. notification state --------------------------------------------------
+# notify.sh keeps the last state per check in var/state. On a fresh server this
+# script is the first to call it, as root, so the directory came out root-owned
+# and the health check (run as the deploy user) failed on every run.
+STATE_DIR="$REPO_DIR/var/state"
+STATE_OWNER=$(stat -c '%U' "$STATE_DIR" 2>/dev/null || echo '')
+if [ "$STATE_OWNER" != "$DEPLOY_USER" ]; then
+    if [ "$CHECK_ONLY" -eq 1 ]; then
+        problem "$STATE_DIR is owned by '${STATE_OWNER:-nobody}', expected $DEPLOY_USER"
+    else
+        install -d -o "$DEPLOY_USER" -g "$DEPLOY_USER" -m 755 "$STATE_DIR" \
+            && chown -R "$DEPLOY_USER:$DEPLOY_USER" "$STATE_DIR" \
+            && changed "$STATE_DIR -> $DEPLOY_USER (was ${STATE_OWNER:-missing})"
+    fi
+fi
+
 # --- 2. the redirect helper --------------------------------------------------
 HELPER_SRC="$REPO_DIR/infra/apply-redirects.py"
 HELPER_DST=/usr/local/sbin/minicms-redirects
