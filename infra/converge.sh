@@ -170,15 +170,22 @@ fi
 # --- 6. what a release writes to --------------------------------------------
 # One manual deploy as root leaves releases.log owned by root, and every later
 # release fails at the last step — after the symlink has already moved.
+# The site directories belong to whoever publishes: the deploy user, or the
+# ConvertStudio service once /etc/aigf.env says PUBLISHER=convertstudio. A
+# domain that is a link to a ConvertStudio site directory is left alone.
+PUBLISHER=$(sed -n 's/^PUBLISHER=//p' /etc/aigf.env 2>/dev/null | tail -1 | tr -d "\"' ")
+PUBLISH_USER=$DEPLOY_USER
+[ "$PUBLISHER" = convertstudio ] && PUBLISH_USER=convertstudio
 for dir in "$WEB_ROOT"/*/; do
     [ -d "$dir" ] || continue
+    [ -L "${dir%/}" ] && continue
     for path in "$dir" "$dir/releases.log"; do
         [ -e "$path" ] || continue
-        [ "$(stat -c '%U' "$path")" = "$DEPLOY_USER" ] && continue
+        [ "$(stat -c '%U' "$path")" = "$PUBLISH_USER" ] && continue
         if [ "$CHECK_ONLY" -eq 1 ]; then
-            problem "$path is owned by $(stat -c '%U' "$path"), not $DEPLOY_USER"
+            problem "$path is owned by $(stat -c '%U' "$path"), not $PUBLISH_USER"
         else
-            chown "$DEPLOY_USER:$DEPLOY_USER" "$path" && changed "$path -> $DEPLOY_USER"
+            chown "$PUBLISH_USER:$PUBLISH_USER" "$path" && changed "$path -> $PUBLISH_USER"
         fi
     done
 done

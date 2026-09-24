@@ -48,10 +48,12 @@ cd "$REPO_DIR"
 
 # Once the sites are published by ConvertStudio, this repository is the old
 # content and must not be released over them: two publishers would take turns
-# overwriting each other. The switch lives in /etc/aigf.env (PUBLISHER=convertstudio);
-# convergence and the health check keep running.
+# overwriting each other. The switch lives in /etc/aigf.env (PUBLISHER=convertstudio).
+# The checkout still follows main, because convergence installs the server
+# configuration from it; the health check keeps running too.
 [ -r /etc/aigf.env ] && . /etc/aigf.env
-if [ "${PUBLISHER:-network}" = "convertstudio" ] && [ "$FORCE" -eq 0 ]; then
+if [ "${PUBLISHER:-network}" = "convertstudio" ]; then
+    git fetch --quiet origin "$BRANCH" && git reset --hard --quiet "origin/$BRANCH"
     exit 0
 fi
 
