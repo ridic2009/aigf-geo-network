@@ -181,6 +181,18 @@ $common = <<<CONF
     charset utf-8;
 
     include /etc/nginx/snippets/aigf-security-headers.conf;
+    # ConvertStudio serves the pictures of this site under /images/{$code}/. An
+    # address from before (image search, other sites) that has no file any more
+    # moves there for good; while the network publishes, the file is still there.
+    # Before the cache snippet: the first regular expression that matches wins.
+    location ~ "^/images/(?!{$code}/)" {
+        include /etc/nginx/snippets/aigf-security-headers.conf;
+        add_header Cache-Control "public, max-age=2592000" always;
+        try_files \$uri @moved-image;
+    }
+    location @moved-image {
+        rewrite ^/images/(.*)\$ /images/{$code}/\$1 permanent;
+    }
     include /etc/nginx/snippets/aigf-static-cache.conf;
     # Only root-owned, validated directives are included (never release-writable code).
     include /etc/nginx/aigf-redirects/{$domain}/*.conf;
