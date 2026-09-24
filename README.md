@@ -1,5 +1,13 @@
 # AIGF GEO Network
 
+> **Since 24.09.2026 the four sites are published by ConvertStudio**
+> (console: https://cms.45.140.14.6.sslip.io). Edit there. A commit to this
+> repository, from Pages CMS, the MCP server or a shell, no longer reaches the live
+> sites: the server has `PUBLISHER=convertstudio` in `/etc/aigf.env`. This repository
+> still holds the server configuration (`infra/`, applied by `converge.sh`) and the
+> content as it was at the switch. How the switch was made and how to roll it back:
+> `docs/CUTOVER.md` in the ConvertStudio repository.
+
 A static, multi-country network of SEO/affiliate review sites built from **one
 engine, one deployment pipeline and N GEO configurations**, edited through
 **[Pages CMS](https://pagescms.org)** in the browser.
