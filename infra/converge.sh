@@ -81,6 +81,18 @@ if [ -f "$HELPER_SRC" ] && ! cmp -s "$HELPER_SRC" "$HELPER_DST"; then
     fi
 fi
 
+# --- 2b. certificate renewal -------------------------------------------------
+# Webroot renewals do not reload nginx; this hook does, for every certificate here.
+HOOK_SRC="$REPO_DIR/infra/certbot-reload-nginx.sh"
+HOOK_DST=/etc/letsencrypt/renewal-hooks/deploy/aigf-reload-nginx
+if [ -f "$HOOK_SRC" ] && [ -d "$(dirname "$HOOK_DST")" ] && ! cmp -s "$HOOK_SRC" "$HOOK_DST"; then
+    if [ "$CHECK_ONLY" -eq 1 ]; then
+        problem "$HOOK_DST is missing or out of date: renewed certificates would not be served"
+    else
+        install -o root -g root -m 755 "$HOOK_SRC" "$HOOK_DST" && changed "$HOOK_DST installed"
+    fi
+fi
+
 # --- 3. sudoers --------------------------------------------------------------
 # The deploy user may reload nginx and regenerate the redirect map, nothing else.
 SUDOERS=/etc/sudoers.d/aigf-deploy
