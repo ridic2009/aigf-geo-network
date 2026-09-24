@@ -42,21 +42,25 @@ Every page has a **Status**:
 | Status | What it means |
 | ------ | ------------- |
 | **Draft** | Work in progress. Not on the live site. |
-| **Review** | Finished by the rewriter, waiting for SEO approval. Not on the live site. |
 | **Published** | Live. |
 
-Rewriter moves a page Draft → Review. SEO moves it Review → Published.
-Pages that are not Published are invisible to visitors and to Google: they are
-not built, not in the sitemap, not linked from anywhere.
+Nobody approves anybody: whoever writes a page publishes it, and the rewriter
+and the SEO have the same rights. A draft is invisible to visitors and to
+Google — not built, not in the sitemap, not linked from anywhere.
 
-Publishing is two steps. Setting the status to Published means "approved"; the
-page reaches the live site when someone publishes from Studio, normally the same
-day. Saving in the CMS never deploys by itself — see
+What replaces the approval step is a release that has to earn its way out:
+required SEO fields, slugs, internal links, image alt texts and FAQ structure
+are all checked, and a failed build never touches the live site. Every save is a
+commit with your name on it, so a bad page is one `git revert` away.
+
+Published means live: a timer on the server notices the commit, validates it,
+rebuilds and switches the release, normally within a few minutes. Nobody has to
+press anything else — see
 [pages-cms-setup.md](pages-cms-setup.md#branch-and-deployment-behaviour).
 
 ## Adding a review
 
-**Sites → Deutschland → Reviews → Add an entry.**
+**Sites → France → Review → Add an entry.**
 
 | Field | What to put in it |
 | ----- | ----------------- |
@@ -76,7 +80,7 @@ day. Saving in the CMS never deploys by itself — see
 | **SEO** | Title, meta description, primary keyword. Optional social title/description/image. |
 | **Search engine indexing** | Leave both switches on. |
 
-Press **Save**. Set Status to Published when it is approved.
+Press **Save**. Set Status to Published when the text is ready — that is your call, not somebody else's.
 
 Everything else — the URL of the page, the canonical, the breadcrumbs, the
 hreflang links to the other countries, the schema.org markup, the sitemap entry —

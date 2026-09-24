@@ -11,9 +11,11 @@ use Cecil\Generator\GeneratorInterface;
 /**
  * Editorial workflow: maps the CMS `status` field to Cecil's `published` flag.
  *
- *   status: draft      -> never rendered
- *   status: review     -> never rendered (visible with `--drafts` only)
+ *   status: draft      -> never rendered (visible with `--drafts` only)
  *   status: published  -> rendered
+ *
+ * Two states, because nobody approves anybody: a page is either being written
+ * or it is on the site.
  *
  * Runs at priority 15, i.e. after front matter has been parsed and before
  * Cecil's Section/Homepage generators, so unpublished pages are also absent
@@ -21,7 +23,7 @@ use Cecil\Generator\GeneratorInterface;
  */
 final class EditorialStatus extends AbstractGenerator implements GeneratorInterface
 {
-    public const STATUSES = ['draft', 'review', 'published'];
+    public const STATUSES = ['draft', 'published'];
     private const PUBLISHABLE = ['published'];
 
     public function generate(): void

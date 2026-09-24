@@ -128,7 +128,7 @@ production, ready to take over by changing DNS.
 
 ```
                       ┌─ 203.0.113.10  (primary)
-Studio worker ───rsync┤
+VPS publisher ──rsync─┤
                       └─ 198.51.100.7  (backup, identical)
                              ▲
                    Cloudflare points at one of them
@@ -214,20 +214,38 @@ rollback is appended to `/srv/www/<domain>/releases.log`:
 
 ## Who publishes
 
-The Studio worker, and nothing else. It runs on the editorial host from
-`infra/studio-worker.timer`, picks one approved revision at a time and does the
-whole pipeline: validation, Cecil build per GEO, output verification, upload,
-atomic release switch, smoke test, and only then adopts the new sources into the
-workspace and records them in the version history.
+A timer on the VPS, and nothing else. `infra/auto-deploy.sh` runs every two
+minutes, and when `main` has moved it does the whole pipeline: validation, Cecil
+build per GEO, output verification, atomic release switch, smoke test, rollback
+if the smoke test fails. Nothing else may publish at the same time — two
+publishers would take turns overwriting each other.
 
 ```sh
-php scripts/studio.php worker --deploy    # one job, by hand
-journalctl -u studio-worker.service       # what it did
+sudo -u deploy /srv/aigf-network/infra/auto-deploy.sh           # run it now
+sudo -u deploy /srv/aigf-network/infra/auto-deploy.sh --force   # rebuild anyway
+journalctl -u aigf-deploy.service                               # what it did
+tail -f /srv/aigf-network/var/auto-deploy.log
 ```
 
-The worker needs `DEPLOY_HOSTS`, `DEPLOY_USER`, `DEPLOY_PORT`, `DEPLOY_ROOT` in
-its environment file and an SSH key with `known_hosts` for its account. See
-`infra/studio.env.example`.
+Install it with `infra/install-auto-deploy.sh`, which also creates the clone,
+the PHP toolchain and the timer. The deploy key it needs is a read-only GitHub
+deploy key at `/home/deploy/.ssh/repo_key`.
+
+Building on the same host it serves from is the simple case: the release scripts
+are pointed at `localhost`. Deploying to *other* servers needs `DEPLOY_HOSTS`,
+`DEPLOY_USER`, `DEPLOY_PORT` and `DEPLOY_ROOT` in the environment file, plus an
+SSH key with `known_hosts` for that account.
+
+### GitHub Actions
+
+`.github/workflows/deploy.yml` can do the same job, and validates and builds
+every push in any case. Its deploy step is opt-in: set the repository variable
+`PUBLISHER=actions` **and** stop the VPS timer, or the two will fight.
+
+> As of 2026-09-17 every Actions run on this repository ends in
+> `startup_failure` at zero seconds — an account-level problem, most likely the
+> spending limit on a private repository. Until that is resolved the VPS timer
+> is the only publisher, which is why it does not depend on Actions.
 
 ### Publishing from a workstation
 
@@ -238,10 +256,8 @@ Always available, nothing extra on the server:
 ./scripts/deploy-all
 ```
 
-Use this to seed a new server, to recover, or when the editorial host is down.
-It bypasses the editorial workflow, so it is an administrator's tool: the
-approval state in Studio is not consulted and the publication is not recorded in
-the job log.
+Use this to seed a new server, to recover, or when the VPS timer is stopped. It
+publishes whatever is in your working copy, not what is on `main`.
 ## Post-deploy smoke test
 
 Every release switch is followed by a check of the server that just switched,
@@ -345,8 +361,8 @@ production keeps serving the previous release.
 | -------- | ------------- |
 | What was published, when, from which commit? | `/srv/www/<domain>/releases.log` |
 | Which release is live? | `readlink /srv/www/<domain>/current` |
-| Did the build or the validation fail, and why? | Публикации → Журнал, or `.studio/jobs/<id>/worker.log` |
-| Which GEOs were in the last deploy? | Job summary of the deploy workflow |
+| Did the build or the validation fail, and why? | `var/auto-deploy.log`, or `journalctl -u aigf-deploy.service` |
+| Which commit is published? | `var/last-successful-commit` |
 | Traffic and errors | Nginx `access.log` / `error.log` per domain; Cloudflare analytics |
 
 ## Secrets

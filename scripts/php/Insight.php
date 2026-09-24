@@ -15,23 +15,22 @@ namespace AiGf\Tools;
  * Findings are advisory. Nothing here blocks a publication — an orphan page or
  * a short one can be perfectly deliberate.
  */
-final class StudioInsight
+final class Insight
 {
     /** Languages written without spaces, where a word count means nothing. */
     private const DENSE_LANGUAGES = ['ja', 'zh', 'ko', 'th'];
 
     /**
-     * Every page of every site the user may see, with the derived facts the
-     * other two methods need.
+     * Every page of every site, with the derived facts the other two methods
+     * need.
      *
      * @return array{sites:list<array<string,mixed>>,pages:list<array<string,mixed>>}
      */
-    public static function index(array $user): array
+    public static function index(): array
     {
         $sites = [];
         $pages = [];
         foreach (Network::codes(false) as $id) {
-            try { StudioAuth::requireSite($user, $id); } catch (\Throwable) { continue; }
             $config = Network::geo($id);
             $identity = $config['site_identity'];
             $language = strtolower(substr((string) ($identity['language'] ?? 'en'), 0, 2));
@@ -59,9 +58,9 @@ final class StudioInsight
      * Which pages exist in which market, grouped the way hreflang groups them:
      * by translation_group, then by translation_key.
      */
-    public static function hreflang(array $user): array
+    public static function hreflang(): array
     {
-        ['sites' => $sites, 'pages' => $pages] = self::index($user);
+        ['sites' => $sites, 'pages' => $pages] = self::index();
         $byGroup = [];
         foreach ($sites as $site) { $byGroup[$site['group']]['sites'][$site['id']] = $site; }
 
@@ -106,9 +105,9 @@ final class StudioInsight
      *
      * @return array{findings:list<array<string,mixed>>,checked:int,sites:list<string>}
      */
-    public static function audit(array $user, ?string $only = null): array
+    public static function audit(?string $only = null): array
     {
-        ['sites' => $sites, 'pages' => $pages] = self::index($user);
+        ['sites' => $sites, 'pages' => $pages] = self::index();
         if ($only !== null && $only !== '') {
             $pages = array_values(array_filter($pages, static fn ($p) => $p['site'] === $only));
             $sites = array_values(array_filter($sites, static fn ($s) => $s['id'] === $only));

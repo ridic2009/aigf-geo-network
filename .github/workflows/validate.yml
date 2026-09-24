@@ -45,7 +45,7 @@ jobs:
       - name: Build every GEO
         run: php scripts/build-all.php --optimize
 
-      - name: Studio workflow and recovery integration tests
+      - name: Content, configuration and recovery integration tests
         run: php tests/run.php
 
       - name: Redirect helper tests

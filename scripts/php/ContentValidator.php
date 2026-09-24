@@ -13,7 +13,7 @@ namespace AiGf\Tools;
  */
 final class ContentValidator
 {
-    public const STATUSES = ['draft', 'review', 'published'];
+    public const STATUSES = ['draft', 'published'];
 
     private array $errors = [];
     private array $warnings = [];

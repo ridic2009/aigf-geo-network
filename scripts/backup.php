@@ -5,9 +5,9 @@ declare(strict_types=1);
 /**
  * scripts/backup create|verify|extract|push|key [options]
  *
- *   create                 encrypted archive of sources, history and Studio state
+ *   create                 encrypted archive of the sources and images
  *   verify  <file>         decrypt and check every checksum, change nothing
- *   extract <file>         same, then unpack into .studio/recovery/<id>/
+ *   extract <file>         same, then unpack into .backups/recovery/<id>/
  *   push    --host=IP      create, copy to the backup host over ssh, rotate
  *   key                    show the key fingerprint and where the key lives
  *
@@ -20,7 +20,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use AiGf\Tools\Builder;
 use AiGf\Tools\Cli;
-use AiGf\Tools\StudioBackup;
+use AiGf\Tools\Backup;
 
 [$args, $options] = Cli::parse($argv);
 $command = $args[0] ?? '';
@@ -35,13 +35,13 @@ $size = static function (int $bytes): string {
 try {
     switch ($command) {
         case 'key':
-            Cli::ok('Отпечаток ключа: ' . StudioBackup::fingerprint());
-            Cli::info('Файл ключа: ' . StudioBackup::keyFile());
+            Cli::ok('Отпечаток ключа: ' . Backup::fingerprint());
+            Cli::info('Файл ключа: ' . Backup::keyFile());
             Cli::info('Скопируйте его в отдельное место. Без ключа архивы не восстановить.');
             break;
 
         case 'create':
-            $result = StudioBackup::create($options['out'] ?? null);
+            $result = Backup::create($options['out'] ?? null);
             Cli::ok(sprintf('%s — %d файлов, %s', basename($result['file']), $result['files'], $size($result['bytes'])));
             Cli::info('Путь: ' . $result['file']);
             Cli::info('SHA-256: ' . $result['sha256']);
@@ -51,7 +51,7 @@ try {
         case 'verify':
         case 'extract':
             if (empty($args[1])) { throw new RuntimeException('Укажите файл архива.'); }
-            $result = StudioBackup::restore($args[1], $command === 'extract');
+            $result = Backup::restore($args[1], $command === 'extract');
             Cli::ok($result['files'] . ' файлов проверено, все контрольные суммы совпали.');
             Cli::info('Создан: ' . ($result['manifest']['created_at'] ?? '?') . ' на ' . ($result['manifest']['host'] ?? '?'));
             Cli::info('Сайты: ' . implode(', ', $result['manifest']['sites'] ?? []));
@@ -68,7 +68,7 @@ try {
             if (!preg_match('/^\d+$/D', $port) || $keep < 2) { throw new RuntimeException('Проверьте --port и --keep (минимум 2).'); }
             if (!preg_match('~^/[\w./-]+$~D', $remote)) { throw new RuntimeException('Некорректный --path.'); }
 
-            $result = StudioBackup::create();
+            $result = Backup::create();
             Cli::ok(sprintf('Архив готов: %s (%s)', basename($result['file']), $size($result['bytes'])));
 
             // argv arrays, never a shell string: every value below is already

@@ -149,33 +149,31 @@ be re-invited if you migrate to another Pages CMS instance.
 ## Branch and deployment behaviour
 
 Pages CMS commits straight to the default branch (`main`). That is intentional
-here: the editorial gate is the `status` field, not a Git branch — non-technical
-editors should never see branches or pull requests.
+here: the gate is the `status` field and the validation a release must pass, not
+a Git branch — non-technical editors should never see branches or pull requests.
 
-`Draft` and `Review` pages are committed like anything else but are never
-rendered into production output, so saving a draft is always safe.
+Drafts are committed like anything else but are never rendered into production
+output, so saving unfinished work is always safe.
 
-**A commit does not reach production on its own.** The repository variable
-`PUBLISHER` is set to `studio`, so `.github/workflows/deploy.yml` validates and
-builds but stops before deploying — see the table in the README. Work saved in
-Pages CMS goes live when someone pulls `main` into the Studio workspace and
-publishes from there:
+**A commit is what publishes.** A timer on the VPS (`infra/auto-deploy.sh`)
+checks `main` every two minutes, validates, builds and switches the release. A
+copywriter who sets a page to Published and presses *Save* has it live within a
+few minutes, without anyone else pressing anything.
 
-```sh
-git pull                                  # bring the editors' commits in
-php scripts/studio.php worker --deploy    # or press Publish in Studio
-```
+A release that fails validation or the smoke test leaves the previous one
+serving, and the reason is in `var/auto-deploy.log` on the server. Nothing in
+Pages CMS shows that, which is the one thing an editor cannot see for
+themselves: if a page does not appear, the administrator looks at the log.
 
-This is the price of having two editors and one publisher. If you would rather
-have Pages CMS deploy by itself, delete the `PUBLISHER` variable — but then stop
-publishing from Studio, or the two will overwrite each other.
-
-> **Known issue.** Every Actions run on this repository has ended in
-> `startup_failure` since 2026-09-15, before this pipeline was restored. The
-> workflow files parse and both workflows are registered, so the cause is at
-> account level — most likely the Actions spending limit on a private
-> repository. Until that is resolved there is no pre-publication validation in
-> CI; run `./scripts/validate` locally before publishing.
+> **Known issue.** Every Actions run on this repository ends in
+> `startup_failure` at zero seconds, and has since 2026-09-15. The workflow
+> files parse and both workflows are registered, so the cause is at account
+> level — most likely the Actions spending limit on a private repository.
+>
+> This costs the *pre-publication* check on a push: the VPS timer still
+> validates before it builds, so a broken page cannot reach the sites, but an
+> editor learns about it from the log rather than from a red tick on GitHub.
+> The publisher deliberately does not depend on Actions for this reason.
 
 ## Media
 

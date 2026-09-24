@@ -32,7 +32,7 @@ final class ReleaseArchive
             }
             $directory = null;
             if ($extract) {
-                $directory = StudioStore::dir() . '/recovery/' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(5));
+                $directory = Backup::dir() . '/recovery/' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(5));
                 if (!mkdir($directory, 0700, true)) { throw new \RuntimeException('Не удалось создать каталог восстановления.'); }
                 foreach ($files as $name => $hash) {
                     $target = $directory . '/' . $name;

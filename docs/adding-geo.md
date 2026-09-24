@@ -68,7 +68,7 @@ validator reports missing navigation labels as errors.
 
 ## 5. Translate the content
 
-Work in Studio (Сайты → España) or directly in `content/es/`. Keep the **file
+Work in Pages CMS (Сайты → España) or directly in `content/es/`. Keep the **file
 names identical** to the other GEOs — that is what links translations together
 for hreflang. Only `slug` and the text change.
 

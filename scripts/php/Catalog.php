@@ -17,7 +17,7 @@ use Symfony\Component\Yaml\Yaml;
  * The catalogue is shared by every site in the network, so writing to it is
  * admin-only: a price typo here is a price typo on all 25 domains.
  */
-final class StudioCatalog
+final class Catalog
 {
     private const PERIODS = ['month', 'year', 'week', 'once'];
     private const AVAILABILITY = ['available', 'limited', 'unavailable'];
@@ -38,11 +38,11 @@ final class StudioCatalog
         return $markets;
     }
 
-    public static function list(array $user): array
+    public static function list(): array
     {
         $products = Network::products();
         $affiliates = Network::affiliates();
-        $usage = self::usage($user);
+        $usage = self::usage();
         $rows = [];
         foreach ($products as $id => $product) {
             $links = 0;
@@ -62,7 +62,7 @@ final class StudioCatalog
         return $rows;
     }
 
-    public static function get(array $user, string $id): array
+    public static function get(string $id): array
     {
         Network::assertId($id);
         $products = Network::products();
@@ -71,7 +71,7 @@ final class StudioCatalog
             'id' => $id,
             'product' => $products[$id],
             'affiliate' => Network::affiliates()[$id] ?? ['default' => '', 'geo' => []],
-            'used_by' => self::usage($user)[$id] ?? [],
+            'used_by' => self::usage()[$id] ?? [],
         ];
     }
 
@@ -81,14 +81,11 @@ final class StudioCatalog
      *
      * @return array<string, list<array{site:string,page:string,title:string}>>
      */
-    public static function usage(?array $user = null): array
+    public static function usage(): array
     {
         $ids = array_keys(Network::products());
         $found = array_fill_keys($ids, []);
         foreach (Network::codes(false) as $site) {
-            if ($user !== null) {
-                try { StudioAuth::requireSite($user, $site); } catch (\Throwable) { continue; }
-            }
             foreach (ContentScanner::scan($site) as $page) {
                 $mentioned = [];
                 array_walk_recursive($page['front_matter'], static function ($value) use (&$mentioned, $ids) {
@@ -102,9 +99,13 @@ final class StudioCatalog
         return $found;
     }
 
-    public static function save(array $user, string $id, array $input, bool $create = false): array
+    /**
+     * Writes `data/products/<id>.yml` and its affiliate links, refusing
+     * anything the templates could not render. Both files are restored if the
+     * result does not load.
+     */
+    public static function save(string $id, array $input, bool $create = false): array
     {
-        StudioAuth::requireAdmin($user);
         Network::assertId($id);
         $productFile = Network::path('data', 'products', $id . '.yml');
         $affiliateFile = Network::path('data', 'affiliates', $id . '.yml');
@@ -115,7 +116,7 @@ final class StudioCatalog
         $product = self::product($id, $input, $markets);
         $affiliate = self::affiliate($id, (array) ($input['affiliate'] ?? []), $markets);
 
-        return StudioStore::transaction(function (&$state) use ($user, $id, $product, $affiliate, $productFile, $affiliateFile, $create) {
+        return (static function () use ($id, $product, $affiliate, $productFile, $affiliateFile) {
             $previousProduct = is_file($productFile) ? file_get_contents($productFile) : null;
             $previousAffiliate = is_file($affiliateFile) ? file_get_contents($affiliateFile) : null;
             foreach ([dirname($productFile), dirname($affiliateFile)] as $dir) {
@@ -139,16 +140,12 @@ final class StudioCatalog
                 Network::reset();
                 throw $e;
             }
-            StudioHistory::recordMany([$productFile, $affiliateFile], $user['login'],
-                $create ? 'product.created' : 'product.updated', 'Товар ' . $id);
-            StudioStore::audit($state, $user['login'], $create ? 'product.created' : 'product.updated', ['product' => $id]);
-            return self::get($user, $id);
-        });
+            return self::get($id);
+        })();
     }
 
-    public static function delete(array $user, string $id): void
+    public static function delete(string $id): void
     {
-        StudioAuth::requireAdmin($user);
         Network::assertId($id);
         $used = self::usage()[$id] ?? [];
         if ($used) {
@@ -158,15 +155,10 @@ final class StudioCatalog
                 implode(', ', array_map(static fn ($u) => $u['site'] . '/' . $u['page'], array_slice($used, 0, 3)))
             ), 409);
         }
-        StudioStore::transaction(function (&$state) use ($user, $id) {
-            foreach ([Network::path('data', 'products', $id . '.yml'), Network::path('data', 'affiliates', $id . '.yml')] as $file) {
-                if (is_file($file)) { unlink($file); }
-            }
-            Network::reset();
-            StudioHistory::recordMany([Network::path('data', 'products', $id . '.yml'), Network::path('data', 'affiliates', $id . '.yml')],
-                $user['login'], 'product.deleted', 'Товар ' . $id . ' удалён');
-            StudioStore::audit($state, $user['login'], 'product.deleted', ['product' => $id]);
-        });
+        foreach ([Network::path('data', 'products', $id . '.yml'), Network::path('data', 'affiliates', $id . '.yml')] as $file) {
+            if (is_file($file)) { unlink($file); }
+        }
+        Network::reset();
     }
 
     /** Builds the product record, rejecting anything the templates cannot render. */

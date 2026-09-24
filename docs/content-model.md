@@ -28,7 +28,7 @@ Only `slug` (the URL) and the text are localized.
 | `title` | yes | Rendered as the single `<h1>`. Never write `#` in the body. |
 | `slug` | yes (except the homepage) | Localized URL segment, `^[a-z0-9]+(-[a-z0-9]+)*$`. |
 | `type` | yes | `homepage`, `static`, `review`, `ranking`, `comparison`, `guide`. Must match the directory. |
-| `status` | yes | `draft` · `review` · `published`. Only `published` is rendered into production. |
+| `status` | yes | `draft` · `published`. Only `published` is rendered into production. |
 | `translation_key` | recommended | Groups the same logical page across GEOs for hreflang. Defaults to the page id. |
 | `date` | no | First publication. Defaults to the file date. |
 | `updated` | no | Shown on the page, used as the sitemap `lastmod`. |
@@ -161,14 +161,18 @@ role:
 ## Editorial workflow
 
 ```
-Rewriter:  Draft  → Review
-SEO:       Review → Published
+Draft → Published
 ```
 
-`draft` and `review` pages are converted but never rendered: they do not reach
-`dist/`, the sitemap, section listings or menus. `./scripts/dev <geo>` and
+Two states, and whoever writes a page publishes it: there is no approval step
+and the two working roles — rewriter and SEO — have identical rights. What
+guards the network is the strict validation a release must pass and the version
+history behind every write, not a person holding a gate.
+
+`draft` pages are converted but never rendered: they do not reach `dist/`, the
+sitemap, section listings or menus. `./scripts/dev <geo>` and
 `./scripts/build <geo> --drafts` render them for preview only — never use
 `--drafts` for a production build.
 
-RBAC is deliberately not modelled in v1: the status field plus the CI gate is
-enough. Studio accounts are created on the Команда screen by an administrator.
+Who may edit is a Pages CMS question: collaborators are invited by email and can
+change content and media, nothing else.

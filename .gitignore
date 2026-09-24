@@ -31,7 +31,11 @@ Thumbs.db
 /.secrets/
 
 # Studio accounts, unpublished revisions, jobs and local release archives
-/.studio/
+# Encrypted backups, restores and recovered trees
+/.backups/
+
+# Publisher logs, state and test fixtures
+/var/
 
 # Python helper/test bytecode
 __pycache__/

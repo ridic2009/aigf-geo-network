@@ -18,14 +18,14 @@ final class UrlMigration
             // A previously used address may be reused by this same page.
             $fm['aliases'] = array_values(array_filter($fm['aliases'], static fn ($alias) => $alias !== $to));
             $originals[realpath($new['file'])] ??= file_get_contents($new['file']);
-            file_put_contents($new['file'], StudioContent::markdown($fm, $new['body']));
+            file_put_contents($new['file'], Content::markdown($fm, $new['body']));
             $replacements[$from] = $to;
         }
         foreach (ContentScanner::scan($site) as $page) {
             $text = file_get_contents($page['file']);
             $fm = self::rewriteValues($page['front_matter'], $replacements);
             $body = self::rewrite($page['body'], $replacements);
-            $changed = $fm !== $page['front_matter'] || $body !== $page['body'] ? StudioContent::markdown($fm, $body) : $text;
+            $changed = $fm !== $page['front_matter'] || $body !== $page['body'] ? Content::markdown($fm, $body) : $text;
             if ($text !== $changed) { $originals[realpath($page['file'])] ??= $text; file_put_contents($page['file'], $changed); }
         }
         return $replacements;

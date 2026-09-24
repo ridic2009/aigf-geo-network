@@ -2,7 +2,7 @@
 
 A static, multi-country network of SEO/affiliate review sites built from **one
 engine, one deployment pipeline and N GEO configurations**, edited through
-**MiniCMS Studio** or **Pages CMS**.
+**[Pages CMS](https://pagescms.org)** in the browser.
 
 There is no per-country copy of the codebase. A GEO is a config file, a content
 directory and a domain. Changing a component changes every site on the next build.
@@ -13,33 +13,35 @@ one engine → many GEOs → static HTML
 
 | Layer | Technology |
 | ----- | ---------- |
-| Editorial application | MiniCMS Studio (PHP, no framework) |
-| Alternative editor | [Pages CMS](https://pagescms.org) on top of GitHub, schema in `.pages.yml` |
+| Editor | [Pages CMS](https://pagescms.org) on top of GitHub, schema in `.pages.yml` |
+| Agent interface | `scripts/mcp.php` — MCP server over the same files |
 | Static site generator | [Cecil](https://cecil.app) 9 (PHP) |
 | Templates | Twig |
 | Content | Markdown + YAML front matter |
-| Source of truth | the Studio workspace, versioned by Studio itself |
-| Publishing | Studio worker (build → verify → deploy → adopt sources) |
+| Source of truth | the git repository |
+| Publishing | `infra/auto-deploy.sh` on the VPS (pull → validate → build → release switch) |
 | Hosting | Ubuntu VPS + Nginx (static files only) |
 | CDN/DNS | Cloudflare |
 | Frontend | Vanilla JS + plain CSS |
 
-**Two editors, one publisher.** Pages CMS edits `content/`, `config/` and `data/`
-in the GitHub repository; Studio edits the same files in its own workspace. Only
-one of them may deploy, or the last one to run silently reverts the other. The
-repository variable `PUBLISHER` decides:
+**One write path.** Editors work in Pages CMS, agents work through the MCP
+server, and both do the same thing: commit Markdown and YAML to `main`. There is
+no second source of truth and no workspace to reconcile — git is the history and
+the queue.
 
-| `PUBLISHER` | Who deploys | What GitHub Actions does |
-| ----------- | ----------- | ------------------------ |
-| `studio` *(current)* | Studio worker | validates and builds only — never deploys |
-| unset / `git` | GitHub Actions | validates, builds and deploys on push to `main` |
-
-With `PUBLISHER=studio`, work done in Pages CMS reaches production only after it
-is pulled into the Studio workspace and published from there. Editing the same
-page in both at once is what the base-hash check at publication is there to catch.
+**One publisher.** A timer on the VPS checks `main` every two minutes and runs
+the pipeline: validation, Cecil build per GEO, output verification, atomic
+release switch, smoke test, rollback on failure. GitHub Actions validates and
+builds every push but does not deploy unless the repository variable
+`PUBLISHER=actions` says so — two publishers would take turns overwriting each
+other.
 
 Production sites are 100% static: no PHP, no Node, no database on the server.
-Studio runs on the editorial host only, never on a public site.
+
+> The editorial application that used to live here, **MiniCMS Studio**, was
+> moved to its own repository to be rewritten. It owned a second copy of the
+> content and a second way to publish, which is exactly what this setup no
+> longer has.
 
 ---
 
@@ -50,36 +52,31 @@ Requirements: **PHP 8.2+** with `mbstring`, `intl`, `gd`, `dom`, `simplexml`,
 
 ```sh
 composer install
-php scripts/studio.php serve
+./scripts/validate          # every pre-build check
+./scripts/dev fr            # local preview with live reload, drafts included
 ```
 
-Open **http://127.0.0.1:8787** and create the first administrator.
-Everything below is also available from a shell, but the day-to-day path is Studio.
-
-Full guide, in Russian: **[docs/studio.md](docs/studio.md)**.
+The day-to-day editing path is Pages CMS in the browser — the editors' manual is
+**[docs/copywriter-guide.md](docs/copywriter-guide.md)**, and it is also the
+first item in the CMS sidebar.
 
 ---
 
 ## How it fits together
 
 ```
-SEO specialist / copywriter
-          │  (browser only — no Git, no YAML, no SSH)
-          ▼
-    MiniCMS Studio ── roles, draft → review → approval
+SEO specialist / copywriter        AI agent (MCP)
+          │  (browser)                  │  scripts/mcp.php
+          ▼                             ▼
+      Pages CMS ─────────────────────► git: main
+          │  commits Markdown + YAML        content/ config/ data/ static/
           │
-          ├── version history      every write to content/config/data
-          ├── catalogue            products, prices, affiliate links
-          ├── SEO                  cross-site audit, hreflang matrix, redirects
-          └── publication queue
-                  │
-                  ▼
-           Studio worker
-                  ├── validation (data, content, SEO, links)
-                  ├── Cecil build, once per GEO
-                  ├── output verification
-                  ├── deploy + smoke test (rollback on failure)
-                  └── adopt sources into the workspace, versioned
+          ▼
+   VPS timer, every 2 minutes  (infra/auto-deploy.sh)
+          ├── validation (data, CMS schema, content, SEO, links)
+          ├── Cecil build, once per GEO
+          ├── output verification
+          └── atomic release switch + smoke test (rollback on failure)
                           │
                           ▼
                      Ubuntu VPS
@@ -88,7 +85,7 @@ SEO specialist / copywriter
                           │
                 ┌─────────┼─────────┐
                 ▼         ▼         ▼
-               US        DE        FR
+               FR        JP        NL
                           │
                           ▼
                  Cloudflare → visitors / Googlebot
@@ -100,34 +97,34 @@ Full diagrams and the source-of-truth table: [docs/architecture.md](docs/archite
 
 ## Where the data lives, and how it survives
 
-The workspace is the source of truth. Studio keeps its own history and its own
-off-site copy, so losing the editorial host is recoverable.
+The repository is the source of truth, and git is the history: every edit —
+from Pages CMS, from an agent, from a shell — is a commit on `main`, with an
+author, a message and the previous bytes one command away.
 
 | What | Where | Protected by |
 | ---- | ----- | ------------ |
-| Pages | `content/<geo>/*.md` | version history + backup |
-| Site settings | `config/geos/<geo>.yml` | version history + backup |
-| Products and affiliate links | `data/products/`, `data/affiliates/` | version history + backup |
-| Accounts, drafts, queue | `.studio/state.json` | backup |
-| Version history | `.studio/history/` | backup |
-| Images | `static/images/` | backup |
+| Pages | `content/<geo>/*.md` | git + backup |
+| Site settings | `config/geos/<geo>.yml` | git + backup |
+| Products and affiliate links | `data/products/`, `data/affiliates/` | git + backup |
+| Images | `static/images/` | git + backup |
 | Built sites | `dist/`, server releases | rebuildable |
 
-**Version history.** Every write Studio makes to `content/`, `config/` or `data/`
-is recorded: who, when, why, and the previous bytes. The History screen shows the
-log, a line diff of any version and a one-click restore. Objects are
-content-addressed, so re-recording an unchanged file costs nothing.
+```sh
+git log --oneline -- content/fr        # who changed what, and when
+git revert <commit>                    # undo a bad edit, keeping the trail
+```
 
-**Off-site backup.** One encrypted archive of the sources, the history and the
-Studio state, shipped to a second server and verified by SHA-256 before the
-remote rotation runs.
+**Off-site backup.** Git is a second copy of everything text, but not of a
+repository that becomes unreachable. One encrypted archive of `content/`,
+`config/`, `data/` and `static/`, shipped to a second server and verified by
+SHA-256 before the remote rotation runs.
 
 ```sh
 php scripts/backup.php key                    # show the key fingerprint
 php scripts/backup.php create                 # local archive
 php scripts/backup.php push --host=203.0.113.20
 php scripts/backup.php verify <file>          # decrypt and check every checksum
-php scripts/backup.php extract <file>         # unpack into .studio/recovery/<id>/
+php scripts/backup.php extract <file>         # unpack into .backups/recovery/<id>/
 ```
 
 The encryption key is generated on first use in `.secrets/backup.key` and is
@@ -135,7 +132,7 @@ never part of an archive. **Keep a copy of it somewhere other than these two
 servers.** Without it the backups are unreadable — which is the point, and the
 reason to restore-test on purpose at least once.
 
-Install `infra/studio-backup.service` and `infra/studio-backup.timer` for a
+Install `infra/minicms-backup.service` and `infra/minicms-backup.timer` for a
 nightly run.
 
 ---
@@ -150,12 +147,10 @@ engine/                     THE engine — shared by every GEO
     Generator/              Cecil generators: EditorialStatus, Router
     Routing/                RouteResolver — the single URL source of truth
 
-studio/public/              the editorial application (index.php, app.js, app.css)
-
 config/
   common.yml                engine config shared by all GEOs
   geos/<geo>.yml            GEO identity: domain, language, currency, routes, labels
-  models/<model>.yml        page types and their fields — drives Studio forms
+  models/<model>.yml        page types and their fields — drives the CMS schema
   themes/<theme>.yml        colours, widths, radii
   network.yml               presets used by scripts/new-geo
 
@@ -167,11 +162,11 @@ data/                       business data, shared by the whole network
   authors/<id>.yml          bylines
 
 static/images/              images copied as-is
-scripts/                    build, validate, deploy, rollback, backup, studio, cms-config…
+scripts/                    build, validate, deploy, rollback, backup, mcp, cms-config…
 infra/                      nginx vhosts, systemd units, server provisioning
 .pages.yml                  Pages CMS schema — GENERATED by ./scripts/cms-config
-.github/workflows/          validate.yml, deploy.yml (deploy gated by PUBLISHER)
-.studio/                    accounts, drafts, queue, history, backups (git-ignored)
+.github/workflows/          validate.yml, deploy.yml (deploy is opt-in, see PUBLISHER)
+var/                        publisher log and state on the VPS (git-ignored)
 .secrets/                   deploy and backup keys (git-ignored)
 dist/<domain>/              build output (git-ignored)
 ```
@@ -190,7 +185,7 @@ product attribute — `./scripts/new-geo` already does:
 
 ```sh
 ./scripts/build de                 # one GEO
-./scripts/build de --drafts        # include Draft/Review pages (never for production)
+./scripts/build de --drafts        # include drafts (never for production)
 ./scripts/build-all                # every enabled GEO
 ./scripts/build-all --optimize     # + HTML/CSS/JS/image minification
 ./scripts/dev de                   # local preview with live reload, drafts included
@@ -204,9 +199,21 @@ deployment never starts.
 
 ## Publishing
 
-The normal path is Studio: approve a revision, press Publish, and the worker does
-the rest. For the worker to deploy it needs SSH access and these variables
-(`infra/studio.env.example`):
+The normal path is a commit on `main`. A timer on the VPS notices it within two
+minutes and runs validation, the build, the release switch and a smoke test;
+nobody approves anybody, and a release that fails any step leaves the previous
+one serving.
+
+```sh
+sudo -u deploy /srv/aigf-network/infra/auto-deploy.sh           # run it now
+sudo -u deploy /srv/aigf-network/infra/auto-deploy.sh --force   # rebuild anyway
+journalctl -u aigf-deploy.service                               # what it did
+tail -f /srv/aigf-network/var/auto-deploy.log
+```
+
+Install it with `infra/install-auto-deploy.sh` — see
+[docs/deployment.md](docs/deployment.md). Deploying to a *separate* server
+instead of the build host needs SSH access and these variables:
 
 ```sh
 DEPLOY_HOSTS=203.0.113.10,198.51.100.7   # primary + backup
@@ -215,13 +222,6 @@ DEPLOY_PORT=22
 DEPLOY_ROOT=/srv/www
 KEEP_RELEASES=5
 ```
-
-```sh
-php scripts/studio.php worker --deploy    # process one job
-```
-
-Install `infra/studio-worker.service` and `infra/studio-worker.timer` for
-continuous operation.
 
 The same thing can be driven by hand:
 
@@ -264,8 +264,8 @@ No rebuild, no upload — the previous release is still on disk:
 ./scripts/rollback de 20260914-210100 # back to a specific release
 ```
 
-To roll back the *source* rather than the release, use the History screen in
-Studio and publish again.
+To roll back the *source* rather than the release, revert the commit: the timer
+publishes the result the same way it published the mistake.
 
 ---
 
@@ -290,7 +290,7 @@ without `--confirm`.
 
 ## Adding a GEO
 
-From Studio: **Новый сайт**. From a shell:
+From a shell:
 
 ```sh
 ./scripts/new-geo es --from=us        # config + content skeleton
@@ -300,7 +300,7 @@ Then:
 
 1. Add the domain to Cloudflare DNS (A record to the VPS, proxied).
 2. Translate `config/geos/es.yml` — `ui.*` labels and `routes.*` URL prefixes,
-   or do it on the Тексты and Адреса tabs in Studio.
+   or edit them in Pages CMS under Site settings.
 3. Fill the catalogue for the new market: prices and affiliate links are per
    market, and the Товары screen marks the gaps.
 4. Translate the content in `content/es/` and publish it.
@@ -313,14 +313,14 @@ Details: [docs/adding-geo.md](docs/adding-geo.md).
 
 ## Adding a page
 
-In Studio: **Материалы → Новый материал**. From a shell it is one Markdown file:
+In Pages CMS: pick the country, pick the page type, **Add an entry**. From a shell it is one Markdown file:
 
 ```yaml
 ---
 title: Kupid AI Erfahrungen 2026
 slug: kupid-ai-erfahrungen        # localized URL segment
 type: review
-status: draft                     # draft | review | published
+status: draft                     # draft | published
 translation_key: kupid            # same key in every country -> hreflang
 product: kupid                    # must exist in data/products/
 seo:
@@ -341,7 +341,7 @@ Front matter reference: [docs/content-model.md](docs/content-model.md).
 
 `./scripts/validate` runs everything that can be checked before a build; the
 build additionally verifies the generated HTML. Errors fail the build, warnings
-do not. Studio runs the same checks before a page can be submitted for review.
+do not. The MCP server runs the same checks before it writes a page.
 
 Checked, among others: required front matter, valid status and page type, slug
 format, duplicate routes, required SEO fields, product/author/affiliate
@@ -372,7 +372,7 @@ node tests/audit.cjs http://127.0.0.1:8788 <login> <password>   # design audit
 ## Diagnosing a failed publication
 
 1. **Read the first error.** Every message carries a location, either
-   `<geo>/<file>.md` or a path inside `dist/`. In Studio it links to the field.
+   `<geo>/<file>.md` or a path inside `dist/`.
 2. **Reproduce one GEO:** `./scripts/build de` is faster than the whole network.
 3. **Content errors** (`de/reviews/x.md: …`) are front matter problems — a missing
    `seo.description`, an unknown `product`, a broken internal link.
@@ -382,7 +382,7 @@ node tests/audit.cjs http://127.0.0.1:8788 <login> <password>   # design audit
    an optional front matter field must be read as `page.thing|default(null)`.
 6. **Nothing changed on production?** A failed job never switches `current`.
    The previous release is still being served.
-7. **Job log**: Публикации → Журнал, or `.studio/jobs/<id>/worker.log`.
+7. **Publisher log**: `var/auto-deploy.log` on the VPS.
 
 ---
 
@@ -390,7 +390,6 @@ node tests/audit.cjs http://127.0.0.1:8788 <login> <password>   # design audit
 
 | Document | Contents |
 | -------- | -------- |
-| [docs/studio.md](docs/studio.md) | The application: workflow, catalogue, history, server setup, recovery |
 | [docs/architecture.md](docs/architecture.md) | System diagram, source-of-truth table, design decisions |
 | [docs/content-model.md](docs/content-model.md) | Front matter reference for every page type |
 | [docs/local-development.md](docs/local-development.md) | Local setup, adding a page type, adding a component |
@@ -398,4 +397,5 @@ node tests/audit.cjs http://127.0.0.1:8788 <login> <password>   # design audit
 | [docs/adding-geo.md](docs/adding-geo.md) | Adding a country end to end |
 | [docs/validation.md](docs/validation.md) | Every check, and what to do when it fires |
 | [docs/copywriter-guide.md](docs/copywriter-guide.md) | The editors' manual, in Russian — also served read-only inside Pages CMS |
+| [docs/mcp.md](docs/mcp.md) | The MCP server: tools, the account writes belong to, the deploy switch |
 | [docs/pages-cms-setup.md](docs/pages-cms-setup.md) | Pages CMS schema, access, in-app guide |

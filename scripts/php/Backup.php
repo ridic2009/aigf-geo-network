@@ -3,11 +3,12 @@ declare(strict_types=1);
 namespace AiGf\Tools;
 
 /**
- * Off-site backup of everything Studio owns.
+ * Off-site backup of the editable sources.
  *
- * GitHub used to be the second copy. Without it the workspace is the only
- * copy, so this packs the editable sources, the version history and the Studio
- * state into one verifiable archive, encrypts it and ships it to another host.
+ * Git is the history and the second copy of everything text — but not of the
+ * images, and not of a repository that becomes unreachable. This packs
+ * `content/`, `config/`, `data/` and `static/` into one verifiable archive,
+ * encrypts it and ships it to another host.
  *
  * Archive layout, in order:
  *
@@ -25,11 +26,17 @@ namespace AiGf\Tools;
  * NOT in the archive. An archive without its key is unrecoverable — that is
  * the point, and it is why create() prints the fingerprint every time.
  */
-final class StudioBackup
+final class Backup
 {
     private const MAGIC = 'MCMSBK1';
     private const CHUNK = 1048576;
     private const SOURCES = ['content', 'config', 'data', 'static'];
+
+    /** Archives, restores and recovered trees; never part of a build. */
+    public static function dir(): string
+    {
+        return getenv('MINICMS_BACKUP_DIR') ?: Network::root() . '/.backups';
+    }
 
     public static function keyFile(): string { return Network::root() . '/.secrets/backup.key'; }
 
@@ -71,7 +78,7 @@ final class StudioBackup
     public static function create(?string $directory = null): array
     {
         if (!class_exists(\ZipArchive::class)) { throw new \RuntimeException('Нужно расширение PHP zip.'); }
-        $directory ??= StudioStore::dir() . '/backups';
+        $directory ??= self::dir();
         if (!is_dir($directory) && !mkdir($directory, 0700, true) && !is_dir($directory)) { throw new \RuntimeException('Не удалось создать каталог бэкапов.'); }
 
         $name = 'minicms-' . gmdate('Ymd-His') . '.mcbk';
@@ -112,7 +119,7 @@ final class StudioBackup
      */
     public static function restore(string $file, bool $extract = false): array
     {
-        $plain = StudioStore::dir() . '/.restore-' . bin2hex(random_bytes(6)) . '.zip';
+        $plain = self::dir() . '/.restore-' . bin2hex(random_bytes(6)) . '.zip';
         try {
             self::decrypt($file, $plain);
             $zip = new \ZipArchive();
@@ -126,7 +133,7 @@ final class StudioBackup
 
                 $directory = null;
                 if ($extract) {
-                    $directory = StudioStore::dir() . '/recovery/' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(5));
+                    $directory = self::dir() . '/recovery/' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(5));
                     if (!mkdir($directory, 0700, true)) { throw new \RuntimeException('Не удалось создать каталог восстановления.'); }
                 }
                 $total = 0;
@@ -156,7 +163,7 @@ final class StudioBackup
         } finally { @unlink($plain); }
     }
 
-    /** Everything worth keeping: sources, version history, Studio state. @return array<string,string> */
+    /** Everything git does not keep for you, and everything it does. @return array<string,string> */
     private static function payload(): array
     {
         $out = [];
@@ -170,17 +177,6 @@ final class StudioBackup
                 $out[$relative] = $file->getPathname();
             }
         }
-        // The Studio side: accounts, drafts, the queue, and the whole history
-        // store. Job workspaces and release ZIPs are rebuildable, so they stay out.
-        $data = StudioStore::dir();
-        if (is_file($data . '/state.json')) { $out['studio/state.json'] = $data . '/state.json'; }
-        if (is_dir($data . '/history')) {
-            foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($data . '/history', \FilesystemIterator::SKIP_DOTS)) as $file) {
-                if (!$file->isFile() || str_ends_with($file->getFilename(), '.tmp')) { continue; }
-                $relative = 'studio/history/' . ltrim(str_replace('\\', '/', substr(str_replace('\\', '/', $file->getPathname()), strlen(str_replace('\\', '/', $data . '/history')))), '/');
-                $out[$relative] = $file->getPathname();
-            }
-        }
         ksort($out);
         return $out;
     }
@@ -188,7 +184,7 @@ final class StudioBackup
     private static function assertMember(string $relative, mixed $hash): void
     {
         if (!is_string($hash) || !preg_match('/^[a-f0-9]{64}$/D', $hash)) { throw new \RuntimeException('Неверный хеш в манифесте.'); }
-        if (!preg_match('~^(?:content|config|data|static|studio)/[a-zA-Z0-9_./@-]+$~D', $relative)
+        if (!preg_match('~^(?:content|config|data|static)/[a-zA-Z0-9_./@-]+$~D', $relative)
             || preg_match('~(?:^|/)\.{1,2}(?:/|$)~', $relative) || str_contains($relative, '//')) {
             throw new \RuntimeException('Недопустимый путь в архиве: ' . $relative);
         }

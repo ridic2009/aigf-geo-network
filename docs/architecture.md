@@ -18,24 +18,26 @@ and the deployment pipeline are shared.
 ## End-to-end flow
 
 ```
-┌──────────────────────────┐
-│ SEO specialist / Rewriter│   browser only
-└─────────────┬────────────┘
-              │ structured fields
+┌──────────────────────────┐   ┌──────────────────────────┐
+│ SEO specialist / Rewriter│   │      AI agent (MCP)      │
+│        browser           │   │     scripts/mcp.php      │
+└─────────────┬────────────┘   └─────────────┬────────────┘
+              │ structured fields            │ same files, same checks
+              ▼                              ▼
+┌──────────────────────────────────────────────────────────┐
+│                       Pages CMS                          │
+│        .pages.yml, generated from config/models/*.yml     │
+└─────────────┬────────────────────────────────────────────┘
+              │ commit
               ▼
 ┌──────────────────────────┐
-│      MiniCMS Studio      │   config/models/*.yml describes the forms
+│      git: main           │   source of truth and history
+│   content/ config/ data/ │   + encrypted off-site backup
 └─────────────┬────────────┘
-              │ approve → publication queue
-              ▼
-┌──────────────────────────┐
-│   workspace + history    │   source of truth, versioned by Studio
-│   content/ config/ data/ │   .studio/history/ + encrypted backup
-└─────────────┬────────────┘
-              │ one approved revision at a time
+              │ VPS timer, every two minutes
               ▼
 ┌──────────────────────────────────────────────────────────┐
-│                     Studio worker                        │
+│                infra/auto-deploy.sh                      │
 │                                                          │
 │  scripts/validate   business data + content              │
 │  scripts/prepare    hreflang map + GEO registry          │
@@ -83,7 +85,7 @@ exactly once**. Everything else is derived at build time.
 | **Navigation structure** | `navigation:` in `config/common.yml` | header and footer menus in every GEO (labels from `ui.nav`) |
 | **Breadcrumb trail** | `crumbs` computed once in `_default/base.html.twig` | visual breadcrumbs *and* `BreadcrumbList` JSON-LD |
 | **FAQ** | `faq:` in front matter | visual accordion *and* `FAQPage` JSON-LD |
-| **Editor forms** | `config/models/*.yml` | rendered by Studio |
+| **Editor forms** | `config/models/*.yml` | compiled into `.pages.yml` |
 
 If you ever find yourself writing a URL, a domain or a price in a second place,
 that is the bug.
@@ -113,8 +115,9 @@ Consequences:
 
 ## Why a custom generator for editorial status
 
-Cecil understands `published: true/false` and `draft: true`, but the workflow
-needs three states (`draft` → `review` → `published`).
+Cecil understands `published: true/false` and `draft: true`, but an editor
+thinks in a `status:` field that the CMS shows as a named choice, and the same
+word has to mean the same thing to the validator and to the build.
 `engine/php/Generator/EditorialStatus.php` runs at priority 15 — after front
 matter is parsed, before Cecil builds sections and listings — and maps `status`
 onto `published`. Unpublished pages are therefore absent from the rendered

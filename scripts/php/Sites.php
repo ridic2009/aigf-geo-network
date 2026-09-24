@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace AiGf\Tools;
 use Symfony\Component\Yaml\Yaml;
 
-final class StudioSites
+final class Sites
 {
     /** Normalises a redirect path to the /leading/and/trailing/ form the server matches. */
     private static function path(string $value): string
@@ -13,12 +13,19 @@ final class StudioSites
         return '/' . trim($value, '/') . '/';
     }
 
-    public static function save(array $user, string $id, array $input, bool $create = false): array
+    /**
+     * Writes `config/sites/<id>.yml`, or creates a whole site from an existing
+     * one. Everything a domain change implies — hreflang uniqueness, redirects
+     * from the old host, a route prefix move that rewrites internal links —
+     * happens here, and the file is rolled back if any of it fails.
+     *
+     * Pages CMS edits the same file through a form for the labels and the menu;
+     * this path exists for the things a form cannot do safely.
+     */
+    public static function save(string $id, array $input, bool $create = false): array
     {
-        StudioAuth::requireAdmin($user);
         Network::assertId($id);
-        return StudioStore::transaction(function (&$state) use ($user, $id, $input, $create) {
-            foreach ($state['jobs'] as $job) { if ($job['state'] === 'publishing') { throw new \RuntimeException('Настройки можно менять после завершения текущей публикации.', 409); } }
+        return (static function () use ($id, $input, $create) {
             if ($create && Network::exists($id)) { throw new \RuntimeException('Такой ID сайта уже существует.', 409); }
             if (!$create && !Network::exists($id)) { throw new \InvalidArgumentException('Сайт не найден.'); }
             $source = (string) ($input['from'] ?? 'us');
@@ -62,7 +69,10 @@ final class StudioSites
                 ]);
             }
             $config['baseurl'] = $url;
-            foreach (['title', 'description'] as $key) { $config[$key] = trim((string) ($input[$key] ?? $config[$key] ?? '')); }
+            // The tagline belongs here with the other two: Pages CMS has always
+            // been able to set it, and a launch that translates everything but
+            // the header line is not a launch.
+            foreach (['title', 'baseline', 'description'] as $key) { $config[$key] = trim((string) ($input[$key] ?? $config[$key] ?? '')); }
             if ($config['title'] === '') { throw new \InvalidArgumentException('Введите название сайта.'); }
             $config['geo']['staging'] = (bool) ($input['staging'] ?? ($create ? true : $config['geo']['staging'] ?? false));
             $config['geo']['enabled'] = (bool) ($input['enabled'] ?? ($create ? false : $config['geo']['enabled'] ?? true));
@@ -136,6 +146,16 @@ final class StudioSites
                 $config['redirects'] = $map;
             }
             if ($previous !== null && parse_url($previous, PHP_URL_HOST) !== $parts['host']) {
+                // The contact address is printed in the footer and in the
+                // Organization schema. A GEO scaffolded on a rehearsal host
+                // carried editorial@<rehearsal-host> into production until
+                // somebody noticed it in the footer.
+                $previousHost = (string) parse_url($previous, PHP_URL_HOST);
+                $email = (string) ($config['organization']['email'] ?? '');
+                if ($email !== '' && str_ends_with($email, '@' . $previousHost)) {
+                    $config['organization']['email'] = substr($email, 0, -\strlen($previousHost)) . $parts['host'];
+                }
+
                 $config['previous_domains'] = array_values(array_unique(array_merge($config['previous_domains'] ?? [], [parse_url($previous, PHP_URL_HOST)])));
             }
             $config['previous_domains'] = array_values(array_filter($config['previous_domains'] ?? [], static fn ($host) => $host !== $parts['host']));
@@ -143,7 +163,7 @@ final class StudioSites
             $original = is_file($file) ? file_get_contents($file) : null;
             if (!is_dir(dirname($file))) { mkdir(dirname($file), 0755, true); }
             file_put_contents($file, Yaml::dump($config, 20, 2)); Network::reset();
-            $originals = []; $replacements = [];
+            $originals = [];
             try {
                 Model::types($id); Theme::css($id);
                 foreach ($oldPages as $page) {
@@ -166,7 +186,7 @@ final class StudioSites
                     $config['redirects'] = array_replace($config['redirects'] ?? [], $sectionMoves);
                     foreach ($newSections as $section) { unset($config['redirects']['/' . $section['path'] . '/']); }
                     file_put_contents($file, Yaml::dump($config, 20, 2)); Network::reset();
-                    $replacements = UrlMigration::routes($id, $oldPages, $originals, $sectionMoves);
+                    UrlMigration::routes($id, $oldPages, $originals, $sectionMoves);
                     $errors = (new ContentValidator())->validate($id)['errors'];
                     if ($errors) { throw new \RuntimeException($errors[0]['message']); }
                 }
@@ -174,20 +194,6 @@ final class StudioSites
                 foreach ($originals as $path => $body) { file_put_contents($path, $body); }
                 if ($original === null) { unlink($file); } else { file_put_contents($file, $original); }
                 Network::reset(); throw $e;
-            }
-            if ($replacements) {
-                foreach ($state['documents'] as &$doc) {
-                    if ($doc['site'] !== $id) { continue; }
-                    $doc['body'] = UrlMigration::rewrite($doc['body'], $replacements);
-                    $doc['front_matter'] = UrlMigration::rewriteValues($doc['front_matter'], $replacements);
-                    $path = realpath(StudioContent::path($id, $doc['page']));
-                    if (isset($originals[$path]) && $doc['base_hash'] === hash('sha256', $originals[$path])) {
-                        $doc['base_hash'] = hash_file('sha256', $path);
-                        [$fm] = ContentScanner::parse($path); $doc['front_matter']['aliases'] = $fm['aliases'] ?? [];
-                    }
-                    $doc['revision']++; $doc['state'] = 'draft'; unset($doc['approved_revision'], $doc['approved_by']);
-                    $doc['history'][] = ['at' => gmdate('c'), 'actor' => $user['login'], 'action' => 'routes_changed', 'revision' => $doc['revision']];
-                } unset($doc);
             }
             if ($create) {
                 mkdir($dir, 0755, true);
@@ -199,12 +205,10 @@ final class StudioSites
                     }
                 }
                 $fm = ['title' => $config['title'], 'type' => 'homepage', 'status' => 'draft', 'translation_key' => 'index', 'seo' => ['title' => $config['title'], 'description' => $config['description']], 'date' => gmdate('Y-m-d')];
-                file_put_contents($dir . '/index.md', StudioContent::markdown($fm, ''));
+                file_put_contents($dir . '/index.md', Content::markdown($fm, ''));
             }
-            StudioHistory::recordMany(array_merge([$file], array_keys($originals)), $user['login'],
-                $create ? 'site.created' : 'site.updated', 'Настройки сайта ' . $id);
-            StudioStore::audit($state, $user['login'], $create ? 'site.created' : 'site.updated', ['site' => $id]);
+
             return Network::geo($id);
-        });
+        })();
     }
 }

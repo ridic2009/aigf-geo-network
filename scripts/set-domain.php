@@ -68,7 +68,7 @@ $wasStaging = Network::isStaging($code);
 /* --------------------------------------------------------- rewrite the file */
 
 $nowStaging = $staging || (!$production && $wasStaging);
-\AiGf\Tools\StudioSites::save(['login' => 'cli', 'role' => 'admin', 'sites' => ['*']], $code, [
+\AiGf\Tools\Sites::save($code, [
     'baseurl' => $baseUrl,
     'staging' => $nowStaging,
     'enabled' => Network::isEnabled($code),

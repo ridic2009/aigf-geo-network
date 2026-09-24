@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "minicms": {
+      "command": "php",
+      "args": ["scripts/mcp.php"],
+      "env": {
+        "MCP_GIT_AUTHOR": "${MCP_GIT_AUTHOR:-}",
+        "MCP_GIT_PUSH": "${MCP_GIT_PUSH:-0}"
+      }
+    }
+  }
+}

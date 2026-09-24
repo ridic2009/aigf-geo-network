@@ -5,7 +5,7 @@ Description=Back up MiniCMS Studio to the second server
 OnCalendar=*-*-* 03:17:00
 RandomizedDelaySec=20m
 Persistent=true
-Unit=studio-backup.service
+Unit=minicms-backup.service
 
 [Install]
 WantedBy=timers.target

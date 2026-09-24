@@ -85,8 +85,10 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    # Studio is the sole publisher when this repository variable is set.
-    if: vars.PUBLISHER != 'studio'
+    # The VPS timer (infra/auto-deploy.sh) publishes by default, so this job is
+    # opt-in: two publishers would take turns overwriting each other. Set the
+    # repository variable PUBLISHER=actions — and stop the timer — to swap them.
+    if: vars.PUBLISHER == 'actions'
     name: Deploy to production
     runs-on: ${{ vars.RUNNER_LABEL || 'ubuntu-latest' }}
     needs: build
