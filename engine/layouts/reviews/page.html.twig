@@ -8,6 +8,9 @@
     {%- endif %}
 {% endblock %}
 
+{# The review hero discloses the relationship beside its first CTA. #}
+{% block disclosure %}{% endblock %}
+
 {% block lead %}
 
     {%- if page.verdict|default(null) %}
@@ -25,4 +28,26 @@
     {%- if product %}
         {% include 'components/cta.twig' with { 'product': product } %}
     {%- endif %}
+{% endblock %}
+
+{#- The end of a review sends the reader on: to the apps most like this one
+    (reviews the editor linked in `related:` count as picks), then to the
+    articles and comparisons that talk about this app. -#}
+{% block after_faq %}
+    {%- set product = page.product is defined ? products[page.product]|default(null) : null -%}
+    {%- if product %}
+        {%- set linked = [] -%}
+        {%- for id in page.related|default([]) -%}
+            {%- if site.pages.has(id) and site.pages.get(id).type|default('') == 'review' -%}
+                {%- set linked = linked|merge([site.pages.get(id).product]) -%}
+            {%- endif -%}
+        {%- endfor -%}
+        {% include 'components/similar-apps.twig' with { 'product': product, 'ids': page.similar|default(linked) } %}
+    {%- endif %}
+{% endblock %}
+
+{% block related %}
+    {%- set explicit = page.related|default([])|filter(id => site.pages.has(id) and site.pages.get(id).type|default('') != 'review') -%}
+    {%- set mentions = site.pages.showable|filter(p => p.type|default('') in ['comparison', 'guide', 'article'] and page.product|default('') in p.products|default([]))|sort_by_date|map(p => p.id) -%}
+    {% include 'components/related-content.twig' with { 'ids': explicit|merge(mentions), 'section': null, 'limit': 4 } %}
 {% endblock %}

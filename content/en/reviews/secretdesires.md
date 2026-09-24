@@ -1,5 +1,5 @@
 ---
-title: Secret Desires Review 2026 — Uncensored, and Still in Character
+title: Secret Desires Review 2026 - Uncensored, and Still in Character
 slug: secret-desires-review
 type: review
 status: published
@@ -28,9 +28,8 @@ cons:
   - Community gallery quality swings
 related:
   - reviews/camsoda-ai
-  - rankings/best-ai-girlfriend
 seo:
-  title: Secret Desires Review 2026 — Roleplay That Holds
+  title: Secret Desires Review 2026 - Roleplay That Holds
   description: "Hands-on Secret Desires review: uncensored roleplay that stays in
     character, the builder, and the catch of hidden pricing."
   primary_keyword: secret desires review
@@ -68,7 +67,7 @@ The builder includes what the companion should avoid, not only what it should be
 
 ## The catches
 
-Browser only. No published price before registration. The community gallery is huge and wildly uneven — I built my own rather than picking from it.
+Browser only. No published price before registration. The community gallery is huge and wildly uneven - I built my own rather than picking from it.
 
 ## One scene that did not fall apart
 

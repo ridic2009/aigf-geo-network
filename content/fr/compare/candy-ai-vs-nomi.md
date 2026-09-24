@@ -19,10 +19,9 @@ intro: |
 related:
   - reviews/candy-ai
   - reviews/nomi
-  - rankings/best-ai-girlfriend
 
 seo:
-  title: Candy AI vs Nomi (2026) — laquelle choisir ?
+  title: Candy AI vs Nomi (2026) - laquelle choisir ?
   description: Candy AI et Nomi comparés sur la conversation, la mémoire, les images, la voix et le prix, après deux semaines de test parallèle.
   primary_keyword: candy ai vs nomi
 

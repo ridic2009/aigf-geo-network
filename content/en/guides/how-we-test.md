@@ -30,7 +30,6 @@ faq:
       actually decide on. Realism and customisation show up inside conversation
       and media rather than as separate scores.
 related:
-  - rankings/best-ai-girlfriend
   - guides/hidden-costs
 seo:
   title: How We Test AI Girlfriend Apps

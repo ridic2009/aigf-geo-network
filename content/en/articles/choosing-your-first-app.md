@@ -34,11 +34,10 @@ faq:
       wants a free tier that lasts.
 related:
   - articles/what-free-tiers-include
-  - rankings/best-ai-girlfriend
   - guides/how-we-test
 seo:
   title: How to Choose Your First AI Girlfriend App in 2026
-  description: Five questions that cut a shortlist down to two — what you want from it, filters, platform, what you will really pay, and how to leave.
+  description: Five questions that cut a shortlist down to two - what you want from it, filters, platform, what you will really pay, and how to leave.
   primary_keyword: choosing an ai girlfriend app
 indexing:
   index: true
@@ -59,7 +58,7 @@ the lane [Nomi](/reviews/nomi-review/) is built for.
 If the answer is **"show me something,"** you want media: image generation and
 voice inside the same subscription rather than sold as credits.
 [Candy AI](/reviews/candy-ai-review/) covers that ground, which is why it leads
-[our ranking](/best-ai-girlfriend-apps/) — not because it wins every category,
+[our ranking](/#ranking) - not because it wins every category,
 but because it is the only one that does all three without a second purchase.
 
 If the answer is **"tell me a story,"** you want roleplay and scene quality, and
@@ -75,8 +74,8 @@ refuse a great deal; some refuse almost nothing. Neither is better in the
 abstract, but discovering the answer three days in is a waste of a month's
 subscription.
 
-If unfiltered conversation is the point, check it in the free tier before paying
-— that is the ground [Secret Desires](/reviews/secret-desires-review/) and
+If unfiltered conversation is the point, check it in the free tier before paying -
+that is the ground [Secret Desires](/reviews/secret-desires-review/) and
 [Joi](/reviews/joi-review/) compete on. If it is not the point, a permissive app
 may simply feel cheaper than you want.
 
@@ -95,7 +94,7 @@ you out weekly will end the habit faster than any shortcoming in the writing.
 
 Not month one. The intro discount is not the product. Among the apps we track,
 published monthly prices run from $10.00 for Sweetdream to $19.99 for Replika,
-with Candy AI at $12.99 and Nomi at $15.99 — but the headline is only half the
+with Candy AI at $12.99 and Nomi at $15.99 - but the headline is only half the
 question, because credits for images and voice sit on top of it in several apps.
 
 This deserves its own checklist, which is

@@ -1,5 +1,5 @@
 ---
-title: Content Filters — Why AI Companions Refuse, and What "Uncensored" Means
+title: Content Filters - Why AI Companions Refuse, and What "Uncensored" Means
 slug: ai-companion-content-filters
 status: published
 type: article
@@ -35,9 +35,8 @@ faq:
 related:
   - articles/what-is-an-ai-girlfriend
   - articles/choosing-your-first-app
-  - rankings/best-ai-girlfriend
 seo:
-  title: AI Companion Content Filters — What "Uncensored" Really Means
+  title: AI Companion Content Filters - What "Uncensored" Really Means
   description: How filtering works in AI girlfriend apps, why refusals appear mid-scene, and why the permissive ones still have a hard floor.
   primary_keyword: uncensored ai girlfriend
 indexing:
@@ -53,7 +52,7 @@ and how stable it is over the months you are paying.
 Usually in three places at once, which is why refusals feel inconsistent.
 
 **Before the model.** Your message is screened. A block here produces an instant
-refusal that does not sound like the character at all — the tonal jolt people
+refusal that does not sound like the character at all - the tonal jolt people
 describe as "it broke character."
 
 **Inside the model.** The system prompt tells the character what it will not do,
@@ -61,7 +60,7 @@ and the model itself carries training in the same direction. A block here is the
 graceful kind: the character deflects, changes the subject, stays in voice.
 
 **After the model.** The generated reply is screened before you see it. This
-produces the strangest artefact in the category — a message that starts, then
+produces the strangest artefact in the category - a message that starts, then
 vanishes or truncates mid-sentence.
 
 Apps that feel permissive usually rely on the middle layer. Apps that feel
@@ -109,13 +108,13 @@ trade-off is worked through in
 Ten minutes on a free tier, deliberately rather than accidentally:
 
 1. Take a scene to the edge of what you actually want and see what happens.
-2. Note **how** it refuses — in character, or with a system message.
+2. Note **how** it refuses - in character, or with a system message.
 3. Try the same thing twice. Inconsistent enforcement is itself information.
 4. Check whether a refusal still consumes a message or a credit.
 
 Among the apps we cover, [Secret Desires](/reviews/secret-desires-review/) and
 [Joi](/reviews/joi-review/) compete primarily on this ground, and they sit very
-differently in [our ranking](/best-ai-girlfriend-apps/) — 4.3 against 3.0 —
+differently in [our ranking](/#ranking) - 4.3 against 3.0 -
 because permissiveness on its own is not a product. Joi is the cheapest way into
 uncensored chat and shows it in everything else it does.
 
@@ -126,7 +125,7 @@ Worth separating, because the fix is different:
 **The character declining in character** is writing, not filtering. A companion
 with a personality sometimes says no, and that is the product working.
 
-**A confused refusal** — declining something plainly harmless — is usually an
+**A confused refusal** - declining something plainly harmless - is usually an
 overzealous pre-filter catching a word out of context. Rephrasing generally
 works.
 
@@ -140,7 +139,7 @@ something that [cannot be argued with](/articles/ai-companion-hallucinations/).
 
 Pick an app whose default sits where you want it, verify it in the free tier
 before paying, and do not buy a year on the strength of a filter setting. The
-apps that treat this straightforwardly — clear about what they allow, consistent
-in enforcing it — are easier to live with than the ones making the biggest
+apps that treat this straightforwardly - clear about what they allow, consistent
+in enforcing it - are easier to live with than the ones making the biggest
 claims, and that consistency is something
 [a fortnight of use](/guides/how-we-test/) reveals and a landing page cannot.

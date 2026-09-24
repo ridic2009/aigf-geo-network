@@ -17,9 +17,8 @@ intro: >
 related:
   - reviews/candy-ai
   - reviews/nomi
-  - rankings/best-ai-girlfriend
 seo:
-  title: Candy AI vs Nomi (2026) — Which Should You Pay For?
+  title: Candy AI vs Nomi (2026) - Which Should You Pay For?
   description: "Side-by-side test of Candy AI and Nomi: conversation, memory,
     images, voice and price after two weeks on paid plans."
   primary_keyword: candy ai vs nomi
@@ -30,7 +29,7 @@ faq:
   - question: Which is cheaper, Candy AI or Nomi?
     answer: >
       Candy AI, per month. Exact figures for your market sit in the comparison
-      table above — they move, so I do not freeze them in this article.
+      table above - they move, so I do not freeze them in this article.
   - question: Can you use both?
     answer: >
       Yes, and I did for this test. If you are paying for only one, choose media
@@ -55,7 +54,7 @@ Pick **Candy AI** if you want one bill that covers chat, pictures and voice. Pic
 
 ## Conversation
 
-Nomi wins. It holds a thread longer, stays in character, and waits instead of filling the silence. Candy AI is fluent and a bit eager — it will push the scene somewhere. Fun if you want a co-writer. Annoying if you wanted a listener.
+Nomi wins. It holds a thread longer, stays in character, and waits instead of filling the silence. Candy AI is fluent and a bit eager - it will push the scene somewhere. Fun if you want a co-writer. Annoying if you wanted a listener.
 
 ## Media
 

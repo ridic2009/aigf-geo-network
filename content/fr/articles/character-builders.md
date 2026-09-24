@@ -1,5 +1,5 @@
 ---
-title: Constructeurs de Personnage — Ce qui Compte Vraiment
+title: Constructeurs de Personnage - Ce qui Compte Vraiment
 slug: creer-son-personnage-ia
 status: published
 type: article
@@ -37,7 +37,7 @@ related:
   - articles/reading-feature-lists
   - articles/how-replies-are-generated
 seo:
-  title: Créer son Personnage IA — Les Champs Qui Comptent
+  title: Créer son Personnage IA - Les Champs Qui Comptent
   description: Quels réglages du constructeur changent la conversation et lesquels sont décoratifs, et comment écrire un personnage qui survit à la deuxième semaine.
   primary_keyword: créer personnage petite amie ia
 indexing:
@@ -105,7 +105,7 @@ dernière » et « ensemble depuis trois ans » produisent des conversations dif
 
 En dernier, délibérément. L'apparence influence les images générées, et
 [le modèle d'image reconstruit le personnage à partir d'une description à chaque
-fois](/articles/images-et-voix-des-compagnons-ia/) — elle compte donc pour les
+fois](/articles/images-et-voix-des-compagnons-ia/) - elle compte donc pour les
 images et touche à peine la conversation.
 
 Si les images sont l'objectif, prenez le temps. Si c'est la conversation, trois
@@ -113,7 +113,7 @@ Si les images sont l'objectif, prenez le temps. Si c'est la conversation, trois
 
 ## Où les applications diffèrent
 
-Camsoda AI construit en six étapes — apparence, personnalité, voix, histoire, façon
+Camsoda AI construit en six étapes - apparence, personnalité, voix, histoire, façon
 de vous parler, et ce qu'elle ne doit jamais aborder. Cette dernière étape est rare
 sur ce marché et correspond exactement au champ que cet article classe en deuxième
 position.
@@ -121,7 +121,7 @@ position.
 Secret Desires construit apparence, voix et personnalité ensemble, avec une galerie
 de personnages prêts à l'emploi comme point de départ. Kupid AI couvre apparence et
 personnalité en styles réaliste et animé. Les trois figurent dans
-[notre classement](/meilleure-petite-amie-ia/), et le constructeur y est une
+[notre classement](/#ranking), et le constructeur y est une
 différence réelle plutôt qu'une ligne de fonctionnalités.
 
 ## Partez d'un préréglage

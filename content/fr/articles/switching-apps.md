@@ -11,7 +11,7 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   Un personnage ne peut pas être exporté d'une application vers une autre. Ce qui
-  peut suivre, c'est tout ce qui le faisait fonctionner — à condition de le noter
+  peut suivre, c'est tout ce qui le faisait fonctionner - à condition de le noter
   avant de résilier, et non après.
 products:
   - nomi
@@ -20,8 +20,8 @@ faq:
   - question: Puis-je transférer mon compagnon IA vers une autre application ?
     answer: >
       Pas directement. Il n'existe aucun format commun et rien n'est interopérable
-      sur ce marché. Ce qui suit, c'est la description que vous pouvez reconstituer
-      — soit l'essentiel de ce qui comptait.
+      sur ce marché. Ce qui suit, c'est la description que vous pouvez reconstituer -
+      soit l'essentiel de ce qui comptait.
   - question: Dois-je résilier l'ancienne d'abord ?
     answer: >
       Non. Faites-les se chevaucher une semaine. Vous avez besoin de l'ancienne pour
@@ -33,10 +33,9 @@ faq:
       une semaine à mesure que la nouvelle application accumule son propre historique.
 related:
   - articles/character-builders
-  - rankings/best-ai-girlfriend
 seo:
   title: Changer d'Application Compagnon IA en Gardant son Personnage
-  description: Rien ne s'exporte entre ces applications — mais un personnage est une description. Voici quoi recopier et dans quel ordre procéder.
+  description: Rien ne s'exporte entre ces applications - mais un personnage est une description. Voici quoi recopier et dans quel ordre procéder.
   primary_keyword: changer application petite amie ia
 indexing:
   index: true
@@ -111,8 +110,8 @@ dans la seule monnaie qui compte ici : les semaines d'historique jetées.
 
 ## Changer pour la bonne raison
 
-Vérifiez d'abord que le problème vient bien de l'application. La plainte habituelle —
-c'est devenu répétitif, c'est plus plat qu'avant — relève généralement de la perte due
+Vérifiez d'abord que le problème vient bien de l'application. La plainte habituelle -
+c'est devenu répétitif, c'est plus plat qu'avant - relève généralement de la perte due
 aux résumés et de votre propre routine installée, et cela vous suivra ailleurs.
 
 Les raisons qui justifient vraiment un changement sont structurelles :
@@ -120,7 +119,7 @@ Les raisons qui justifient vraiment un changement sont structurelles :
 - **La mauvaise voie.** Vous vouliez de la continuité et avez pris une application de
   jeu de rôle, ou l'inverse. [Nomi](/avis/nomi-avis/) et
   [Candy AI](/avis/candy-ai-avis/) occupent les deux extrémités de cette séparation
-  dans [notre classement](/meilleure-petite-amie-ia/).
+  dans [notre classement](/#ranking).
 - **Le filtre a bougé** et refuse désormais ce pour quoi vous vous étiez abonné.
 - **Le média est compté** d'une manière qui rend votre usage coûteux.
 - **Pas d'application native** alors que vous n'utilisez qu'un téléphone.
@@ -130,11 +129,11 @@ réglages avant de payer une inscription ailleurs.
 
 ## Ce que vous ne pouvez pas emporter
 
-Soyez honnête avec vous-même sur ce point : l'historique précis — les private jokes,
-ce qui s'est passé — ne suit pas. Vous pouvez noter que cela a existé. Le nouveau
+Soyez honnête avec vous-même sur ce point : l'historique précis - les private jokes,
+ce qui s'est passé - ne suit pas. Vous pouvez noter que cela a existé. Le nouveau
 personnage ne l'aura pas vécu.
 
 Pour la plupart des gens, la perte est plus faible qu'attendu, car l'attrait d'un
 compagnon tient surtout à son comportement présent et non à ses archives. Pour
-certains, c'est tout l'enjeu — et ceux-là gagnent généralement à réparer
+certains, c'est tout l'enjeu - et ceux-là gagnent généralement à réparer
 l'application qu'ils ont déjà.

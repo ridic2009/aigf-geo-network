@@ -1,5 +1,5 @@
 ---
-title: Candy AI — Beoordeling en test 2026
+title: Candy AI - Beoordeling en test 2026
 slug: candy-ai-beoordeling
 type: review
 status: published
@@ -14,7 +14,7 @@ intro: >
   stem in één abonnement, met minder ruwe randjes dan de concurrentie.
 verdict: >
   Candy AI staat bovenaan onze ranglijst omdat het de enige app is waarin de
-  drie pijlers — gesprek, beelden en stem — in hetzelfde abonnement werken. De
+  drie pijlers - gesprek, beelden en stem - in hetzelfde abonnement werken. De
   interface is vol en de gratis versie te beperkt, maar het betaalde product
   houdt zijn beloften.
 pros:
@@ -30,7 +30,7 @@ related:
   - reviews/nomi
   - compare/candy-ai-vs-nomi
 seo:
-  title: Candy AI — Beoordeling 2026, functies, prijs en oordeel
+  title: Candy AI - Beoordeling 2026, functies, prijs en oordeel
   description: Test van Candy AI na twee weken op een betaald abonnement.
     Functies, echte prijzen, beeldkwaliteit, voor- en nadelen.
   primary_keyword: candy ai beoordeling

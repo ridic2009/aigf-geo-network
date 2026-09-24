@@ -8,7 +8,7 @@
 {%- set ui = site.ui -%}
 {%- set limit = limit|default(3) -%}
 {%- set items = [] -%}
-{%- for id in ids|default([]) -%}
+{%- for id in ids|default([])|unique -%}
     {%- if site.pages.has(id) and site.pages.get(id).published and site.pages.get(id).id != page.id -%}
         {%- set items = items|merge([site.pages.get(id)]) -%}
     {%- endif -%}

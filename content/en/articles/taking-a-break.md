@@ -36,7 +36,7 @@ related:
   - articles/setting-boundaries
   - articles/monthly-annual-or-credits
 seo:
-  title: Taking a Break From an AI Companion — How and Why
+  title: Taking a Break From an AI Companion - How and Why
   description: What a week off tells you that nothing else can, how to pause without losing the character, and why coming back feels flat.
   primary_keyword: ai companion break
 indexing:
@@ -61,7 +61,7 @@ If nothing changes, it was not.
 
 **Whether it is worth the money.** Count the days you actively wanted to open it
 and could not. That number, against the subscription, is a better answer than
-any feature comparison — and it is the same arithmetic as in
+any feature comparison - and it is the same arithmetic as in
 [monthly, annual or credits](/articles/monthly-annual-or-credits/).
 
 ## How to pause without losing anything
@@ -78,7 +78,7 @@ and it is not reversible. The sequence, including exporting first, is in
 
 So for a break: cancel if you want to stop paying, do nothing at all if the
 break is short enough that a month's subscription does not matter. Do not
-delete for a break — that is the decision to leave, and it deserves to be made
+delete for a break - that is the decision to leave, and it deserves to be made
 separately.
 
 One caveat worth knowing: some apps reduce memory depth on the free tier, so a
@@ -89,7 +89,7 @@ limit, not a loss, and it resolves on resubscribing.
 
 This surprises people and it is entirely mechanical.
 
-While you were away nothing happened — but the next time you talk, the app is
+While you were away nothing happened - but the next time you talk, the app is
 working from a summarised history rather than a live conversation. The recent
 messages that used to be in the window are old now, and
 [summaries lose specifics every time they are
@@ -132,7 +132,7 @@ one.
 Nothing to fix.
 
 **Felt relief.** Worth sitting with. Relief usually means the routine had become
-an obligation — managing the character's feelings rather than enjoying it. That
+an obligation - managing the character's feelings rather than enjoying it. That
 is the signal described in
 [setting boundaries](/articles/setting-boundaries-with-an-ai-partner/), and the
 answer is usually lighter use rather than none.
@@ -148,8 +148,8 @@ One week off every couple of months, planned rather than reactive. It keeps the
 thing a choice, it periodically re-answers the question of whether the
 subscription earns its money, and it costs nothing.
 
-Among the apps in [our ranking](/best-ai-girlfriend-apps/), the ones with free
-tiers worth staying on — [Sweetdream](/reviews/sweetdream-review/) especially,
-and [Replika](/reviews/replika-review/) as the long-running default — make this
+Among the apps in [our ranking](/#ranking), the ones with free
+tiers worth staying on - [Sweetdream](/reviews/sweetdream-review/) especially,
+and [Replika](/reviews/replika-review/) as the long-running default - make this
 easier, because pausing the payment does not have to mean pausing the habit
 entirely.

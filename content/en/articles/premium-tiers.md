@@ -36,15 +36,15 @@ related:
   - articles/how-memory-works
   - articles/monthly-annual-or-credits
 seo:
-  title: AI Companion Premium Tiers — What Upgrading Actually Buys
+  title: AI Companion Premium Tiers - What Upgrading Actually Buys
   description: The four things upper tiers sell, which two genuinely change the product, and the test that tells you whether to upgrade.
   primary_keyword: ai girlfriend premium worth it
 indexing:
   index: true
   follow: true
 ---
-Upgrade pages in this category are vague on purpose — "enhanced memory",
-"priority access", "premium models" — because specifics invite comparison.
+Upgrade pages in this category are vague on purpose - "enhanced memory",
+"priority access", "premium models" - because specifics invite comparison.
 Underneath the wording there are only four things being sold.
 
 ## 1. More media (worth it, and easy to calculate)
@@ -68,7 +68,7 @@ single most valuable thing an upgrade can buy, because
 pleasant in month four](/articles/ai-companion-memory-explained/).
 
 The problem is verification. "Enhanced memory" can mean a larger context window,
-more stored facts, better retrieval — or a marketing phrase attached to nothing
+more stored facts, better retrieval - or a marketing phrase attached to nothing
 in particular.
 
 **The test:** on the entry tier, chat daily for a week, stop for four days, come
@@ -87,8 +87,8 @@ seconds and five is real but rarely worth a tier on its own.
 
 For voice conversation it is a different matter: latency is the whole
 experience, and a three-second gap before every answer destroys the illusion
-completely. If you are upgrading for real-time voice, this is not a minor bullet
-— it is the feature.
+completely. If you are upgrading for real-time voice, this is not a minor bullet -
+it is the feature.
 
 ## 4. Better models (the disappointing one)
 
@@ -96,9 +96,9 @@ Presented as the flagship benefit and usually the least noticeable in practice.
 
 A stronger model helps most with complex reasoning and long-form coherence.
 Companion conversation is neither. What you actually notice in this category is
-the character description, the retrieval and the sampling settings — the things
-covered in [how replies are generated](/articles/how-ai-companions-generate-replies/)
-— and those are frequently identical across tiers.
+the character description, the retrieval and the sampling settings - the things
+covered in [how replies are generated](/articles/how-ai-companions-generate-replies/) -
+and those are frequently identical across tiers.
 
 Not worthless. Just consistently oversold relative to items one and two.
 
@@ -125,7 +125,7 @@ Among the apps we track, published entry prices run from
 Worth noting: a higher entry price frequently means **fewer upgrade decisions
 later**, because more is included from the start. Candy AI covering chat, images
 and voice inside one subscription is the clearest example, and it is a large
-part of why it leads [our ranking](/best-ai-girlfriend-apps/) despite not
+part of why it leads [our ranking](/#ranking) despite not
 winning any individual category outright.
 
 Comparing entry tiers across apps is therefore misleading. Compare the tier that
@@ -137,7 +137,7 @@ contains the thing you came for.
 2. Write down the specific limit that annoyed you, in words.
 3. If it is media, do the arithmetic. If it is memory, run the four-day test.
 4. Upgrade for that reason, still monthly.
-5. Consider annual only after a month you enjoyed at the tier you settled on —
+5. Consider annual only after a month you enjoyed at the tier you settled on -
    per [monthly, annual or credits](/articles/monthly-annual-or-credits/).
 
 Most people who follow this end up on the entry tier of a slightly more

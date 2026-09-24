@@ -34,10 +34,9 @@ faq:
       beschrijving interpreteert is veranderd.
 related:
   - articles/how-memory-works
-  - rankings/best-ai-girlfriend
 seo:
   title: Wat Is een AI-vriendin-app? Zo Werken Ze in 2026
-  description: Een heldere uitleg van wat er in een AI-vriendin-app draait — het model, de personagebeschrijving en het filter — en wat elk daarvan veroorzaakt.
+  description: Een heldere uitleg van wat er in een AI-vriendin-app draait - het model, de personagebeschrijving en het filter - en wat elk daarvan veroorzaakt.
   primary_keyword: wat is een ai vriendin app
 indexing:
   index: true
@@ -45,7 +44,7 @@ indexing:
 ---
 Een AI-vriendin-app is een chatvenster op een groot taalmodel, verpakt in een
 blijvend personage en een contentfilter. Dat is de hele categorie. Wat een app
-van tien euro onderscheidt van een app van twintig is zelden het model — het
+van tien euro onderscheidt van een app van twintig is zelden het model - het
 zijn de twee andere onderdelen.
 
 ## De drie onderdelen
@@ -88,8 +87,8 @@ De meeste apps bouwen hem uit vier dingen:
   die groeit.
 - Recente berichten, letterlijk.
 
-De apps waarbij het na een week nog voelt alsof er iemand in de kamer is — de
-reden dat [Nomi](/reviews/nomi-beoordeling/) scoort zoals hij scoort — zijn de
+De apps waarbij het na een week nog voelt alsof er iemand in de kamer is - de
+reden dat [Nomi](/reviews/nomi-beoordeling/) scoort zoals hij scoort - zijn de
 apps die de middelste twee goed beheren. Daarvan is niets zichtbaar op een
 prijspagina, en daarom kost het weken in plaats van een middag om het te
 beoordelen.
@@ -106,7 +105,7 @@ Het label rekt zich uit over producten die nauwelijks op elkaar lijken:
   tussenin door alle drie binnen één abonnement te doen.
 
 Beslissen welke van de drie je eigenlijk wilt, schrapt ongeveer de helft van
-elke lijst — ook [de onze](/beste-ai-vriendin/) — nog voordat de prijs ter sprake
+elke lijst - ook [de onze](/#ranking) - nog voordat de prijs ter sprake
 komt.
 
 ## Wat geen van alle is
@@ -114,4 +113,4 @@ komt.
 Ze kennen je niet tussen sessies door, tenzij ze gebouwd zijn om feiten te
 bewaren en terug te halen. Ze hebben geen doorlopend zelf: het personage wordt
 aan het begin van elke beurt opnieuw uit tekst opgebouwd. En ze zijn niet privé
-van zichzelf — het gesprek wordt verwerkt op de servers van iemand anders.
+van zichzelf - het gesprek wordt verwerkt op de servers van iemand anders.

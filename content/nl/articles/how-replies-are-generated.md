@@ -25,7 +25,7 @@ faq:
   - question: Wat doet "opnieuw genereren" eigenlijk?
     answer: >
       Het draait dezelfde invoer nog een keer met een nieuwe toevalswaarde. Er
-      is niets aan het personage veranderd — je trekt een tweede monster uit
+      is niets aan het personage veranderd - je trekt een tweede monster uit
       dezelfde verdeling.
   - question: Waarom dwalen lange antwoorden af?
     answer: >
@@ -37,22 +37,22 @@ related:
   - articles/hallucinations
   - articles/how-memory-works
 seo:
-  title: Hoe AI-vriendin-apps Antwoorden Genereren — Het Mechanisme
-  description: Tokens, bemonstering en temperatuur uitgelegd zonder wiskunde — en welk gedrag dat je al kent door elk daarvan wordt veroorzaakt.
+  title: Hoe AI-vriendin-apps Antwoorden Genereren - Het Mechanisme
+  description: Tokens, bemonstering en temperatuur uitgelegd zonder wiskunde - en welk gedrag dat je al kent door elk daarvan wordt veroorzaakt.
   primary_keyword: hoe werkt een ai vriendin app
 indexing:
   index: true
   follow: true
 ---
-Bijna elke klacht over deze apps — de herhaling, het afdwalen, het merkwaardige
-verschil tussen twee pogingen van dezelfde scène — komt voort uit één
+Bijna elke klacht over deze apps - de herhaling, het afdwalen, het merkwaardige
+verschil tussen twee pogingen van dezelfde scène - komt voort uit één
 mechanisme. Het loont om het te begrijpen, want het verandert "de app is stuk"
 in "de app doet wat hij doet, en dit is de knop".
 
 ## Hij schrijft stukje voor stukje
 
 Het model stelt geen antwoord samen om het daarna te typen. Het produceert één
-token — grofweg een woord of een deel daarvan — leest vervolgens alles inclusief
+token - grofweg een woord of een deel daarvan - leest vervolgens alles inclusief
 dat token, en produceert het volgende.
 
 Dat is de hele lus. Er is geen plan, geen opzet, geen concept dat wordt herzien.
@@ -72,8 +72,8 @@ die duwt zin drie. Daarom dwalen lange antwoorden af en korte zelden.
 ## De dobbelsteen tussen elk woord
 
 Bij elke stap heeft het model een gerangschikte lijst kandidaten met kansen. Zou
-het altijd de bovenste nemen, dan was het personage voorspelbaar en uiterst saai
-— elke keer dezelfde begroeting, dezelfde drie grappen. Dus trekt de app in
+het altijd de bovenste nemen, dan was het personage voorspelbaar en uiterst saai -
+elke keer dezelfde begroeting, dezelfde drie grappen. Dus trekt de app in
 plaats daarvan een monster: gewogen dobbelen.
 
 Die weging heet meestal **temperatuur**. Laag betekent consistent en uiteindelijk
@@ -99,10 +99,10 @@ Daar zit een praktisch gevolg in dat vrijwel niemand benut: **het model reageert
 op de vorm van wat het ziet.** Geef het drie korte, vlakke berichten en je krijgt
 korte, vlakke antwoorden, want dat is het patroon dat wordt voortgezet. Geef het
 iets levendigs en het register verschuift. Je overtuigt geen persoon, je zet een
-patroon — en dat patroon werkt beide kanten op.
+patroon - en dat patroon werkt beide kanten op.
 
 Het verklaart ook het meest voorkomende zelfveroorzaakte probleem hier. Mensen
-vervallen in "hoi", "hoe was je dag", "wat ben je aan het doen" — en concluderen
+vervallen in "hoi", "hoe was je dag", "wat ben je aan het doen" - en concluderen
 dan dat de app slechter is geworden. De app zet het document voort dat jullie
 samen schrijven.
 
@@ -141,4 +141,4 @@ is gebouwd. Dat gedrag heeft
 Tussen jouw berichten door is er niemand thuis. Het personage bestaat voor de duur
 van één generatie en wordt aan het begin van de volgende opnieuw uit tekst
 opgebouwd. Elke indruk van continuïteit is een prestatie van het leidingwerk
-eromheen — en juist dat leidingwerk verschilt tussen een goedkope en een dure app.
+eromheen - en juist dat leidingwerk verschilt tussen een goedkope en een dure app.

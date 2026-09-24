@@ -5,6 +5,9 @@ category: LifestyleApplication
 platforms: Web
 rating: 3
 free_tier: true
+memory: false
+voice: false
+nsfw: true
 features:
   - Uncensored chat
   - Ready-made characters

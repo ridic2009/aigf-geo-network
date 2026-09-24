@@ -1,5 +1,5 @@
 ---
-title: Je Eerste AI-vriendin-app Kiezen — Vijf Vragen Die het Veld Halveren
+title: Je Eerste AI-vriendin-app Kiezen - Vijf Vragen Die het Veld Halveren
 slug: eerste-ai-vriendin-app-kiezen
 status: published
 type: article
@@ -35,10 +35,9 @@ faq:
       alleen een gratis laag die blijft werken.
 related:
   - articles/what-free-tiers-include
-  - rankings/best-ai-girlfriend
 seo:
-  title: Een AI-vriendin-app Kiezen in 2026 — Vijf Vragen
-  description: Vijf vragen die een shortlist terugbrengen tot twee — wat je ervan wilt, filters, platform, wat je echt gaat betalen, en hoe je eruit komt.
+  title: Een AI-vriendin-app Kiezen in 2026 - Vijf Vragen
+  description: Vijf vragen die een shortlist terugbrengen tot twee - wat je ervan wilt, filters, platform, wat je echt gaat betalen, en hoe je eruit komt.
   primary_keyword: ai vriendin app kiezen
 indexing:
   index: true
@@ -60,7 +59,7 @@ Dat is de baan waarvoor [Nomi](/reviews/nomi-beoordeling/) is gebouwd.
 Is het antwoord **"me iets laten zien"**, dan wil je media: beeldgeneratie en stem
 binnen hetzelfde abonnement in plaats van los verkocht als tegoed.
 [Candy AI](/reviews/candy-ai-beoordeling/) dekt dat terrein, en daarom staat hij
-bovenaan [onze ranglijst](/beste-ai-vriendin/) — niet omdat hij elke categorie
+bovenaan [onze ranglijst](/#ranking) - niet omdat hij elke categorie
 wint, maar omdat hij als enige alle drie doet zonder tweede aankoop.
 
 Is het antwoord **"me een verhaal vertellen"**, dan wil je rollenspel en
@@ -99,7 +98,7 @@ Replika, met [Candy AI](/reviews/candy-ai-beoordeling/) op $12,99 en
 [Nomi](/reviews/nomi-beoordeling/) op $15,99.
 
 Dat zijn de bedragen zoals ze in dollars worden getoond. Wat er werkelijk in
-euro's wordt afgeschreven hangt af van de aanbieder en van je bank — alleen je
+euro's wordt afgeschreven hangt af van de aanbieder en van je bank - alleen je
 afschrift bevestigt het, wat een extra reden is om er de eerste week naar te
 kijken.
 
@@ -117,7 +116,7 @@ is met je om te gaan.
 
 Kies twee apps uit de baan die je bij vraag één koos. Gebruik beide gratis lagen
 drie dagen en beoordeel alleen het gesprek. Betaal één maand voor de beste. Lees
-daarna vraag vijf opnieuw — vóór de verlengdatum, niet erna.
+daarna vraag vijf opnieuw - vóór de verlengdatum, niet erna.
 
 Die volgorde kost ongeveer dertien euro en beantwoordt meer dan welke hoeveelheid
 lezen ook, dit artikel inbegrepen.

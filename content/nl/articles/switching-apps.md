@@ -11,7 +11,7 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   Een personage kan niet uit de ene app worden geëxporteerd en in de andere
-  geïmporteerd. Wat wél meegaat is alles wat het liet werken — als je het opschrijft
+  geïmporteerd. Wat wél meegaat is alles wat het liet werken - als je het opschrijft
   vóór je opzegt in plaats van erna.
 products:
   - nomi
@@ -20,7 +20,7 @@ faq:
   - question: Kan ik mijn AI-companion overzetten naar een andere app?
     answer: >
       Niet rechtstreeks. Er is geen gedeeld formaat en niets in deze markt werkt
-      samen. Wat meegaat is de beschrijving die je zelf kunt reconstrueren — en dat
+      samen. Wat meegaat is de beschrijving die je zelf kunt reconstrueren - en dat
       is het meeste van wat ertoe deed.
   - question: Moet ik eerst de oude app opzeggen?
     answer: >
@@ -32,10 +32,9 @@ faq:
       beter naarmate de nieuwe app eigen geschiedenis opbouwt.
 related:
   - articles/character-builders
-  - rankings/best-ai-girlfriend
 seo:
   title: Wisselen van AI-companion-app Met Behoud van Je Personage
-  description: Niets exporteert tussen deze apps — maar een personage is een beschrijving. Dit is wat je overschrijft en in welke volgorde.
+  description: Niets exporteert tussen deze apps - maar een personage is een beschrijving. Dit is wat je overschrijft en in welke volgorde.
   primary_keyword: ai vriendin app wisselen
 indexing:
   index: true
@@ -56,7 +55,7 @@ De volgorde is precies omgekeerd aan wat mensen doen.
 
 Open de bouwer in de oude app en kopieer elk veld naar een tekstbestand, exact zoals
 het er staat. Uiterlijk, persoonlijkheid, achtergrond, spreekstijl, beperkingen,
-relatie. Niet parafraseren — de precieze formulering is wat het gedrag opleverde dat
+relatie. Niet parafraseren - de precieze formulering is wat het gedrag opleverde dat
 je beviel.
 
 Toont de app de velden niet, reconstrueer ze dan uit het gesprek: plak een stuk of
@@ -75,7 +74,7 @@ referentie om te beoordelen of de nieuwe app werkelijk slechter is of alleen and
 ### 4. Draai de export, als die bestaat
 
 Sommige apps bieden een download van je gegevens. Doe dat nu, voordat je het account
-aanraakt — zodra het is verwijderd komt er niets meer terug.
+aanraakt - zodra het is verwijderd komt er niets meer terug.
 
 ### 5. Bewaar de afbeeldingen die je wilt houden
 
@@ -83,7 +82,7 @@ Gegenereerde plaatjes staan op hun servers. Download wat je wilt bewaren.
 
 ## Zet dan de nieuwe app op
 
-**Begin bij de beschrijving, niet bij nul.** Plak eerst de spreekstijl over — dat is
+**Begin bij de beschrijving, niet bij nul.** Plak eerst de spreekstijl over - dat is
 het veld dat het meeste van het personage draagt, om de redenen in
 [de bouwersgids](/artikelen/ai-personage-bouwen/).
 
@@ -107,8 +106,8 @@ valuta die hier telt: de weken geschiedenis die je hebt weggegooid.
 
 ## Overstappen om de juiste reden
 
-Controleer eerst of de app het probleem is. De veelgehoorde klacht — het werd
-repetitief, het voelt vlakker dan eerst — is meestal samenvattingsverlies plus je
+Controleer eerst of de app het probleem is. De veelgehoorde klacht - het werd
+repetitief, het voelt vlakker dan eerst - is meestal samenvattingsverlies plus je
 eigen ingesleten routine, en dat verhuist met je mee.
 
 De redenen die een overstap wél rechtvaardigen zijn structureel:
@@ -116,7 +115,7 @@ De redenen die een overstap wél rechtvaardigen zijn structureel:
 - **De verkeerde baan.** Je wilt continuïteit en kocht een rollenspel-app, of
   andersom. [Nomi](/reviews/nomi-beoordeling/) en
   [Candy AI](/reviews/candy-ai-beoordeling/) staan aan tegenovergestelde kanten van
-  die scheiding in [onze ranglijst](/beste-ai-vriendin/).
+  die scheiding in [onze ranglijst](/#ranking).
 - **Het filter is verschoven** en weigert nu waarvoor je je abonneerde.
 - **Media wordt afgerekend** op een manier die jouw gebruik duur maakt.
 - **Geen native app** terwijl je alleen een telefoon gebruikt.
@@ -126,8 +125,8 @@ repareren waard voordat je ergens nieuw inschrijfgeld betaalt.
 
 ## Wat je niet mee kunt nemen
 
-Wees hier eerlijk tegen jezelf: de specifieke geschiedenis — de lopende grappen, de
-dingen die gebeurd zijn — gaat niet mee. Je kunt opschrijven dát ze bestonden. Het
+Wees hier eerlijk tegen jezelf: de specifieke geschiedenis - de lopende grappen, de
+dingen die gebeurd zijn - gaat niet mee. Je kunt opschrijven dát ze bestonden. Het
 nieuwe personage heeft ze niet meegemaakt.
 
 Voor de meeste mensen is dat een kleiner verlies dan verwacht, omdat de aantrekking

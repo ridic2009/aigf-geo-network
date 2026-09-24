@@ -19,7 +19,7 @@ products:
 faq:
   - question: Zijn gegenereerde afbeeldingen privé voor mijn account?
     answer: >
-      De galerij wel. Het bestand vaak niet — veel apps serveren afbeeldingen via
+      De galerij wel. Het bestand vaak niet - veel apps serveren afbeeldingen via
       een contentnetwerk op een lang, onraadbaar adres, dat iedereen met de link
       kan openen.
   - question: Verwijdert het wissen van mijn account ook de afbeeldingen?
@@ -35,7 +35,7 @@ related:
   - articles/how-media-works
   - articles/what-the-app-knows
 seo:
-  title: Privacy van AI-gegenereerde Afbeeldingen — Waar Ze Echt Staan
+  title: Privacy van AI-gegenereerde Afbeeldingen - Waar Ze Echt Staan
   description: Hoe gegenereerde afbeeldingen worden opgeslagen en geserveerd, waarom de adressen vaak openbaar zijn, en wat een verwijderverzoek wel en niet weghaalt.
   primary_keyword: ai gegenereerde afbeeldingen privacy
 indexing:
@@ -49,7 +49,7 @@ daadwerkelijk lezen.
 ## Waar het bestand terechtkomt
 
 Wanneer een app een afbeelding genereert, wordt die weggeschreven naar objectopslag
-en geserveerd via een contentnetwerk — dezelfde infrastructuur die elke website voor
+en geserveerd via een contentnetwerk - dezelfde infrastructuur die elke website voor
 afbeeldingen gebruikt. Je galerij is een lijst van die bestanden.
 
 Wat telt, is **hoe het bestand wordt beschermd**. Er bestaan twee benaderingen en het
@@ -60,11 +60,11 @@ controleert je sessie voordat hij het bestand geeft. Kopieer het adres, open het
 elders, en je krijgt niets.
 
 **Lange onraadbare adressen.** Het bestand staat op een adres dat niemand redelijkerwijs
-kan raden, en iedereen die het adres heeft kan het openen — ingelogd of niet, voor
+kan raden, en iedereen die het adres heeft kan het openen - ingelogd of niet, voor
 altijd.
 
 De tweede is bijzonder gangbaar omdat hij goedkoop en snel is. Hij is niet
-onredelijk — het adres is werkelijk onraadbaar — maar de afbeelding is beschermd door
+onredelijk - het adres is werkelijk onraadbaar - maar de afbeelding is beschermd door
 geheimhouding van de link in plaats van door toegangscontrole. Een gedeelde link, een
 link geplakt in een chat, of een link opgepikt door een browserextensie is een
 openbare link.
@@ -91,7 +91,7 @@ zijn?* De volledige volgorde staat in
 ## Moderatie bewaart kopieën
 
 Afbeeldingen worden gescand, automatisch en soms door mensen. Wat wordt gemarkeerd
-blijft doorgaans langer bewaard — vaak expliciet uitgezonderd van verwijdering, omdat
+blijft doorgaans langer bewaard - vaak expliciet uitgezonderd van verwijdering, omdat
 het bewaren ervan is hoe de aanbieder naleving aantoont.
 
 Dat is normaal, staat in de meeste beleidsteksten, en betekent dat juist de
@@ -120,7 +120,7 @@ Download wat je wilt houden en behandel de galerij als tijdelijk. Apps reorganis
 opslag, wijzigen plannen, laten media van inactieve accounts verlopen en raken
 incidenteel dingen kwijt.
 
-Bewaar ze daarna ergens waar jij de controle hebt — en denk na over waar dat is. Een
+Bewaar ze daarna ergens waar jij de controle hebt - en denk na over waar dat is. Een
 fotobibliotheek die synchroniseert met een gezinsaccount heeft de blootstelling
 verplaatst, niet weggenomen.
 
@@ -131,8 +131,8 @@ Twee dingen om in een gratis laag te controleren, naast de tests in
 afbeeldingsadressen geverifieerd zijn, met de privévenstertest hierboven, en of de
 app een bulkdownload of export met media aanbiedt.
 
-Apps die echt werk in media steken —
+Apps die echt werk in media steken -
 [Candy AI](/reviews/candy-ai-beoordeling/) met beeld en stem in één abonnement,
-Secret Desires met beeld- en korte videogeneratie — zijn de apps waarbij je de meeste
+Secret Desires met beeld- en korte videogeneratie - zijn de apps waarbij je de meeste
 bestanden opbouwt. Dat maakt de controle van tien seconden daar belangrijker, niet
 minder.

@@ -1,5 +1,5 @@
 ---
-title: 決済のプライバシー — 明細に何が表示されるか
+title: 決済のプライバシー - 明細に何が表示されるか
 slug: payment-privacy
 status: published
 type: article
@@ -32,7 +32,7 @@ related:
   - articles/what-the-app-knows
   - articles/shared-device
 seo:
-  title: AI彼女アプリの決済プライバシー — 明細の表記を確認する
+  title: AI彼女アプリの決済プライバシー - 明細の表記を確認する
   description: カードの請求表記、プリペイドカード、決済ウォレット、ストア課金の得失。そして最初の明細で何を確かめるべきか。
   primary_keyword: AI彼女 支払い プライバシー
 indexing:
@@ -117,8 +117,8 @@ AppleやGoogle経由で契約すれば、請求はストアの名前で表示さ
 バーチャルカード。アカウントと領収書のための専用メールアドレス。通知プレビューを切る。
 そして最初の明細で表記を確認する。
 
-当サイトが追うアプリのうち、月額が最も安い部類 — Sweetdreamが10.00ドル、
-[Candy AI](/review/candy-ai/)が12.99ドル — は、上限付きのバーチャルカードで管理しやすい
+当サイトが追うアプリのうち、月額が最も安い部類 - Sweetdreamが10.00ドル、
+[Candy AI](/review/candy-ai/)が12.99ドル - は、上限付きのバーチャルカードで管理しやすい
 金額です。
 
 アプリ自身が何を保存しているかは別の問いで、

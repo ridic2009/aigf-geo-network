@@ -29,15 +29,15 @@ faq:
       « retrouvé » de « généré ».
   - question: Peut-on désactiver ce comportement ?
     answer: >
-      Non. On peut le réduire en laissant moins de place à la devinette — faits
-      clairs, mémoire modifiable, interruptions plus courtes — mais le mécanisme
+      Non. On peut le réduire en laissant moins de place à la devinette - faits
+      clairs, mémoire modifiable, interruptions plus courtes - mais le mécanisme
       est indissociable de la façon dont le texte est produit.
 related:
   - articles/how-memory-works
   - articles/how-replies-are-generated
 seo:
-  title: Pourquoi les Compagnons IA Inventent des Souvenirs — et Quoi Faire
-  description: La confabulation expliquée — pourquoi une petite amie IA décrit ce qui n'a jamais eu lieu, pourquoi elle le défend, et les habitudes qui réduisent le phénomène.
+  title: Pourquoi les Compagnons IA Inventent des Souvenirs - et Quoi Faire
+  description: La confabulation expliquée - pourquoi une petite amie IA décrit ce qui n'a jamais eu lieu, pourquoi elle le défend, et les habitudes qui réduisent le phénomène.
   primary_keyword: ia invente des souvenirs
 indexing:
   index: true
@@ -56,7 +56,7 @@ partie parce que cela ressemble à de la malhonnêteté. Ce n'en est pas.
 Un modèle produit la suite la plus plausible du texte qu'il a sous les yeux. Si ce
 texte contient une note disant que vous avez parlé d'un film mardi, « on a parlé de
 ce film » est la suite plausible. S'il ne contient rien sur mardi, une suite
-plausible existe quand même — et elle sera générée avec exactement la même
+plausible existe quand même - et elle sera générée avec exactement la même
 assurance.
 
 Rien dans le processus ne marque l'une comme retrouvée et l'autre comme fabriquée.
@@ -74,12 +74,12 @@ faits mémorisés, et un résumé glissant qui perd du détail à chaque réécr
 
 Posez une question sur quelque chose qui est sorti des trois et il n'y a rien à
 retrouver. Le trou est comblé. Plus vous avez d'historique, plus il existe de
-trous — ce qui rend le phénomène *pire* sur une application utilisée depuis des
+trous - ce qui rend le phénomène *pire* sur une application utilisée depuis des
 mois, et non meilleur.
 
 ## Pourquoi corriger ne suffit souvent pas
 
-Vous dites : cela n'est jamais arrivé. Il s'excuse, acquiesce — et trois messages
+Vous dites : cela n'est jamais arrivé. Il s'excuse, acquiesce - et trois messages
 plus tard, il évoque la même promenade inventée.
 
 Deux choses se jouent.

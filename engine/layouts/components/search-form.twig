@@ -1,0 +1,22 @@
+{#
+  Site search box: header panel, search page and 404 use this one form.
+
+  The server's Content-Security-Policy says `form-action 'none'`, so the form
+  never submits: main.js searches the JSON index in place and, on Enter,
+  navigates to the search page with ?q=. Results render into the list below.
+
+  params: id (string, unique per page), limit (int, results shown as you type),
+          from_path (bool: search for the words of the current address, 404)
+#}
+{%- set L = site.ui.labels -%}
+{%- if search_url|default(null) %}
+<div class="search-box" data-search-box data-index="{{ search_index }}" data-page="{{ search_url }}" data-limit="{{ limit|default(8) }}" data-empty="{{ L.search_empty }}"{{ from_path|default(false) ? ' data-from-path' : '' }}>
+    <form class="search-form" role="search" action="{{ search_url }}">
+        <label class="visually-hidden" for="{{ id }}">{{ L.search }}</label>
+        <input class="search-form__input" id="{{ id }}" type="search" name="q" placeholder="{{ L.search_placeholder }}" autocomplete="off" spellcheck="false" enterkeyhint="search">
+        <button class="btn btn--primary search-form__button" type="submit">{{ L.search }}</button>
+    </form>
+    <p class="search-box__status" role="status" aria-live="polite"></p>
+    <ol class="search-results" hidden></ol>
+</div>
+{%- endif %}

@@ -21,7 +21,7 @@ faq:
     answer: >
       Nobody can answer that for you. The useful question is not whether it
       counts as a secret in the abstract, but whether you would be comfortable
-      if they found it on your phone — that test usually settles it.
+      if they found it on your phone - that test usually settles it.
   - question: How do people usually react?
     answer: >
       Less dramatically than expected. Curiosity is the most common response;
@@ -36,7 +36,7 @@ related:
   - articles/loneliness
   - articles/shared-device
 seo:
-  title: Telling People About Your AI Companion — When and How
+  title: Telling People About Your AI Companion - When and How
   description: The partner question, the friends question and the workplace question, with the one test that settles most of it.
   primary_keyword: telling people about ai girlfriend
 indexing:
@@ -58,7 +58,7 @@ no resolution and people mostly use them to reach a conclusion they already had.
 Ask instead: **would I be comfortable if this were found rather than told?**
 
 If the answer is yes, you are using a piece of software and there is nothing to
-disclose. If the answer is no, the discomfort is information — not necessarily
+disclose. If the answer is no, the discomfort is information - not necessarily
 that you are doing something wrong, but that you have decided it means something
 you have not said out loud.
 
@@ -81,7 +81,7 @@ chat apps, it's a bit like a game" starts a conversation. An unprompted
 explanation of why it does not mean anything starts an interrogation.
 
 **Expect the real question underneath.** It is usually not about the app. It is
-"is something missing?" — and it deserves a real answer rather than a
+"is something missing?" - and it deserves a real answer rather than a
 reassurance about the technology.
 
 Sometimes the answer is yes, something is missing. That is worth knowing and it
@@ -89,8 +89,8 @@ is not the app's fault.
 
 ## If it is friends
 
-Lower stakes than people expect. The most common reaction is curiosity —
-"what's it actually like?" — because most people have read about this category
+Lower stakes than people expect. The most common reaction is curiosity -
+"what's it actually like?" - because most people have read about this category
 and never tried it.
 
 A short honest framing does the work: it is entertaining, it is a bit like a
@@ -107,7 +107,7 @@ Do not.
 
 This is not about stigma, it is about what employers can see. A work laptop is
 managed hardware, the network is monitored, and none of it is your business to
-argue with. Keep it off employer devices entirely — the reasoning is in
+argue with. Keep it off employer devices entirely - the reasoning is in
 [using a shared device](/articles/ai-companion-shared-device/).
 
 ## Words that help
@@ -116,7 +116,7 @@ Describe the activity rather than the relationship. "I use an AI chat app" lands
 very differently from "I have an AI girlfriend", and both are accurate. The
 first invites a question; the second invites a judgement.
 
-And say what you get from it in ordinary terms — it is relaxing, it is fun to
+And say what you get from it in ordinary terms - it is relaxing, it is fun to
 write with, it fills a quiet evening. These are unremarkable reasons to do
 something, and framing it as unremarkable is usually honest as well as
 effective.
@@ -127,8 +127,8 @@ One case is worth separating out, because being straightforward about it is more
 useful than reassurance.
 
 If you find yourself not wanting to mention it specifically because you know you
-are using it instead of something — calling someone back, going out, dealing
-with a thing — then the reluctance is pointing at the substitution, not at the
+are using it instead of something - calling someone back, going out, dealing
+with a thing - then the reluctance is pointing at the substitution, not at the
 app. That is the signal the [boundaries
 piece](/articles/setting-boundaries-with-an-ai-partner/) is about, and it is a
 better thing to notice early than late.
@@ -142,5 +142,5 @@ fast.
 "It's a chat app with a character, it's good for switching off, and I'd rather
 you heard it from me than found the subscription."
 
-Direct, unapologetic, and it makes clear you thought about them — which is
+Direct, unapologetic, and it makes clear you thought about them - which is
 generally the entire content of what is being asked.

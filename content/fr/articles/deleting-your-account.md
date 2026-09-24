@@ -1,5 +1,5 @@
 ---
-title: Supprimer un Compte de Compagnon IA — Ce qui Part et Ce qui Reste
+title: Supprimer un Compte de Compagnon IA - Ce qui Part et Ce qui Reste
 slug: supprimer-son-compte-compagnon-ia
 status: published
 type: article
@@ -28,14 +28,14 @@ faq:
       signal d'alerte.
   - question: Puis-je récupérer mes conversations avant ?
     answer: >
-      Si l'application propose un export, oui — faites-le d'abord, car les deux
+      Si l'application propose un export, oui - faites-le d'abord, car les deux
       actions ne peuvent pas se faire dans l'autre sens.
 related:
   - articles/what-the-app-knows
   - articles/switching-apps
 seo:
   title: Supprimer Correctement un Compte de Petite Amie IA
-  description: L'ordre qui fonctionne — exporter, résilier, supprimer, vérifier — et les parties de vos données qui survivent malgré tout à une demande d'effacement.
+  description: L'ordre qui fonctionne - exporter, résilier, supprimer, vérifier - et les parties de vos données qui survivent malgré tout à une demande d'effacement.
   primary_keyword: supprimer compte petite amie ia
 indexing:
   index: true
@@ -58,7 +58,7 @@ simple récapitulatif de facturation.
 **3. Résiliez l'abonnement** et lisez la confirmation. Notez si l'accès continue
 jusqu'à la fin de la période.
 
-**4. Supprimez le compte** — une action distincte, généralement dans un autre
+**4. Supprimez le compte** - une action distincte, généralement dans un autre
 écran de réglages, parfois uniquement par e-mail.
 
 **5. Vérifiez.** Essayez de vous connecter une semaine plus tard. Un compte qui
@@ -95,7 +95,7 @@ Sous le RGPD, une demande d'effacement doit recevoir une réponse sous un mois.
 Écrivez au contact indiqué dans la politique de confidentialité, dites
 explicitement qu'il s'agit d'une demande d'effacement au titre du RGPD, et
 conservez le courriel. Sans réponse, la réclamation auprès de la CNIL reste
-ouverte — et l'existence de cette voie suffit souvent à débloquer la situation.
+ouverte - et l'existence de cette voie suffit souvent à débloquer la situation.
 
 ## Ce que résilier fait et ne fait pas
 
@@ -115,7 +115,7 @@ semblant du contraire. Si cela vous fait quelque chose, c'est une réaction norm
 
 Exporter les conversations d'abord rend la décision réversible dans le seul sens
 qui compte : vous gardez ce qui a été dit, sans le laisser sur le serveur de
-quelqu'un d'autre. [Replika](/meilleure-petite-amie-ia/), en tant qu'application
+quelqu'un d'autre. [Replika](/#ranking), en tant qu'application
 susceptible d'avoir accumulé le plus d'années d'historique, est celle où cela se
 pose le plus souvent.
 

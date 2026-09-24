@@ -1,15 +1,41 @@
-{# Not found page. Title comes from pages.default.404.title in the GEO config. #}
+{#
+  Not found page. Title comes from pages.default.404.title in the GEO config.
+  A dead end is turned into three ways forward: search, the top of the
+  ranking, and the homepage.
+#}
 {% extends '_default/base.html.twig' %}
 
 {% block main %}
-<div class="container container--narrow article">
+{%- set home = site.pages.has('index') ? site.pages.get('index') : null -%}
+{%- set top = [] -%}
+{%- set ids = (home.ranking|default([]))|map(e => e.product)|merge(home.top_products|default([])) -%}
+{%- for pid in ids|unique -%}
+    {%- if top|length < 3 and products[pid] is defined -%}
+        {%- set top = top|merge([products[pid]]) -%}
+    {%- endif -%}
+{%- endfor -%}
+<div class="container container--narrow"><div class="article not-found">
     <h1>{{ page.title }}</h1>
-    <p>{{ L.not_found_text|default('') }}</p>
-    <p>
-        <a class="btn btn--primary" href="/">{{ L.home }}</a>
+    <p class="not-found__text">{{ L.not_found_text|default('') }}</p>
+
+    {% include 'components/search-form.twig' with { 'id': 'not-found-q', 'limit': 5, 'from_path': true } %}
+
+    {%- if top|length %}
+    <section class="not-found__top">
+        <h2 class="not-found__title">{{ L.not_found_top }}</h2>
+        <ol class="mini-cards" role="list">
+            {%- for product in top %}
+                {% include 'components/mini-card.twig' with { 'product': product, 'rank': loop.index } %}
+            {%- endfor %}
+        </ol>
+    </section>
+    {%- endif %}
+
+    <p class="not-found__actions">
+        <a class="btn btn--primary" href="/">{{ L.back_home }}</a>
         {%- if site.pages.has('reviews') and site.pages.get('reviews').published %}
         <a class="btn btn--ghost" href="{{ url(site.pages.get('reviews'), {canonical: false}) }}">{{ L.all_reviews }}</a>
         {%- endif %}
     </p>
-</div>
+</div></div>
 {% endblock %}

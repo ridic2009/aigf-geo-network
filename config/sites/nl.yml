@@ -26,6 +26,15 @@ baseline: 'Onafhankelijke tests van AI-compagnon-apps'
 description: 'Onafhankelijke tests en ranglijsten van AI-vriendin- en AI-compagnon-apps, beoordeeld door onze redactie.'
 pages:
   dir: content/nl
+  default:
+    search:
+      title: 'Zoeken'
+      slug: zoeken
+    site-map:
+      title: 'Sitemap'
+      slug: site-overzicht
+    404:
+      title: 'Pagina niet gevonden'
 routes:
   reviews: reviews
   compare: compare
@@ -46,6 +55,7 @@ ui:
     about: 'Over ons'
     disclosure: Affiliatie-openbaarmaking
     privacy: Privacy
+    sitemap: 'Sitemap'
   sections:
     reviews: Beoordelingen
     compare: Vergelijkingen
@@ -101,6 +111,30 @@ ui:
     availability_unavailable: 'Niet beschikbaar'
     platforms: Platforms
     launched: Gelanceerd
+    filters: 'Filters'
+    memory: 'Geheugen'
+    voice: 'Spraak'
+    nsfw: 'NSFW'
+    any: 'Alle'
+    price_up_to: 'Tot %s'
+    sort_by: 'Sorteren op'
+    sort_rank: 'Onze ranglijst'
+    sort_rating: 'Hoogst beoordeeld'
+    sort_price_asc: 'Prijs: laag naar hoog'
+    sort_price_desc: 'Prijs: hoog naar laag'
+    reset_filters: 'Wissen'
+    compare_count: '%1 van %2 apps'
+    compare_empty: 'Geen app voldoet aan deze filters.'
+    compare_apps: 'Vergelijk de apps'
+    top_picks: 'Onze keuzes'
+    how_we_test: 'Zo testen we'
+    faq_short: 'FAQ'
+    search: 'Zoeken'
+    search_placeholder: 'Zoek in beoordelingen, gidsen en artikelen'
+    search_empty: 'Niets gevonden voor "%s".'
+    not_found_top: 'Onze top 3 van dit moment'
+    back_home: 'Terug naar de homepage'
+    similar_apps: 'Vergelijkbare apps'
 site:
   id: nl
   brand: aigf

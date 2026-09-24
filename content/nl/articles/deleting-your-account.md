@@ -1,5 +1,5 @@
 ---
-title: Een AI-companion-account Verwijderen — Wat Weggaat en Wat Blijft
+title: Een AI-companion-account Verwijderen - Wat Weggaat en Wat Blijft
 slug: ai-companion-account-verwijderen
 status: published
 type: article
@@ -27,14 +27,14 @@ faq:
       beleid dat helemaal geen termijn noemt is het waarschuwingssignaal.
   - question: Kan ik mijn gesprekken er eerst uit halen?
     answer: >
-      Als de app een export biedt wel — doe dat eerst, want de twee handelingen
+      Als de app een export biedt wel - doe dat eerst, want de twee handelingen
       kunnen niet in omgekeerde volgorde.
 related:
   - articles/what-the-app-knows
   - articles/switching-apps
 seo:
   title: Een AI-vriendin-account Goed Verwijderen
-  description: De volgorde die werkt — exporteren, opzeggen, verwijderen, controleren — en welke delen van je gegevens een verwijderverzoek toch overleven.
+  description: De volgorde die werkt - exporteren, opzeggen, verwijderen, controleren - en welke delen van je gegevens een verwijderverzoek toch overleven.
   primary_keyword: ai vriendin account verwijderen
 indexing:
   index: true
@@ -56,7 +56,7 @@ facturen.
 **3. Zeg het abonnement op** en lees de bevestiging. Let op of de toegang doorloopt
 tot het einde van de periode.
 
-**4. Verwijder het account** — een aparte handeling, meestal in een ander
+**4. Verwijder het account** - een aparte handeling, meestal in een ander
 instellingenscherm, soms alleen per e-mail.
 
 **5. Controleer.** Probeer een week later in te loggen. Een account dat je wachtwoord
@@ -90,7 +90,7 @@ heb je nog steeds een sterke positie.
 Onder de AVG moet een verwijderverzoek binnen één maand worden beantwoord. Schrijf
 naar het privacycontact uit het beleid, zeg expliciet dat dit een verzoek om
 verwijdering onder de AVG is, en bewaar de e-mail. Komt er geen antwoord, dan kun je
-klagen bij de Autoriteit Persoonsgegevens — en het bestaan van die route is vaak
+klagen bij de Autoriteit Persoonsgegevens - en het bestaan van die route is vaak
 genoeg om een antwoord los te krijgen.
 
 ## Wat opzeggen wel en niet doet
@@ -111,7 +111,7 @@ teken dat er iets mis is met je.
 
 De gesprekken eerst exporteren maakt de beslissing omkeerbaar in de enige zin die
 telt: je houdt wat er gezegd is, zonder het op de server van iemand anders te laten
-staan. [Replika](/beste-ai-vriendin/), als de app die het vaakst jaren geschiedenis
+staan. [Replika](/#ranking), als de app die het vaakst jaren geschiedenis
 heeft opgebouwd, is waar dit het meest speelt.
 
 Ga je van de ene app naar de andere in plaats van weg uit de categorie, lees dan

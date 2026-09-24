@@ -1,5 +1,5 @@
 ---
-title: 最初のAI彼女アプリの選び方 — 候補を絞る五つの問い
+title: 最初のAI彼女アプリの選び方 - 候補を絞る五つの問い
 slug: how-to-choose-first-app
 status: published
 type: article
@@ -33,9 +33,8 @@ faq:
       会話だけを求める人や、続く無料プランだけを求める人にとっての最適解とは別物です。
 related:
   - articles/what-free-tiers-include
-  - rankings/best-ai-girlfriend
 seo:
-  title: 最初のAI彼女アプリの選び方 — 2026年版
+  title: 最初のAI彼女アプリの選び方 - 2026年版
   description: 二十の候補を二つまで絞る五つの問い。それに何を求めているか、コンテンツフィルター、実際に使う場所、三か月目に払う額、そして辞め方まで。
   primary_keyword: AI彼女アプリ 選び方
 indexing:
@@ -56,7 +55,7 @@ indexing:
 
 答えが**「何か見せてほしい」**なら、必要なのはメディアです。画像生成と音声が、別売りの
 トークンではなく同じサブスクリプションの中にあること。[Candy AI](/review/candy-ai/)が
-その領域を押さえており、[当サイトのランキング](/best-ai-girlfriend/)で首位にいるのは
+その領域を押さえており、[当サイトのランキング](/#ranking)で首位にいるのは
 そのためです。すべての項目で勝っているからではなく、二度目の支払いなしに三つとも扱える
 唯一のアプリだからです。
 

@@ -1,0 +1,30 @@
+{#
+  A small product card whose main link is the review: used where the point is
+  to move the reader on through the site (similar apps, the 404 page).
+  Falls back to the offer only when this GEO has no review of the product.
+
+  params: product (resolved map), rank (int, optional)
+#}
+{%- set L = site.ui.labels -%}
+{%- set review = site.pages.showable|filter(p => p.type|default('') == 'review' and p.product|default('') == product.id and p.id != page.id)|first|default(null) -%}
+<li class="mini-card">
+    {%- if product.logo is defined and product.logo %}
+    <img class="mini-card__logo" src="{{ product.logo }}" alt="" width="48" height="48" loading="lazy" decoding="async">
+    {%- endif %}
+    <div class="mini-card__body">
+        <p class="mini-card__name">
+            {%- if rank|default(null) %}<span class="mini-card__rank">{{ rank }}.</span> {% endif -%}
+            {%- if review %}<a href="{{ url(review, {canonical: false}) }}">{{ product.name }}</a>{% else %}{{ product.name }}{% endif -%}
+        </p>
+        {% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}
+        {%- if product.best_for|default(null) %}
+        <p class="mini-card__text">{{ product.best_for }}</p>
+        {%- endif %}
+    </div>
+    <div class="mini-card__actions">
+        {%- if review %}
+        <a class="btn btn--ghost btn--small" href="{{ url(review, {canonical: false}) }}">{{ L.read_review }}</a>
+        {%- endif %}
+        {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.visit_site, 'class': review ? 'btn--small mini-card__offer' : 'btn--primary btn--small' } %}
+    </div>
+</li>

@@ -1,5 +1,5 @@
 ---
-title: Sweetdream AI Review 2026 — The Free Tier That Is Not a Demo
+title: Sweetdream AI Review 2026 - The Free Tier That Is Not a Demo
 slug: sweetdream-review
 type: review
 status: published
@@ -28,9 +28,8 @@ cons:
   - Repeats itself in long sessions
 related:
   - reviews/nomi
-  - rankings/best-ai-girlfriend
 seo:
-  title: Sweetdream AI Review 2026 — Free Tier, Features, Verdict
+  title: Sweetdream AI Review 2026 - Free Tier, Features, Verdict
   description: "Hands-on Sweetdream review: a free tier you can actually use,
     where memory falls short, and what the paid plan adds."
   primary_keyword: sweetdream ai review
@@ -66,7 +65,7 @@ In this category “free” usually means twenty messages and a paywall. Here th
 
 ## Where it falls behind
 
-Memory is shorter than [Nomi](/reviews/nomi-review/) — a week-old detail comes and goes. The builder is thin next to [Camsoda AI](/reviews/camsoda-ai-review/). Long sessions repeat phrasing more than the top three.
+Memory is shorter than [Nomi](/reviews/nomi-review/) - a week-old detail comes and goes. The builder is thin next to [Camsoda AI](/reviews/camsoda-ai-review/). Long sessions repeat phrasing more than the top three.
 
 ## Who I would send here
 

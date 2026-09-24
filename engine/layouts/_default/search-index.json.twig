@@ -1,0 +1,48 @@
+{#-
+  The index main.js searches: one entry per indexable page of this GEO.
+
+    t  title          u  URL (root-relative)       s  section / category label
+    d  description    h  headings of the body       x  opening text, trimmed
+
+  Only the opening of each text is included: the whole corpus would be a few
+  hundred kilobytes on a phone for the sake of words deep inside an article.
+-#}
+{%- set labels = site.ui.sections|default({}) -%}
+{%- set cats = site.ui.article_categories|default({}) -%}
+{%- set items = [] -%}
+{%- for p in site.pages.showable -%}
+    {%- if p.indexing.index is defined ? p.indexing.index : true -%}
+        {%- set section = p.section|default(null) -%}
+        {%- set label = p.type|default('') == 'homepage' ? site.ui.labels.home : (section ? labels[section]|default('') : '') -%}
+        {%- if section == 'articles' and p.category|default(null) and cats[p.category] is defined -%}
+            {%- set label = cats[p.category] -%}
+        {%- endif -%}
+        {%- set headings = [] -%}
+        {%- for line in p.body|default('')|split("\n") -%}
+            {%- if line starts with '## ' or line starts with '### ' -%}
+                {%- set headings = headings|merge([line|trim('# ')]) -%}
+            {%- endif -%}
+        {%- endfor -%}
+        {#- Plain text: tags out, the entities the Markdown renderer writes decoded,
+            whitespace collapsed. -#}
+        {%- set text = (p.intro|default('') ~ ' ' ~ p.content|default('')|striptags|slice(0, 3000))
+            |replace({'&amp;': '&', '&quot;': '"', '&#039;': "'", '&#39;': "'", '&lt;': '<', '&gt;': '>', '&nbsp;': ' '})
+            |preg_split('/\\s+/u')|join(' ')|trim -%}
+        {%- set items = items|merge([{
+            't': p.title,
+            'u': url(p, {canonical: false}),
+            's': label,
+            'd': p.seo.description|default(p.description|default('')),
+            'h': headings|join(' · '),
+            'x': text|slice(0, 1200)
+        }]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{#- Section hubs (/reviews/, /articles/…) are generated, so showable() skips them. -#}
+{%- for section, label in labels -%}
+    {%- if site.pages.has(section) and site.pages.get(section).published -%}
+        {%- set hub = site.pages.get(section) -%}
+        {%- set items = items|merge([{ 't': hub.title, 'u': url(hub, {canonical: false}), 's': '', 'd': hub.intro|default(''), 'h': '', 'x': '' }]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{{- items|json_encode(constant('JSON_UNESCAPED_UNICODE') b-or constant('JSON_UNESCAPED_SLASHES'))|raw -}}

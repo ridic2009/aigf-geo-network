@@ -1,5 +1,5 @@
 ---
-title: Comment Fonctionne la Mémoire d'un Compagnon IA — et Pourquoi Il Oublie
+title: Comment Fonctionne la Mémoire d'un Compagnon IA - et Pourquoi Il Oublie
 slug: memoire-des-compagnons-ia
 status: published
 type: article
@@ -36,8 +36,8 @@ related:
   - articles/what-is-an-ai-girlfriend
   - articles/hallucinations
 seo:
-  title: La Mémoire des Petites Amies IA — Fonctionnement et Limites
-  description: Les trois mécanismes derrière la mémoire d'un compagnon IA — faits, résumés et contexte — et la manière précise dont chacun échoue.
+  title: La Mémoire des Petites Amies IA - Fonctionnement et Limites
+  description: Les trois mécanismes derrière la mémoire d'un compagnon IA - faits, résumés et contexte - et la manière précise dont chacun échoue.
   primary_keyword: mémoire petite amie ia
 indexing:
   index: true
@@ -61,7 +61,7 @@ trou.
 
 ## Deux : les faits mémorisés
 
-Une courte liste que l'application tient sur vous — votre prénom, votre métier, le
+Une courte liste que l'application tient sur vous - votre prénom, votre métier, le
 chien, le fait que vous détestez les matins. Elle est renvoyée à chaque message,
 ce qui explique que ces détails survivent indéfiniment là où des souvenirs plus
 riches disparaissent.
@@ -97,9 +97,9 @@ silence.
 
 **Survit-elle à une interruption ?** Discutez chaque jour pendant une semaine,
 arrêtez quatre jours, revenez et faites référence à quelque chose de précis du
-deuxième jour. Les applications conçues pour la continuité — la raison pour
+deuxième jour. Les applications conçues pour la continuité - la raison pour
 laquelle [Nomi](/avis/nomi-avis/) obtient sa note de conversation dans
-[notre classement](/meilleure-petite-amie-ia/) — y arrivent. Celles conçues pour
+[notre classement](/#ranking) - y arrivent. Celles conçues pour
 des scènes non, et ce n'est pas un défaut chez elles, c'est un autre produit.
 
 ## Deux habitudes qui aident avec n'importe quelle application

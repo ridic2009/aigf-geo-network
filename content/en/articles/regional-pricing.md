@@ -35,7 +35,7 @@ related:
   - articles/web-vs-native
   - articles/refunds
 seo:
-  title: AI Companion Pricing by Country — Why Yours Is Different
+  title: AI Companion Pricing by Country - Why Yours Is Different
   description: Regional tiers, VAT, conversion fees and store commission explained, and why a VPN is a bad way to chase a lower price.
   primary_keyword: ai girlfriend price by country
 indexing:
@@ -53,10 +53,10 @@ number is a commercial decision.
 
 This is completely standard across software and it is why a price quoted in a
 review is only meaningful alongside the country it was quoted in. The figures we
-publish — [Sweetdream](/reviews/sweetdream-review/) at $10.00,
+publish - [Sweetdream](/reviews/sweetdream-review/) at $10.00,
 [Candy AI](/reviews/candy-ai-review/) at $12.99,
 [Nomi](/reviews/nomi-review/) at $15.99,
-[Replika](/reviews/replika-review/) at $19.99 — are the published monthly prices
+[Replika](/reviews/replika-review/) at $19.99 - are the published monthly prices
 for our worldwide English edition. Our
 [French](https://aigirlfriendranking-france.site/),
 [Dutch](https://aigirlfriendranking-netherlands.site/) and
@@ -79,8 +79,8 @@ you pay. If you are in the US, expect tax on top.
 
 ## 3. Your bank's conversion fee
 
-If the app bills in dollars and your card is in euros or yen, your bank converts
-— and typically takes 1.5–3% for doing it, sometimes plus a flat foreign
+If the app bills in dollars and your card is in euros or yen, your bank converts -
+and typically takes 1.5–3% for doing it, sometimes plus a flat foreign
 transaction fee.
 
 This is invisible on the app's side entirely. It shows up only on your
@@ -95,8 +95,8 @@ the same tier frequently costs more inside the app than on the company's
 website.
 
 Where both routes exist, buying on the website is usually cheaper. The
-trade-offs — who handles cancellation, who issues refunds, what appears on your
-statement — are in
+trade-offs - who handles cancellation, who issues refunds, what appears on your
+statement - are in
 [browser or app store](/articles/web-app-vs-native-ai-companion/) and
 [refunds and chargebacks](/articles/ai-companion-refunds/).
 
@@ -112,7 +112,7 @@ and not the checkout.
 **It violates the terms.** Every major app store and nearly every operator
 prohibits it explicitly.
 
-**An account flagged for it can be closed** — with whatever credits, history and
+**An account flagged for it can be closed** - with whatever credits, history and
 character are inside it. In a category where the value is accumulated history,
 that is a bad trade for a few dollars a month.
 
@@ -121,7 +121,7 @@ misrepresenting your location is one you will lose.
 
 If the price in your country is genuinely too high, the productive move is a
 cheaper app rather than a disguised account. There is a real spread in
-[our ranking](/best-ai-girlfriend-apps/), and the cheapest app there is also the
+[our ranking](/#ranking), and the cheapest app there is also the
 one with the free tier we rate highest.
 
 ## What to actually do
@@ -131,7 +131,7 @@ anything is the one on the payment screen in your own country with your own
 card.
 
 **Check whether the renewal price differs from the first period**, which is a
-larger effect than regional pricing in most cases — see
+larger effect than regional pricing in most cases - see
 [what these apps cost](/articles/ai-girlfriend-app-prices/).
 
 **Use a card without foreign transaction fees** if the app bills in a currency

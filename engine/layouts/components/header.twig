@@ -1,4 +1,4 @@
-{# Site header: brand + main navigation. Works without JavaScript. #}
+{# Site header: brand + main navigation + search. Works without JavaScript. #}
 {%- set ui = site.ui -%}
 <header class="site-header">
     <div class="container site-header__inner">
@@ -6,6 +6,15 @@
             <span class="brand__mark" aria-hidden="true">AI</span>
             <span class="brand__name">{{ site.title }}</span>
         </a>
+
+        {#- A plain link to the search page; main.js turns it into a toggle for
+            the panel below so the reader can search without leaving the page. -#}
+        {%- if search_url|default(null) %}
+        <a class="search-toggle" href="{{ search_url }}" aria-controls="search-panel" aria-expanded="false" data-search-toggle>
+            <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+            <span class="search-toggle__label">{{ ui.labels.search }}</span>
+        </a>
+        {%- endif %}
 
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
             <span class="nav-toggle__bar" aria-hidden="true"></span>
@@ -16,4 +25,12 @@
             {% include 'components/navigation.twig' with { 'items': site.navigation.main, 'menu': 'main', 'label': ui.labels.main_navigation } %}
         </div>
     </div>
+
+    {%- if search_url|default(null) and page.id != 'search' %}
+    <div class="search-panel" id="search-panel" data-search-panel hidden>
+        <div class="container">
+            {% include 'components/search-form.twig' with { 'id': 'search-panel-q', 'limit': 6 } %}
+        </div>
+    </div>
+    {%- endif %}
 </header>

@@ -33,6 +33,20 @@ faq:
       Nous percevons une commission lorsqu'un lecteur s'inscrit via certains de nos
       liens. Les notes sont fixées avant toute discussion commerciale et ne sont
       jamais modifiées. Voir notre [divulgation d'affiliation](/divulgation-affiliation/).
+aliases:
+  - /meilleure-petite-amie-ia/
+ranking_title: 'Les applications de petite amie IA comparées'
+ranking:
+  - product: candy-ai
+    badge: Meilleur choix global
+    highlight: L'offre la plus complète, et la seule application où la génération d'images est réellement exploitable.
+  - product: nomi
+    badge: Meilleures conversations
+    highlight: Retient le contexte mieux que tout ce que nous avons testé, avec le dialogue le plus naturel.
+  - product: replika
+    badge: Meilleure version gratuite
+    highlight: L'offre gratuite la plus généreuse, mais la version payante paraît datée face aux applications récentes.
+top_products_title: 'Pourquoi chaque application est dans le classement'
 ---
 
 ## À quoi sert ce site
@@ -44,8 +58,8 @@ tests sont en préparation.
 
 ## Ce que nous mesurons
 
-- **Qualité de conversation** — l'application reste-t-elle cohérente sur la durée ?
-- **Mémoire** — se souvient-elle de ce que vous avez dit la semaine dernière ?
-- **Média** — images, voix, et la part réservée aux abonnés payants.
-- **Tarif** — le coût mensuel réel une fois l'offre de lancement terminée.
-- **Contrôles** — export des données, suppression et réglages de contenu.
+- **Qualité de conversation** - l'application reste-t-elle cohérente sur la durée ?
+- **Mémoire** - se souvient-elle de ce que vous avez dit la semaine dernière ?
+- **Média** - images, voix, et la part réservée aux abonnés payants.
+- **Tarif** - le coût mensuel réel une fois l'offre de lancement terminée.
+- **Contrôles** - export des données, suppression et réglages de contenu.

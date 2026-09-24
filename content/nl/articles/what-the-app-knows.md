@@ -20,7 +20,7 @@ faq:
   - question: Zijn mijn gesprekken versleuteld?
     answer: >
       Onderweg wel, bij elke serieuze app. End-to-end is een andere claim en hier
-      vrijwel nooit waar — de servers van de aanbieder moeten je berichten lezen
+      vrijwel nooit waar - de servers van de aanbieder moeten je berichten lezen
       om een antwoord te maken.
   - question: Kan personeel mijn chats lezen?
     answer: >
@@ -35,8 +35,8 @@ related:
   - articles/deleting-your-account
   - articles/what-is-an-ai-girlfriend
 seo:
-  title: Wat AI-vriendin-apps Over Je Weten — en Hoe Je Dat Controleert
-  description: Vier controles vóór je je aanmeldt — wat er wordt verzameld, wie het kan lezen, of het een model traint, en wat een verwijderverzoek echt weghaalt.
+  title: Wat AI-vriendin-apps Over Je Weten - en Hoe Je Dat Controleert
+  description: Vier controles vóór je je aanmeldt - wat er wordt verzameld, wie het kan lezen, of het een model traint, en wat een verwijderverzoek echt weghaalt.
   primary_keyword: ai vriendin privacy
 indexing:
   index: true
@@ -77,7 +77,7 @@ daarna of er in de instellingen een opt-out bestaat.
 
 In de praktijk bestaan drie niveaus: niet trainen op gebruikersinhoud, trainen met
 een opt-out, en trainen zonder zichtbare controle. Alle drie kunnen acceptabel
-zijn — niet weten in welke je zit niet.
+zijn - niet weten in welke je zit niet.
 
 ## Controle 3: bewaren en verwijderen
 
@@ -86,7 +86,7 @@ Twee losse vragen die beleidsteksten graag door elkaar halen.
 *Bewaren* is hoelang inhoud blijft staan terwijl je account actief is.
 *Verwijderen* is wat er gebeurt als je erom vraagt. Een app kan een
 verwijderverzoek voor je gesprekken honoreren en tegelijk gegenereerde
-afbeeldingen, facturatiegegevens en back-ups op een langere cyclus bewaren — wat
+afbeeldingen, facturatiegegevens en back-ups op een langere cyclus bewaren - wat
 volkomen rechtmatig kan zijn en toch niet is wat je aannam.
 
 De details staan in
@@ -99,7 +99,7 @@ eisen, en de aanbieder moet binnen één maand antwoorden. Dat recht bestaat
 ongeacht wat de algemene voorwaarden zeggen, ook wanneer het bedrijf buiten de EU
 zit maar zich op Nederlandse gebruikers richt.
 
-De praktische toets is niet óf die rechten bestaan — dat doen ze — maar of de app
+De praktische toets is niet óf die rechten bestaan - dat doen ze - maar of de app
 je een knop geeft of je naar een e-mailadres stuurt om te wachten. Dat verschil
 vertelt je hoe het bedrijf over je denkt.
 
@@ -111,7 +111,7 @@ vroeg, wat je niet gaat typen in een dienst die het moet opslaan: de naam van je
 werkgever, je adres, en alles over een derde die er niet mee heeft ingestemd in
 jouw chatlog te belanden.
 
-[Replika](/beste-ai-vriendin/) en [Nomi](/reviews/nomi-beoordeling/) zijn de twee
+[Replika](/#ranking) en [Nomi](/reviews/nomi-beoordeling/) zijn de twee
 apps in onze ranglijst die het meest waarschijnlijk jaren in plaats van weken van
 dit materiaal opbouwen, simpelweg omdat ze voor continuïteit zijn gebouwd. Dat
 maakt die vijf minuten daar meer waard, niet minder.

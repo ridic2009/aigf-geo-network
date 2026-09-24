@@ -1,5 +1,5 @@
 ---
-title: Candy AI Review 2026 — I Used It Every Day for Two Weeks
+title: Candy AI Review 2026 - I Used It Every Day for Two Weeks
 slug: candy-ai-review
 type: review
 status: published
@@ -14,7 +14,7 @@ intro: >
   character, and a voice reply without opening a second app.
 verdict: >
   This is first place because it is the only app where the three things people
-  actually pay for — conversation, images, voice — all work on one bill. The
+  actually pay for - conversation, images, voice - all work on one bill. The
   interface is busy and the free tier is a window, not a trial. The paid product
   does what it says.
 pros:
@@ -31,7 +31,7 @@ related:
   - reviews/nomi
   - compare/candy-ai-vs-nomi
 seo:
-  title: Candy AI Review 2026 — Two Weeks on a Paid Plan
+  title: Candy AI Review 2026 - Two Weeks on a Paid Plan
   description: "Hands-on Candy AI review: chat, image consistency, voice, real
     pricing, and who should skip it for Nomi."
   primary_keyword: candy ai review
@@ -42,7 +42,7 @@ faq:
   - question: How much does Candy AI cost?
     answer: >
       One standard monthly plan covering chat, images and voice. The live figure
-      for your market is on the product card above — I do not freeze a number in
+      for your market is on the product card above - I do not freeze a number in
       this article because it moves.
   - question: Is there a usable free version?
     answer: >
@@ -56,7 +56,7 @@ image: /images/content/candyai-daekzfwd-1.webp
 ---
 ## What I actually used
 
-Most apps sell the conversation, then meter the pictures. Candy AI puts chat, image generation and voice on the same plan. I used all three, every day. By the second week the character still looked like herself — that is rarer than the marketing copy suggests.
+Most apps sell the conversation, then meter the pictures. Candy AI puts chat, image generation and voice on the same plan. I used all three, every day. By the second week the character still looked like herself - that is rarer than the marketing copy suggests.
 
 
 | Pillar | After two weeks |

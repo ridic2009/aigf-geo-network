@@ -1,5 +1,5 @@
 ---
-title: Beelden, Stem en Video — Hoe de Mediakant Werkt
+title: Beelden, Stem en Video - Hoe de Mediakant Werkt
 slug: ai-companion-beelden-en-stem
 status: published
 type: article
@@ -35,9 +35,8 @@ faq:
       context die in de chat vanzelfsprekend leek.
 related:
   - articles/what-is-an-ai-girlfriend
-  - rankings/best-ai-girlfriend
 seo:
-  title: Hoe AI-vriendin-beelden en Stem Werken — en Wat Ze Kosten
+  title: Hoe AI-vriendin-beelden en Stem Werken - en Wat Ze Kosten
   description: Waarom het chatmodel en het beeldmodel gescheiden zijn, waarom gezichten verschuiven tussen afbeeldingen, en waarom media altijd als eerste wordt begrensd.
   primary_keyword: ai vriendin afbeeldingen
 indexing:
@@ -83,7 +82,7 @@ Genereer vier afbeeldingen van hetzelfde personage in verschillende situaties.
 Krijg je vier verschillende vrouwen, dan lost geen abonnement dat op. Consistentie
 over afbeeldingen heen is een groot deel van waarom
 [Candy AI](/reviews/candy-ai-beoordeling/) bovenaan
-[onze ranglijst](/beste-ai-vriendin/) staat.
+[onze ranglijst](/#ranking) staat.
 
 ## Waarom media altijd wordt afgerekend
 
@@ -95,7 +94,7 @@ afgerekend. Video is dramatisch duurder dan beide.
 Dat kostenverschil is de hele verklaring voor de prijsstructuur die je overal in
 deze categorie ziet: royale berichtlimieten, strakke beeldlimieten, stemminuten
 apart, video alleen in hogere lagen. Het is geen kunstmatige schaarste om je te
-laten upgraden — het is de vorm van de rekening die de aanbieder zelf krijgt.
+laten upgraden - het is de vorm van de rekening die de aanbieder zelf krijgt.
 
 Daarom betekent "onbeperkt" in deze markt vrijwel altijd onbeperkte *tekst*. Lees
 het zo, en de prijspagina's worden ineens begrijpelijk.
@@ -106,7 +105,7 @@ Stem verandert de ervaring meer dan de meeste mensen verwachten. Een bericht lez
 en het horen zijn verschillende dingen.
 
 Twee dingen om te controleren voordat je ervoor betaalt. **Vertraging**: een pauze
-van drie seconden voor elk antwoord breekt de illusie volledig — test dat zelf, niet
+van drie seconden voor elk antwoord breekt de illusie volledig - test dat zelf, niet
 via een demovideo. En **of het een gesprek of een spraakbericht is**: spraakberichten
 zijn goedkoop en gangbaar, echte gesprekken zijn een ander product en meestal een
 andere prijslaag.
@@ -115,7 +114,7 @@ andere prijslaag.
 
 Twee grenzen die je beter vooraf kent. **Handen, tekst en fijn detail** blijven bij
 elke generator in deze categorie onbetrouwbaar; niemand heeft dat opgelost. En **de
-afbeelding kent jullie scène niet** — het chatmodel schrijft één regel, dus alles
+afbeelding kent jullie scène niet** - het chatmodel schrijft één regel, dus alles
 wat niet in die regel staat is weg: de kamer die je beschreef, wat ze drie berichten
 geleden droeg, het tijdstip. Expliciet zijn in de vraag lost hier meer op dan welke
 instelling ook.
@@ -124,10 +123,10 @@ instelling ook.
 
 Besteed het hele gratis tegoed in één sessie in plaats van één plaatje per dag. Je
 test vier dingen: consistentie (vier afbeeldingen, één personage), of de opdracht
-wordt gevolgd, de vertraging bij beeld en stem, en — het minst gedocumenteerd en het
-vervelendst om achteraf te ontdekken — of een mislukte of geweigerde generatie je
+wordt gevolgd, de vertraging bij beeld en stem, en - het minst gedocumenteerd en het
+vervelendst om achteraf te ontdekken - of een mislukte of geweigerde generatie je
 tegoed toch kost.
 
 Apps die serieus in media investeren, zoals
-[Secret Desires](/beste-ai-vriendin/) met beeld- en korte videogeneratie, zijn precies
+[Secret Desires](/#ranking) met beeld- en korte videogeneratie, zijn precies
 de apps waar die vier tests het meest opleveren.

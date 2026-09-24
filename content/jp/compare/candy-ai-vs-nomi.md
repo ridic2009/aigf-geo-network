@@ -15,9 +15,8 @@ intro: 両方のアプリは私たちのランキングのトップに位置し�
 related:
   - reviews/candy-ai
   - reviews/nomi
-  - rankings/best-ai-girlfriend
 seo:
-  title: Candy AI vs Nomi（2026）— どちらを選ぶべきか？
+  title: Candy AI vs Nomi（2026）- どちらを選ぶべきか？
   description: Candy AIとNomiを、2週間の並行テストに基づいて、会話、記憶、画像、音声、価格の観点から比較します。
   primary_keyword: candy ai vs nomi
 indexing:

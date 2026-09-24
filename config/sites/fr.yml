@@ -27,6 +27,12 @@ description: "Tests indépendants et classements des applications d'IA girlfrien
 pages:
   dir: content/fr
   default:
+    search:
+      title: 'Recherche'
+      slug: recherche
+    site-map:
+      title: 'Plan du site'
+      slug: plan-du-site
     404:
       title: 'Page introuvable'
 routes:
@@ -50,6 +56,7 @@ ui:
     about: 'À propos'
     disclosure: 'Divulgation d’affiliation'
     privacy: Confidentialité
+    sitemap: 'Plan du site'
   sections:
     reviews: Avis
     compare: Comparatifs
@@ -105,6 +112,30 @@ ui:
     availability_unavailable: 'Non disponible'
     platforms: Plateformes
     launched: Lancement
+    filters: 'Filtres'
+    memory: 'Mémoire'
+    voice: 'Voix'
+    nsfw: 'NSFW'
+    any: 'Tous'
+    price_up_to: 'Jusqu''à %s'
+    sort_by: 'Trier par'
+    sort_rank: 'Notre classement'
+    sort_rating: 'Mieux notées'
+    sort_price_asc: 'Prix croissant'
+    sort_price_desc: 'Prix décroissant'
+    reset_filters: 'Réinitialiser'
+    compare_count: '%1 applications sur %2'
+    compare_empty: 'Aucune application ne correspond à ces filtres.'
+    compare_apps: 'Comparer les applications'
+    top_picks: 'Nos choix'
+    how_we_test: 'Notre méthode'
+    faq_short: 'FAQ'
+    search: 'Rechercher'
+    search_placeholder: 'Rechercher un avis, un guide, un article'
+    search_empty: 'Aucun résultat pour « %s ».'
+    not_found_top: 'Notre top 3 du moment'
+    back_home: 'Retour à l''accueil'
+    similar_apps: 'Applications similaires'
 site:
   id: fr
   brand: aigf

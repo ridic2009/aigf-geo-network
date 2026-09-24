@@ -35,7 +35,7 @@ related:
   - articles/what-the-app-knows
   - articles/shared-device
 seo:
-  title: Accountbeveiliging bij AI-companions — Wachtwoorden, 2FA en Sessies
+  title: Accountbeveiliging bij AI-companions - Wachtwoorden, 2FA en Sessies
   description: Waarom deze accounts de moeite van het overnemen waard zijn, wat deze apps meestal niet beschermen, en de vier wijzigingen die het meest uitmaken.
   primary_keyword: ai vriendin accountbeveiliging
 indexing:
@@ -47,8 +47,8 @@ wat er in je e-mail staat, gegenereerde afbeeldingen, een betaalmethode, en een
 e-mailadres dat het koppelt aan de rest van je leven.
 
 Bedenk vervolgens dat de aanbieder meestal een klein bedrijf is met een klein
-technisch team en geen toezichthouder die meekijkt. Dat gat — hoge waarde, gewone
-bescherming — is het hele probleem.
+technisch team en geen toezichthouder die meekijkt. Dat gat - hoge waarde, gewone
+bescherming - is het hele probleem.
 
 ## Wat deze apps meestal níét doen
 
@@ -85,7 +85,7 @@ Dit doet twee dingen tegelijk. Het zorgt dat het account niet vindbaar is vanuit
 hoofdidentiteit, en het betekent dat een compromittering van het één niet naar het
 ander leidt.
 
-Gebruik een echte mailbox die je beheert, geen wegwerpadres — je wilt over een jaar
+Gebruik een echte mailbox die je beheert, geen wegwerpadres - je wilt over een jaar
 nog een wachtwoordherstel kunnen ontvangen. Hetzelfde adres hoort de bonnen te
 ontvangen, om de redenen in
 [betaalprivacy](/artikelen/betaalprivacy-ai-apps/).
@@ -122,8 +122,8 @@ het kaartnummer te vervangen. En beslis of je blijft: een lek dat met een duidel
 melding en een echte tijdlijn wordt afgehandeld is een ander signaal dan een lek dat
 drie maanden later door journalisten naar buiten komt.
 
-Lees wat de aanbieder werkelijk zegt. Vaagheid over de omvang — namelijk of
-gesprekken erbij zaten — is op zichzelf een antwoord.
+Lees wat de aanbieder werkelijk zegt. Vaagheid over de omvang - namelijk of
+gesprekken erbij zaten - is op zichzelf een antwoord.
 
 ## Voordat je je abonneert
 
@@ -131,8 +131,8 @@ Twee minuten in de instellingen vóór je betaalt zegt meer over het vakmanschap
 een aanbieder dan welke marketingpagina ook. Is er 2FA? Is er een sessieoverzicht?
 Is er een zelfbedieningsknop om te verwijderen, of alleen een supportadres?
 
-Apps die voor jaren geschiedenis zijn gebouwd — [Nomi](/reviews/nomi-beoordeling/),
-Replika — zijn waar dit het hardst optelt, simpelweg omdat zij uiteindelijk het meeste
+Apps die voor jaren geschiedenis zijn gebouwd - [Nomi](/reviews/nomi-beoordeling/),
+Replika - zijn waar dit het hardst optelt, simpelweg omdat zij uiteindelijk het meeste
 over je vasthouden. Waaruit dat materiaal bestaat staat in
 [wat de app over je weet](/artikelen/wat-de-app-over-je-weet/), en hoe je het kwijtraakt
 in [je account verwijderen](/artikelen/ai-companion-account-verwijderen/).

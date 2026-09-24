@@ -36,7 +36,7 @@ related:
   - articles/shared-device
   - articles/deleting-your-account
 seo:
-  title: AI Companion Account Security — Passwords, 2FA and Sessions
+  title: AI Companion Account Security - Passwords, 2FA and Sessions
   description: Why these accounts are worth taking, what these apps typically do not protect, and the four changes that matter most.
   primary_keyword: ai girlfriend account security
 indexing:
@@ -48,8 +48,8 @@ more candid than anything in your email, generated images, a payment method, and
 an email address that links it to the rest of your life.
 
 Now consider that the operator is usually a small company with a small
-engineering team and no regulator looking over its shoulder. That gap — high
-value, ordinary protection — is the whole of the problem.
+engineering team and no regulator looking over its shoulder. That gap - high
+value, ordinary protection - is the whole of the problem.
 
 ## What these apps typically do not do
 
@@ -73,7 +73,7 @@ usually indicates a team that has thought about the rest too.
 ### 1. A unique password, from a manager
 
 Obvious and still the whole ballgame. The realistic threat is not someone
-attacking this app — it is credential stuffing, where a password leaked from an
+attacking this app - it is credential stuffing, where a password leaked from an
 unrelated breach is tried here.
 
 A password manager makes this free. Anything reused is one unrelated breach away
@@ -84,7 +84,7 @@ from being someone else's.
 This does two things at once. It stops the account being findable from your main
 identity, and it means a compromise of one does not lead to the other.
 
-Use a real mailbox you control rather than a disposable address — you need to be
+Use a real mailbox you control rather than a disposable address - you need to be
 able to receive a password reset in a year. Aliasing services, or a second
 mailbox from your provider, both work.
 
@@ -94,7 +94,7 @@ The same address should receive the billing receipts, per
 ### 3. Turn on 2FA where it exists
 
 If the app offers it, use it, and prefer an authenticator app to SMS. Where it
-does not exist, protect the **email account** with 2FA instead — that is the
+does not exist, protect the **email account** with 2FA instead - that is the
 recovery path, and securing it covers every app that can email you a reset link.
 
 This is the highest-value move available when the app itself offers you nothing.
@@ -110,9 +110,9 @@ implementations.
 Worth naming plainly, because it is the one that does real damage in this
 category: someone with access to your unlocked device.
 
-No password policy addresses this. The relevant work is on the device side —
+No password policy addresses this. The relevant work is on the device side -
 separate browser profiles, notification previews off, downloads out of synced
-folders — and it is covered in
+folders - and it is covered in
 [using an AI companion on a shared device](/articles/ai-companion-shared-device/).
 
 ## If an app is breached
@@ -126,8 +126,8 @@ It happens, and the playbook is the same every time:
    timeline is a different signal from one disclosed by journalists three months
    later.
 
-Read what the operator actually says. Vagueness about scope — which is to say,
-whether conversations were included — is itself an answer.
+Read what the operator actually says. Vagueness about scope - which is to say,
+whether conversations were included - is itself an answer.
 
 ## Before you subscribe
 
@@ -138,8 +138,8 @@ engineering than any marketing page:
 - Is there a session list?
 - Is there a self-service delete, or only a support address?
 
-Apps built for years of accumulated history — [Nomi](/reviews/nomi-review/),
-[Replika](/reviews/replika-review/) — are the ones where this compounds most,
+Apps built for years of accumulated history - [Nomi](/reviews/nomi-review/),
+[Replika](/reviews/replika-review/) - are the ones where this compounds most,
 simply because they are the ones that will be holding the most about you.
 What that material consists of is in
 [what your app knows about you](/articles/what-your-ai-girlfriend-app-knows/),

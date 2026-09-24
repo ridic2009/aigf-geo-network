@@ -1,5 +1,5 @@
 ---
-title: Browser of App Store — Waar AI-companions Eigenlijk Wonen
+title: Browser of App Store - Waar AI-companions Eigenlijk Wonen
 slug: browser-of-app
 status: published
 type: article
@@ -36,7 +36,7 @@ related:
   - articles/choosing-your-first-app
   - articles/content-filters
 seo:
-  title: Webapp of Native AI-vriendin-app — Wat Te Kiezen
+  title: Webapp of Native AI-vriendin-app - Wat Te Kiezen
   description: Waarom zoveel AI-companions alleen in de browser draaien, wat de storeversie beperkt, en hoe die keuze het dagelijks gebruik verandert.
   primary_keyword: ai vriendin app ios android
 indexing:
@@ -53,13 +53,13 @@ Joi draaien alleen in een browser.
 Appstore-richtlijnen beperken volwassen en daaraan grenzende content streng, en de
 handhaving is onvoorspelbaar. Een app wiens verkoopargument een toegeeflijk
 contentbeleid is, kan dat beleid niet via een store uitbrengen zonder verwijdering
-te riskeren — en een verwijdering haalt het hele product offline, niet alleen die
+te riskeren - en een verwijdering haalt het hele product offline, niet alleen die
 functie.
 
 Dus splitst de markt. Apps die op de brede markt mikken krijgen een native build en
 accepteren de beperkingen. Apps die op het toegeeflijke eind mikken blijven in de
 browser. Het patroon hierboven is die scheiding, geen verschil in
-ontwikkelbudget — dezelfde kracht die beschreven staat in
+ontwikkelbudget - dezelfde kracht die beschreven staat in
 [hoe contentfilters werken](/artikelen/ai-companion-contentfilters/).
 
 ## De valkuil: zelfde merk, ander product
@@ -82,7 +82,7 @@ reden dat mensen denken te hebben opgezegd en toch opnieuw worden afgeschreven.
 In dagelijks gebruik drie dingen.
 
 **Meldingen.** Een webpagina kan je niet betrouwbaar porren. Of dat een nadeel is
-hangt af van je kijk op porren — een app die je aanstoot om een reeks in stand te
+hangt af van je kijk op porren - een app die je aanstoot om een reeks in stand te
 houden, optimaliseert voor betrokkenheid, niet voor jouw avond.
 
 **Sessies die blijven.** Browsers ruimen cookies op, privévensters vergeten alles,
@@ -113,7 +113,7 @@ je vrijwel niets en levert het een schonere telefoon op.
 En is het toegeeflijke contentbeleid de reden dat je überhaupt geïnteresseerd bent,
 dan is de vraag al beslist: dat product woont in de browser, en Camsoda AI met zijn
 zesstapsbouwer is het sterkste argument dat alleen-browser geen compromis hoeft te
-zijn. Zijn positie in [onze ranglijst](/beste-ai-vriendin/) laat dat zien.
+zijn. Zijn positie in [onze ranglijst](/#ranking) laat dat zien.
 
 ## Eén praktische opmerking over kopen
 

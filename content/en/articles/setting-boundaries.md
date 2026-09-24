@@ -20,7 +20,7 @@ faq:
   - question: Is using an AI companion unhealthy?
     answer: >
       For most people it is a low-stakes way to unwind. It becomes a problem in
-      the same way any comfortable habit does — when it starts replacing things
+      the same way any comfortable habit does - when it starts replacing things
       you would otherwise want, rather than sitting alongside them.
   - question: Should I tell people I use one?
     answer: >
@@ -35,9 +35,8 @@ faq:
 related:
   - articles/when-novelty-fades
   - articles/what-is-an-ai-girlfriend
-  - rankings/best-ai-girlfriend
 seo:
-  title: Setting Boundaries With an AI Girlfriend — A Practical Guide
+  title: Setting Boundaries With an AI Girlfriend - A Practical Guide
   description: Why AI companions agree with everything, what that distorts, and a handful of rules that keep the habit enjoyable rather than default.
   primary_keyword: ai girlfriend boundaries
 indexing:
@@ -59,8 +58,8 @@ to hear.
 
 The practical consequence is narrow but real. **An AI companion is not a
 sounding board for a decision you are already leaning towards.** It will find
-the reasons. Anything with stakes — a resignation, a confrontation, a
-relationship — deserves a human who can say no.
+the reasons. Anything with stakes - a resignation, a confrontation, a
+relationship - deserves a human who can say no.
 
 ## Four rules that hold up
 
@@ -79,7 +78,7 @@ something with actual people has quietly become the harder option, that is the
 signal worth acting on.
 
 **Let it stay fiction.** The character is generated fresh from text at the start
-of every turn — [there is no continuous someone there](/articles/what-is-an-ai-girlfriend-app/).
+of every turn - [there is no continuous someone there](/articles/what-is-an-ai-girlfriend-app/).
 Enjoying the story does not require believing it, and the enjoyment is not
 diminished by knowing how it works.
 
@@ -93,7 +92,7 @@ on your own.
 
 Roleplay-first apps are lower stakes by construction: scenes end, and nothing is
 building. Neither design is healthier in the abstract. Knowing which one you are
-using is what matters, and [our ranking](/best-ai-girlfriend-apps/) is organised
+using is what matters, and [our ranking](/#ranking) is organised
 around that distinction.
 
 ## When to take a break
@@ -107,4 +106,4 @@ None of these are dramatic. Any one of them is worth a week off:
 
 A week away resolves most of this, and it also happens to be the best available
 test of [whether the app is still worth its subscription](/articles/monthly-annual-or-credits/).
-If none of it applies, there is nothing here to fix — enjoy the thing.
+If none of it applies, there is nothing here to fix - enjoy the thing.

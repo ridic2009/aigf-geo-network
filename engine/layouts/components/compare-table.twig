@@ -1,0 +1,222 @@
+{#
+  The homepage comparison: every ranked app, then every other app this GEO has
+  a review for, in one table a reader can filter and sort.
+
+  The HTML is complete without JavaScript: all rows, in ranking order, every
+  name linking to its review. main.js reveals the filter bar and reorders or
+  hides rows by reading the data-* attributes below. The same rows are also
+  rendered as cards, because ten columns do not fit on a phone.
+
+  params: entries (list of {product, badge, highlight}), products (resolved map),
+          title (string), id (string, optional)
+#}
+{%- import 'helpers/format.twig' as fmt -%}
+{%- set L = site.ui.labels -%}
+{%- set id = id|default('ranking') -%}
+
+{#- Rows: ranked entries first, then reviewed apps the ranking leaves out, so
+    the table links to every review on the site. -#}
+{%- set reviews = site.pages.showable|filter(p => p.type|default('') == 'review' and p.product|default(null)) -%}
+{%- set rows = [] -%}
+{%- set listed = [] -%}
+{%- for entry in entries|default([]) -%}
+    {%- set product = products[entry.product]|default(null) -%}
+    {%- if product and entry.product not in listed -%}
+        {%- set rows = rows|merge([{ 'product': product, 'rank': rows|length + 1, 'badge': entry.badge|default(product.best_for|default(null)) }]) -%}
+        {%- set listed = listed|merge([entry.product]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- set ranked = rows|length -%}
+{%- for review in reviews|sort((a, b) => (products[b.product].rating|default(0)) <=> (products[a.product].rating|default(0))) -%}
+    {%- set product = products[review.product]|default(null) -%}
+    {%- if product and review.product not in listed -%}
+        {%- set rows = rows|merge([{ 'product': product, 'rank': null, 'badge': product.best_for|default(null) }]) -%}
+        {%- set listed = listed|merge([review.product]) -%}
+    {%- endif -%}
+{%- endfor -%}
+
+{#- A price is only shown in the currency of this market (see DataValidator):
+    with none published here the price column and price controls disappear. -#}
+{%- set prices = [] -%}
+{%- for row in rows -%}
+    {%- if row.product.price.amount is defined and row.product.price.amount is not null and row.product.price.amount not in prices -%}
+        {%- set prices = prices|merge([row.product.price.amount]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- set prices = prices|sort -%}
+
+{%- if rows|length > 0 %}
+<section class="section compare" id="{{ id }}" aria-labelledby="{{ id }}-title">
+    <div class="container">
+        <h2 class="section__title" id="{{ id }}-title">{{ title }}</h2>
+
+        <div class="compare-tools" data-compare-tools hidden>
+            <fieldset class="compare-tools__chips">
+                <legend class="visually-hidden">{{ L.filters }}</legend>
+                <label class="chip"><input type="checkbox" data-filter="free"> <span>{{ L.free_tier }}</span></label>
+                <label class="chip"><input type="checkbox" data-filter="memory"> <span>{{ L.memory }}</span></label>
+                <label class="chip"><input type="checkbox" data-filter="voice"> <span>{{ L.voice }}</span></label>
+                <label class="chip"><input type="checkbox" data-filter="nsfw"> <span>{{ L.nsfw }}</span></label>
+            </fieldset>
+            <div class="compare-tools__selects">
+                <label class="compare-tools__field">
+                    <span>{{ L.platforms }}</span>
+                    <select data-filter="platform">
+                        <option value="">{{ L.any }}</option>
+                        <option value="web">Web</option>
+                        <option value="ios">iOS</option>
+                        <option value="android">Android</option>
+                    </select>
+                </label>
+                <label class="compare-tools__field">
+                    <span>{{ L.rating }}</span>
+                    <select data-filter="rating">
+                        <option value="">{{ L.any }}</option>
+                        {%- for min in [4.5, 4, 3.5] %}
+                        <option value="{{ min }}">{{ min|number_format(1, site.geo.currency.decimal_separator|default('.'), '') }}+</option>
+                        {%- endfor %}
+                    </select>
+                </label>
+                {%- if prices|length > 1 %}
+                <label class="compare-tools__field">
+                    <span>{{ L.price }}</span>
+                    <select data-filter="price">
+                        <option value="">{{ L.any }}</option>
+                        {%- for amount in prices %}
+                        <option value="{{ amount }}">{{ L.price_up_to|format(fmt.price(amount, site.geo.currency)) }}</option>
+                        {%- endfor %}
+                    </select>
+                </label>
+                {%- endif %}
+                <label class="compare-tools__field">
+                    <span>{{ L.sort_by }}</span>
+                    <select data-sort>
+                        <option value="rank">{{ L.sort_rank }}</option>
+                        <option value="rating">{{ L.sort_rating }}</option>
+                        {%- if prices|length > 1 %}
+                        <option value="price-asc">{{ L.sort_price_asc }}</option>
+                        <option value="price-desc">{{ L.sort_price_desc }}</option>
+                        {%- endif %}
+                    </select>
+                </label>
+                <button class="btn btn--ghost btn--small" type="button" data-compare-reset>{{ L.reset_filters }}</button>
+            </div>
+            <p class="compare-tools__status" role="status" aria-live="polite" data-compare-status data-template="{{ L.compare_count }}"></p>
+        </div>
+
+        {%- set yes_icon = '<span class="flag flag--yes" aria-hidden="true">✓</span><span class="visually-hidden">' ~ L.yes|e ~ '</span>' -%}
+        {%- set no_icon = '<span class="flag flag--no" aria-hidden="true">✕</span><span class="visually-hidden">' ~ L.no|e ~ '</span>' -%}
+
+        <div class="compare__table table-wrap">
+            <table class="compare-table">
+                <caption class="visually-hidden">{{ title }}</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">{{ L.rank }}</th>
+                        <th scope="col">{{ L.product }}</th>
+                        <th scope="col">{{ L.score }}</th>
+                        {%- if prices|length %}<th scope="col">{{ L.price }}</th>{% endif %}
+                        <th scope="col">{{ L.free_tier }}</th>
+                        <th scope="col">{{ L.memory }}</th>
+                        <th scope="col">{{ L.voice }}</th>
+                        <th scope="col">{{ L.nsfw }}</th>
+                        <th scope="col">{{ L.platforms }}</th>
+                        <th scope="col"><span class="visually-hidden">{{ L.visit_site }}</span></th>
+                    </tr>
+                </thead>
+                <tbody data-compare-list>
+                {%- for row in rows %}
+                    {%- set product = row.product -%}
+                    {%- set review = reviews|filter(p => p.product == product.id)|first|default(null) -%}
+                    {%- set platforms = product.platforms|default('')|lower -%}
+                    <tr {{ _self.attrs(row, platforms, loop.index) }}>
+                        <td class="compare-table__rank">{{ row.rank ?: '-' }}</td>
+                        <th scope="row" class="compare-table__product">
+                            {%- if product.logo is defined and product.logo %}
+                            <img src="{{ product.logo }}" alt="" width="36" height="36" loading="lazy" decoding="async">
+                            {%- endif %}
+                            <span class="compare-table__name">
+                                {%- if review %}<a href="{{ url(review, {canonical: false}) }}">{{ product.name }}</a>{% else %}{{ product.name }}{% endif -%}
+                                {%- if row.badge %}<span class="compare-table__badge">{{ row.badge }}</span>{% endif -%}
+                            </span>
+                        </th>
+                        <td>{% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}</td>
+                        {%- if prices|length %}
+                        <td class="compare-table__price">{% if product.price.amount is defined and product.price.amount is not null %}{{ fmt.price(product.price.amount, site.geo.currency) }}{{ L.per_month }}{% else %}-{% endif %}</td>
+                        {%- endif %}
+                        <td>{{ (product.free_tier|default(false) ? yes_icon : no_icon)|raw }}</td>
+                        <td>{{ (product.memory|default(false) ? yes_icon : no_icon)|raw }}</td>
+                        <td>{{ (product.voice|default(false) ? yes_icon : no_icon)|raw }}</td>
+                        <td>{{ (product.nsfw|default(false) ? yes_icon : no_icon)|raw }}</td>
+                        <td class="compare-table__platforms">{{ product.platforms|default('-') }}</td>
+                        <td class="compare-table__cta">
+                            {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.visit_site, 'class': 'btn--primary btn--small' } %}
+                            {%- if review %}
+                            <a class="compare-table__review" href="{{ url(review, {canonical: false}) }}">{{ L.read_review }}</a>
+                            {%- endif %}
+                        </td>
+                    </tr>
+                {%- endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <ol class="compare__cards" role="list" data-compare-list>
+        {%- for row in rows %}
+            {%- set product = row.product -%}
+            {%- set review = reviews|filter(p => p.product == product.id)|first|default(null) -%}
+            {%- set platforms = product.platforms|default('')|lower -%}
+            <li class="compare-card" {{ _self.attrs(row, platforms, loop.index) }}>
+                <div class="compare-card__head">
+                    {%- if product.logo is defined and product.logo %}
+                    <img class="compare-card__logo" src="{{ product.logo }}" alt="" width="44" height="44" loading="lazy" decoding="async">
+                    {%- endif %}
+                    <div>
+                        <h3 class="compare-card__name">
+                            {%- if row.rank %}<span class="compare-card__rank">{{ row.rank }}.</span> {% endif -%}
+                            {%- if review %}<a href="{{ url(review, {canonical: false}) }}">{{ product.name }}</a>{% else %}{{ product.name }}{% endif -%}
+                        </h3>
+                        {% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}
+                    </div>
+                </div>
+                {%- if row.badge %}<p class="compare-card__badge">{{ row.badge }}</p>{% endif %}
+                <dl class="compare-card__facts">
+                    {%- if prices|length %}
+                    <div><dt>{{ L.price }}</dt><dd>{% if product.price.amount is defined and product.price.amount is not null %}{{ fmt.price(product.price.amount, site.geo.currency) }}{{ L.per_month }}{% else %}-{% endif %}</dd></div>
+                    {%- endif %}
+                    <div><dt>{{ L.free_tier }}</dt><dd>{{ (product.free_tier|default(false) ? yes_icon : no_icon)|raw }}</dd></div>
+                    <div><dt>{{ L.memory }}</dt><dd>{{ (product.memory|default(false) ? yes_icon : no_icon)|raw }}</dd></div>
+                    <div><dt>{{ L.voice }}</dt><dd>{{ (product.voice|default(false) ? yes_icon : no_icon)|raw }}</dd></div>
+                    <div><dt>{{ L.nsfw }}</dt><dd>{{ (product.nsfw|default(false) ? yes_icon : no_icon)|raw }}</dd></div>
+                    <div><dt>{{ L.platforms }}</dt><dd>{{ product.platforms|default('-') }}</dd></div>
+                </dl>
+                <div class="compare-card__actions">
+                    {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.try_now|format(product.name), 'class': 'btn--primary' } %}
+                    {%- if review %}<a class="btn btn--ghost" href="{{ url(review, {canonical: false}) }}">{{ L.read_review }}</a>{% endif %}
+                </div>
+            </li>
+        {%- endfor %}
+        </ol>
+
+        <div class="compare__empty" data-compare-empty hidden>
+            <p>{{ L.compare_empty }}</p>
+            <button class="btn btn--ghost btn--small" type="button" data-compare-reset>{{ L.reset_filters }}</button>
+        </div>
+    </div>
+</section>
+{%- endif %}
+
+{#- The attributes main.js filters and sorts on. Platforms are free text in the
+    product file ("Web, mobile browser"), so they are reduced to three tokens. -#}
+{% macro attrs(row, platforms, position) -%}
+    {%- set p = row.product -%}
+    {%- set tokens = [] -%}
+    {%- if 'web' in platforms or 'browser' in platforms %}{% set tokens = tokens|merge(['web']) %}{% endif -%}
+    {%- if 'ios' in platforms %}{% set tokens = tokens|merge(['ios']) %}{% endif -%}
+    {%- if 'android' in platforms %}{% set tokens = tokens|merge(['android']) %}{% endif -%}
+    data-compare-item data-position="{{ position }}" data-rating="{{ p.rating|default(0) }}"
+    {%- if p.price.amount is defined and p.price.amount is not null %} data-price="{{ p.price.amount }}"{% endif %}
+    data-free="{{ p.free_tier|default(false) ? 1 : 0 }}" data-memory="{{ p.memory|default(false) ? 1 : 0 }}"
+    data-voice="{{ p.voice|default(false) ? 1 : 0 }}" data-nsfw="{{ p.nsfw|default(false) ? 1 : 0 }}"
+    data-platforms="{{ tokens|join(' ') }}"
+{%- endmacro %}

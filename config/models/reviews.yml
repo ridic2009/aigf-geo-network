@@ -7,8 +7,20 @@ types:
     layout: index
     fields:
       hero_cta: {label: Страница главной кнопки, type: string}
+      # The homepage IS the ranking: a sortable comparison table on top, the
+      # cards with the editor's reasoning below it.
+      ranking_title: {label: Заголовок таблицы сравнения, type: string}
+      ranking:
+        label: Позиции рейтинга
+        type: list
+        items:
+          type: object
+          fields:
+            product: {label: Продукт, type: product, required: true}
+            badge: {label: Номинация, type: string}
+            highlight: {label: Почему выбран, type: text}
       top_products_title: {label: Заголовок подборки, type: string}
-      top_products: {label: Товары на главной, type: list, items: {type: product}}
+      top_products: {label: Товары на главной (если рейтинг не заполнен), type: list, items: {type: product}}
   static:
     label: Страница
     section: null
@@ -23,6 +35,7 @@ types:
       verdict: {label: Наш вердикт, type: text}
       pros: {label: Плюсы, type: list, items: {type: string}}
       cons: {label: Минусы, type: list, items: {type: string}}
+      similar: {label: Похожие приложения (пусто = подобрать автоматически), type: list, items: {type: product}}
   ranking:
     label: Рейтинг
     section: rankings

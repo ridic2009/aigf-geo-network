@@ -7,7 +7,16 @@
 {%- set ui = site.ui -%}
 {%- set L = ui.labels -%}
 {%- if entries|default([])|length > 0 %}
-<div class="table-wrap">
+<div class="product-overview">
+<ol class="product-summaries" role="list">
+    {%- for entry in entries -%}
+        {%- set product = products[entry.product]|default(null) -%}
+        {%- if product %}
+            {% include 'components/product-summary.twig' with { 'product': product, 'rank': loop.index, 'badge': entry.badge|default(product.best_for|default('-')) } %}
+        {%- endif -%}
+    {%- endfor %}
+</ol>
+<div class="table-wrap product-overview__table">
     <table class="ranking-table">
         <caption class="visually-hidden">{{ page.title }}</caption>
         <thead>
@@ -32,7 +41,7 @@
                     <span>{{ product.name }}</span>
                 </th>
                 <td>{% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}</td>
-                <td>{{ entry.badge|default(product.best_for|default('—')) }}</td>
+                <td>{{ entry.badge|default(product.best_for|default('-')) }}</td>
                 <td class="ranking-table__cta">
                     {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.visit_site, 'class': 'btn--small' } %}
                 </td>
@@ -41,5 +50,6 @@
         {%- endfor %}
         </tbody>
     </table>
+</div>
 </div>
 {%- endif %}

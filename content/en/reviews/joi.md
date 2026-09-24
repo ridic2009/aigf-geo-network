@@ -1,5 +1,5 @@
 ---
-title: Joi Review 2026 — Cheap Uncensored Chat, Thin Everything Else
+title: Joi Review 2026 - Cheap Uncensored Chat, Thin Everything Else
 slug: joi-review
 type: review
 status: published
@@ -26,9 +26,8 @@ cons:
   - Few tools beyond the chat window
 related:
   - reviews/secretdesires
-  - rankings/best-ai-girlfriend
 seo:
-  title: Joi Review 2026 — What the Cheapest Option Gives You
+  title: Joi Review 2026 - What the Cheapest Option Gives You
   description: "Hands-on Joi review: what the low price buys, where the app runs
     out, and which alternative to pick instead."
   primary_keyword: joi review
@@ -38,7 +37,7 @@ indexing:
 faq:
   - question: Is Joi worth paying for?
     answer: >
-      If monthly price is the whole decision, yes — nothing else here is cheaper
+      If monthly price is the whole decision, yes - nothing else here is cheaper
       for uncensored chat. If you expect memory or media, spend a little more on
       Secret Desires.
   - question: Does Joi remember previous conversations?

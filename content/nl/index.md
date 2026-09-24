@@ -29,6 +29,23 @@ faq:
       links aanmeldt. Scores worden vastgelegd vóór elk commercieel gesprek en
       worden nooit aangepast. Zie onze
       [affiliatie-openbaarmaking](/affiliatie-openbaarmaking/).
+aliases:
+  - /beste-ai-vriendin/
+ranking_title: 'De beste AI-vriendin-apps vergeleken'
+ranking:
+  - product: candy-ai
+    badge: Beste keuze overall
+    highlight: Het meest complete aanbod, en de enige app waarin beeldgeneratie echt
+      bruikbaar is.
+  - product: nomi
+    badge: Beste gesprekken
+    highlight: Houdt context beter vast dan alles wat we hebben getest, met de
+      natuurlijkste dialoog.
+  - product: replika
+    badge: Beste gratis versie
+    highlight: Het ruimste gratis aanbod, maar de betaalde versie oogt gedateerd
+      naast recentere apps.
+top_products_title: 'Waarom elke app op de lijst staat'
 ---
 ## Waar deze site voor is
 
@@ -36,8 +53,8 @@ De markt voor AI-compagnons verandert snel: prijzen wijzigen, functies komen erb
 
 ## Wat we meten
 
-- **Gesprekskwaliteit** — blijft de app consistent over langere tijd?
-- **Geheugen** — onthoudt ze wat u vorige week zei?
-- **Media** — beelden, stem, en wat alleen voor betalende abonnees is.
-- **Prijs** — de echte maandelijkse kosten na de introductieaanbieding.
-- **Controle** — gegevensexport, verwijderen en inhoudsinstellingen.
+- **Gesprekskwaliteit** - blijft de app consistent over langere tijd?
+- **Geheugen** - onthoudt ze wat u vorige week zei?
+- **Media** - beelden, stem, en wat alleen voor betalende abonnees is.
+- **Prijs** - de echte maandelijkse kosten na de introductieaanbieding.
+- **Controle** - gegevensexport, verwijderen en inhoudsinstellingen.

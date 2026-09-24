@@ -15,7 +15,7 @@ products:
   - nomi
 
 seo:
-  title: How to Choose an AI Companion App — Buyer's Checklist
+  title: How to Choose an AI Companion App - Buyer's Checklist
   description: 'A practical checklist for choosing an AI companion app: memory, media, pricing traps and account controls.'
   primary_keyword: how to choose ai companion app
 

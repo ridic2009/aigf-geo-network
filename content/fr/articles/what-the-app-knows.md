@@ -20,7 +20,7 @@ faq:
   - question: Mes conversations sont-elles chiffrées ?
     answer: >
       En transit, oui, sur toute application sérieuse. Le chiffrement de bout en
-      bout est une autre affirmation, presque jamais vraie ici — les serveurs de
+      bout est une autre affirmation, presque jamais vraie ici - les serveurs de
       l'éditeur doivent lire vos messages pour produire une réponse.
   - question: Le personnel peut-il lire mes conversations ?
     answer: >
@@ -37,7 +37,7 @@ related:
   - articles/what-is-an-ai-girlfriend
 seo:
   title: Ce que les Applications de Petite Amie IA Savent de Vous
-  description: Quatre vérifications avant de vous inscrire — ce qui est collecté, qui peut le lire, si cela entraîne un modèle, et ce qu'une demande d'effacement retire vraiment.
+  description: Quatre vérifications avant de vous inscrire - ce qui est collecté, qui peut le lire, si cela entraîne un modèle, et ce qu'une demande d'effacement retire vraiment.
   primary_keyword: confidentialité petite amie ia
 indexing:
   index: true
@@ -81,7 +81,7 @@ de confidentialité. Puis cherchez une option de refus dans les réglages.
 
 Trois niveaux existent en pratique : pas d'entraînement sur les contenus
 utilisateurs, entraînement avec possibilité de refus, et entraînement sans
-contrôle visible. Les trois peuvent être acceptables — ignorer dans lequel vous
+contrôle visible. Les trois peuvent être acceptables - ignorer dans lequel vous
 êtes ne l'est pas.
 
 ## Vérification 3 : conservation et effacement
@@ -92,7 +92,7 @@ La *conservation*, c'est combien de temps le contenu est gardé tant que votre
 compte est actif. L'*effacement*, c'est ce qui se passe quand vous le demandez.
 Une application peut honorer une demande d'effacement de vos conversations tout
 en gardant images générées, pièces comptables et sauvegardes sur un cycle plus
-long — ce qui peut être parfaitement licite et ne pas correspondre à ce que vous
+long - ce qui peut être parfaitement licite et ne pas correspondre à ce que vous
 imaginiez.
 
 Le détail est dans
@@ -105,7 +105,7 @@ exiger leur effacement, et l'éditeur doit répondre sous un mois. Ce droit exis
 quelles que soient les conditions générales, y compris lorsque la société est
 établie hors de l'Union mais cible des utilisateurs français.
 
-Le test pratique n'est pas de savoir si ces droits existent — ils existent — mais
+Le test pratique n'est pas de savoir si ces droits existent - ils existent - mais
 si l'application vous donne un bouton ou vous renvoie vers une adresse e-mail et
 une attente. Cette différence vous dit comment l'entreprise vous considère.
 
@@ -120,7 +120,7 @@ une fois pour toutes, tôt, ce que vous ne taperez pas dans un service qui doit 
 stocker : le nom de votre employeur, votre adresse, et tout ce qui concerne un
 tiers n'ayant pas consenti à figurer dans votre historique.
 
-[Replika](/meilleure-petite-amie-ia/) et [Nomi](/avis/nomi-avis/) sont les deux
+[Replika](/#ranking) et [Nomi](/avis/nomi-avis/) sont les deux
 applications de notre classement les plus susceptibles d'accumuler des années
 plutôt que des semaines de ce matériau, simplement parce qu'elles sont conçues
 pour la continuité. Ces cinq minutes y valent donc davantage, pas moins.

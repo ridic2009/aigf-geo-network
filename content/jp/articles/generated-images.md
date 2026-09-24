@@ -32,7 +32,7 @@ related:
   - articles/how-media-works
   - articles/what-the-app-knows
 seo:
-  title: AI生成画像のプライバシー — 画像は実際どこにあるのか
+  title: AI生成画像のプライバシー - 画像は実際どこにあるのか
   description: 生成画像がどう保存・配信されるのか、アドレスがなぜ事実上公開なのか、そして削除請求で何が消えて何が残るのか。
   primary_keyword: AI生成画像 プライバシー
 indexing:
@@ -115,6 +115,6 @@ indexing:
 認証されているか（上の十秒テスト）、そして一括ダウンロードやメディアを含むエクスポートが
 あるかどうかです。
 
-メディアに本腰を入れているアプリ — 画像と音声を一つの契約に収めた
-[Candy AI](/review/candy-ai/)、画像と短い動画を生成するSecret Desires — ほど、ファイルは
+メディアに本腰を入れているアプリ - 画像と音声を一つの契約に収めた
+[Candy AI](/review/candy-ai/)、画像と短い動画を生成するSecret Desires - ほど、ファイルは
 積み上がります。だからこそ十秒の確認は、そこでこそ価値があります。

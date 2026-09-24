@@ -1,0 +1,47 @@
+{#
+  "Similar apps" at the end of a review: three other reviewed apps, each card
+  linking to its review.
+
+  The editor's picks come first (`ids`), and the rest is filled by what the
+  apps have in common: the same content policy first, then shared features,
+  then the closest score. Only apps with a published review in this GEO
+  qualify: the block exists to move the reader on to the next review.
+
+  params: product (resolved map of the reviewed app), ids (list, optional), limit (int)
+#}
+{%- set L = site.ui.labels -%}
+{%- set limit = limit|default(3) -%}
+{%- set reviewed = site.pages.showable|filter(p => p.type|default('') == 'review' and p.product|default(null) and p.product != product.id)|map(p => p.product)|unique -%}
+{%- set picks = [] -%}
+{%- set picked = [] -%}
+{%- for pid in ids|default([]) -%}
+    {%- if products[pid] is defined and pid in reviewed and pid not in picked -%}
+        {%- set picks = picks|merge([products[pid]]) -%}
+        {%- set picked = picked|merge([pid]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- if picks|length < limit -%}
+    {%- set scored = [] -%}
+    {%- for pid in reviewed|filter(pid => pid not in picked) -%}
+        {%- set other = products[pid]|default(null) -%}
+        {%- if other -%}
+            {%- set score = (other.nsfw|default(false) == product.nsfw|default(false) ? 3 : 0)
+                + (other.memory|default(false) and product.memory|default(false) ? 1 : 0)
+                + (other.voice|default(false) and product.voice|default(false) ? 1 : 0)
+                + (other.free_tier|default(false) and product.free_tier|default(false) ? 1 : 0)
+                - ((other.rating|default(0) - product.rating|default(0))|abs) -%}
+            {%- set scored = scored|merge([{ 'product': other, 'score': score }]) -%}
+        {%- endif -%}
+    {%- endfor -%}
+    {%- set picks = picks|merge(scored|sort((a, b) => b.score <=> a.score)|map(s => s.product)) -%}
+{%- endif -%}
+{%- if picks|length %}
+<section class="similar" aria-labelledby="similar-title">
+    <h2 class="similar__title" id="similar-title">{{ L.similar_apps }}</h2>
+    <ul class="mini-cards" role="list">
+        {%- for other in picks|slice(0, limit) %}
+            {% include 'components/mini-card.twig' with { 'product': other } %}
+        {%- endfor %}
+    </ul>
+</section>
+{%- endif %}

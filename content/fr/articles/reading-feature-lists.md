@@ -25,7 +25,7 @@ faq:
   - question: Quel est le mot le plus trompeur ?
     answer: >
       « Illimité ». Il signifie presque toujours texte illimité, les images, la
-      voix et la vidéo restant comptées — et c'est là que se trouve le coût.
+      voix et la vidéo restant comptées - et c'est là que se trouve le coût.
   - question: Une liste plus longue est-elle meilleure ?
     answer: >
       Non. La largeur signifie généralement que chaque élément est moins
@@ -49,7 +49,7 @@ amplitude suffisante pour décider si le produit vous plaira.
 
 ## « Mémoire » / « se souvient de vous »
 
-**Amplitude :** une liste de six faits renvoyée à chaque message — jusqu'à des faits
+**Amplitude :** une liste de six faits renvoyée à chaque message - jusqu'à des faits
 mémorisés, des résumés glissants et une récupération qui survit à des mois
 d'historique.
 
@@ -64,7 +64,7 @@ structuré. [Nomi](/avis/nomi-avis/) est bâtie autour de cela.
 
 ## « Messages illimités »
 
-**Amplitude :** du texte réellement sans limite — jusqu'à du texte sans limite mais
+**Amplitude :** du texte réellement sans limite - jusqu'à du texte sans limite mais
 avec une limite de débit, ou du texte illimité sur une offre et du média compté sur
 toutes.
 
@@ -77,7 +77,7 @@ crédits ?*
 
 ## « Voix »
 
-**Amplitude :** le personnage lit ses réponses à voix haute sous forme de clips —
+**Amplitude :** le personnage lit ses réponses à voix haute sous forme de clips -
 jusqu'à une conversation parlée en temps réel avec interruption.
 
 Ce sont des produits différents partageant un mot. Les messages vocaux sont bon
@@ -88,7 +88,7 @@ offre supérieure, et tiennent ou tombent sur la latence.
 
 ## « Sans censure » / « sans filtres »
 
-**Amplitude :** plus permissif que la moyenne — jusqu'à considérablement plus
+**Amplitude :** plus permissif que la moyenne - jusqu'à considérablement plus
 permissif. Jamais sans filtre : tous les éditeurs bloquent le même noyau illégal, et
 les prestataires de paiement l'imposent.
 
@@ -97,7 +97,7 @@ les prestataires de paiement l'imposent.
 
 ## « Création de personnage »
 
-**Amplitude :** choisir parmi quatre couleurs de cheveux et trois personnalités —
+**Amplitude :** choisir parmi quatre couleurs de cheveux et trois personnalités -
 jusqu'à un constructeur en plusieurs étapes couvrant apparence, voix, histoire,
 style de parole et sujets à éviter.
 
@@ -110,17 +110,17 @@ configuration ?*
 
 ## « Génération d'images IA »
 
-**Amplitude :** un visage différent à chaque fois — jusqu'à un personnage qui reste
+**Amplitude :** un visage différent à chaque fois - jusqu'à un personnage qui reste
 reconnaissable sur des dizaines d'images.
 
 La cohérence est tout l'enjeu et elle est invisible sur une page tarifaire.
 
-**La question :** *quatre images du même personnage dans quatre situations — est-ce
+**La question :** *quatre images du même personnage dans quatre situations - est-ce
 la même personne ?*
 
 ## « Relation durable » / « évolue avec vous »
 
-**Amplitude :** un niveau de relation qui monte avec l'usage — jusqu'à un personnage
+**Amplitude :** un niveau de relation qui monte avec l'usage - jusqu'à un personnage
 dont l'historique mémorisé change réellement les réponses.
 
 Les barres de progression sont peu coûteuses à construire et faciles à confondre
@@ -130,13 +130,13 @@ avec de la profondeur.
 
 ## Le schéma sous-jacent
 
-Chaque promesse ci-dessus décrit une catégorie, pas une réalisation — et le produit
+Chaque promesse ci-dessus décrit une catégorie, pas une réalisation - et le produit
 vit dans la réalisation. C'est la raison structurelle pour laquelle les tableaux
 comparatifs de ce marché sont presque inutiles.
 
 Deux raccourcis si vous n'avez que dix minutes. **Préférez l'application aux puces
 moins nombreuses et plus profondes** : ici, la largeur signifie généralement de la
-superficialité. Et **préférez celle qui vous montre ses rouages** — un écran de
+superficialité. Et **préférez celle qui vous montre ses rouages** - un écran de
 mémoire, un personnage modifiable, un solde de crédits visible. Les applications qui
 vous laissent voir la machinerie sont, presque sans exception, celles dont la
 machinerie mérite d'être vue.

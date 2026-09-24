@@ -1,5 +1,5 @@
 ---
-title: Deleting an AI Companion Account — What Goes and What Stays
+title: Deleting an AI Companion Account - What Goes and What Stays
 slug: deleting-an-ai-companion-account
 status: published
 type: article
@@ -26,15 +26,14 @@ faq:
       backups. A policy that gives no window at all is the thing to be wary of.
   - question: Can I get my conversations out first?
     answer: >
-      If the app offers an export, yes — do it before deleting, because the two
+      If the app offers an export, yes - do it before deleting, because the two
       actions cannot be done in the other order.
 related:
   - articles/what-the-app-knows
   - articles/monthly-annual-or-credits
-  - rankings/best-ai-girlfriend
 seo:
   title: How to Delete an AI Girlfriend Account Properly
-  description: The order that works — export, cancel, delete, verify — and which parts of your data survive a deletion request anyway.
+  description: The order that works - export, cancel, delete, verify - and which parts of your data survive a deletion request anyway.
   primary_keyword: delete ai girlfriend account
 indexing:
   index: true
@@ -55,7 +54,7 @@ actually contains the conversations rather than a summary of your billing.
 **3. Cancel the subscription** and read the confirmation. Note whether access
 continues to the end of the period.
 
-**4. Delete the account** — a separate action, usually in a different settings
+**4. Delete the account** - a separate action, usually in a different settings
 screen, sometimes only by email.
 
 **5. Verify.** Try to log in a week later. An account that still accepts your
@@ -103,9 +102,9 @@ something, that is a normal response to months of routine, not a sign that
 anything is wrong with you.
 
 Exporting the conversation first makes the decision reversible in the only sense
-that matters — you keep what was said, without leaving it on someone else's
+that matters - you keep what was said, without leaving it on someone else's
 server. [Replika](/reviews/replika-review/), being the app most likely to have
 accumulated years of history, is where this comes up most often.
 
 If you are leaving one app for another rather than leaving the category,
-[our ranking](/best-ai-girlfriend-apps/) is the short list.
+[our ranking](/#ranking) is the short list.

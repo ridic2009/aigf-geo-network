@@ -1,5 +1,5 @@
 ---
-title: ブラウザかアプリストアか — AIコンパニオンが実際に住んでいる場所
+title: ブラウザかアプリストアか - AIコンパニオンが実際に住んでいる場所
 slug: browser-vs-app
 status: published
 type: article
@@ -33,7 +33,7 @@ related:
   - articles/choosing-your-first-app
   - articles/content-filters
 seo:
-  title: ウェブ版とネイティブ版のAI彼女アプリ — どちらを選ぶか
+  title: ウェブ版とネイティブ版のAI彼女アプリ - どちらを選ぶか
   description: なぜ多くのAIコンパニオンがブラウザ専用なのか、ストア版で何が制限されるのか、そしてこの選択が日々の使い方をどう変えるのか。
   primary_keyword: AI彼女アプリ iOS Android
 indexing:
@@ -99,7 +99,7 @@ indexing:
 すっきりします。
 
 そして、そもそも寛容なコンテンツ方針が興味の理由なら、答えはすでに決まっています。その
-製品はブラウザに住んでおり、六段階のビルダーを備えた[Camsoda AI](/best-ai-girlfriend/)
+製品はブラウザに住んでおり、六段階のビルダーを備えた[Camsoda AI](/#ranking)
 は、ブラウザ専用が妥協である必要はないことを示す最も強い例です。
 
 ## 購入についての実務的な一点

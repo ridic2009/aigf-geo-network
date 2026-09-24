@@ -20,7 +20,7 @@ faq:
   - question: Can I get a refund for an AI companion subscription?
     answer: >
       Sometimes. It depends far more on where you bought it than on the app's
-      own policy — app stores have a formal process, direct billing depends on
+      own policy - app stores have a formal process, direct billing depends on
       the company, and EU consumers have a statutory right with a specific
       catch.
   - question: Does cancelling refund the rest of the month?
@@ -37,7 +37,7 @@ related:
   - articles/web-vs-native
   - articles/deleting-your-account
 seo:
-  title: AI Companion Refunds and Cancellations — What Actually Works
+  title: AI Companion Refunds and Cancellations - What Actually Works
   description: Store purchases, direct billing and EU withdrawal rights compared, plus the order to try things in and when a chargeback is justified.
   primary_keyword: ai girlfriend refund
 indexing:
@@ -58,7 +58,7 @@ generous than most small operators, and neither requires you to explain yourself
 to the app's support team. Apple's is at reportaproblem.apple.com; Google's is
 in Play's order history.
 
-**It is also where you must cancel.** Not in the app's settings — in your store
+**It is also where you must cancel.** Not in the app's settings - in your store
 subscriptions. This is the single most common reason people believe they
 cancelled and were charged again, and it is covered in
 [browser or app store](/articles/web-app-vs-native-ai-companion/).
@@ -98,7 +98,7 @@ withdrawal on distance contracts. Both our
 under this rule.
 
 **The catch matters.** For digital content and services, that right can be
-waived — and checkout flows routinely ask you to waive it, usually as a tick box
+waived - and checkout flows routinely ask you to waive it, usually as a tick box
 agreeing that service begins immediately. Tick it and the 14-day right is
 generally gone.
 
@@ -126,7 +126,7 @@ costs you things:
 - The merchant is charged a fee on top of losing the money, so they respond
   accordingly.
 - Your account is very likely terminated, along with the history in it.
-- That merchant — and sometimes their processor — may block your card
+- That merchant - and sometimes their processor - may block your card
   permanently.
 
 Justified when the charge is genuinely unauthorised, when you cancelled and were
@@ -142,7 +142,7 @@ tried.
 refund requests in this category exist because a renewal was a surprise.
 
 **Monthly before annual.** An annual plan is where the money is large enough to
-fight over, and it is the purchase most likely to be regretted — see
+fight over, and it is the purchase most likely to be regretted - see
 [monthly, annual or credits](/articles/monthly-annual-or-credits/).
 
 **Screenshot the price you were shown.** Intro pricing disputes are the most
@@ -153,8 +153,8 @@ process.** Direct billing is usually cheaper and the company can be reasoned
 with. Store billing costs more and gives you an arbiter. Both are defensible;
 picking deliberately is the point.
 
-Apps that accumulate long histories — [Replika](/reviews/replika-review/) and
+Apps that accumulate long histories - [Replika](/reviews/replika-review/) and
 [Nomi](/reviews/nomi-review/) among those in
-[our ranking](/best-ai-girlfriend-apps/) — are the ones where a chargeback
+[our ranking](/#ranking) - are the ones where a chargeback
 costs you the most, because terminating the account throws away the thing you
 were paying for.

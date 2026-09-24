@@ -1,5 +1,5 @@
 ---
-title: Contentfilters — Waarom AI-companions Weigeren, en Wat "Ongefilterd" Betekent
+title: Contentfilters - Waarom AI-companions Weigeren, en Wat "Ongefilterd" Betekent
 slug: ai-companion-contentfilters
 status: published
 type: article
@@ -33,9 +33,8 @@ faq:
       anders en kunnen een account beëindigen.
 related:
   - articles/what-is-an-ai-girlfriend
-  - rankings/best-ai-girlfriend
 seo:
-  title: Contentfilters bij AI-companions — Wat "Ongefilterd" Echt Betekent
+  title: Contentfilters bij AI-companions - Wat "Ongefilterd" Echt Betekent
   description: Hoe filtering werkt in AI-vriendin-apps, waarom weigeringen midden in een scène opduiken, en waarom ook de toegeeflijke apps een harde ondergrens hebben.
   primary_keyword: ongefilterde ai vriendin
 indexing:
@@ -51,7 +50,7 @@ hoe stabiel hij blijft over de maanden dat je betaalt.
 Meestal op drie plekken tegelijk, en daarom voelen weigeringen inconsistent.
 
 **Vóór het model.** Jouw bericht wordt gescand. Een blokkade hier geeft een
-directe weigering die helemaal niet als het personage klinkt — de toonbreuk die
+directe weigering die helemaal niet als het personage klinkt - de toonbreuk die
 mensen omschrijven als "hij viel uit zijn rol".
 
 **In het model.** De systeeminstructie vertelt het personage wat het niet doet.
@@ -73,7 +72,7 @@ content gericht op identificeerbare echte personen.
 
 Dat is geen stijlkeuze. Het is wet in de meeste rechtsgebieden en een voorwaarde
 om een betaalverwerker te houden. Een app die deze blokkades zou laten vallen,
-verliest binnen dagen zijn kaartverwerking — een betrouwbaarder handhaving dan
+verliest binnen dagen zijn kaartverwerking - een betrouwbaarder handhaving dan
 welke toezichthouder ook.
 
 "Ongefilterd" betekent dus altijd *toegeeflijker dan het midden*, nooit
@@ -103,13 +102,13 @@ stond op de dag dat je tekende.
 
 Tien minuten in een gratis laag, bewust in plaats van per ongeluk. Neem een scène
 tot de rand van wat je werkelijk wilt en kijk wat er gebeurt. Let op **hoe** hij
-weigert — in het personage, of met een systeemmelding. Probeer hetzelfde twee keer:
+weigert - in het personage, of met een systeemmelding. Probeer hetzelfde twee keer:
 inconsistente handhaving is op zichzelf informatie. En controleer of een weigering
 alsnog een bericht of tegoed kost.
 
-Van de apps die wij volgen concurreren [Secret Desires](/beste-ai-vriendin/) en
+Van de apps die wij volgen concurreren [Secret Desires](/#ranking) en
 Joi vooral op dit terrein, en ze staan in
-[onze ranglijst](/beste-ai-vriendin/) ver uit elkaar — toegeeflijkheid op zichzelf
+[onze ranglijst](/#ranking) ver uit elkaar - toegeeflijkheid op zichzelf
 is geen product.
 
 ## Weigeringen die geen filter zijn
@@ -119,7 +118,7 @@ De moeite waard om te scheiden, want de oplossing verschilt.
 **Het personage dat in karakter afhoudt** is schrijfwerk, geen filtering. Een
 companion met persoonlijkheid zegt soms nee, en dan werkt het product.
 
-**Een verwarde weigering** — iets volstrekt onschuldigs dat wordt afgewezen — is
+**Een verwarde weigering** - iets volstrekt onschuldigs dat wordt afgewezen - is
 meestal een overijverig voorfilter dat een woord uit zijn context vangt.
 Herformuleren helpt meestal.
 

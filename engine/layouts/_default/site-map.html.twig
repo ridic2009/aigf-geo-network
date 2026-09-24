@@ -1,0 +1,75 @@
+{#
+  The site map for people: every published page, grouped the way the site is.
+  Built from the same collections as the menus and sitemap.xml, so it can
+  never list a page that is not there or miss one that is.
+
+  Sections come from routes: a section routed to the site root (rankings) has
+  no hub page, and its pages are listed without one.
+#}
+{% extends '_default/base.html.twig' %}
+
+{% block main %}
+{%- set pages = site.pages.showable|filter(p => p.indexing.index is defined ? p.indexing.index : true) -%}
+{%- set labels = site.ui.sections|default({}) -%}
+{%- set cats = site.ui.article_categories|default({}) -%}
+<div class="container"><div class="article site-map">
+    <h1>{{ page.title }}</h1>
+
+    <div class="site-map__grid">
+        <section class="site-map__group">
+            <h2 class="site-map__title">{{ L.home }}</h2>
+            <ul class="site-map__list">
+                <li><a href="/">{{ site.title }}</a></li>
+                {#- Root pages, plus any section without a label of its own (landings). -#}
+                {%- for p in pages|filter(p => (p.section|default(null) is null or p.section not in labels|keys) and p.type|default('') != 'homepage')|sort_by_title %}
+                <li><a href="{{ url(p, {canonical: false}) }}">{{ p.title }}</a></li>
+                {%- endfor %}
+                {%- if search_url|default(null) %}
+                <li><a href="{{ search_url }}">{{ site.pages.get('search').title }}</a></li>
+                {%- endif %}
+            </ul>
+        </section>
+
+        {%- for section, label in labels %}
+            {%- set items = pages|filter(p => p.section|default(null) == section)|sort_by_title -%}
+            {%- if items|length %}
+            {%- set hub = site.pages.has(section) and site.pages.get(section).published ? site.pages.get(section) : null %}
+        <section class="site-map__group{{ section == 'articles' ? ' site-map__group--wide' : '' }}">
+            <h2 class="site-map__title">
+                {%- if hub %}<a href="{{ url(hub, {canonical: false}) }}">{{ label }}</a>{% else %}{{ label }}{% endif -%}
+            </h2>
+            {%- if section == 'articles' and cats|length %}
+                {%- set listed = [] -%}
+                {%- for key, cat in cats %}
+                    {%- set group = items|filter(p => p.category|default('') == key) -%}
+                    {%- if group|length %}
+            <h3 class="site-map__subtitle">{{ cat }}</h3>
+            <ul class="site-map__list">
+                {%- for p in group %}
+                <li><a href="{{ url(p, {canonical: false}) }}">{{ p.title }}</a></li>
+                {%- endfor %}
+            </ul>
+                    {%- endif %}
+                    {%- set listed = listed|merge(group|map(p => p.id)) -%}
+                {%- endfor %}
+                {%- set rest = items|filter(p => p.id not in listed) -%}
+                {%- if rest|length %}
+            <ul class="site-map__list">
+                {%- for p in rest %}
+                <li><a href="{{ url(p, {canonical: false}) }}">{{ p.title }}</a></li>
+                {%- endfor %}
+            </ul>
+                {%- endif %}
+            {%- else %}
+            <ul class="site-map__list">
+                {%- for p in items %}
+                <li><a href="{{ url(p, {canonical: false}) }}">{{ p.title }}</a></li>
+                {%- endfor %}
+            </ul>
+            {%- endif %}
+        </section>
+            {%- endif %}
+        {%- endfor %}
+    </div>
+</div></div>
+{% endblock %}

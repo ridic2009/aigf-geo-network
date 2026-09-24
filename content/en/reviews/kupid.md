@@ -1,5 +1,5 @@
 ---
-title: Kupid AI Review 2026 — Warm on the Phone, Steep When You Pay
+title: Kupid AI Review 2026 - Warm on the Phone, Steep When You Pay
 slug: kupid-ai-review
 type: review
 status: published
@@ -15,7 +15,7 @@ intro: >
   plans cost.
 verdict: >
   A romance-first app that does the romance well. If you want affectionate
-  company on a phone, this is the one — if the premium price does not put you
+  company on a phone, this is the one - if the premium price does not put you
   off. The free tier will not hold you long.
 pros:
   - Native iOS and Android apps
@@ -28,9 +28,8 @@ cons:
   - Free tier gets thin quickly
 related:
   - reviews/sweetdream
-  - rankings/best-ai-girlfriend
 seo:
-  title: Kupid AI Review 2026 — Apps, Price, Honest Verdict
+  title: Kupid AI Review 2026 - Apps, Price, Honest Verdict
   description: "Two-week Kupid AI review: native apps, a real free chat, and why
     premium pricing keeps it out of the top half."
   primary_keyword: kupid ai review

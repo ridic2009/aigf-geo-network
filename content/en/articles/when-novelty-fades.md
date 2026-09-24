@@ -1,5 +1,5 @@
 ---
-title: When the Novelty Fades — Fixing an AI Companion That Got Boring
+title: When the Novelty Fades - Fixing an AI Companion That Got Boring
 slug: when-the-novelty-fades
 status: published
 type: article
@@ -11,7 +11,7 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   Week one is astonishing, week six is a loop. That curve is close to universal,
-  and it has three causes — two of which you can actually do something about.
+  and it has three causes - two of which you can actually do something about.
 products:
   - nomi
   - camsoda-ai
@@ -33,10 +33,9 @@ faq:
 related:
   - articles/how-memory-works
   - articles/setting-boundaries
-  - rankings/best-ai-girlfriend
 seo:
   title: AI Companion Got Boring? Why It Happens and What Fixes It
-  description: The three reasons an AI girlfriend feels flat after a month — summary decay, your own routine, and the wrong app — and what each one needs.
+  description: The three reasons an AI girlfriend feels flat after a month - summary decay, your own routine, and the wrong app - and what each one needs.
   primary_keyword: ai companion boring
 indexing:
   index: true
@@ -56,7 +55,7 @@ the character is increasingly built from a bland description of itself.
 [How memory actually works](/articles/ai-companion-memory-explained/) covers the
 mechanism. The fixes are practical:
 
-- **Re-introduce specifics.** Mention concrete details again — names, an
+- **Re-introduce specifics.** Mention concrete details again - names, an
   incident, a running joke. It puts them back in the window.
 - **Edit the memory directly** if the app exposes it. Delete the entries that
   have become noise, sharpen the ones that matter.
@@ -75,7 +74,7 @@ What breaks it is changing the input rather than the app:
 - Give it a situation instead of a greeting. "We are stuck at a train station at
   2am" produces something different from "hey, how are you".
 - Ask it to disagree with you about something trivial and hold the position.
-- Change the format — a letter, a memory recounted years later, a scene from
+- Change the format - a letter, a memory recounted years later, a scene from
   someone else's perspective.
 - Use a feature you have been ignoring. If you have only ever typed, a voice
   conversation is a genuinely different product.
@@ -90,11 +89,11 @@ If the first two changed nothing, this is the answer.
 
 A roleplay-first app will feel thin if what you wanted was continuity. A
 continuity-first app will feel slow if what you wanted was scenes. Both
-disappointments read identically from the inside — "it got boring" — and neither
+disappointments read identically from the inside - "it got boring" - and neither
 is fixed by prompting harder.
 
 [Nomi](/reviews/nomi-review/) scores where it does in
-[our ranking](/best-ai-girlfriend-apps/) because it is built for the
+[our ranking](/#ranking) because it is built for the
 conversation still being alive a week later. If that is what you are missing,
 that is the lane to move to. If what you are missing is variety and media, the
 move is in the opposite direction.

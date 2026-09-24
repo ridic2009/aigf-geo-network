@@ -16,7 +16,6 @@ intro: >
   The number on the pricing page is almost never the number that left my card.
   Here is where the rest hides, and how to find it before you subscribe.
 related:
-  - rankings/best-ai-girlfriend
   - reviews/candy-ai
 seo:
   title: The Real Cost of AI Girlfriend Apps in 2026
@@ -49,11 +48,11 @@ Most of these apps advertise a first-month rate. Budget the renewal. It is often
 
 ## Tokens sit on top of the subscription
 
-The plan buys the conversation. Pictures, voice minutes and video are often metered. That is how a $12 month becomes $30. [Candy AI](/reviews/candy-ai-review/) bundles more of that than most. Token apps are not automatically worse value — you just cannot compare them by the subscription line alone.
+The plan buys the conversation. Pictures, voice minutes and video are often metered. That is how a $12 month becomes $30. [Candy AI](/reviews/candy-ai-review/) bundles more of that than most. Token apps are not automatically worse value - you just cannot compare them by the subscription line alone.
 
 ## I would not go annual yet
 
-This category changes every quarter. Half-price for twelve months is a good deal only if the app is still the one you want in June. I would not lock in for a year on anything in the current [ranking](/best-ai-girlfriend-apps/).
+This category changes every quarter. Half-price for twelve months is a good deal only if the app is still the one you want in June. I would not lock in for a year on anything in the current [ranking](/#ranking).
 
 ## How to get your real number
 

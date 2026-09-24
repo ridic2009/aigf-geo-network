@@ -19,7 +19,7 @@ products:
 faq:
   - question: Are generated images private to my account?
     answer: >
-      The gallery is. The file often is not — many apps serve images from a
+      The gallery is. The file often is not - many apps serve images from a
       content network on a long unguessable URL, which anyone holding the link
       can open.
   - question: Does deleting my account delete the images?
@@ -36,7 +36,7 @@ related:
   - articles/what-the-app-knows
   - articles/deleting-your-account
 seo:
-  title: AI Companion Image Privacy — Where Your Pictures Actually Live
+  title: AI Companion Image Privacy - Where Your Pictures Actually Live
   description: How generated images are stored and served, why the URLs are often public, and what a deletion request does and does not remove.
   primary_keyword: ai generated image privacy
 indexing:
@@ -50,7 +50,7 @@ read.
 ## Where the file goes
 
 When an app generates a picture, it is written to object storage and served
-through a content delivery network — the same infrastructure any site uses for
+through a content delivery network - the same infrastructure any site uses for
 images. Your gallery is a list of those files.
 
 The important consequence is about **how the file is protected**. There are two
@@ -64,7 +64,7 @@ nothing.
 guess, and anyone holding the address can open it, logged in or not, forever.
 
 The second is extremely common because it is cheap and fast. It is not
-unreasonable — the address genuinely is unguessable — but it means the image is
+unreasonable - the address genuinely is unguessable - but it means the image is
 protected by secrecy of the link rather than by access control. A link shared,
 pasted into a chat, or captured by a browser extension is a public link.
 
@@ -91,7 +91,7 @@ cache?* The full sequence is in
 ## Moderation keeps copies
 
 Images are scanned, automatically and sometimes by people. Anything flagged is
-typically retained longer than ordinary content — often specifically excluded
+typically retained longer than ordinary content - often specifically excluded
 from deletion, because retaining it is how the operator demonstrates compliance.
 
 This is normal, it is disclosed in most policies, and it means a picture that
@@ -119,7 +119,7 @@ Download what you want and treat the gallery as temporary. Apps reorganise
 storage, change plans, expire media for inactive accounts, and occasionally lose
 things.
 
-Then store them somewhere you control, and think about where that is — a photo
+Then store them somewhere you control, and think about where that is - a photo
 library that syncs to a family account, or auto-uploads to a shared cloud drive,
 has simply moved the exposure rather than removed it.
 
@@ -131,8 +131,8 @@ Two things worth checking in a free tier, alongside
 - Whether image URLs are authenticated, using the private-window test above.
 - Whether the app offers a bulk download or an export that includes media.
 
-Apps that put real work into the media side — [Candy AI](/reviews/candy-ai-review/)
+Apps that put real work into the media side - [Candy AI](/reviews/candy-ai-review/)
 with images and voice inside one subscription,
 [Secret Desires](/reviews/secret-desires-review/) with image and short video
-generation — are the ones you will accumulate the most files with. That makes
+generation - are the ones you will accumulate the most files with. That makes
 the ten-second URL check more worth doing there, not less.

@@ -6,6 +6,9 @@ category: LifestyleApplication
 platforms: Web, iOS, Android
 rating: 4.6
 free_tier: true
+memory: true
+voice: true
+nsfw: true
 launched: 2023
 features:
   - Text chat with persistent memory

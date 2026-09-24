@@ -1,5 +1,5 @@
 ---
-title: Character Builders — What Actually Matters When You Create a Companion
+title: Character Builders - What Actually Matters When You Create a Companion
 slug: ai-character-builder-guide
 status: published
 type: article
@@ -38,7 +38,7 @@ related:
   - articles/when-novelty-fades
   - articles/how-replies-are-generated
 seo:
-  title: AI Character Builder Guide — The Fields That Actually Matter
+  title: AI Character Builder Guide - The Fields That Actually Matter
   description: Which builder settings change the conversation and which are decoration, plus how to write a character that survives past week two.
   primary_keyword: create ai girlfriend character
 indexing:
@@ -55,7 +55,7 @@ character in week six.
 ## What the builder is really doing
 
 Everything you enter becomes text. The app assembles it into the character
-description that sits in front of the model on every turn — what we called the
+description that sits in front of the model on every turn - what we called the
 character sheet in
 [what is actually running inside these apps](/articles/what-is-an-ai-girlfriend-app/).
 
@@ -70,7 +70,7 @@ about how she deflects a compliment changes every reply.
 
 The highest-leverage field in any builder, and the one most often left blank.
 
-"Friendly" is worthless — it describes almost everyone. What works is
+"Friendly" is worthless - it describes almost everyone. What works is
 mechanical: sentence length, whether she asks questions back, how she handles
 silence, what she does when she disagrees, whether she uses your name.
 
@@ -100,7 +100,7 @@ collapsing into the same generic register as everyone else's.
 
 ### 3. Backstory with specifics
 
-Not "loves music" — "plays bass badly in a band that has rehearsed twice."
+Not "loves music" - "plays bass badly in a band that has rehearsed twice."
 Specifics give the model something concrete to reach for, and concrete details
 resurface naturally in conversation. Generic ones produce generic text.
 
@@ -116,7 +116,7 @@ three years" produce different conversations from the same personality.
 
 Last, deliberately. Appearance affects generated images and
 [the image model regenerates the character from a description each
-time](/articles/how-ai-companion-media-works/) — so it matters for pictures and
+time](/articles/how-ai-companion-media-works/) - so it matters for pictures and
 barely touches the conversation.
 
 If pictures are the point, spend the time. If conversation is the point, three
@@ -124,7 +124,7 @@ tags is enough.
 
 ## Where the apps differ
 
-[Camsoda AI](/reviews/camsoda-ai-review/) builds through six steps — looks,
+[Camsoda AI](/reviews/camsoda-ai-review/) builds through six steps - looks,
 personality, voice, backstory, how it talks to you, and what it should never
 bring up. That last step is rare in this market and is exactly the field this
 article ranks second.
@@ -134,7 +134,7 @@ personality together, with a community gallery of ready-made characters to start
 from. [Kupid AI](/reviews/kupid-ai-review/) covers appearance and personality
 across realistic and anime styles.
 
-All three sit in [our ranking](/best-ai-girlfriend-apps/) between 3.5 and 4.5,
+All three sit in [our ranking](/#ranking) between 3.5 and 4.5,
 and the builder is a real part of that spread rather than a feature bullet.
 
 ## Start from a preset
@@ -151,7 +151,7 @@ better constraints after a real conversation than before one.
 
 The most valuable builder feature is the ability to edit later. A character that
 has gone flat is very often a character whose description was written by someone
-who had never spoken to it — you, an hour before.
+who had never spoken to it - you, an hour before.
 
 When [the novelty fades](/articles/when-the-novelty-fades/), tightening the
 speech style and adding two negative constraints does more than switching apps,

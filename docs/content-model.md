@@ -45,7 +45,7 @@ Only `slug` (the URL) and the text are localized.
 
 ```yaml
 seo:
-  title: Candy AI Review 2026 — Features, Pricing and Verdict   # required
+  title: Candy AI Review 2026 - Features, Pricing and Verdict   # required
   description: Hands-on review after two weeks on a paid plan…  # required
   primary_keyword: candy ai review
   og_title: …          # optional, defaults to seo.title
@@ -101,11 +101,52 @@ products: [candy-ai, nomi] # optional, shown as compact cards
 
 ### `homepage`
 
+The homepage is the ranking. `ranking` feeds the comparison table (filters by
+price, free tier, memory, voice, NSFW, platform and rating, and sorting) and
+the cards under it; the hero button and the "Best AI girlfriends" menu item
+jump to the table (`/#ranking`). Every other app with a published review is
+appended to the table unranked, so the table links to every review.
+
 ```yaml
-hero_cta: rankings/best-ai-girlfriend   # page id the hero button links to
-top_products_title: Top rated this month
-top_products: [candy-ai, nomi]
+aliases: [/best-ai-girlfriend-apps/]    # the retired ranking page, 301 to /
+ranking_title: The best AI girlfriend apps, compared
+ranking:
+  - product: candy-ai
+    badge: Best overall                 # under the name in the table, on the card
+    highlight: Why it is first.         # card text
+top_products_title: Why each app made the list   # heading of the cards
+top_products: [candy-ai, nomi]          # only used while `ranking` is empty
+hero_cta: guides/how-we-test            # only used while `ranking` is empty
 ```
+
+### `review` extras
+
+```yaml
+similar: [nomi, sweetdream]   # optional: "Similar apps" at the end of the review
+```
+
+Without `similar`, the block takes the reviews listed in `related:` and fills
+up to three with the apps that share the most with this one (content policy,
+memory, voice, free tier, closest score). Only apps with a published review
+in the same GEO are shown: the block exists to move readers to the next review.
+
+## Engine pages
+
+Declared in `config/common.yml -> pages.default`, not written in `content/`.
+Each GEO translates the title and the address with `slug` (`path` is the page
+id and stays the same everywhere):
+
+| Page | Id | What it is |
+| ---- | -- | ---------- |
+| Search | `search` | Results page, `noindex`. main.js reads `?q=` and searches `search-index.json`. |
+| Search index | `search-index` | JSON: title, URL, section, description, headings and the opening of every indexable page. |
+| Site map | `site-map` | Every published page grouped by section, for people. Linked from the footer. |
+| 404 | `404` | Search box pre-filled with the words of the dead address, top three of the ranking, link home. |
+
+## House style
+
+Hyphens, not em dashes: " - " where English would use "—". Validation warns
+about any em dash in content.
 
 ## Business data
 
@@ -120,6 +161,9 @@ website: 'https://candy.ai/'
 logo: /images/products/candy-ai.svg
 rating: 4.6               # 0–5, drives stars and Review schema
 free_tier: true
+memory: true              # these three drive the homepage filters: true/false only
+voice: true
+nsfw: true
 platforms: 'Web, iOS, Android'
 features: [ …, … ]
 price: { amount: 12.99, period: month }

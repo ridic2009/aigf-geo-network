@@ -1,0 +1,26 @@
+{# Narrow-screen alternative to a product table. Uses the same resolved data.
+   params: product, badge, rank (optional), show_features (optional) #}
+{%- import 'helpers/format.twig' as fmt -%}
+{%- set L = site.ui.labels -%}
+{%- set review = site.pages.showable|filter(p => p.type|default('') == 'review' and p.product|default('') == product.id and p.id != page.id)|first|default(null) -%}
+<li class="product-summary">
+    <div class="product-summary__head">
+        <h2 class="product-summary__name">{% if rank|default(null) %}<span class="product-summary__rank">{{ rank }}.</span> {% endif %}{{ product.name }}</h2>
+        {% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}
+    </div>
+    <dl class="product-summary__facts">
+        <div><dt>{{ L.best_for }}</dt><dd>{{ badge }}</dd></div>
+        <div><dt>{{ L.price }}</dt><dd>{% if product.price is defined and product.price.amount is defined %}{{ L.from }} {{ fmt.price(product.price.amount, site.geo.currency) }}{{ L.per_month }}{% else %}-{% endif %}</dd></div>
+        <div><dt>{{ L.free_tier }}</dt><dd>{{ product.free_tier is defined ? (product.free_tier ? L.yes : L.no) : '-' }}</dd></div>
+    </dl>
+    {%- if show_features|default(false) and product.features|default([])|length %}
+    <details class="product-summary__features">
+        <summary>{{ L.features }}</summary>
+        <ul>{% for feature in product.features|slice(0, 5) %}<li>{{ feature }}</li>{% endfor %}</ul>
+    </details>
+    {%- endif %}
+    <div class="product-summary__actions">
+        {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.try_now|format(product.name), 'class': 'btn--primary' } %}
+        {%- if review %}<a class="btn btn--ghost" href="{{ url(review, {canonical: false}) }}">{{ L.read_review }}</a>{% endif %}
+    </div>
+</li>

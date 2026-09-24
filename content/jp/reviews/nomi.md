@@ -27,7 +27,7 @@ related:
   - reviews/candy-ai
   - compare/candy-ai-vs-nomi
 seo:
-  title: Nomiレビュー2026 — 記憶、料金、正直な評価
+  title: Nomiレビュー2026 - 記憶、料金、正直な評価
   description: 2週間毎日使用した後の実践的なNomiレビュー。記憶、会話の質、グループチャット、実際の料金、長所と短所。
   primary_keyword: nomi review
 indexing:

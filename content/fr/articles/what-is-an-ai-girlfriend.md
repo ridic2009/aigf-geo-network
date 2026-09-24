@@ -37,7 +37,7 @@ related:
   - articles/how-replies-are-generated
 seo:
   title: Qu'est-ce qu'une Petite Amie IA ? Le Fonctionnement en 2026
-  description: Une explication claire de ce qui tourne dans une application de petite amie IA — le modèle, la fiche de personnage et le filtre — et ce que chacun provoque.
+  description: Une explication claire de ce qui tourne dans une application de petite amie IA - le modèle, la fiche de personnage et le filtre - et ce que chacun provoque.
   primary_keyword: application petite amie ia
 indexing:
   index: true
@@ -88,8 +88,8 @@ La plupart des applications la composent à partir de quatre éléments :
 - les messages récents, mot pour mot.
 
 Les applications où l'on a encore, une semaine plus tard, l'impression que
-quelqu'un est resté dans la pièce — la raison pour laquelle
-[Nomi](/avis/nomi-avis/) obtient la note qu'il obtient — sont celles qui gèrent
+quelqu'un est resté dans la pièce - la raison pour laquelle
+[Nomi](/avis/nomi-avis/) obtient la note qu'il obtient - sont celles qui gèrent
 bien les deux éléments du milieu. Rien de tout cela n'apparaît sur une page
 tarifaire, et c'est pourquoi juger une application demande des semaines et non une
 soirée.
@@ -107,7 +107,7 @@ L'étiquette s'étire sur des produits qui ne se ressemblent guère :
   plus proche du milieu, en traitant les trois dans un seul abonnement.
 
 Décider laquelle des trois vous voulez réellement élimine environ la moitié de
-n'importe quelle liste — y compris [la nôtre](/meilleure-petite-amie-ia/) — avant
+n'importe quelle liste - y compris [la nôtre](/#ranking) - avant
 même que le prix n'entre dans la conversation. Les deux applications ci-dessus
 sont d'ailleurs [comparées côte à côte](/comparatif/candy-ai-vs-nomi/).
 
@@ -116,5 +116,5 @@ sont d'ailleurs [comparées côte à côte](/comparatif/candy-ai-vs-nomi/).
 Elles ne vous connaissent pas d'une session à l'autre, sauf si elles ont été
 construites pour stocker des faits et les retrouver. Elles n'ont pas de continuité
 d'elles-mêmes : le personnage est recréé à partir de texte au début de chaque
-tour. Et elles ne sont pas privées par nature — la conversation est traitée sur
+tour. Et elles ne sont pas privées par nature - la conversation est traitée sur
 les serveurs de quelqu'un d'autre.

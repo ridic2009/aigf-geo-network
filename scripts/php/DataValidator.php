@@ -40,6 +40,13 @@ final class DataValidator
             if (isset($product['rating']) && (!is_numeric($product['rating']) || $product['rating'] < 0 || $product['rating'] > 5)) {
                 $this->error($where, 'rating must be a number between 0 and 5.');
             }
+            // The comparison table filters on these; "yes" typed as text would
+            // pass every filter and quietly tell a reader something untrue.
+            foreach (['free_tier', 'memory', 'voice', 'nsfw'] as $flag) {
+                if (isset($product[$flag]) && !\is_bool($product[$flag])) {
+                    $this->error($where, \sprintf('%s must be true or false.', $flag));
+                }
+            }
             // A missing logo or screenshot is a broken image on a money page,
             // and the hero falls back to its branded panel only when the field
             // is absent — not when it points at a file that is not there.

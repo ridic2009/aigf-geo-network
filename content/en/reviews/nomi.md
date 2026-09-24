@@ -1,5 +1,5 @@
 ---
-title: Nomi Review 2026 — The One That Remembered Tuesday
+title: Nomi Review 2026 - The One That Remembered Tuesday
 slug: nomi-review
 type: review
 status: published
@@ -30,7 +30,7 @@ related:
   - reviews/candy-ai
   - compare/candy-ai-vs-nomi
 seo:
-  title: Nomi Review 2026 — Memory, Price, Honest Verdict
+  title: Nomi Review 2026 - Memory, Price, Honest Verdict
   description: "Two-week Nomi test: the memory that actually worked, group chat,
     weaker images, and whether it is worth the higher price."
   primary_keyword: nomi review

@@ -19,7 +19,7 @@ products:
 faq:
   - question: Les images générées sont-elles privées à mon compte ?
     answer: >
-      La galerie l'est. Le fichier souvent non — beaucoup d'applications servent
+      La galerie l'est. Le fichier souvent non - beaucoup d'applications servent
       les images depuis un réseau de diffusion à une adresse longue et
       indevinable, que toute personne détenant le lien peut ouvrir.
   - question: Supprimer mon compte supprime-t-il les images ?
@@ -36,7 +36,7 @@ related:
   - articles/how-media-works
   - articles/what-the-app-knows
 seo:
-  title: Confidentialité des Images Générées par une IA — Où Vivent-Elles
+  title: Confidentialité des Images Générées par une IA - Où Vivent-Elles
   description: Comment les images générées sont stockées et servies, pourquoi leurs adresses sont souvent publiques de fait, et ce qu'une demande d'effacement retire.
   primary_keyword: confidentialité images générées ia
 indexing:
@@ -50,7 +50,7 @@ réellement lues couvrent le moins.
 ## Où va le fichier
 
 Quand une application génère une image, celle-ci est écrite dans un stockage objet
-et servie par un réseau de diffusion de contenu — la même infrastructure que
+et servie par un réseau de diffusion de contenu - la même infrastructure que
 n'importe quel site utilise pour ses images. Votre galerie est une liste de ces
 fichiers.
 
@@ -66,7 +66,7 @@ personne ne pourrait raisonnablement deviner, et quiconque la détient peut
 l'ouvrir, connecté ou non, indéfiniment.
 
 La seconde est extrêmement courante car elle est peu coûteuse et rapide. Elle
-n'est pas déraisonnable — l'adresse est réellement indevinable — mais l'image est
+n'est pas déraisonnable - l'adresse est réellement indevinable - mais l'image est
 protégée par le secret du lien plutôt que par un contrôle d'accès. Un lien partagé,
 collé dans une messagerie ou capté par une extension de navigateur est un lien
 public.
@@ -93,7 +93,7 @@ et du cache ?* La séquence complète est dans
 ## La modération conserve des copies
 
 Les images sont analysées, automatiquement et parfois par des humains. Ce qui est
-signalé est généralement conservé plus longtemps — souvent explicitement exclu de
+signalé est généralement conservé plus longtemps - souvent explicitement exclu de
 l'effacement, car le conserver est la façon dont l'éditeur démontre sa conformité.
 
 C'est normal, c'est écrit dans la plupart des politiques, et cela signifie que
@@ -123,7 +123,7 @@ Téléchargez ce que vous souhaitez conserver et traitez la galerie comme
 temporaire. Les applications réorganisent leur stockage, changent d'offres, font
 expirer le média des comptes inactifs et perdent parfois des choses.
 
-Rangez-les ensuite quelque part que vous contrôlez — et réfléchissez à l'endroit.
+Rangez-les ensuite quelque part que vous contrôlez - et réfléchissez à l'endroit.
 Une photothèque synchronisée avec un compte familial a déplacé l'exposition, pas
 supprimé.
 
@@ -135,7 +135,7 @@ adresses d'images sont authentifiées, avec le test de la fenêtre privée ci-de
 et si l'application propose un téléchargement groupé ou un export incluant le
 média.
 
-Les applications qui investissent vraiment dans le média —
+Les applications qui investissent vraiment dans le média -
 [Candy AI](/avis/candy-ai-avis/) avec images et voix dans un seul abonnement,
-Secret Desires avec génération d'images et de courtes vidéos — sont celles où vous
+Secret Desires avec génération d'images et de courtes vidéos - sont celles où vous
 accumulerez le plus de fichiers. Ces dix secondes y valent donc davantage.

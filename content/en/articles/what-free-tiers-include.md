@@ -34,9 +34,8 @@ faq:
 related:
   - articles/choosing-your-first-app
   - articles/what-they-cost
-  - rankings/best-ai-girlfriend
 seo:
-  title: Free AI Girlfriend Apps — What the Free Tier Really Includes
+  title: Free AI Girlfriend Apps - What the Free Tier Really Includes
   description: What free tiers actually give you, what runs out first, and how to tell a real free product from a three-day trailer.
   primary_keyword: free ai girlfriend apps
 indexing:
@@ -80,8 +79,8 @@ you it is worse than it is.
 ## Which free tiers are worth the time
 
 Among the apps we test, [Sweetdream](/reviews/sweetdream-review/) is the one
-whose free tier reads as a product rather than a demo — it is the reason it sits
-second in [our ranking](/best-ai-girlfriend-apps/) at a 4.5 despite a $10.00
+whose free tier reads as a product rather than a demo - it is the reason it sits
+second in [our ranking](/#ranking) at a 4.5 despite a $10.00
 paid plan that is the cheapest of the group.
 
 [Replika](/reviews/replika-review/) is the other one worth an unpaid fortnight,
@@ -94,7 +93,7 @@ which makes it a cheap way to test whether its character builder suits you.
 
 ## How to use a free tier properly
 
-Spend the first session on conversation alone. Do not generate a single image —
+Spend the first session on conversation alone. Do not generate a single image -
 you will exhaust the cap and learn nothing about the writing.
 
 Give it one real fact about yourself on day one and ask about it on day three.

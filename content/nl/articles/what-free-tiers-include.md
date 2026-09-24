@@ -1,5 +1,5 @@
 ---
-title: Gratis AI-vriendin-apps — Wat de Gratis Laag Je Werkelijk Geeft
+title: Gratis AI-vriendin-apps - Wat de Gratis Laag Je Werkelijk Geeft
 slug: gratis-ai-vriendin-apps
 status: published
 type: article
@@ -34,9 +34,8 @@ faq:
       zijn geheugen.
 related:
   - articles/choosing-your-first-app
-  - rankings/best-ai-girlfriend
 seo:
-  title: Gratis AI-vriendin-apps — Wat Je Er Echt Voor Krijgt
+  title: Gratis AI-vriendin-apps - Wat Je Er Echt Voor Krijgt
   description: Wat gratis lagen werkelijk geven, wat als eerste opraakt, en hoe je een echt gratis product onderscheidt van een trailer van drie dagen.
   primary_keyword: gratis ai vriendin app
 indexing:
@@ -81,7 +80,7 @@ laag kan je vertellen dat hij slechter is dan hij is. Waarom dat zo werkt staat 
 
 Van de apps die wij testen is Sweetdream degene wiens gratis laag als product
 leest in plaats van als demo. Dat is de reden dat hij tweede staat in
-[onze ranglijst](/beste-ai-vriendin/), met daarbij het goedkoopste betaalde plan
+[onze ranglijst](/#ranking), met daarbij het goedkoopste betaalde plan
 van de groep: $10,00 volgens de gepubliceerde prijs.
 
 Replika is om een andere reden een onbetaalde twee weken waard: de gratis ervaring
@@ -91,7 +90,7 @@ duurdere apps je waarschijnlijk niet overtuigen.
 ## Hoe je een gratis laag goed gebruikt
 
 Besteed de eerste sessie uitsluitend aan het gesprek. Genereer geen enkele
-afbeelding — je put het tegoed uit en leert niets over het schrijfwerk.
+afbeelding - je put het tegoed uit en leert niets over het schrijfwerk.
 
 Geef hem op dag één één echt feit over jezelf en vraag er op dag drie naar. Die ene
 test zegt meer dan de volledige functielijst.

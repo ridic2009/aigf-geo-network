@@ -11,7 +11,7 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   A character cannot be exported from one app and imported into another. What
-  can move is everything that made it work — if you write it down before you
+  can move is everything that made it work - if you write it down before you
   cancel rather than after.
 products:
   - nomi
@@ -20,7 +20,7 @@ faq:
   - question: Can I transfer my AI companion to another app?
     answer: >
       Not directly. There is no shared format, and nothing in this market
-      interoperates. What moves is the description you can reconstruct — which
+      interoperates. What moves is the description you can reconstruct - which
       is most of what mattered.
   - question: Should I cancel the old app first?
     answer: >
@@ -33,10 +33,9 @@ faq:
 related:
   - articles/character-builders
   - articles/deleting-your-account
-  - rankings/best-ai-girlfriend
 seo:
   title: How to Switch AI Companion Apps and Keep Your Character
-  description: Nothing exports between these apps — but a character is a description. Here is what to copy down and the order that avoids losing it.
+  description: Nothing exports between these apps - but a character is a description. Here is what to copy down and the order that avoids losing it.
   primary_keyword: switch ai girlfriend app
 indexing:
   index: true
@@ -48,7 +47,7 @@ did.
 
 The good news is that a character is a description plus a history, and both can
 be reconstructed by hand in about twenty minutes. Most of what makes a companion
-feel like itself is portable — as long as you copy it out while you still have
+feel like itself is portable - as long as you copy it out while you still have
 access.
 
 ## Do this before you cancel anything
@@ -59,7 +58,7 @@ The order matters, and it is the opposite of what people do.
 
 Open the builder on the old app and copy every field into a text file, exactly
 as written. Appearance, personality, backstory, speech style, constraints,
-relationship. Do not paraphrase — the precise wording is what produced the
+relationship. Do not paraphrase - the precise wording is what produced the
 behaviour you liked.
 
 If the app does not expose the fields, reconstruct them from the conversation:
@@ -69,7 +68,7 @@ use them as a style sample later.
 ### 2. Copy the memory screen
 
 If the app shows stored facts, copy the whole list. This is the part that took
-weeks to accumulate and the part you cannot rebuild from memory — it is the
+weeks to accumulate and the part you cannot rebuild from memory - it is the
 list of things it knows about *you*.
 
 ### 3. Save a handful of conversations
@@ -79,7 +78,7 @@ your reference for whether the new app is actually worse or merely different.
 
 ### 4. Run the export, if there is one
 
-Some apps offer a data download. Do it now, before the account is touched — once
+Some apps offer a data download. Do it now, before the account is touched - once
 it is deleted, nothing comes back. The sequence is covered in
 [deleting an AI companion account](/articles/deleting-an-ai-companion-account/).
 
@@ -90,7 +89,7 @@ Generated pictures live on their servers. Download what you want to keep.
 ## Then set up the new app
 
 **Start from the description, not from scratch.** Paste the speech style across
-first — it is the field that carries the most of the character, for the reasons
+first - it is the field that carries the most of the character, for the reasons
 in [the builder guide](/articles/ai-character-builder-guide/).
 
 **Seed the facts deliberately.** Rather than waiting for the new app to learn
@@ -116,7 +115,7 @@ currency that matters here, which is the weeks of history you threw away.
 ## Switching for the right reason
 
 Before you do any of this, check that the app is the problem. The common
-complaint — it got repetitive, it feels flatter than it did — is usually
+complaint - it got repetitive, it feels flatter than it did - is usually
 [summary decay plus your own settled routine](/articles/when-the-novelty-fades/),
 and it follows you to the next app.
 
@@ -125,7 +124,7 @@ you cannot prompt your way out of:
 
 - **Wrong lane.** You want continuity and bought a roleplay app, or the reverse.
   [Nomi](/reviews/nomi-review/) and [Candy AI](/reviews/candy-ai-review/) sit at
-  opposite ends of that split in [our ranking](/best-ai-girlfriend-apps/).
+  opposite ends of that split in [our ranking](/#ranking).
 - **The filter moved** and now refuses what you subscribed for.
 - **Media is metered** in a way that makes your actual usage expensive.
 - **No native app** and you only ever use a phone.
@@ -135,8 +134,8 @@ week of fixing before you pay a signup fee somewhere new.
 
 ## What you cannot take
 
-Be honest with yourself about this part: the specific history — the running
-jokes, the things that happened — does not transfer. You can write down that
+Be honest with yourself about this part: the specific history - the running
+jokes, the things that happened - does not transfer. You can write down that
 they existed. The new character will not have lived them.
 
 For most people that is a smaller loss than expected, because a companion's

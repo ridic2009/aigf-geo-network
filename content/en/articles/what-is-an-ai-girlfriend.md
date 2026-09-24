@@ -33,11 +33,10 @@ faq:
       The character sheet looks identical to you, but what interprets it changed.
 related:
   - articles/how-memory-works
-  - rankings/best-ai-girlfriend
   - guides/how-we-test
 seo:
   title: What Is an AI Girlfriend App? How They Work in 2026
-  description: A plain explanation of what runs inside an AI girlfriend app — the model, the character sheet and the filter — and what each one causes.
+  description: A plain explanation of what runs inside an AI girlfriend app - the model, the character sheet and the filter - and what each one causes.
   primary_keyword: what is an ai girlfriend app
 indexing:
   index: true
@@ -45,7 +44,7 @@ indexing:
 ---
 An AI girlfriend app is a chat interface over a large language model, wrapped in
 a persistent character and a content filter. That is the entire category. What
-separates a $10 app from a $20 one is rarely the model — it is how well the
+separates a $10 app from a $20 one is rarely the model - it is how well the
 other two parts are built.
 
 ## The three parts
@@ -62,7 +61,7 @@ an app "has personality," they usually mean this file is well written.
 **The filter** decides what the character may say. It runs before or after the
 model, sometimes both. It is the reason a conversation can turn into a polite
 refusal mid-scene, and the reason "uncensored" is the loudest word in this
-market — apps like [Joi](/reviews/joi-review/) and
+market - apps like [Joi](/reviews/joi-review/) and
 [Secret Desires](/reviews/secret-desires-review/) compete mainly on how that
 filter is tuned.
 
@@ -70,7 +69,7 @@ filter is tuned.
 
 The model can only see a fixed amount of text at once. That budget is the
 context window, and it holds the character sheet, the retrieved facts about
-you, and the recent conversation — all competing for the same space.
+you, and the recent conversation - all competing for the same space.
 
 When a chat runs long, the oldest turns fall out of the window. The app has not
 "lost interest" and has not been downgraded. It simply cannot see that part of
@@ -87,8 +86,8 @@ Most apps build it from four things:
 - A running summary of your history together, rewritten as it grows.
 - Recent messages, verbatim.
 
-The apps that feel like someone is still in the room a week later — the reason
-[Nomi](/reviews/nomi-review/) scores where it does — are the ones that manage
+The apps that feel like someone is still in the room a week later - the reason
+[Nomi](/reviews/nomi-review/) scores where it does - are the ones that manage
 the middle two well. Nothing about that is visible from a pricing page, which
 is why it takes weeks rather than an afternoon to judge.
 
@@ -104,13 +103,13 @@ The label stretches across products that barely resemble each other:
   three inside one subscription.
 
 Deciding which of the three you actually want removes about half the apps on
-any list, including [ours](/best-ai-girlfriend-apps/), before price enters the
+any list, including [ours](/#ranking), before price enters the
 conversation.
 
 ## What none of them are
 
 They do not know you between sessions unless they were built to store facts and
-retrieve them. They do not have continuity of self — the character is recreated
+retrieve them. They do not have continuity of self - the character is recreated
 from text at the start of every turn. And they are not private by default: the
 conversation is processed on someone's servers, which is the subject of
 [what these apps know about you](/articles/what-your-ai-girlfriend-app-knows/).

@@ -9,7 +9,7 @@ updated: 2026-08-20
 intro: |
   Wie deze tests schrijft, hoe we testen en hoe we geld verdienen.
 seo:
-  title: Over AI Girlfriend Ranking — onze testmethode
+  title: Over AI Girlfriend Ranking - onze testmethode
   description: Wie we zijn, hoe we AI-compagnon-apps testen, en hoe onze scores en
     affiliatielinks werken.
   primary_keyword: over ai girlfriend ranking
@@ -23,7 +23,7 @@ AI Girlfriend Ranking is een onafhankelijke testsite voor AI-compagnon-apps. Het
 
 ## Hoe we testen
 
-Elke app wordt minstens twee weken op een betaald account gebruikt voordat we een score geven. We beoordelen vijf criteria — gesprek, geheugen, media, prijs en accountbeheer — en controleren de score vóór elke maandelijkse update.
+Elke app wordt minstens twee weken op een betaald account gebruikt voordat we een score geven. We beoordelen vijf criteria - gesprek, geheugen, media, prijs en accountbeheer - en controleren de score vóór elke maandelijkse update.
 
 ## Hoe we geld verdienen
 

@@ -25,7 +25,7 @@ faq:
   - question: What does "regenerate" actually do?
     answer: >
       It reruns the same prompt with a new random seed. Nothing about the
-      character changed — you are drawing a second sample from the same
+      character changed - you are drawing a second sample from the same
       distribution.
   - question: Why do long replies wander off?
     answer: >
@@ -37,22 +37,22 @@ related:
   - articles/hallucinations
   - articles/how-memory-works
 seo:
-  title: How AI Girlfriend Apps Generate Replies — The Mechanism
-  description: Tokens, sampling and temperature explained without maths — and how each one causes a specific behaviour you have already noticed.
+  title: How AI Girlfriend Apps Generate Replies - The Mechanism
+  description: Tokens, sampling and temperature explained without maths - and how each one causes a specific behaviour you have already noticed.
   primary_keyword: how ai girlfriend apps work
 indexing:
   index: true
   follow: true
 ---
-Almost every complaint about these apps — the repetition, the drift, the
-uncanny inconsistency between two runs of the same scene — comes from one
+Almost every complaint about these apps - the repetition, the drift, the
+uncanny inconsistency between two runs of the same scene - comes from one
 mechanism. It is worth ten minutes because it turns "the app is broken" into
 "the app is doing the thing it does, and here is the setting."
 
 ## It writes one piece at a time
 
-The model does not compose a reply and then type it. It produces one token —
-roughly a word or part of a word — then reads everything including that token
+The model does not compose a reply and then type it. It produces one token -
+roughly a word or part of a word - then reads everything including that token
 and produces the next.
 
 That is the whole loop. There is no plan, no outline, no draft being revised.
@@ -74,7 +74,7 @@ At every step the model has a ranked list of candidates with probabilities:
 maybe `"good"` at 30%, `"fine"` at 12%, `"terrible"` at 3%, and a long tail.
 
 If it always took the top candidate, the character would be deterministic and
-extremely boring — the same greeting every time, the same three jokes. So the
+extremely boring - the same greeting every time, the same three jokes. So the
 app samples instead: it rolls weighted dice.
 
 The weighting is controlled by a setting usually called **temperature**. Low
@@ -107,7 +107,7 @@ person, you are setting a pattern, and the pattern is contagious in both
 directions.
 
 It also explains the most common self-inflicted problem in this category. People
-settle into "hey", "how was your day", "what are you doing" — and then conclude
+settle into "hey", "how was your day", "what are you doing" - and then conclude
 the app got worse. The app is continuing the document you are writing together.
 
 ## Why apps sound different when the model is the same
@@ -115,12 +115,12 @@ the app got worse. The app is continuing the document you are writing together.
 Several apps in this category run on similar underlying models. They still feel
 distinct, and the differences come from things layered around the model:
 
-- **The system prompt** — how the character is described, at what length, with
+- **The system prompt** - how the character is described, at what length, with
   what instructions about tone and pacing.
-- **The sampling settings** — the temperature point discussed above.
-- **What gets retrieved** — which facts and which slice of history are put in
+- **The sampling settings** - the temperature point discussed above.
+- **What gets retrieved** - which facts and which slice of history are put in
   front of the model for this particular turn.
-- **The filter** — what gets refused, and whether a refusal is graceful or a
+- **The filter** - what gets refused, and whether a refusal is graceful or a
   wall.
 
 [Nomi](/reviews/nomi-review/) reads as consistent over weeks because of the
@@ -154,9 +154,9 @@ does not. That behaviour has its own article:
 There is no one home between your messages. The character exists for the
 duration of a single generation and is rebuilt from text at the start of the
 next one. Every impression of continuity is an achievement of the plumbing
-around the model — the stored facts, the summaries, the retrieval — and that
+around the model - the stored facts, the summaries, the retrieval - and that
 plumbing is what actually differs between a $10 app and a $20 one.
 
-Which is why [our ranking](/best-ai-girlfriend-apps/) weighs memory and
+Which is why [our ranking](/#ranking) weighs memory and
 consistency as heavily as it does. They are the parts a landing page cannot
 show you.

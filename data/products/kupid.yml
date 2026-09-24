@@ -5,6 +5,9 @@ category: LifestyleApplication
 platforms: Web, iOS, Android
 rating: 3.5
 free_tier: true
+memory: true
+voice: true
+nsfw: true
 features:
   - Free chat after sign-up
   - Appearance and personality builder
@@ -14,7 +17,7 @@ features:
 geo:
   en:
     availability: available
-    tagline: Warm, romance-first companions — but the premium plans are where it
+    tagline: Warm, romance-first companions - but the premium plans are where it
       gets expensive.
     best_for: Romantic companionship
     price:

@@ -1,5 +1,5 @@
 ---
-title: Applications de Petite Amie IA Gratuites — Ce que l'Offre Gratuite Donne Vraiment
+title: Applications de Petite Amie IA Gratuites - Ce que l'Offre Gratuite Donne Vraiment
 slug: applications-petite-amie-ia-gratuites
 status: published
 type: article
@@ -35,9 +35,8 @@ faq:
       mémoire.
 related:
   - articles/choosing-your-first-app
-  - rankings/best-ai-girlfriend
 seo:
-  title: Applications de Petite Amie IA Gratuites — Ce qu'Elles Incluent
+  title: Applications de Petite Amie IA Gratuites - Ce qu'Elles Incluent
   description: Ce que les offres gratuites donnent réellement, ce qui s'épuise en premier, et comment distinguer un vrai produit gratuit d'une bande-annonce.
   primary_keyword: application petite amie ia gratuite
 indexing:
@@ -85,7 +84,7 @@ gratuite peut vous la faire croire pire qu'elle n'est. Le mécanisme est dans
 
 Parmi les applications que nous testons, Sweetdream est celle dont l'offre
 gratuite se lit comme un produit et non comme une démonstration. C'est la raison
-de sa deuxième place dans [notre classement](/meilleure-petite-amie-ia/), avec en
+de sa deuxième place dans [notre classement](/#ranking), avec en
 prime l'abonnement payant le moins cher du groupe : 10,00 $ au tarif affiché.
 
 Replika mérite deux semaines non payées pour une autre raison : son expérience

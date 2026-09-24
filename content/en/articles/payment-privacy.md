@@ -1,5 +1,5 @@
 ---
-title: Payment Privacy — What Shows Up on Your Statement
+title: Payment Privacy - What Shows Up on Your Statement
 slug: ai-girlfriend-payment-privacy
 status: published
 type: article
@@ -24,7 +24,7 @@ faq:
       Check the first statement rather than assuming.
   - question: Is paying with crypto more private?
     answer: >
-      It removes the bank statement problem and adds others — no chargeback
+      It removes the bank statement problem and adds others - no chargeback
       protection, no refund route, and volatility. It solves one thing and
       weakens your position on everything else.
   - question: Does a prepaid card work?
@@ -36,7 +36,7 @@ related:
   - articles/shared-device
   - articles/refunds
 seo:
-  title: AI Girlfriend Billing Privacy — What Appears on Your Statement
+  title: AI Girlfriend Billing Privacy - What Appears on Your Statement
   description: Billing descriptors, prepaid cards, payment wallets and the trade-offs of each, plus what to check on the first statement.
   primary_keyword: ai girlfriend billing privacy
 indexing:
@@ -95,7 +95,7 @@ shows the wallet; the merchant name is inside the wallet's own history, which is
 behind a separate login.
 
 Better than a bare card, not as clean as a virtual card, and it keeps the
-dispute process intact — which matters more than people expect, per
+dispute process intact - which matters more than people expect, per
 [refunds and chargebacks](/articles/ai-companion-refunds/).
 
 ### App store billing
@@ -127,7 +127,7 @@ Turn off transaction notifications, or at least previews, on any shared or
 visible device.
 
 **Receipt emails** land in your inbox with the product name in the subject. Use
-a separate address for this — the same one you use for the account itself.
+a separate address for this - the same one you use for the account itself.
 
 **Password manager entries** are visible to anyone with your unlocked laptop.
 Most managers allow a separate vault.
@@ -144,9 +144,9 @@ If this matters to you, do all of it once and stop thinking about it:
 3. Transaction notification previews off.
 4. Check the descriptor on the first statement.
 
-Among the apps we track, the cheapest monthly plans —
+Among the apps we track, the cheapest monthly plans -
 [Sweetdream](/reviews/sweetdream-review/) at $10.00,
-[Candy AI](/reviews/candy-ai-review/) at $12.99 — are small enough that a capped
+[Candy AI](/reviews/candy-ai-review/) at $12.99 - are small enough that a capped
 virtual card is straightforward to set up and easy to monitor.
 
 The wider question of what the app itself stores is a different one, and it is

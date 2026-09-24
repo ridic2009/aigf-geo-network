@@ -1,5 +1,5 @@
 ---
-title: Images, Voice and Video — How the Media Side Actually Works
+title: Images, Voice and Video - How the Media Side Actually Works
 slug: how-ai-companion-media-works
 status: published
 type: article
@@ -35,9 +35,8 @@ faq:
 related:
   - articles/what-is-an-ai-girlfriend
   - articles/cost-of-images
-  - rankings/best-ai-girlfriend
 seo:
-  title: How AI Girlfriend Images and Voice Work — and Why They Cost
+  title: How AI Girlfriend Images and Voice Work - and Why They Cost
   description: Why the chat model and the image model are separate, why faces drift between pictures, and why media is always the first thing to be capped.
   primary_keyword: ai girlfriend image generation
 indexing:
@@ -76,18 +75,18 @@ describes millions of faces, and you get a different one each time.
 
 Apps solve this to varying degrees:
 
-- **Stored appearance tags** — the same descriptive string every time. Cheap,
+- **Stored appearance tags** - the same descriptive string every time. Cheap,
   and only roughly consistent.
 - **A reference image** conditioning each generation. Much better, and the usual
   approach when faces stay recognisable.
-- **A tuned model per character** — the most consistent and by far the most
+- **A tuned model per character** - the most consistent and by far the most
   expensive, so it tends to appear only on higher tiers.
 
 This is a real differentiator worth testing in a free tier before paying.
 Generate four pictures of the same character in different situations. If you get
 four different women, no subscription will fix it. Character consistency across
 images is a large part of why [Candy AI](/reviews/candy-ai-review/) leads
-[our ranking](/best-ai-girlfriend-apps/), and why
+[our ranking](/#ranking), and why
 [Secret Desires](/reviews/secret-desires-review/), which builds looks, voice and
 personality together and adds short video, scores where it does.
 
@@ -101,7 +100,7 @@ of audio. Video is dramatically more expensive than either.
 That cost difference is the entire reason for the pricing structure you see
 everywhere in this category: generous message allowances, tight image caps,
 voice minutes sold separately, video restricted to upper tiers. It is not
-artificial scarcity designed to upsell you — it is the actual shape of the bill
+artificial scarcity designed to upsell you - it is the actual shape of the bill
 the operator receives, passed through.
 
 Which is why "unlimited" in this market nearly always means unlimited *text*.
@@ -119,8 +118,8 @@ Two things to check before paying for it:
 **Latency.** A three-second pause before every reply breaks the illusion
 completely. Test it on a free tier or a trial, not from a demo video.
 
-**Whether it is a call or a message.** Voice notes — the character reads its
-reply aloud — are common and cheap. Real-time calls, where you speak and it
+**Whether it is a call or a message.** Voice notes - the character reads its
+reply aloud - are common and cheap. Real-time calls, where you speak and it
 answers, are a different product and usually a different tier.
 [Nomi](/reviews/nomi-review/) lists voice calls among its features; many apps
 list "voice" and mean notes.
@@ -134,7 +133,7 @@ category. Nobody has solved this, and an app promising otherwise is describing
 its best output rather than its average.
 
 **The image does not know your scene.** The chat model writes a one-line prompt,
-so everything not in that line is gone — the room you described, what she was
+so everything not in that line is gone - the room you described, what she was
 wearing three messages ago, the time of day. Being explicit in the request fixes
 more of this than any setting.
 
@@ -143,10 +142,10 @@ more of this than any setting.
 Spend a free tier's entire allowance in a single session rather than one picture
 a day. You are testing four things:
 
-1. **Consistency** — four pictures, same character, different situations.
-2. **Prompt adherence** — ask for something specific and see how much survives.
-3. **Latency** — for both images and voice.
-4. **What counts against the cap** — whether a failed or refused generation
+1. **Consistency** - four pictures, same character, different situations.
+2. **Prompt adherence** - ask for something specific and see how much survives.
+3. **Latency** - for both images and voice.
+4. **What counts against the cap** - whether a failed or refused generation
    still costs you.
 
 That last one is the least documented and most annoying to discover after

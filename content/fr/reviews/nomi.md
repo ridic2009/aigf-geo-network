@@ -1,5 +1,5 @@
 ---
-title: Nomi — Avis et test 2026
+title: Nomi - Avis et test 2026
 slug: nomi-avis
 type: review
 status: published
@@ -35,7 +35,7 @@ related:
   - compare/candy-ai-vs-nomi
 
 seo:
-  title: Nomi — Avis 2026, mémoire, prix et verdict honnête
+  title: Nomi - Avis 2026, mémoire, prix et verdict honnête
   description: Test de Nomi après deux semaines d'usage quotidien. Mémoire, qualité de conversation, discussions de groupe, prix réels, avantages et inconvénients.
   primary_keyword: nomi avis
 

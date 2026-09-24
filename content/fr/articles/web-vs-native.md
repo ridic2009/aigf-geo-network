@@ -1,5 +1,5 @@
 ---
-title: Navigateur ou Application Mobile — Où Vivent Vraiment les Compagnons IA
+title: Navigateur ou Application Mobile - Où Vivent Vraiment les Compagnons IA
 slug: navigateur-ou-application-mobile
 status: published
 type: article
@@ -37,7 +37,7 @@ related:
   - articles/choosing-your-first-app
   - articles/content-filters
 seo:
-  title: Application Web ou Native pour Compagnon IA — Laquelle Choisir
+  title: Application Web ou Native pour Compagnon IA - Laquelle Choisir
   description: Pourquoi tant de compagnons IA sont réservés au navigateur, ce que la version boutique restreint, et comment ce choix change l'usage quotidien.
   primary_keyword: application petite amie ia ios android
 indexing:
@@ -54,14 +54,14 @@ Camsoda AI, Secret Desires et Joi ne tournent que dans un navigateur.
 Les règles des boutiques encadrent strictement le contenu adulte ou limitrophe, et
 leur application est imprévisible. Une application dont l'argument de vente est une
 politique de contenu permissive ne peut pas publier cette politique via une
-boutique sans risquer un retrait — et un retrait emporte le produit entier, pas la
+boutique sans risquer un retrait - et un retrait emporte le produit entier, pas la
 fonctionnalité.
 
 Le marché se scinde donc. Celles qui visent le grand public obtiennent une version
 native et acceptent les contraintes. Celles qui visent l'extrémité permissive
 restent dans le navigateur, où la seule politique est la leur et celle de leur
 prestataire de paiement. La répartition ci-dessus, c'est cette scission, pas une
-différence de moyens — la même force que celle décrite dans
+différence de moyens - la même force que celle décrite dans
 [les filtres de contenu](/articles/filtres-de-contenu-ia/).
 
 ## Le piège : même marque, produit différent
@@ -119,7 +119,7 @@ Et si la politique de contenu permissive est la raison même de votre intérêt,
 question est déjà tranchée : ce produit vit dans le navigateur, et Camsoda AI, avec
 son constructeur en six étapes, est le meilleur argument pour dire que le navigateur
 seul n'est pas un compromis. Sa place dans
-[notre classement](/meilleure-petite-amie-ia/) le montre.
+[notre classement](/#ranking) le montre.
 
 ## Une remarque pratique sur l'achat
 

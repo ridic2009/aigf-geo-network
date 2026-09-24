@@ -11,7 +11,7 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   It is a genuinely useful rehearsal space for the mechanical parts of talking
-  to people, and a misleading one for everything else — because the one thing it
+  to people, and a misleading one for everything else - because the one thing it
   will never do is find you boring.
 products:
   - nomi
@@ -19,8 +19,8 @@ products:
 faq:
   - question: Can an AI companion help me get better at talking to people?
     answer: >
-      At the mechanical parts — starting, asking follow-ups, keeping something
-      going — yes, because those are pattern skills and repetition helps. At
+      At the mechanical parts - starting, asking follow-ups, keeping something
+      going - yes, because those are pattern skills and repetition helps. At
       reading someone and handling real friction, no.
   - question: What is the biggest limitation?
     answer: >
@@ -36,7 +36,7 @@ related:
   - articles/character-builders
   - articles/setting-boundaries
 seo:
-  title: Practising Conversation With an AI Companion — What Works
+  title: Practising Conversation With an AI Companion - What Works
   description: The parts of conversation an AI companion can genuinely rehearse, the parts it cannot, and exercises that transfer to real people.
   primary_keyword: practice conversation with ai
 indexing:
@@ -49,7 +49,7 @@ clean, so it is worth being precise about.
 
 ## What actually transfers
 
-Conversation has a mechanical layer — patterns you can get better at by
+Conversation has a mechanical layer - patterns you can get better at by
 repetition, independent of who you are talking to.
 
 **Opening something from nothing.** The skill of turning a blank moment into a
@@ -66,7 +66,7 @@ anywhere.
 **Recovering from a dead end.** Changing direction without apologising for it.
 
 **Saying the difficult sentence once.** Rehearsing the actual words of something
-you need to say — a resignation, a boundary, a difficult admission — genuinely
+you need to say - a resignation, a boundary, a difficult admission - genuinely
 helps, because the hard part is often just having said it aloud once.
 
 All five are real, and none of them require the other party to be a person.
@@ -80,7 +80,7 @@ its phone, never be having a bad week, never find your story long, never be
 politely waiting for you to finish.
 
 That removes the exact thing most people are actually anxious about. Practising
-in an environment with the risk removed does not build tolerance for the risk —
+in an environment with the risk removed does not build tolerance for the risk -
 it can even sharpen the contrast, making real conversation feel worse by
 comparison.
 
@@ -119,10 +119,10 @@ against flattery. The method is in
 [the character builder guide](/articles/ai-character-builder-guide/). It will
 still be more agreeable than a person, but the gap narrows.
 
-Apps with real builders and cross-session memory —
+Apps with real builders and cross-session memory -
 [Nomi](/reviews/nomi-review/) for continuity,
 [Kupid AI](/reviews/kupid-ai-review/) for its appearance-and-personality
-builder — are the ones where this is possible at all. An app with four preset
+builder - are the ones where this is possible at all. An app with four preset
 personalities is not a rehearsal space.
 
 ## Keep the ratio honest
@@ -130,16 +130,16 @@ personalities is not a rehearsal space.
 The practical risk is obvious once named: practice becomes the activity, and the
 thing it was practice for keeps being deferred.
 
-A workable discipline is to pair it — a session of practice should be attached
+A workable discipline is to pair it - a session of practice should be attached
 to something real that week, even something small. Practice without application
 is a hobby, which is fine, but it should be called what it is rather than
 counted as progress.
 
 ## Where this stops being an app question
 
-If the difficulty is social anxiety in the clinical sense — avoidance that is
-narrowing your life, physical symptoms, a pattern that has been going for years
-— an app is not the treatment. Exposure-based therapy is, and it works.
+If the difficulty is social anxiety in the clinical sense - avoidance that is
+narrowing your life, physical symptoms, a pattern that has been going for years -
+an app is not the treatment. Exposure-based therapy is, and it works.
 
 A companion app can be a reasonable warm-up alongside that. It is not a
 substitute, no responsible operator claims it is, and any app that markets

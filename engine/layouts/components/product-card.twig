@@ -14,6 +14,14 @@
     <div class="product-card__rank" aria-hidden="true">{{ rank }}</div>
     {%- endif %}
 
+    {#- The ranking is where most readers land from search: a card with the
+        product's own screen converts better than a row of text. -#}
+    {%- if product.screenshot|default(null) and not compact|default(false) %}
+    <div class="product-card__shot">
+        {{ image(asset(product.screenshot), { alt: product.name, loading: 'lazy', decoding: 'async' })|raw }}
+    </div>
+    {%- endif %}
+
     <div class="product-card__head">
         {%- if product.logo is defined and product.logo %}
         <img class="product-card__logo" src="{{ product.logo }}" alt="{{ product.name }}" width="72" height="72" loading="lazy" decoding="async">

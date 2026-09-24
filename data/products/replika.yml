@@ -6,6 +6,9 @@ category: LifestyleApplication
 platforms: Web, iOS, Android
 rating: 4
 free_tier: true
+memory: true
+voice: true
+nsfw: false
 launched: 2017
 features:
   - Long-running companion relationship

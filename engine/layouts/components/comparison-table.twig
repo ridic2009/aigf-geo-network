@@ -8,7 +8,13 @@
 {%- set ui = site.ui -%}
 {%- set L = ui.labels -%}
 {%- if items|default([])|length > 1 %}
-<div class="table-wrap">
+<div class="product-overview">
+<ul class="product-summaries" role="list">
+    {%- for product in items %}
+        {% include 'components/product-summary.twig' with { 'product': product, 'rank': null, 'badge': product.best_for|default('-'), 'show_features': true } %}
+    {%- endfor %}
+</ul>
+<div class="table-wrap product-overview__table">
     <table class="comparison-table">
         <caption class="visually-hidden">{{ page.title }}</caption>
         <thead>
@@ -29,19 +35,19 @@
             <tr>
                 <th scope="row">{{ L.price }}</th>
                 {%- for product in items %}
-                <td>{% if product.price is defined and product.price.amount is defined %}{{ L.from }} {{ fmt.price(product.price.amount, site.geo.currency) }}{{ L.per_month }}{% else %}—{% endif %}</td>
+                <td>{% if product.price is defined and product.price.amount is defined %}{{ L.from }} {{ fmt.price(product.price.amount, site.geo.currency) }}{{ L.per_month }}{% else %}-{% endif %}</td>
                 {%- endfor %}
             </tr>
             <tr>
                 <th scope="row">{{ L.free_tier }}</th>
                 {%- for product in items %}
-                <td>{{ product.free_tier is defined ? (product.free_tier ? L.yes : L.no) : '—' }}</td>
+                <td>{{ product.free_tier is defined ? (product.free_tier ? L.yes : L.no) : '-' }}</td>
                 {%- endfor %}
             </tr>
             <tr>
                 <th scope="row">{{ L.best_for }}</th>
                 {%- for product in items %}
-                <td>{{ product.best_for|default('—') }}</td>
+                <td>{{ product.best_for|default('-') }}</td>
                 {%- endfor %}
             </tr>
             <tr>
@@ -64,5 +70,6 @@
             </tr>
         </tbody>
     </table>
+</div>
 </div>
 {%- endif %}

@@ -27,8 +27,14 @@ description: AI彼女・AIコンパニオンアプリの独立したレビュー
 pages:
   dir: content/jp
   default:
+    search:
+      title: 'サイト内検索'
+      slug: search
+    site-map:
+      title: 'サイトマップ'
+      slug: site-map
     404:
-      title: ページが見つかりません
+      title: 'ページが見つかりません'
 routes:
   reviews: review
   compare: compare
@@ -50,6 +56,7 @@ ui:
     about: 運営者情報
     disclosure: アフィリエイトについて
     privacy: プライバシーポリシー
+    sitemap: 'サイトマップ'
   sections:
     reviews: レビュー
     compare: 比較
@@ -105,6 +112,30 @@ ui:
     availability_unavailable: 利用不可
     platforms: 対応環境
     launched: 提供開始
+    filters: '絞り込み'
+    memory: '記憶機能'
+    voice: '音声'
+    nsfw: 'NSFW'
+    any: 'すべて'
+    price_up_to: '%s以下'
+    sort_by: '並び替え'
+    sort_rank: '当サイトの順位'
+    sort_rating: '評価が高い順'
+    sort_price_asc: '価格が安い順'
+    sort_price_desc: '価格が高い順'
+    reset_filters: 'リセット'
+    compare_count: '%2件中%1件を表示'
+    compare_empty: '条件に合うアプリはありません。'
+    compare_apps: 'アプリを比較する'
+    top_picks: 'おすすめ'
+    how_we_test: '検証方法'
+    faq_short: 'よくある質問'
+    search: '検索'
+    search_placeholder: 'レビュー・ガイド・記事を検索'
+    search_empty: '「%s」に一致するページは見つかりませんでした。'
+    not_found_top: '現在のトップ3'
+    back_home: 'トップページへ戻る'
+    similar_apps: '似ているアプリ'
 site:
   id: jp
   brand: aigf

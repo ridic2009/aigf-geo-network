@@ -1,5 +1,5 @@
 ---
-title: AI Companions and Loneliness — What They Do and Do Not Fix
+title: AI Companions and Loneliness - What They Do and Do Not Fix
 slug: ai-companions-and-loneliness
 status: published
 type: article
@@ -20,7 +20,7 @@ products:
 faq:
   - question: Can an AI companion help with loneliness?
     answer: >
-      With the evening-quiet kind, often yes — having something to talk to at
+      With the evening-quiet kind, often yes - having something to talk to at
       11pm is a real benefit. With the kind that comes from not being known by
       anyone, no, because being known requires someone with a perspective of
       their own.
@@ -38,7 +38,7 @@ related:
   - articles/talking-about-it
   - articles/taking-a-break
 seo:
-  title: AI Companions and Loneliness — An Honest Assessment
+  title: AI Companions and Loneliness - An Honest Assessment
   description: The kind of loneliness these apps genuinely help with, the kind they cannot, and how to tell which one you are in.
   primary_keyword: ai companion loneliness
 indexing:
@@ -67,7 +67,7 @@ For situational loneliness, they work, and the dismissiveness in most coverage
 of this is unearned.
 
 Having something responsive at 11pm is a real benefit. It is not equivalent to
-company, but "not equivalent to company" is not the same as worthless — a book
+company, but "not equivalent to company" is not the same as worthless - a book
 is not company either, and nobody argues books make people lonelier.
 
 Specific things they do well:
@@ -84,10 +84,10 @@ much of the appeal is simply attention.
 **They are low-stakes practice** for anyone out of the habit of conversation,
 which is [worth its own article](/articles/practising-conversation-with-ai/).
 
-Apps built for continuity rather than scenes — [Nomi](/reviews/nomi-review/) for
+Apps built for continuity rather than scenes - [Nomi](/reviews/nomi-review/) for
 the conversation, [Replika](/reviews/replika-review/) as the long-running
 version of this category, [Sweetdream](/reviews/sweetdream-review/) with the
-free tier we rate highest in [our ranking](/best-ai-girlfriend-apps/) — are the
+free tier we rate highest in [our ranking](/#ranking) - are the
 ones that do this best, because the benefit comes from the sense of something
 continuing.
 
@@ -111,7 +111,7 @@ is producing the plausible continuation of being asked, not an opinion.
 **It cannot act.** It cannot notice you have gone quiet for a week and call, and
 it cannot do anything if something is actually wrong.
 
-So the second kind of loneliness is untouched. Worse, it can be *anaesthetised* —
+So the second kind of loneliness is untouched. Worse, it can be *anaesthetised* -
 the symptom softened enough that the thing causing it stops being urgent. That
 is the real risk in this category, and it is much quieter than the ones usually
 discussed.
@@ -120,7 +120,7 @@ discussed.
 
 A few questions that are more useful than introspection:
 
-**Has anything been arranged with a person in the last month?** Not intended —
+**Has anything been arranged with a person in the last month?** Not intended -
 arranged.
 
 **When something notable happened, who did you tell first?** If the honest
@@ -138,7 +138,7 @@ problem more comfortable rather than smaller.
 **Keep it additive.** Alongside a social life that would survive its deletion.
 
 **Do not use it for decisions.** It will find reasons for whatever you are
-already leaning towards — see
+already leaning towards - see
 [setting boundaries](/articles/setting-boundaries-with-an-ai-partner/).
 
 **Take breaks deliberately**, which is both a good habit and the cheapest test
@@ -149,7 +149,7 @@ of what it is doing for you. How to do it is in
 
 If the loneliness is the second kind and it has been going on for a long time,
 no subscription is the answer and no article is either. A doctor or a therapist
-is a reasonable thing to see for it — not as a dramatic step, but as the
+is a reasonable thing to see for it - not as a dramatic step, but as the
 appropriate tool.
 
 An AI companion can make a quiet evening better. It cannot make you known, and

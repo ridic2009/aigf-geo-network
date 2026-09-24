@@ -20,7 +20,7 @@ faq:
   - question: Are my conversations encrypted?
     answer: >
       In transit, yes, on any credible app. End-to-end is a different claim and
-      almost never true here — the operator's servers must read your messages to
+      almost never true here - the operator's servers must read your messages to
       generate a reply.
   - question: Can staff read my chats?
     answer: >
@@ -36,7 +36,7 @@ related:
   - articles/what-is-an-ai-girlfriend
   - guides/how-we-test
 seo:
-  title: What AI Girlfriend Apps Know About You — and How to Check
+  title: What AI Girlfriend Apps Know About You - and How to Check
   description: "Four checks before you sign up: what is collected, who can read it, whether it trains a model, and what a deletion request removes."
   primary_keyword: ai girlfriend privacy
 indexing:
@@ -55,7 +55,7 @@ its servers must read what you wrote. Any app claiming end-to-end encryption on
 conversations is either describing transport encryption in misleading terms or
 describing something that is not the chat.
 
-This is not a scandal — it is the architecture. It simply means the meaningful
+This is not a scandal - it is the architecture. It simply means the meaningful
 questions are about retention and access, not about cryptography.
 
 ## Check 1: what is collected beyond the chat
@@ -78,7 +78,7 @@ look for an opt-out in the settings.
 
 Three tiers exist in practice: no training on user content, training with an
 opt-out available, and training with no visible control. Any of the three can be
-acceptable — but not knowing which one you are in is not.
+acceptable - but not knowing which one you are in is not.
 
 ## Check 3: retention and deletion
 
@@ -87,7 +87,7 @@ Two separate questions that policies often blur.
 *Retention* is how long content is kept while your account is active. *Deletion*
 is what happens when you ask for it to go. An app may honour a deletion request
 for your conversations while keeping generated images, billing records, and
-backups on a longer cycle — all of which can be perfectly lawful and still not
+backups on a longer cycle - all of which can be perfectly lawful and still not
 what you assumed.
 
 Details are in [deleting an AI companion account](/articles/deleting-an-ai-companion-account/).
@@ -101,7 +101,7 @@ a defined window. Our
 [French](https://aigirlfriendranking-france.site/) editions cover the same apps
 under GDPR.
 
-The practical test is not whether the rights exist — they do — but whether the
+The practical test is not whether the rights exist - they do - but whether the
 app gives you a self-service button or makes you write to an address and wait.
 That difference tells you how the company thinks about you.
 
@@ -109,11 +109,11 @@ That difference tells you how the company thinks about you.
 
 Use a dedicated email address. Check what appears on your card statement before
 the second month. Turn off training if the option exists. And decide once, early,
-what you are not going to type into a service that must store it — your
+what you are not going to type into a service that must store it - your
 employer's name, your address, anything about a third party who did not consent
 to being in your chat log.
 
 [Replika](/reviews/replika-review/) and [Nomi](/reviews/nomi-review/) are the
-two apps in [our ranking](/best-ai-girlfriend-apps/) most likely to accumulate
+two apps in [our ranking](/#ranking) most likely to accumulate
 years rather than weeks of this material, simply because they are built for
 continuity. That makes the five minutes more worthwhile there, not less.

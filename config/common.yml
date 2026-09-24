@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# COMMON CONFIGURATION — shared by every GEO site of the network.
+# COMMON CONFIGURATION - shared by every GEO site of the network.
 #
 # This file is layer 1 of the configuration stack. The full stack is:
 #
@@ -55,6 +55,35 @@ pages:
       indexing:
         index: false
         follow: false
+    # Site search: the page with the results, and the index it reads. Neither
+    # is worth indexing - a results page is thin by nature. GEOs localize the
+    # path and the title (config/sites/<site>.yml -> pages.default.search).
+    search:
+      path: search
+      title: 'Search'
+      layout: search
+      published: true
+      excluded: true
+      indexing:
+        index: false
+        follow: true
+    search-index:
+      path: search-index
+      title: 'Search index'
+      layout: search-index
+      output: json
+      published: true
+      excluded: true
+    # The site map for people, as opposed to sitemap.xml for crawlers. Its own
+    # id: `sitemap` is taken by the XML one. Linked from the footer, and listed
+    # in sitemap.xml like any other indexable page.
+    site-map:
+      path: site-map
+      title: 'Site map'
+      layout: site-map
+      published: true
+      sitemap:
+        priority: '0.3'
     robots:
       path: robots
       title: 'robots.txt'
@@ -155,7 +184,7 @@ page_types:
   static:
     section: null
 
-# ROUTING — the single source of truth for URLs.
+# ROUTING - the single source of truth for URLs.
 # `routes.<section>` is the URL prefix applied to every page of that section.
 # An empty prefix means "publish at site root" (and suppresses the section index page).
 # GEO configs override these values with localized prefixes.
@@ -176,7 +205,9 @@ article_categories: [basics, choosing, privacy, pricing, wellbeing]
 # directory layout is identical in every GEO (only slugs are localized).
 navigation:
   main:
-    - id: rankings/best-ai-girlfriend
+    # The homepage carries the ranking; this item jumps straight to its table.
+    - id: index
+      anchor: ranking
       label: ranking
       weight: 10
     - id: reviews
@@ -201,6 +232,9 @@ navigation:
     - id: privacy
       label: privacy
       weight: 30
+    - id: site-map
+      label: sitemap
+      weight: 40
 
 # Structured data switches (see engine/layouts/partials/schema.html.twig).
 schema:

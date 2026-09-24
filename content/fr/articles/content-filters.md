@@ -1,5 +1,5 @@
 ---
-title: Filtres de Contenu — Pourquoi les Compagnons IA Refusent, et ce que Veut Dire « Sans Censure »
+title: Filtres de Contenu - Pourquoi les Compagnons IA Refusent, et ce que Veut Dire « Sans Censure »
 slug: filtres-de-contenu-ia
 status: published
 type: article
@@ -36,7 +36,7 @@ related:
   - articles/what-is-an-ai-girlfriend
   - articles/how-replies-are-generated
 seo:
-  title: Filtres de Contenu IA — Ce que « Sans Censure » Signifie
+  title: Filtres de Contenu IA - Ce que « Sans Censure » Signifie
   description: Comment fonctionne le filtrage dans les applications de petite amie IA, pourquoi des refus surgissent en pleine scène, et pourquoi les plus permissives gardent un plancher.
   primary_keyword: ia sans censure
 indexing:
@@ -52,7 +52,7 @@ fait quand on la rencontre, et sa stabilité pendant les mois où vous payez.
 En général à trois endroits à la fois, ce qui explique l'impression d'incohérence.
 
 **Avant le modèle.** Votre message est analysé. Un blocage ici produit un refus
-immédiat qui ne ressemble pas du tout au personnage — cette rupture de ton que les
+immédiat qui ne ressemble pas du tout au personnage - cette rupture de ton que les
 utilisateurs décrivent comme « il est sorti du rôle ».
 
 **Dans le modèle.** L'instruction système indique au personnage ce qu'il ne fera
@@ -74,7 +74,7 @@ contenu visant des personnes réelles identifiables.
 
 Ce n'est pas un choix stylistique. C'est la loi dans la plupart des juridictions et
 une condition pour conserver un prestataire de paiement. Une application qui
-lèverait ces blocages perdrait le traitement des cartes en quelques jours — une
+lèverait ces blocages perdrait le traitement des cartes en quelques jours - une
 application plus fiable que n'importe quel régulateur.
 
 « Sans censure » signifie donc toujours *plus permissif que la moyenne*, jamais
@@ -118,8 +118,8 @@ La distinction vaut la peine, car le remède diffère.
 filtrage. Un compagnon doté d'une personnalité dit parfois non, et c'est le produit
 qui fonctionne.
 
-**Un refus à côté de la plaque** — quelque chose de parfaitement anodin qui est
-rejeté — vient généralement d'un préfiltre trop zélé qui attrape un mot hors
+**Un refus à côté de la plaque** - quelque chose de parfaitement anodin qui est
+rejeté - vient généralement d'un préfiltre trop zélé qui attrape un mot hors
 contexte. Reformuler suffit presque toujours.
 
 **Une réponse tronquée** vient du postfiltre. Reformuler la *demande* n'y change

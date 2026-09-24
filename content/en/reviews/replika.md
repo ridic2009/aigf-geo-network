@@ -1,5 +1,5 @@
 ---
-title: Replika Review 2026 — Still the Easiest Way In, No Longer the Best
+title: Replika Review 2026 - Still the Easiest Way In, No Longer the Best
 slug: replika-review
 status: published
 type: review
@@ -16,7 +16,7 @@ product: replika
 verdict: >
   Best on-ramp in the category, not the best companion. Use the free tier to
   learn the shape of these apps. If you are ready to pay, the
-  [ranking](/best-ai-girlfriend-apps/) is the better shopping list.
+  [ranking](/#ranking) is the better shopping list.
 pros:
   - Most usable free chat of any veteran app
   - Real iOS and Android apps, not a wrapper
@@ -45,9 +45,8 @@ faq:
 related:
   - reviews/nomi
   - reviews/sweetdream
-  - rankings/best-ai-girlfriend
 seo:
-  title: Replika Review 2026 — Is It Still Worth Paying For?
+  title: Replika Review 2026 - Is It Still Worth Paying For?
   description: "Hands-on Replika review: a generous free tier, a dated Pro plan,
     NSFW limits on new accounts, and who should skip it."
   primary_keyword: replika review 2026

@@ -1,5 +1,5 @@
 ---
-title: 無料のAI彼女アプリ — 無料プランで実際に何ができるのか
+title: 無料のAI彼女アプリ - 無料プランで実際に何ができるのか
 slug: free-plans-explained
 status: published
 type: article
@@ -31,9 +31,8 @@ faq:
       たいていキャラクターとその記憶を失います。
 related:
   - articles/choosing-your-first-app
-  - rankings/best-ai-girlfriend
 seo:
-  title: 無料AI彼女アプリ — 無料プランの実際の中身
+  title: 無料AI彼女アプリ - 無料プランの実際の中身
   description: 無料プランで本当に得られるもの、最初に尽きるもの、そして本物の無料製品と三日間の予告編を見分ける方法。
   primary_keyword: 無料 AI彼女アプリ
 indexing:
@@ -72,7 +71,7 @@ indexing:
 ## 時間をかける価値のある無料プラン
 
 当サイトがテストしたアプリのうち、無料プランがデモではなく製品として読めるのは
-[Sweetdream](/review/sweetdream-ai/)です。[当サイトのランキング](/best-ai-girlfriend/)で
+[Sweetdream](/review/sweetdream-ai/)です。[当サイトのランキング](/#ranking)で
 二位にいる理由でもあり、有料プランは月額10.00ドルとこのグループで最も安価です。
 
 Replikaは別の理由で二週間を無料で使う価値があります。その無料体験はこのカテゴリの古典的な

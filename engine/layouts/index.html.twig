@@ -1,14 +1,48 @@
-{# Homepage. #}
+{# Homepage: the ranking itself - comparison table, cards, method, reviews, FAQ. #}
 {% extends '_default/base.html.twig' %}
 
 {% block main %}
+{%- set ranking = page.ranking|default([]) -%}
+{%- set L = site.ui.labels -%}
+{%- set has_prose = page.content|striptags|trim is not empty -%}
+{%- set latest = site.pages.showable|filter(p => p.section|default('') == 'reviews')|sort_by_date|slice(0, 6) -%}
+
+{#- Cards: the ranking with the editor's reasoning; `top_products` only when a
+    GEO has no ranking yet. -#}
+{%- set picks = [] -%}
+{%- if ranking|length -%}
+    {%- for entry in ranking -%}
+        {%- if products[entry.product] is defined -%}
+            {%- set picks = picks|merge([{ 'product': products[entry.product], 'badge': entry.badge|default(null), 'highlight': entry.highlight|default(null) }]) -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- else -%}
+    {%- for pid in page.top_products|default([]) -%}
+        {%- if products[pid] is defined -%}
+            {%- set picks = picks|merge([{ 'product': products[pid], 'badge': null, 'highlight': null }]) -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+
+{#- The sticky "on this page" bar lists only the sections this page really has. -#}
+{%- set anchors = [] -%}
+{%- if ranking|length %}{% set anchors = anchors|merge([{ 'id': 'ranking', 'label': L.compare_apps }]) %}{% endif -%}
+{%- if picks|length %}{% set anchors = anchors|merge([{ 'id': 'top-picks', 'label': L.top_picks }]) %}{% endif -%}
+{%- if has_prose %}{% set anchors = anchors|merge([{ 'id': 'how-we-test', 'label': L.how_we_test }]) %}{% endif -%}
+{%- if latest|length %}{% set anchors = anchors|merge([{ 'id': 'reviews', 'label': site.ui.nav.reviews|default(L.all_reviews) }]) %}{% endif -%}
+{%- if page.faq|default([])|length %}{% set anchors = anchors|merge([{ 'id': 'faq', 'label': L.faq_short }]) %}{% endif -%}
+
 <section class="hero">
     <div class="container">
         <h1 class="hero__title">{{ page.title }}</h1>
         {%- if page.intro|default(null) %}
         <div class="hero__text">{{ page.intro|markdown_to_html|raw }}</div>
         {%- endif %}
-        {%- if page.hero_cta|default(null) and site.pages.has(page.hero_cta) and site.pages.get(page.hero_cta).published %}
+        {%- if ranking|length %}
+        <p class="hero__actions">
+            <a class="btn btn--primary" href="#ranking">{{ L.compare_apps }}</a>
+        </p>
+        {%- elseif page.hero_cta|default(null) and site.pages.has(page.hero_cta) and site.pages.get(page.hero_cta).published %}
         <p class="hero__actions">
             <a class="btn btn--primary" href="{{ url(site.pages.get(page.hero_cta), {canonical: false}) }}">{{ site.pages.get(page.hero_cta).title }}</a>
         </p>
@@ -28,32 +62,50 @@
     </div>
 </section>
 
-{%- if page.top_products|default([])|length > 0 %}
-<section class="section">
+{%- if anchors|length > 1 %}
+<nav class="section-nav" aria-label="{{ L.toc }}" data-section-nav>
+    <div class="container">
+        <ul class="section-nav__list">
+            {%- for anchor in anchors %}
+            <li><a class="section-nav__link" href="#{{ anchor.id }}">{{ anchor.label }}</a></li>
+            {%- endfor %}
+        </ul>
+    </div>
+</nav>
+{%- endif %}
+
+{%- if ranking|length %}
+    {% include 'components/compare-table.twig' with {
+        'entries': ranking,
+        'products': products,
+        'title': page.ranking_title|default(site.ui.nav.ranking|default(L.compare_apps)),
+        'id': 'ranking'
+    } %}
+{%- endif %}
+
+{%- if picks|length > 0 %}
+<section class="section" id="top-picks">
     <div class="container">
         <h2 class="section__title">{{ page.top_products_title|default(site.ui.nav.ranking) }}</h2>
         <div class="card-grid">
-            {%- for pid in page.top_products -%}
-                {%- if products[pid] is defined %}
-                    {% include 'components/product-card.twig' with { 'product': products[pid], 'rank': loop.index } %}
-                {%- endif -%}
+            {%- for pick in picks %}
+                {% include 'components/product-card.twig' with { 'product': pick.product, 'rank': loop.index, 'badge': pick.badge, 'highlight': pick.highlight } %}
             {%- endfor %}
         </div>
     </div>
 </section>
 {%- endif %}
 
-{%- if page.content|striptags|trim is not empty %}
-<section class="section">
+{%- if has_prose %}
+<section class="section" id="how-we-test">
     <div class="container container--narrow">
         <div class="prose">{{ page.content|raw }}</div>
     </div>
 </section>
 {%- endif %}
 
-{%- set latest = site.pages.showable|filter(p => p.section|default('') == 'reviews')|sort_by_date|slice(0, 6) -%}
 {%- if latest|length > 0 %}
-<section class="section section--alt">
+<section class="section section--alt" id="reviews">
     <div class="container">
         <h2 class="section__title">{{ site.ui.labels.all_reviews }}</h2>
         <ul class="link-list">

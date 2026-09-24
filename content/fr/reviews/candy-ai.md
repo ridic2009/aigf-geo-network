@@ -1,5 +1,5 @@
 ---
-title: Candy AI — Avis et test 2026
+title: Candy AI - Avis et test 2026
 slug: candy-ai-avis
 type: review
 status: published
@@ -16,7 +16,7 @@ intro: |
 
 verdict: |
   Candy AI occupe la première place de notre classement car c'est la seule
-  application où les trois piliers — conversation, images et voix — fonctionnent
+  application où les trois piliers - conversation, images et voix - fonctionnent
   dans la même formule. L'interface est chargée et la version gratuite trop
   limitée, mais le produit payant tient ses promesses.
 
@@ -36,7 +36,7 @@ related:
   - compare/candy-ai-vs-nomi
 
 seo:
-  title: Candy AI — Avis 2026, fonctionnalités, prix et verdict
+  title: Candy AI - Avis 2026, fonctionnalités, prix et verdict
   description: Test de Candy AI après deux semaines sur un abonnement payant. Fonctions, prix réels, qualité des images, avantages et inconvénients.
   primary_keyword: candy ai avis
 

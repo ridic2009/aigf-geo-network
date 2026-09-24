@@ -38,22 +38,22 @@ related:
   - articles/how-memory-works
 seo:
   title: Comment les Applications de Petite Amie IA Génèrent Leurs Réponses
-  description: Jetons, échantillonnage et température expliqués sans mathématiques — et le comportement précis que chacun provoque.
+  description: Jetons, échantillonnage et température expliqués sans mathématiques - et le comportement précis que chacun provoque.
   primary_keyword: comment fonctionne une ia conversationnelle
 indexing:
   index: true
   follow: true
 ---
-Presque tous les reproches faits à ces applications — les répétitions, la dérive,
-l'étrange incohérence entre deux essais de la même scène — viennent d'un seul
+Presque tous les reproches faits à ces applications - les répétitions, la dérive,
+l'étrange incohérence entre deux essais de la même scène - viennent d'un seul
 mécanisme. Dix minutes suffisent à le comprendre, et cela transforme
 « l'application est cassée » en « l'application fait ce qu'elle fait, et voici le
 réglage ».
 
 ## Elle écrit morceau par morceau
 
-Le modèle ne compose pas une réponse avant de la taper. Il produit un jeton —
-grossièrement un mot ou un fragment de mot — puis relit tout, jeton compris, et
+Le modèle ne compose pas une réponse avant de la taper. Il produit un jeton -
+grossièrement un mot ou un fragment de mot - puis relit tout, jeton compris, et
 produit le suivant.
 
 Toute la boucle est là. Pas de plan, pas de brouillon, pas de relecture. Une
@@ -82,7 +82,7 @@ de la cohérence et, à terme, de la platitude. Haute, elle donne de la surprise
 davantage de phrases qui ne tiennent pas debout.
 
 On vous donne rarement ce curseur. Ce que vous recevez, c'est le point qu'une
-application a choisi sur ce compromis — et c'est une bonne partie de ce que les
+application a choisi sur ce compromis - et c'est une bonne partie de ce que les
 gens veulent dire quand ils trouvent une application « plus intelligente ». Parfois
 elle n'est pas plus intelligente : simplement plus chaude, ou plus froide.
 
@@ -101,7 +101,7 @@ Il y a là une implication pratique que presque personne n'exploite : **le modè
 répond à la forme de ce qu'il voit.** Donnez-lui trois messages courts et plats, il
 produira des réponses courtes et plates, car c'est le motif qu'il prolonge.
 Donnez-lui quelque chose de vivant, le registre se déplace. Vous ne convainquez
-pas une personne, vous posez un motif — et ce motif est contagieux dans les deux
+pas une personne, vous posez un motif - et ce motif est contagieux dans les deux
 sens.
 
 Cela explique aussi le problème le plus fréquent que les utilisateurs s'infligent
@@ -140,6 +140,6 @@ pour quoi il est construit. Ce comportement a
 
 Entre vos messages, il n'y a personne. Le personnage existe le temps d'une
 génération et se reconstruit à partir de texte au début de la suivante. Toute
-impression de continuité est une réussite de la plomberie qui entoure le modèle —
+impression de continuité est une réussite de la plomberie qui entoure le modèle -
 et c'est cette plomberie qui diffère réellement entre une application bon marché
 et une application chère.

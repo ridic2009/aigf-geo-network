@@ -17,9 +17,8 @@ intro: >
 related:
   - reviews/candy-ai
   - reviews/nomi
-  - rankings/best-ai-girlfriend
 seo:
-  title: Candy AI vs Nomi (2026) — welke kies je?
+  title: Candy AI vs Nomi (2026) - welke kies je?
   description: Candy AI en Nomi vergeleken op gesprek, geheugen, beelden, stem en
     prijs, na twee weken parallel testen.
   primary_keyword: candy ai vs nomi
@@ -46,7 +45,7 @@ Nomi wint. Het houdt een draad langer vast, blijft consistenter in de rol en vol
 
 ## Media
 
-Candy AI wint ruim. De beeldgeneratie houdt het personage van beeld tot beeld coherent — het lastigste punt in deze categorie.
+Candy AI wint ruim. De beeldgeneratie houdt het personage van beeld tot beeld coherent - het lastigste punt in deze categorie.
 
 ## Prijs en prijs-kwaliteit
 

@@ -1,5 +1,5 @@
 ---
-title: Images, Voix et Vidéo — Comment Fonctionne Vraiment le Côté Média
+title: Images, Voix et Vidéo - Comment Fonctionne Vraiment le Côté Média
 slug: images-et-voix-des-compagnons-ia
 status: published
 type: article
@@ -37,7 +37,7 @@ related:
   - articles/what-is-an-ai-girlfriend
   - articles/how-replies-are-generated
 seo:
-  title: Images et Voix des Petites Amies IA — Fonctionnement et Coût
+  title: Images et Voix des Petites Amies IA - Fonctionnement et Coût
   description: Pourquoi le modèle de discussion et le modèle d'image sont séparés, pourquoi les visages dérivent d'une image à l'autre, et pourquoi le média est toujours plafonné.
   primary_keyword: génération d'images petite amie ia
 indexing:
@@ -84,7 +84,7 @@ Générez quatre images du même personnage dans quatre situations. Si vous obte
 quatre femmes différentes, aucun abonnement ne corrigera cela. La cohérence entre
 images est une grande partie de la raison pour laquelle
 [Candy AI](/avis/candy-ai-avis/) figure en tête de
-[notre classement](/meilleure-petite-amie-ia/).
+[notre classement](/#ranking).
 
 ## Pourquoi le média est toujours compté
 
@@ -108,7 +108,7 @@ La voix change l'expérience plus qu'on ne l'imagine. Lire un message et l'enten
 sont deux choses différentes.
 
 Deux points à vérifier avant de payer. **La latence** : trois secondes d'attente
-avant chaque réponse détruisent complètement l'illusion — testez vous-même, pas sur
+avant chaque réponse détruisent complètement l'illusion - testez vous-même, pas sur
 une vidéo de démonstration. Et **s'il s'agit d'un appel ou d'un message vocal** :
 la lecture à voix haute est courante et peu coûteuse, l'appel en temps réel est un
 autre produit et généralement une autre offre.
@@ -118,7 +118,7 @@ autre produit et généralement une autre offre.
 Deux limites à connaître avant d'être déçu. **Les mains, le texte et les détails
 fins** restent peu fiables chez tous les générateurs de la catégorie ; personne n'a
 résolu cela. Et **l'image ne connaît pas votre scène** : le modèle de discussion
-rédige une seule ligne, donc tout ce qui n'y figure pas disparaît — la pièce que
+rédige une seule ligne, donc tout ce qui n'y figure pas disparaît - la pièce que
 vous aviez décrite, ce qu'elle portait trois messages plus tôt, l'heure. Être
 explicite dans la demande corrige plus que n'importe quel réglage.
 
@@ -126,6 +126,6 @@ explicite dans la demande corrige plus que n'importe quel réglage.
 
 Dépensez tout le quota gratuit en une seule session plutôt qu'une image par jour.
 Vous testez quatre choses : la cohérence (quatre images, un personnage), le respect
-de la consigne, la latence pour l'image et la voix, et — le point le moins
-documenté et le plus agaçant à découvrir après avoir payé — si une génération
+de la consigne, la latence pour l'image et la voix, et - le point le moins
+documenté et le plus agaçant à découvrir après avoir payé - si une génération
 échouée ou refusée décompte quand même du quota.

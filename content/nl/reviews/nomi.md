@@ -1,5 +1,5 @@
 ---
-title: Nomi — Beoordeling en test 2026
+title: Nomi - Beoordeling en test 2026
 slug: nomi-beoordeling
 type: review
 status: published
@@ -29,7 +29,7 @@ related:
   - reviews/candy-ai
   - compare/candy-ai-vs-nomi
 seo:
-  title: Nomi — Beoordeling 2026, geheugen, prijs en eerlijk oordeel
+  title: Nomi - Beoordeling 2026, geheugen, prijs en eerlijk oordeel
   description: Test van Nomi na twee weken dagelijks gebruik. Geheugen,
     gesprekskwaliteit, groepsgesprekken, echte prijzen, voor- en nadelen.
   primary_keyword: nomi beoordeling

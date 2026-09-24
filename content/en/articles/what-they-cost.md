@@ -1,5 +1,5 @@
 ---
-title: What AI Girlfriend Apps Cost in 2026 — and What the Price Hides
+title: What AI Girlfriend Apps Cost in 2026 - and What the Price Hides
 slug: ai-girlfriend-app-prices
 status: published
 type: article
@@ -34,10 +34,9 @@ faq:
 related:
   - articles/monthly-annual-or-credits
   - guides/hidden-costs
-  - rankings/best-ai-girlfriend
 seo:
-  title: AI Girlfriend App Prices in 2026 — The Real Monthly Cost
-  description: Published prices for the apps we test, plus the four charges that sit on top of them — credits, intro pricing, tier gates and annual lock-in.
+  title: AI Girlfriend App Prices in 2026 - The Real Monthly Cost
+  description: Published prices for the apps we test, plus the four charges that sit on top of them - credits, intro pricing, tier gates and annual lock-in.
   primary_keyword: ai girlfriend app price
 indexing:
   index: true
@@ -58,7 +57,7 @@ them.
 ## 1. Intro pricing that is not the price
 
 The number you see at checkout is frequently a first-period discount. The
-renewal is at list. Nothing illegal happens here and nothing is hidden — it is
+renewal is at list. Nothing illegal happens here and nothing is hidden - it is
 simply that the moment you compare apps is the moment you are shown the lowest
 number each of them will ever charge you.
 
@@ -72,10 +71,10 @@ subscription buys conversation, and images or voice are metered separately. A
 $12 plan with a heavy image habit can land well above a $20 plan that includes
 media.
 
-The thing to check before paying is not whether an app *has* image generation —
-they all do — but whether generating images is included in the plan or billed
+The thing to check before paying is not whether an app *has* image generation -
+they all do - but whether generating images is included in the plan or billed
 against a balance. Candy AI including chat, images and voice inside one
-subscription is precisely why it tops [our ranking](/best-ai-girlfriend-apps/),
+subscription is precisely why it tops [our ranking](/#ranking),
 rather than any single feature being best in class.
 
 ## 3. The feature you want being one tier up
@@ -102,7 +101,7 @@ that loses least. The trade-off is worked through in
 ## What the cheapest option really is
 
 Sweetdream at $10.00 is the lowest published price among the apps we test, and
-it also has the free tier we rate highest — which makes it the cheapest honest
+it also has the free tier we rate highest - which makes it the cheapest honest
 way into the category rather than merely the cheapest number.
 
 The most expensive mistake is not picking the wrong app. It is paying for a year

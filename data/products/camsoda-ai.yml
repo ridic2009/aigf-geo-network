@@ -5,6 +5,9 @@ category: LifestyleApplication
 platforms: Web
 rating: 4.5
 free_tier: true
+memory: true
+voice: true
+nsfw: true
 features:
   - 200+ ready-made companions
   - Six-step character builder

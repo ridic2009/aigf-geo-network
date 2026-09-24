@@ -3,6 +3,9 @@ slug: sweetdream
 website: https://sweetdream.ai
 rating: 4.5
 free_tier: true
+memory: true
+voice: true
+nsfw: true
 category: LifestyleApplication
 price:
   amount: 10
@@ -29,4 +32,4 @@ geo:
       period: month
 screenshot: /images/products/sweetdream-screenshot.webp
 logo: /images/products/sweetdream.png
-platforms: web, IOS, android
+platforms: Web, iOS, Android

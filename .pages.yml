@@ -224,9 +224,9 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }, { name: sitemap, label: 'Карта сайта', type: string }] }
                   - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
-                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
+                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }, { name: filters, label: Фильтры, type: string }, { name: memory, label: Память, type: string }, { name: voice, label: Голос, type: string }, { name: nsfw, label: NSFW, type: string }, { name: any, label: 'Любой (в фильтрах)', type: string }, { name: price_up_to, label: 'Цена «до %s»', type: string }, { name: sort_by, label: Сортировка, type: string }, { name: sort_rank, label: 'Сортировка: наш рейтинг', type: string }, { name: sort_rating, label: 'Сортировка: по оценке', type: string }, { name: sort_price_asc, label: 'Сортировка: сначала дешёвые', type: string }, { name: sort_price_desc, label: 'Сортировка: сначала дорогие', type: string }, { name: reset_filters, label: 'Сбросить фильтры', type: string }, { name: compare_count, label: 'Счётчик «показано %1 из %2»', type: string }, { name: compare_empty, label: 'Нет приложений под фильтры', type: string }, { name: compare_apps, label: 'Кнопка «Сравнить приложения»', type: string }, { name: top_picks, label: 'Якорь «Наш выбор»', type: string }, { name: how_we_test, label: 'Якорь «Как мы тестируем»', type: string }, { name: faq_short, label: 'Якорь «FAQ»', type: string }, { name: search, label: Поиск, type: string }, { name: search_placeholder, label: 'Подсказка в поле поиска', type: string }, { name: search_empty, label: 'Поиск: ничего не найдено (%s - запрос)', type: string }, { name: not_found_top, label: '404: заголовок топ-3', type: string }, { name: back_home, label: '404: кнопка «На главную»', type: string }, { name: similar_apps, label: 'Заголовок «Похожие приложения»', type: string }] }
               -
                 name: baseurl
                 label: Домен
@@ -349,13 +349,26 @@ content:
                 type: string
                 description: 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
               -
+                name: ranking_title
+                label: 'Заголовок таблицы сравнения'
+                type: string
+              -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: top_products_title
                 label: 'Заголовок подборки'
                 type: string
                 description: 'Заголовок над карточками продуктов.'
               -
                 name: top_products
-                label: 'Товары на главной'
+                label: 'Товары на главной (если рейтинг не заполнен)'
                 type: reference
                 options:
                   collection: products
@@ -709,6 +722,16 @@ content:
                 name: cons
                 label: Минусы
                 type: string
+                list: true
+              -
+                name: similar
+                label: 'Похожие приложения (пусто = подобрать автоматически)'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
                 list: true
               -
                 name: faq
@@ -1652,9 +1675,9 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }, { name: sitemap, label: 'Карта сайта', type: string }] }
                   - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
-                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
+                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }, { name: filters, label: Фильтры, type: string }, { name: memory, label: Память, type: string }, { name: voice, label: Голос, type: string }, { name: nsfw, label: NSFW, type: string }, { name: any, label: 'Любой (в фильтрах)', type: string }, { name: price_up_to, label: 'Цена «до %s»', type: string }, { name: sort_by, label: Сортировка, type: string }, { name: sort_rank, label: 'Сортировка: наш рейтинг', type: string }, { name: sort_rating, label: 'Сортировка: по оценке', type: string }, { name: sort_price_asc, label: 'Сортировка: сначала дешёвые', type: string }, { name: sort_price_desc, label: 'Сортировка: сначала дорогие', type: string }, { name: reset_filters, label: 'Сбросить фильтры', type: string }, { name: compare_count, label: 'Счётчик «показано %1 из %2»', type: string }, { name: compare_empty, label: 'Нет приложений под фильтры', type: string }, { name: compare_apps, label: 'Кнопка «Сравнить приложения»', type: string }, { name: top_picks, label: 'Якорь «Наш выбор»', type: string }, { name: how_we_test, label: 'Якорь «Как мы тестируем»', type: string }, { name: faq_short, label: 'Якорь «FAQ»', type: string }, { name: search, label: Поиск, type: string }, { name: search_placeholder, label: 'Подсказка в поле поиска', type: string }, { name: search_empty, label: 'Поиск: ничего не найдено (%s - запрос)', type: string }, { name: not_found_top, label: '404: заголовок топ-3', type: string }, { name: back_home, label: '404: кнопка «На главную»', type: string }, { name: similar_apps, label: 'Заголовок «Похожие приложения»', type: string }] }
               -
                 name: baseurl
                 label: Домен
@@ -1777,13 +1800,26 @@ content:
                 type: string
                 description: 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
               -
+                name: ranking_title
+                label: 'Заголовок таблицы сравнения'
+                type: string
+              -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: top_products_title
                 label: 'Заголовок подборки'
                 type: string
                 description: 'Заголовок над карточками продуктов.'
               -
                 name: top_products
-                label: 'Товары на главной'
+                label: 'Товары на главной (если рейтинг не заполнен)'
                 type: reference
                 options:
                   collection: products
@@ -2137,6 +2173,16 @@ content:
                 name: cons
                 label: Минусы
                 type: string
+                list: true
+              -
+                name: similar
+                label: 'Похожие приложения (пусто = подобрать автоматически)'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
                 list: true
               -
                 name: faq
@@ -3080,9 +3126,9 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }, { name: sitemap, label: 'Карта сайта', type: string }] }
                   - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
-                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
+                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }, { name: filters, label: Фильтры, type: string }, { name: memory, label: Память, type: string }, { name: voice, label: Голос, type: string }, { name: nsfw, label: NSFW, type: string }, { name: any, label: 'Любой (в фильтрах)', type: string }, { name: price_up_to, label: 'Цена «до %s»', type: string }, { name: sort_by, label: Сортировка, type: string }, { name: sort_rank, label: 'Сортировка: наш рейтинг', type: string }, { name: sort_rating, label: 'Сортировка: по оценке', type: string }, { name: sort_price_asc, label: 'Сортировка: сначала дешёвые', type: string }, { name: sort_price_desc, label: 'Сортировка: сначала дорогие', type: string }, { name: reset_filters, label: 'Сбросить фильтры', type: string }, { name: compare_count, label: 'Счётчик «показано %1 из %2»', type: string }, { name: compare_empty, label: 'Нет приложений под фильтры', type: string }, { name: compare_apps, label: 'Кнопка «Сравнить приложения»', type: string }, { name: top_picks, label: 'Якорь «Наш выбор»', type: string }, { name: how_we_test, label: 'Якорь «Как мы тестируем»', type: string }, { name: faq_short, label: 'Якорь «FAQ»', type: string }, { name: search, label: Поиск, type: string }, { name: search_placeholder, label: 'Подсказка в поле поиска', type: string }, { name: search_empty, label: 'Поиск: ничего не найдено (%s - запрос)', type: string }, { name: not_found_top, label: '404: заголовок топ-3', type: string }, { name: back_home, label: '404: кнопка «На главную»', type: string }, { name: similar_apps, label: 'Заголовок «Похожие приложения»', type: string }] }
               -
                 name: baseurl
                 label: Домен
@@ -3205,13 +3251,26 @@ content:
                 type: string
                 description: 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
               -
+                name: ranking_title
+                label: 'Заголовок таблицы сравнения'
+                type: string
+              -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: top_products_title
                 label: 'Заголовок подборки'
                 type: string
                 description: 'Заголовок над карточками продуктов.'
               -
                 name: top_products
-                label: 'Товары на главной'
+                label: 'Товары на главной (если рейтинг не заполнен)'
                 type: reference
                 options:
                   collection: products
@@ -3565,6 +3624,16 @@ content:
                 name: cons
                 label: Минусы
                 type: string
+                list: true
+              -
+                name: similar
+                label: 'Похожие приложения (пусто = подобрать автоматически)'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
                 list: true
               -
                 name: faq
@@ -4508,9 +4577,9 @@ content:
                 description: 'Всё, что движок пишет на странице сам: меню, кнопки, заголовки таблиц.'
                 type: object
                 fields:
-                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }] }
+                  - { name: nav, label: 'Пункты меню', type: object, fields: [{ name: ranking, label: Рейтинг, type: string }, { name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: about, label: 'О нас', type: string }, { name: disclosure, label: 'Партнёрский дисклеймер', type: string }, { name: privacy, label: Конфиденциальность, type: string }, { name: sitemap, label: 'Карта сайта', type: string }] }
                   - { name: sections, label: 'Названия разделов', type: object, fields: [{ name: reviews, label: Обзоры, type: string }, { name: compare, label: Сравнения, type: string }, { name: guides, label: Гайды, type: string }, { name: articles, label: Статьи, type: string }, { name: rankings, label: Рейтинги, type: string }] }
-                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }] }
+                  - { name: labels, label: 'Подписи интерфейса', type: object, fields: [{ name: home, label: Главная, type: string }, { name: not_found_text, label: 'Текст страницы 404', type: string }, { name: skip_to_content, label: 'Ссылка «к содержимому»', type: string }, { name: menu, label: 'Кнопка меню', type: string }, { name: main_navigation, label: 'Главная навигация', type: string }, { name: footer_navigation, label: 'Навигация в подвале', type: string }, { name: social, label: Соцсети, type: string }, { name: close, label: Закрыть, type: string }, { name: read_review, label: 'Кнопка «читать обзор»', type: string }, { name: visit_site, label: 'Кнопка «перейти на сайт»', type: string }, { name: try_now, label: 'Кнопка «попробовать»', type: string, description: 'Вместо %s подставляется название продукта, например «Попробовать %s».' }, { name: pros, label: Плюсы, type: string }, { name: cons, label: Минусы, type: string }, { name: rating, label: Оценка, type: string }, { name: out_of, label: 'Разделитель «из»', type: string, description: 'Используется в виде «4,6 из 5».' }, { name: score, label: Балл, type: string }, { name: rank, label: Место, type: string }, { name: product, label: Продукт, type: string }, { name: features, label: Возможности, type: string }, { name: price, label: Цена, type: string }, { name: from, label: 'Префикс «от»', type: string }, { name: per_month, label: 'Суффикс «в месяц»', type: string }, { name: free_tier, label: 'Бесплатный тариф', type: string }, { name: 'yes', label: Да, type: string }, { name: 'no', label: Нет, type: string }, { name: verdict, label: Итог, type: string }, { name: best_for, label: 'Лучше всего для', type: string }, { name: faq, label: 'Заголовок FAQ', type: string }, { name: toc, label: 'Заголовок оглавления', type: string }, { name: updated, label: Обновлено, type: string }, { name: published, label: Опубликовано, type: string }, { name: author, label: Автор, type: string }, { name: reviewed_by, label: Проверил, type: string }, { name: related, label: Похожее, type: string }, { name: all_reviews, label: 'Все обзоры', type: string }, { name: back_to_top, label: Наверх, type: string }, { name: affiliate_notice, label: 'Партнёрский дисклеймер', type: string, description: 'Показывается рядом с партнёрскими кнопками и в подвале.' }, { name: availability_available, label: 'Доступность: доступен', type: string }, { name: availability_limited, label: 'Доступность: ограниченно', type: string }, { name: availability_unavailable, label: 'Доступность: недоступен', type: string }, { name: platforms, label: Платформы, type: string }, { name: launched, label: 'Год запуска', type: string }, { name: filters, label: Фильтры, type: string }, { name: memory, label: Память, type: string }, { name: voice, label: Голос, type: string }, { name: nsfw, label: NSFW, type: string }, { name: any, label: 'Любой (в фильтрах)', type: string }, { name: price_up_to, label: 'Цена «до %s»', type: string }, { name: sort_by, label: Сортировка, type: string }, { name: sort_rank, label: 'Сортировка: наш рейтинг', type: string }, { name: sort_rating, label: 'Сортировка: по оценке', type: string }, { name: sort_price_asc, label: 'Сортировка: сначала дешёвые', type: string }, { name: sort_price_desc, label: 'Сортировка: сначала дорогие', type: string }, { name: reset_filters, label: 'Сбросить фильтры', type: string }, { name: compare_count, label: 'Счётчик «показано %1 из %2»', type: string }, { name: compare_empty, label: 'Нет приложений под фильтры', type: string }, { name: compare_apps, label: 'Кнопка «Сравнить приложения»', type: string }, { name: top_picks, label: 'Якорь «Наш выбор»', type: string }, { name: how_we_test, label: 'Якорь «Как мы тестируем»', type: string }, { name: faq_short, label: 'Якорь «FAQ»', type: string }, { name: search, label: Поиск, type: string }, { name: search_placeholder, label: 'Подсказка в поле поиска', type: string }, { name: search_empty, label: 'Поиск: ничего не найдено (%s - запрос)', type: string }, { name: not_found_top, label: '404: заголовок топ-3', type: string }, { name: back_home, label: '404: кнопка «На главную»', type: string }, { name: similar_apps, label: 'Заголовок «Похожие приложения»', type: string }] }
               -
                 name: baseurl
                 label: Домен
@@ -4633,13 +4702,26 @@ content:
                 type: string
                 description: 'Идентификатор статьи, куда ведёт большая кнопка, например «rankings/best-ai-girlfriend». Текст кнопки берётся из этой статьи; кнопка появится, только когда статья опубликована.'
               -
+                name: ranking_title
+                label: 'Заголовок таблицы сравнения'
+                type: string
+              -
+                name: ranking
+                label: 'Позиции рейтинга'
+                type: object
+                fields:
+                  - { name: product, label: Продукт, type: reference, options: { collection: products, value: '{fields.slug}', label: '{fields.name}', search: 'fields.name,fields.slug' }, required: true }
+                  - { name: badge, label: Номинация, type: string }
+                  - { name: highlight, label: 'Почему выбран', type: text }
+                list: true
+              -
                 name: top_products_title
                 label: 'Заголовок подборки'
                 type: string
                 description: 'Заголовок над карточками продуктов.'
               -
                 name: top_products
-                label: 'Товары на главной'
+                label: 'Товары на главной (если рейтинг не заполнен)'
                 type: reference
                 options:
                   collection: products
@@ -4993,6 +5075,16 @@ content:
                 name: cons
                 label: Минусы
                 type: string
+                list: true
+              -
+                name: similar
+                label: 'Похожие приложения (пусто = подобрать автоматически)'
+                type: reference
+                options:
+                  collection: products
+                  value: '{fields.slug}'
+                  label: '{fields.name}'
+                  search: 'fields.name,fields.slug'
                 list: true
               -
                 name: faq
@@ -5944,6 +6036,24 @@ content:
         label: 'Есть бесплатный тариф'
         type: boolean
         default: false
+      -
+        name: memory
+        label: 'Помнит прошлые разговоры'
+        type: boolean
+        default: false
+        description: 'Фильтр в таблице сравнения на главной.'
+      -
+        name: voice
+        label: 'Голосовые сообщения или звонки'
+        type: boolean
+        default: false
+        description: 'Фильтр в таблице сравнения на главной.'
+      -
+        name: nsfw
+        label: 'Разрешает NSFW-контент'
+        type: boolean
+        default: false
+        description: 'Фильтр в таблице сравнения на главной.'
       -
         name: launched
         label: 'Год запуска'

@@ -1,5 +1,5 @@
 ---
-title: Camsoda AI Review 2026 — Build the Companion, Keep the Memory
+title: Camsoda AI Review 2026 - Build the Companion, Keep the Memory
 slug: camsoda-ai-review
 type: review
 status: published
@@ -28,9 +28,8 @@ cons:
   - Price hidden until you register
 related:
   - reviews/secretdesires
-  - rankings/best-ai-girlfriend
 seo:
-  title: Camsoda AI Review 2026 — Builder, Memory, Verdict
+  title: Camsoda AI Review 2026 - Builder, Memory, Verdict
   description: "Two-week Camsoda AI test: the six-step builder, per-character
     memory, and the catch of unpublished pricing."
   primary_keyword: camsoda ai review
@@ -69,7 +68,7 @@ Build three companions and each one remembers its own history with you. That sou
 
 ## What is missing
 
-Web only — no native apps. The price is not on the marketing site; you see it after sign-up, so I will not invent a number here. In a category where the monthly bill is half the decision, that is a real mark against it.
+Web only - no native apps. The price is not on the marketing site; you see it after sign-up, so I will not invent a number here. In a category where the monthly bill is half the decision, that is a real mark against it.
 
 ## The first hour tax
 

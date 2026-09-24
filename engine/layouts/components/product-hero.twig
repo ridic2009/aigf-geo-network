@@ -15,7 +15,7 @@
 <section class="product-hero">
     <div class="product-hero__visual{{ product.screenshot|default(null) ? '' : ' product-hero__visual--fallback' }}">
         {%- if product.screenshot|default(null) %}
-        <img src="{{ product.screenshot }}" alt="{{ product.name }}" width="960" height="600" loading="eager" decoding="async">
+        {{ image(asset(product.screenshot), { alt: product.name, loading: 'eager', decoding: 'async' })|raw }}
         {%- else %}
         <span class="product-hero__monogram" aria-hidden="true">{{ product.name|slice(0, 1) }}</span>
         {%- endif %}
@@ -36,6 +36,7 @@
         {% include 'components/rating.twig' with { 'value': product.rating|default(null) } %}
 
         <div class="product-hero__actions">
+            {% include 'components/affiliate-disclosure.twig' with { 'variant': 'inline' } %}
             {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.try_now|format(product.name), 'class': 'btn--primary btn--lg' } %}
         </div>
 
@@ -70,3 +71,16 @@
     {%- endfor %}
 </ul>
 {%- endif %}
+
+{# On a phone the hero scrolls away within a screen and the button goes with it.
+   This keeps the offer reachable the whole way down the review. #}
+<div class="sticky-cta" aria-hidden="false">
+    <p class="sticky-cta__notice">{{ L.affiliate_notice }}</p>
+    <div class="sticky-cta__text">
+        <span class="sticky-cta__name">{{ product.name }}</span>
+        {%- if product.rating is defined and product.rating %}
+        <span class="sticky-cta__rating">{{ product.rating }} / 5</span>
+        {%- endif %}
+    </div>
+    {% include 'components/affiliate-link.twig' with { 'product': product, 'label': L.try_now|format(product.name), 'class': 'btn--primary' } %}
+</div>

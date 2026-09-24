@@ -1,5 +1,5 @@
 ---
-title: Confidentialité des Paiements — Ce qui Apparaît sur Votre Relevé
+title: Confidentialité des Paiements - Ce qui Apparaît sur Votre Relevé
 slug: confidentialite-des-paiements-ia
 status: published
 type: article
@@ -24,7 +24,7 @@ faq:
       Vérifiez le premier relevé au lieu de le supposer.
   - question: Payer en cryptomonnaie est-il plus discret ?
     answer: >
-      Cela supprime le problème du relevé et en ajoute d'autres — aucune
+      Cela supprime le problème du relevé et en ajoute d'autres - aucune
       rétrofacturation, aucune voie de remboursement, et de la volatilité. Cela
       règle une chose et affaiblit votre position sur toutes les autres.
   - question: Une carte prépayée fonctionne-t-elle ?
@@ -89,7 +89,7 @@ relevé affiche le portefeuille ; le nom du marchand figure dans l'historique du
 portefeuille, derrière une connexion séparée.
 
 Mieux qu'une carte nue, moins net qu'une carte virtuelle, et cela préserve la
-procédure de litige — ce qui compte plus qu'on ne le croit.
+procédure de litige - ce qui compte plus qu'on ne le croit.
 
 ### La facturation via une boutique d'applications
 
@@ -118,7 +118,7 @@ l'écran verrouillé. Désactivez les notifications de transaction, ou au moins 
 aperçus, sur tout appareil partagé ou visible.
 
 **Les e-mails de reçu** arrivent dans votre boîte avec le nom du produit en objet.
-Utilisez une adresse séparée — la même que pour le compte.
+Utilisez une adresse séparée - la même que pour le compte.
 
 **Les entrées du gestionnaire de mots de passe** sont visibles par quiconque
 dispose de votre ordinateur déverrouillé. La plupart des gestionnaires permettent
@@ -134,8 +134,8 @@ carte virtuelle plafonnée légèrement au-dessus du prix mensuel, une adresse e
 dédiée pour le compte et les reçus, les aperçus de notifications désactivés, et
 une vérification du libellé sur le premier relevé.
 
-Parmi les applications que nous suivons, les offres mensuelles les moins chères —
-Sweetdream à 10,00 $, [Candy AI](/avis/candy-ai-avis/) à 12,99 $ — restent assez
+Parmi les applications que nous suivons, les offres mensuelles les moins chères -
+Sweetdream à 10,00 $, [Candy AI](/avis/candy-ai-avis/) à 12,99 $ - restent assez
 modestes pour qu'une carte virtuelle plafonnée soit simple à mettre en place et à
 surveiller. Prévoyez un plafond légèrement au-dessus de la conversion, puisque le
 montant en euros ne sera connu qu'au premier prélèvement.

@@ -135,6 +135,12 @@ final class ContentValidator
                 $this->error($where, 'canonical must be an object with a "url" key, e.g. canonical: { url: https://… }.');
             }
 
+            /* ---- house style: a hyphen, never an em dash --------------- */
+            $raw = (string) $page['body'] . json_encode($fm, \JSON_UNESCAPED_UNICODE);
+            if (($dashes = substr_count($raw, "\u{2014}")) > 0) {
+                $this->warn($where, \sprintf('%d em dash(es) "—": the sites use a hyphen " - " instead.', $dashes));
+            }
+
             /* ---- one H1 rule ----------------------------------------- */
             if (preg_match('/^#\s+/m', (string) $page['body'])) {
                 $this->error($where, 'The body contains a level-1 heading ("# …"). The page title is already the H1 — use "##" and below.');
@@ -252,8 +258,16 @@ final class ContentValidator
 
     private function validateNavigation(string $geoCode, array $ids, array $pages): void
     {
-        $navigation = (array) (Network::resolved($geoCode)['navigation'] ?? []);
+        $resolved = Network::resolved($geoCode);
+        $navigation = (array) ($resolved['navigation'] ?? []);
         $sections = array_keys(ContentScanner::generatedSections($geoCode, $pages));
+        // Pages the engine generates itself (search, site map), declared in
+        // config/common.yml -> pages.default rather than written in content/.
+        foreach ((array) ($resolved['pages']['default'] ?? []) as $id => $definition) {
+            if (($definition['published'] ?? false) === true) {
+                $sections[] = (string) $id;
+            }
+        }
         $labels = (array) (Network::geo($geoCode)['ui']['nav'] ?? []);
 
         foreach ($navigation as $menu => $items) {

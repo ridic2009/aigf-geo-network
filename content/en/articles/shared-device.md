@@ -11,7 +11,7 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   A shared laptop, a family tablet, a phone that gets handed over. The leaks
-  here are boring and mechanical — autocomplete, notifications, synced tabs —
+  here are boring and mechanical - autocomplete, notifications, synced tabs -
   and every one of them has a two-minute fix.
 products:
   - camsoda-ai
@@ -36,7 +36,7 @@ related:
   - articles/account-security
 seo:
   title: Using an AI Girlfriend App on a Shared Computer or Phone
-  description: The mechanical ways these apps surface on shared devices — autocomplete, sync, notifications, downloads — and the fix for each.
+  description: The mechanical ways these apps surface on shared devices - autocomplete, sync, notifications, downloads - and the fix for each.
   primary_keyword: ai girlfriend private browsing
 indexing:
   index: true
@@ -58,7 +58,7 @@ Previews show the sender and the first line to anyone in the room.
 **Synced tabs and history.** Chrome, Safari and Firefox sync across devices on
 the same account. An open tab on your laptop is visible on a family iPad signed
 into the same account. Private browsing does not stop this because the tab is
-not private — it is on your normal profile.
+not private - it is on your normal profile.
 
 **Saved passwords.** The autofill list is a list of the sites you use, readable
 by anyone with an unlocked device.
@@ -80,7 +80,7 @@ people.
 ### Use a separate browser profile
 
 The single highest-value change, and it takes two minutes. A second Chrome or
-Firefox profile — signed out, or signed into a separate account — gets its own
+Firefox profile - signed out, or signed into a separate account - gets its own
 history, its own autocomplete, its own saved passwords and its own sync.
 
 This solves autocomplete, sync, saved passwords and most of the rest in one
@@ -130,7 +130,7 @@ only in a browser, and [Secret Desires](/reviews/secret-desires-review/) in a
 mobile browser. On a shared phone that is a genuine advantage: no icon, no app
 in the app switcher, no entry in purchase history.
 
-The cost is session persistence — browsers clear cookies and iOS evicts site
+The cost is session persistence - browsers clear cookies and iOS evicts site
 data aggressively, so expect to log in often. The full trade-off is in
 [browser or app store](/articles/web-app-vs-native-ai-companion/).
 
@@ -146,8 +146,8 @@ tip, it is an employment one.
 ## The honest floor
 
 None of this protects you from someone with your unlocked device and an interest
-in looking. It protects you from the accidental case — the glance at a lock
-screen, the shared tab, the autocomplete — which is what actually happens.
+in looking. It protects you from the accidental case - the glance at a lock
+screen, the shared tab, the autocomplete - which is what actually happens.
 
 Pair it with the account-side basics in
 [account security](/articles/ai-companion-account-security/) and you have

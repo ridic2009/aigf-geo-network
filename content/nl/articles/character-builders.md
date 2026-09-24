@@ -1,5 +1,5 @@
 ---
-title: Personagebouwers — Wat Er Werkelijk Toe Doet
+title: Personagebouwers - Wat Er Werkelijk Toe Doet
 slug: ai-personage-bouwen
 status: published
 type: article
@@ -37,7 +37,7 @@ related:
   - articles/reading-feature-lists
   - articles/how-replies-are-generated
 seo:
-  title: AI-personage Bouwen — De Velden Die Er Toe Doen
+  title: AI-personage Bouwen - De Velden Die Er Toe Doen
   description: Welke instellingen in de bouwer het gesprek veranderen en welke decoratie zijn, plus hoe je een personage schrijft dat week twee overleeft.
   primary_keyword: ai vriendin personage maken
 indexing:
@@ -63,7 +63,7 @@ zinnen over hoe ze een compliment afwimpelt verandert elk antwoord.
 
 Het veld met de meeste hefboom, en het veld dat het vaakst leeg blijft.
 
-"Vriendelijk" is waardeloos — dat beschrijft vrijwel iedereen. Wat werkt is
+"Vriendelijk" is waardeloos - dat beschrijft vrijwel iedereen. Wat werkt is
 mechanisch: zinslengte, of ze vragen terugstelt, hoe ze met stilte omgaat, wat ze
 doet als ze het oneens is, of ze je naam gebruikt.
 
@@ -101,7 +101,7 @@ dezelfde persoonlijkheid verschillende gesprekken op.
 
 Bewust als laatste. Uiterlijk beïnvloedt gegenereerde afbeeldingen, en
 [het beeldmodel bouwt het personage elke keer opnieuw uit een
-beschrijving](/artikelen/ai-companion-beelden-en-stem/) — dus het telt voor
+beschrijving](/artikelen/ai-companion-beelden-en-stem/) - dus het telt voor
 plaatjes en raakt het gesprek nauwelijks.
 
 Zijn plaatjes het punt, steek er dan tijd in. Is gesprek het punt, dan zijn drie
@@ -109,14 +109,14 @@ labels genoeg.
 
 ## Waar de apps verschillen
 
-Camsoda AI bouwt via zes stappen — uiterlijk, persoonlijkheid, stem, achtergrond,
+Camsoda AI bouwt via zes stappen - uiterlijk, persoonlijkheid, stem, achtergrond,
 hoe het met je praat, en wat het nooit ter sprake moet brengen. Die laatste stap is
 zeldzaam in deze markt en is precies het veld dat dit artikel als tweede rangschikt.
 
 Secret Desires bouwt uiterlijk, stem en persoonlijkheid samen, met een galerij van
 kant-en-klare personages om vanaf te starten. Kupid AI dekt uiterlijk en
 persoonlijkheid in realistische en anime-stijl. Alle drie staan in
-[onze ranglijst](/beste-ai-vriendin/), en de bouwer is een echt deel van dat
+[onze ranglijst](/#ranking), en de bouwer is een echt deel van dat
 verschil in plaats van een opsommingsteken.
 
 ## Begin bij een voorbeeld
@@ -133,7 +133,7 @@ schrijft veel betere beperkingen na een echt gesprek dan ervoor.
 
 De waardevolste functie van een bouwer is de mogelijkheid om later te bewerken. Een
 personage dat vlak is geworden, is heel vaak een personage wiens beschrijving werd
-geschreven door iemand die er nog nooit mee had gepraat — jij, een uur eerder.
+geschreven door iemand die er nog nooit mee had gepraat - jij, een uur eerder.
 
 Controleer vóór het abonneren of de app het toestaat: een bouwer die na de setup
 vastzet, maakt van elke teleurstelling een beslissing om opnieuw te beginnen.

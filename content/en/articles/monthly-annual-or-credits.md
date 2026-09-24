@@ -1,5 +1,5 @@
 ---
-title: Monthly, Annual or Credits — Which AI Companion Plan Loses You Least
+title: Monthly, Annual or Credits - Which AI Companion Plan Loses You Least
 slug: monthly-annual-or-credits
 status: published
 type: article
@@ -35,7 +35,7 @@ related:
   - articles/what-free-tiers-include
   - guides/hidden-costs
 seo:
-  title: AI Companion Billing — Monthly vs Annual vs Credits
+  title: AI Companion Billing - Monthly vs Annual vs Credits
   description: How the three billing models work, who each one is priced for, and the order that costs you least when you are new to an app.
   primary_keyword: ai companion subscription
 indexing:
@@ -69,14 +69,14 @@ If the honest answer is no, pay monthly.
 
 ## Credits: priced for people who underestimate themselves
 
-Credits meter the expensive things — images, voice minutes, video. They look
+Credits meter the expensive things - images, voice minutes, video. They look
 cheap because the entry bundle is small, and they are sold in tiers where the
 per-unit price falls as the bundle grows, which is a structure designed to move
 you up the ladder.
 
 Two things to check that are almost never on the purchase screen: whether unused
 credits expire, and whether a subscription includes an allowance that resets. An
-app that includes media in the plan removes this entire decision — which is the
+app that includes media in the plan removes this entire decision - which is the
 practical argument for [Candy AI](/reviews/candy-ai-review/) over a cheaper
 subscription with a credit meter attached.
 
@@ -86,7 +86,7 @@ subscription with a credit meter attached.
 
 1. **Free tier, three days.** Judge the conversation and nothing else. Some
    apps, like [Sweetdream](/reviews/sweetdream-review/) at 4.5 in
-   [our ranking](/best-ai-girlfriend-apps/), are worth a full unpaid fortnight
+   [our ranking](/#ranking), are worth a full unpaid fortnight
    here.
 2. **One month, monthly billing.** Now judge memory, repetition and the media
    quality.

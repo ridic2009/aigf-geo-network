@@ -11,7 +11,7 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   Un compte contenant des mois de conversations intimes vaut davantage, pour qui
-  s'en empare, qu'un identifiant de boutique en ligne — et ces applications
+  s'en empare, qu'un identifiant de boutique en ligne - et ces applications
   protègent les comptes nettement moins bien qu'une banque. Quatre gestes comblent
   l'essentiel de l'écart.
 products:
@@ -36,7 +36,7 @@ related:
   - articles/what-the-app-knows
   - articles/shared-device
 seo:
-  title: Sécurité du Compte de Compagnon IA — Mots de Passe, 2FA et Sessions
+  title: Sécurité du Compte de Compagnon IA - Mots de Passe, 2FA et Sessions
   description: Pourquoi ces comptes valent la peine d'être pris, ce que ces applications ne protègent généralement pas, et les quatre changements qui comptent le plus.
   primary_keyword: sécurité compte petite amie ia
 indexing:
@@ -49,7 +49,7 @@ une adresse e-mail qui relie le tout au reste de votre vie.
 
 Considérez ensuite que l'éditeur est généralement une petite société avec une
 petite équipe technique et aucun régulateur qui regarde par-dessus son épaule. Cet
-écart — valeur élevée, protection ordinaire — est tout le problème.
+écart - valeur élevée, protection ordinaire - est tout le problème.
 
 ## Ce que ces applications ne font généralement pas
 
@@ -126,8 +126,8 @@ envisagez de remplacer le numéro de carte. Puis décidez si vous restez : une f
 traitée par un avis clair et un calendrier réel est un signal différent d'une fuite
 révélée trois mois plus tard par des journalistes.
 
-Lisez ce que l'éditeur dit réellement. Le flou sur le périmètre — c'est-à-dire sur
-l'inclusion ou non des conversations — est en soi une réponse.
+Lisez ce que l'éditeur dit réellement. Le flou sur le périmètre - c'est-à-dire sur
+l'inclusion ou non des conversations - est en soi une réponse.
 
 ## Avant de vous abonner
 
@@ -135,8 +135,8 @@ Deux minutes dans les réglages avant de payer en disent plus sur le sérieux d'
 éditeur que n'importe quelle page marketing. Y a-t-il une 2FA ? Une liste des
 sessions ? Une suppression en libre-service, ou seulement une adresse de support ?
 
-Les applications conçues pour accumuler des années d'historique —
-[Nomi](/avis/nomi-avis/), Replika — sont celles où cela pèse le plus, simplement
+Les applications conçues pour accumuler des années d'historique -
+[Nomi](/avis/nomi-avis/), Replika - sont celles où cela pèse le plus, simplement
 parce que ce sont elles qui finiront par détenir le plus de choses sur vous. Ce que
 contient ce matériau est dans
 [ce qu'elles savent de vous](/articles/ce-que-votre-application-ia-sait-de-vous/),

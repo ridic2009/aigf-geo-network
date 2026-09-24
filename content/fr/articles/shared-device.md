@@ -11,8 +11,8 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   Un ordinateur partagé, une tablette familiale, un téléphone qu'on tend à
-  quelqu'un. Les fuites ici sont banales et mécaniques — autocomplétion,
-  synchronisation, notifications — et chacune se colmate en deux minutes.
+  quelqu'un. Les fuites ici sont banales et mécaniques - autocomplétion,
+  synchronisation, notifications - et chacune se colmate en deux minutes.
 products:
   - camsoda-ai
   - joi
@@ -21,7 +21,7 @@ faq:
     answer: >
       Pour l'historique et les cookies, oui. Elle ne fait rien contre les onglets
       synchronisés, les mots de passe enregistrés, les téléchargements ou les
-      notifications — et c'est là que les gens se font prendre.
+      notifications - et c'est là que les gens se font prendre.
   - question: Une application web est-elle plus sûre sur un appareil partagé ?
     answer: >
       Généralement oui, car rien n'apparaît sur l'écran d'accueil. La contrepartie
@@ -35,7 +35,7 @@ related:
   - articles/account-security
 seo:
   title: Utiliser une Application de Petite Amie IA sur un Appareil Partagé
-  description: Les façons mécaniques dont ces applications remontent à la surface — autocomplétion, synchronisation, notifications, téléchargements — et le correctif de chacune.
+  description: Les façons mécaniques dont ces applications remontent à la surface - autocomplétion, synchronisation, notifications, téléchargements - et le correctif de chacune.
   primary_keyword: navigation privée petite amie ia
 indexing:
   index: true
@@ -82,7 +82,7 @@ Celle-ci surprend sincèrement.
 ### Utilisez un profil de navigateur séparé
 
 Le changement le plus utile, et il prend deux minutes. Un second profil Chrome ou
-Firefox — déconnecté, ou connecté à un autre compte — dispose de son propre
+Firefox - déconnecté, ou connecté à un autre compte - dispose de son propre
 historique, de sa propre autocomplétion, de ses propres mots de passe et de sa
 propre synchronisation.
 
@@ -149,8 +149,8 @@ pas un conseil de confidentialité mais un conseil professionnel.
 ## Le plancher honnête
 
 Rien de tout cela ne vous protège de quelqu'un qui a votre appareil déverrouillé et
-l'intention de chercher. Cela vous protège du cas accidentel — le coup d'œil sur un
-écran verrouillé, l'onglet partagé, l'autocomplétion — et c'est ce qui arrive
+l'intention de chercher. Cela vous protège du cas accidentel - le coup d'œil sur un
+écran verrouillé, l'onglet partagé, l'autocomplétion - et c'est ce qui arrive
 réellement.
 
 Associez-le aux bases côté compte décrites dans

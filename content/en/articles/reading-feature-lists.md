@@ -24,7 +24,7 @@ faq:
   - question: What is the single most misleading word?
     answer: >
       "Unlimited." It nearly always means unlimited text, with images, voice and
-      video still metered — which is where the cost actually lives.
+      video still metered - which is where the cost actually lives.
   - question: Is a longer feature list better?
     answer: >
       No. Breadth usually means each item is shallower. An app doing three
@@ -32,9 +32,8 @@ faq:
 related:
   - articles/choosing-your-first-app
   - articles/how-media-works
-  - rankings/best-ai-girlfriend
 seo:
-  title: Reading AI Girlfriend Feature Lists — What the Claims Mean
+  title: Reading AI Girlfriend Feature Lists - What the Claims Mean
   description: What "memory", "unlimited", "voice" and "uncensored" actually mean on a pricing page, and the one question that settles each.
   primary_keyword: ai girlfriend app features
 indexing:
@@ -48,7 +47,7 @@ decide whether you enjoy the product.
 
 ## "Memory" / "remembers you"
 
-**Range:** a six-item list of facts, re-sent every message — through to stored
+**Range:** a six-item list of facts, re-sent every message - through to stored
 facts plus rolling summaries plus retrieval that survives months of history.
 
 Both are honestly called memory. The gap between them is the gap between an app
@@ -60,11 +59,11 @@ mechanics are in
 app with a memory screen is telling you the storage is real and structured.
 [Kupid AI](/reviews/kupid-ai-review/) lists memory across sessions;
 [Nomi](/reviews/nomi-review/) is built around it, which is why it holds the
-conversation score it does in [our ranking](/best-ai-girlfriend-apps/).
+conversation score it does in [our ranking](/#ranking).
 
 ## "Unlimited messages"
 
-**Range:** genuinely uncapped text — through to uncapped text with a rate limit,
+**Range:** genuinely uncapped text - through to uncapped text with a rate limit,
 or uncapped text on one tier and metered media on all of them.
 
 The word is almost always doing honest work and almost always misread, because
@@ -76,7 +75,7 @@ is where the meter goes.
 
 ## "Voice"
 
-**Range:** the character reads its replies aloud as audio clips — through to
+**Range:** the character reads its replies aloud as audio clips - through to
 real-time spoken conversation with interruption.
 
 These are different products sharing a word. Voice notes are cheap and common.
@@ -87,7 +86,7 @@ latency: a three-second gap before every answer destroys the effect.
 
 ## "Uncensored" / "no filters"
 
-**Range:** more permissive than mainstream — through to considerably more
+**Range:** more permissive than mainstream - through to considerably more
 permissive than mainstream. Never unfiltered; every operator hard-blocks the
 same illegal core, and card processors enforce it.
 
@@ -96,7 +95,7 @@ same illegal core, and card processors enforce it.
 
 ## "Custom character creation"
 
-**Range:** pick from four hair colours and three personalities — through to a
+**Range:** pick from four hair colours and three personalities - through to a
 multi-step builder covering appearance, voice, backstory, speech style and
 topics to avoid.
 
@@ -110,17 +109,17 @@ setup?*
 
 ## "AI image generation"
 
-**Range:** a fresh face every time — through to a character that stays
+**Range:** a fresh face every time - through to a character that stays
 recognisable across dozens of pictures.
 
 Consistency is the whole game and it is invisible on a pricing page.
 
-**The question:** *four pictures of the same character in four situations — is
+**The question:** *four pictures of the same character in four situations - is
 it the same person?*
 
 ## "Long-term relationship" / "grows with you"
 
-**Range:** a relationship level that increments with use — through to a
+**Range:** a relationship level that increments with use - through to a
 character whose stored history genuinely changes how it responds.
 
 Progression bars are cheap to build and easy to mistake for depth.
@@ -133,7 +132,7 @@ Every app we track has one. The range is between a product you could use for
 months and a three-day trailer, and the difference is covered in
 [what free tiers really include](/articles/free-ai-girlfriend-apps-what-you-get/).
 
-**The question:** *what does the wall say when I hit it — a daily allowance, or
+**The question:** *what does the wall say when I hit it - a daily allowance, or
 an upgrade prompt?*
 
 ## The pattern underneath
@@ -141,11 +140,11 @@ an upgrade prompt?*
 Every claim above describes a category, not an implementation, and the
 implementation is where the product lives. That is the structural reason
 comparison tables in this market are near-useless and the reason
-[we test the way we do](/guides/how-we-test/) — a fortnight on a paid account
+[we test the way we do](/guides/how-we-test/) - a fortnight on a paid account
 reveals which end of each range an app actually sits at.
 
 Two shortcuts if you only have ten minutes. **Prefer the app with fewer, deeper
 bullets:** breadth in this category usually means shallowness. And **prefer the
-one that shows you its internals** — a memory screen, an editable character, a
+one that shows you its internals** - a memory screen, an editable character, a
 visible credit balance. Apps that let you see the machinery are, almost without
 exception, the ones with machinery worth seeing.

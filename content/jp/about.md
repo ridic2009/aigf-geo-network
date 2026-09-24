@@ -11,7 +11,7 @@ intro: |
   誰がレビューを書いているのか、どう検証しているのか、どう収益を得ているのか。
 
 seo:
-  title: 運営者情報 — AI Girlfriend Ranking の検証方法
+  title: 運営者情報 - AI Girlfriend Ranking の検証方法
   description: 運営体制、AIコンパニオンアプリの検証手順、評価とアフィリエイトの関係について説明しています。
   primary_keyword: ai彼女 ランキング 運営者
 

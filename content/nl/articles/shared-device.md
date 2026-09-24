@@ -11,8 +11,8 @@ author: m-keller
 reviewer: s-moreau
 intro: >
   Een gedeelde laptop, een tablet die rondgaat, een telefoon die je even uit handen
-  geeft. De lekken hier zijn saai en mechanisch — automatisch aanvullen, synchronisatie,
-  meldingen — en elk ervan is in twee minuten gedicht.
+  geeft. De lekken hier zijn saai en mechanisch - automatisch aanvullen, synchronisatie,
+  meldingen - en elk ervan is in twee minuten gedicht.
 products:
   - camsoda-ai
   - joi
@@ -36,7 +36,7 @@ related:
   - articles/account-security
 seo:
   title: Een AI-vriendin-app Gebruiken op een Gedeelde Computer of Telefoon
-  description: De mechanische manieren waarop deze apps opduiken op gedeelde apparaten — aanvullen, synchronisatie, meldingen, downloads — en de oplossing voor elk.
+  description: De mechanische manieren waarop deze apps opduiken op gedeelde apparaten - aanvullen, synchronisatie, meldingen, downloads - en de oplossing voor elk.
   primary_keyword: ai vriendin privé browsen
 indexing:
   index: true
@@ -59,7 +59,7 @@ kamer.
 **Gesynchroniseerde tabbladen en geschiedenis.** Chrome, Safari en Firefox
 synchroniseren tussen apparaten op hetzelfde account. Een open tabblad op je laptop
 is zichtbaar op een gezinstablet die op hetzelfde account is aangemeld. Privé browsen
-helpt hier niet, want het tabblad is niet privé — het staat in je gewone profiel.
+helpt hier niet, want het tabblad is niet privé - het staat in je gewone profiel.
 
 **Opgeslagen wachtwoorden.** De lijst met automatisch invullen is een lijst van de
 sites die je gebruikt, leesbaar voor iedereen met een ontgrendeld apparaat.
@@ -81,7 +81,7 @@ mensen oprecht.
 ### Gebruik een apart browserprofiel
 
 De wijziging met de meeste waarde, en het kost twee minuten. Een tweede Chrome- of
-Firefox-profiel — uitgelogd, of aangemeld met een ander account — krijgt zijn eigen
+Firefox-profiel - uitgelogd, of aangemeld met een ander account - krijgt zijn eigen
 geschiedenis, eigen aanvullen, eigen opgeslagen wachtwoorden en eigen synchronisatie.
 
 Dit lost aanvullen, synchronisatie, wachtwoorden en het meeste andere in één keer op,
@@ -144,8 +144,8 @@ maar een arbeidsrechtelijke.
 ## De eerlijke ondergrens
 
 Niets hiervan beschermt je tegen iemand met je ontgrendelde apparaat die
-gericht gaat zoeken. Het beschermt je tegen het toevallige geval — de blik op een
-vergrendelscherm, het gedeelde tabblad, het aanvullen — en dat is wat er in de
+gericht gaat zoeken. Het beschermt je tegen het toevallige geval - de blik op een
+vergrendelscherm, het gedeelde tabblad, het aanvullen - en dat is wat er in de
 praktijk gebeurt.
 
 Combineer het met de basis uit

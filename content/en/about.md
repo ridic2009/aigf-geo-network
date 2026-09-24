@@ -10,7 +10,7 @@ intro: >
   Who writes these tests, how the two-week method works, and how the site pays
   for itself.
 seo:
-  title: About AI Girlfriend Ranking — How We Test
+  title: About AI Girlfriend Ranking - How We Test
   description: Who writes these reviews, the two-week paid-account method, and how
     affiliate links never move a score.
   primary_keyword: about ai girlfriend ranking
@@ -20,7 +20,7 @@ indexing:
 ---
 ## Who is behind this
 
-AI Girlfriend Ranking is a small editorial test site for AI companion apps. The same people score every market we publish in — this English edition, plus French, Japanese and Dutch. A 4.2 here is a 4.2 there.
+AI Girlfriend Ranking is a small editorial test site for AI companion apps. The same people score every market we publish in - this English edition, plus French, Japanese and Dutch. A 4.2 here is a 4.2 there.
 
 ## How I test
 

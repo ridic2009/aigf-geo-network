@@ -1,0 +1,18 @@
+{#
+  Search results page (/search/, localized per GEO). Static like everything
+  else: main.js reads ?q=, searches the JSON index and fills the list. Without
+  JavaScript the page points at the site map, which lists every page.
+#}
+{% extends '_default/base.html.twig' %}
+
+{% block main %}
+<div class="container container--narrow"><div class="article search-page">
+    <h1>{{ page.title }}</h1>
+    {% include 'components/search-form.twig' with { 'id': 'search-page-q', 'limit': 50 } %}
+    {%- if site.pages.has('site-map') %}
+    <noscript>
+        <p><a href="{{ url(site.pages.get('site-map'), {canonical: false}) }}">{{ site.pages.get('site-map').title }}</a></p>
+    </noscript>
+    {%- endif %}
+</div></div>
+{% endblock %}

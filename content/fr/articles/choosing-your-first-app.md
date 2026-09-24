@@ -1,5 +1,5 @@
 ---
-title: Choisir sa Première Petite Amie IA — Cinq Questions Qui Réduisent la Liste
+title: Choisir sa Première Petite Amie IA - Cinq Questions Qui Réduisent la Liste
 slug: choisir-sa-premiere-petite-amie-ia
 status: published
 type: article
@@ -35,10 +35,9 @@ faq:
       veut que de la conversation, ou qu'une offre gratuite qui dure.
 related:
   - articles/what-free-tiers-include
-  - rankings/best-ai-girlfriend
 seo:
   title: Choisir sa Première Petite Amie IA en 2026
-  description: Cinq questions qui ramènent une liste à deux — ce que vous en attendez, les filtres, la plateforme, ce que vous paierez vraiment, et comment partir.
+  description: Cinq questions qui ramènent une liste à deux - ce que vous en attendez, les filtres, la plateforme, ce que vous paierez vraiment, et comment partir.
   primary_keyword: choisir application petite amie ia
 indexing:
   index: true
@@ -60,7 +59,7 @@ ne se réinitialise pas. C'est le terrain de [Nomi](/avis/nomi-avis/).
 Si la réponse est **« me montrer quelque chose »**, vous voulez du média :
 génération d'images et voix dans le même abonnement plutôt que vendues en
 crédits. [Candy AI](/avis/candy-ai-avis/) couvre ce terrain, et c'est pourquoi
-elle est en tête de [notre classement](/meilleure-petite-amie-ia/) — non parce
+elle est en tête de [notre classement](/#ranking) - non parce
 qu'elle gagne chaque catégorie, mais parce qu'elle est la seule à faire les trois
 sans second achat. Les deux sont d'ailleurs
 [comparées côte à côte](/comparatif/candy-ai-vs-nomi/).

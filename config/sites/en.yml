@@ -26,6 +26,13 @@ baseline: 'Independent tests of AI companion apps'
 description: 'Independent, hands-on tests and rankings of AI girlfriend and AI companion apps. Ratings, real prices, pros and cons, updated monthly.'
 pages:
   dir: content/en
+  default:
+    search:
+      title: Search
+      slug: search
+    site-map:
+      title: 'Site map'
+      slug: site-map
 routes:
   reviews: reviews
   compare: compare
@@ -47,6 +54,7 @@ ui:
     about: About
     disclosure: 'Affiliate disclosure'
     privacy: Privacy
+    sitemap: 'Site map'
   sections:
     reviews: Reviews
     compare: Comparisons
@@ -102,6 +110,30 @@ ui:
     availability_unavailable: 'Not available'
     platforms: Platforms
     launched: Launched
+    filters: Filters
+    memory: Memory
+    voice: Voice
+    nsfw: NSFW
+    any: Any
+    price_up_to: 'Up to %s'
+    sort_by: 'Sort by'
+    sort_rank: 'Our ranking'
+    sort_rating: 'Highest rated'
+    sort_price_asc: 'Price: low to high'
+    sort_price_desc: 'Price: high to low'
+    reset_filters: Reset
+    compare_count: 'Showing %1 of %2 apps'
+    compare_empty: 'No app matches these filters.'
+    compare_apps: 'Compare the apps'
+    top_picks: 'Top picks'
+    how_we_test: 'How we test'
+    faq_short: FAQ
+    search: Search
+    search_placeholder: 'Search reviews, guides and articles'
+    search_empty: 'Nothing found for "%s".'
+    not_found_top: 'Our top three right now'
+    back_home: 'Back to the homepage'
+    similar_apps: 'Similar apps'
 site:
   id: en
   brand: aigf
