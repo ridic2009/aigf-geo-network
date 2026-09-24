@@ -183,6 +183,20 @@ for dir in "$WEB_ROOT"/*/; do
     done
 done
 
+# --- 6b. redirects of the live releases --------------------------------------
+# A publisher that is not the deploy scripts (ConvertStudio) has no root to
+# apply its release's redirects.json. The root-owned helper validates the map
+# and reloads nginx only when the rules change, so running it every time is cheap.
+if [ "$CHECK_ONLY" -eq 0 ] && [ -x /usr/local/sbin/minicms-redirects ]; then
+    for site in "$WEB_ROOT"/*/; do
+        domain=$(basename "$site")
+        case "$domain" in *.*) ;; *) continue ;; esac
+        [ -e "$site/current/redirects.json" ] || continue
+        /usr/local/sbin/minicms-redirects "$domain" >/dev/null 2>&1 \
+            || problem "redirects of $domain were rejected; the previous rules stay"
+    done
+fi
+
 # --- 7. the clone itself -----------------------------------------------------
 if [ -d "$REPO_DIR/.git" ] && [ "$(stat -c '%U' "$REPO_DIR/.git")" != "$DEPLOY_USER" ]; then
     if [ "$CHECK_ONLY" -eq 1 ]; then

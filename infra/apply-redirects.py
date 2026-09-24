@@ -48,6 +48,9 @@ def apply(domain):
     directory.mkdir(mode=0o755, parents=True, exist_ok=True)
     target = directory / 'redirects.conf'
     previous = target.read_bytes() if target.exists() else None
+    # Nothing changed: no rewrite, no reload. Convergence calls this every run.
+    if previous == body.encode():
+        return
     fd, tmp = tempfile.mkstemp(dir=directory, prefix=domain + '-', suffix='.tmp')
     try:
         with os.fdopen(fd, 'w') as stream:

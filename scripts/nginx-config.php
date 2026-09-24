@@ -186,6 +186,7 @@ $common = <<<CONF
     include /etc/nginx/aigf-redirects/{$domain}/*.conf;
     location = /redirects.nginx.conf { deny all; }
     location = /redirects.json { deny all; }
+    location ^~ /server/ { deny all; }
     location = /_redirects { deny all; }
 
     # Pretty URLs: /reviews/candy-ai/ -> /reviews/candy-ai/index.html
