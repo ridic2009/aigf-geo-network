@@ -1,0 +1,16 @@
+# NO — aigirlfriendranking-norway.site
+# Content, routes, labels and settings live in ConvertStudio (site "no"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'no'
+  name: Norge
+  country_code: 'NO'
+  hreflang: nb-NO
+  enabled: true
+  staging: false
+  timezone: Europe/Oslo
+baseurl: 'https://aigirlfriendranking-norway.site/'
+language: nb
+title: 'AI Girlfriend Ranking Norge'
