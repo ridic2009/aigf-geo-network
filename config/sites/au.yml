@@ -1,0 +1,16 @@
+# AU — aigirlfriendranking-australia.site
+# Content, routes, labels and settings live in ConvertStudio (site "au"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'au'
+  name: Australia
+  country_code: 'AU'
+  hreflang: en-AU
+  enabled: true
+  staging: false
+  timezone: Australia/Sydney
+baseurl: 'https://aigirlfriendranking-australia.site/'
+language: en
+title: 'AI Girlfriend Ranking Australia'

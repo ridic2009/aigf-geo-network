@@ -1,0 +1,16 @@
+# CA — aigirlfriendranking-canada.site
+# Content, routes, labels and settings live in ConvertStudio (site "ca"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'ca'
+  name: Canada
+  country_code: 'CA'
+  hreflang: en-CA
+  enabled: true
+  staging: false
+  timezone: America/Toronto
+baseurl: 'https://aigirlfriendranking-canada.site/'
+language: en
+title: 'AI Girlfriend Ranking Canada'
