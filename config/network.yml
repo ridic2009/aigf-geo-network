@@ -21,7 +21,7 @@ geos:
   # than competing with a country-specific one.
   en: { name: 'Worldwide', language: en, locale: en_US, hreflang: en, currency: USD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/New_York, domain: '' }
   gb: { name: 'United Kingdom', language: en, locale: en_GB, hreflang: en-GB, currency: GBP, symbol: '£', position: before, decimal_separator: '.', thousands_separator: ',', timezone: Europe/London, domain: 'aigirlfriendranking-uk.site' }
-  us: { name: 'United States', language: en, locale: en_US, hreflang: en-US, currency: USD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/New_York, domain: 'aigirlfriendranking.com' }
+  us: { name: 'United States', language: en, locale: en_US, hreflang: en-US, currency: USD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/New_York, domain: 'aigirlfriendranking-usa.site' }
   de: { name: 'Deutschland', language: de, locale: de_DE, hreflang: de-DE, currency: EUR, symbol: '€', timezone: Europe/Berlin, domain: 'aigirlfriendranking-germany.site' }
   au: { name: 'Australia', language: en, locale: en_AU, hreflang: en-AU, currency: AUD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: Australia/Sydney, domain: 'aigirlfriendranking-australia.site' }
   ca: { name: 'Canada', language: en, locale: en_CA, hreflang: en-CA, currency: CAD, symbol: '$', position: before, decimal_separator: '.', thousands_separator: ',', timezone: America/Toronto, domain: 'aigirlfriendranking-canada.site' }
