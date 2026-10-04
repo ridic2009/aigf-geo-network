@@ -1,0 +1,16 @@
+# DK — aigirlfriendranking-denmark.site
+# Content, routes, labels and settings live in ConvertStudio (site "dk"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'dk'
+  name: Danmark
+  country_code: 'DK'
+  hreflang: da-DK
+  enabled: true
+  staging: false
+  timezone: Europe/Copenhagen
+baseurl: 'https://aigirlfriendranking-denmark.site/'
+language: da
+title: 'AI Girlfriend Ranking Danmark'
