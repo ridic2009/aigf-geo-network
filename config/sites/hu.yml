@@ -1,0 +1,16 @@
+# HU — aigirlfriendranking-hungary.site
+# Content, routes, labels and settings live in ConvertStudio (site "hu"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'hu'
+  name: Magyarország
+  country_code: 'HU'
+  hreflang: hu-HU
+  enabled: true
+  staging: false
+  timezone: Europe/Budapest
+baseurl: 'https://aigirlfriendranking-hungary.site/'
+language: hu
+title: 'AI Girlfriend Ranking Magyarország'

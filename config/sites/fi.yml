@@ -1,0 +1,16 @@
+# FI — aigirlfriendranking-finland.site
+# Content, routes, labels and settings live in ConvertStudio (site "fi"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'fi'
+  name: Suomi
+  country_code: 'FI'
+  hreflang: fi-FI
+  enabled: true
+  staging: false
+  timezone: Europe/Helsinki
+baseurl: 'https://aigirlfriendranking-finland.site/'
+language: fi
+title: 'AI Girlfriend Ranking Suomi'

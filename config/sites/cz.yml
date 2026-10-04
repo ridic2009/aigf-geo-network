@@ -1,0 +1,16 @@
+# CZ — aigirlfriendranking-czechia.site
+# Content, routes, labels and settings live in ConvertStudio (site "cz"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'cz'
+  name: Česko
+  country_code: 'CZ'
+  hreflang: cs-CZ
+  enabled: true
+  staging: false
+  timezone: Europe/Prague
+baseurl: 'https://aigirlfriendranking-czechia.site/'
+language: cs
+title: 'AI Girlfriend Ranking Česko'

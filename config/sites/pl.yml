@@ -1,0 +1,16 @@
+# PL — aigirlfriendranking-poland.site
+# Content, routes, labels and settings live in ConvertStudio (site "pl"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'pl'
+  name: Polska
+  country_code: 'PL'
+  hreflang: pl-PL
+  enabled: true
+  staging: false
+  timezone: Europe/Warsaw
+baseurl: 'https://aigirlfriendranking-poland.site/'
+language: pl
+title: 'AI Girlfriend Ranking Polska'

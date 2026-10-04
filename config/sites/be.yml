@@ -1,0 +1,16 @@
+# BE — aigirlfriendranking-belgium.site
+# Content, routes, labels and settings live in ConvertStudio (site "be"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'be'
+  name: België
+  country_code: 'BE'
+  hreflang: nl-BE
+  enabled: true
+  staging: false
+  timezone: Europe/Brussels
+baseurl: 'https://aigirlfriendranking-belgium.site/'
+language: nl
+title: 'AI Girlfriend Ranking België'

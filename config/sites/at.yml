@@ -1,0 +1,16 @@
+# AT — aigirlfriendranking-austria.site
+# Content, routes, labels and settings live in ConvertStudio (site "at"), as they
+# do for every GEO since the cutover. This file carries what the server side of
+# the network still reads from the repository: the domain and the GEO code the
+# vhost is generated from.
+geo:
+  code: 'at'
+  name: Österreich
+  country_code: 'AT'
+  hreflang: de-AT
+  enabled: true
+  staging: false
+  timezone: Europe/Vienna
+baseurl: 'https://aigirlfriendranking-austria.site/'
+language: de
+title: 'AI Girlfriend Ranking Österreich'
