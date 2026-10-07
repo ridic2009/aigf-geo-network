@@ -101,7 +101,10 @@ Registrar → Cloudflare DNS → VPS
 
 A record per domain, proxy enabled. SSL/TLS mode **Full (strict)** so the origin
 certificate is actually validated. `infra/nginx/snippets/cloudflare-real-ip.conf`
-restores the visitor IP in the access logs.
+holds Cloudflare's ranges and `infra/nginx/http/cloudflare-real-ip.conf` includes it
+in `http{}` (as `/etc/nginx/conf.d/aigf-cloudflare-real-ip.conf`), so every log has
+the visitor's address. Until 2026-10-07 nothing included the snippet and the logs
+showed Cloudflare's edges.
 
 The application is not tied to the Cloudflare API: DNS is a manual step in v1,
 and automating it later changes nothing in the build or the deploy.

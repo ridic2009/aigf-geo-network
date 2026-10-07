@@ -186,6 +186,16 @@ map "$request_method:$status:$request_uri" $aigf_page_view {
 CONF);
 Cli::ok('infra/nginx/http/traffic.conf written (click and page view logs)');
 
+// The visitor's own address in every log, instead of a Cloudflare edge's. The
+// ranges live in the snippet above; this is what puts them into http{}.
+file_put_contents($httpDir . '/cloudflare-real-ip.conf', <<<'CONF'
+# Behind Cloudflare a connection comes from its edge; CF-Connecting-IP names
+# the visitor. Trusted only from Cloudflare's own ranges.
+include /etc/nginx/snippets/aigf-cloudflare-real-ip.conf;
+
+CONF);
+Cli::ok('infra/nginx/http/cloudflare-real-ip.conf written (visitor IP behind Cloudflare)');
+
 /* ------------------------------------------------- homepage by country */
 
 // Links shared on social networks point at the worldwide edition (x-default).

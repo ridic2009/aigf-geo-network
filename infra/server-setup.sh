@@ -67,7 +67,9 @@ cp -n /etc/nginx/nginx.conf /etc/nginx/nginx.conf.aigf-backup 2>/dev/null || tru
 sed -i 's|^[[:space:]]*gzip on;|	# gzip on;  # managed by snippets/aigf-compression.conf|' /etc/nginx/nginx.conf
 
 if ! grep -q "aigf-compression" /etc/nginx/nginx.conf; then
-    sed -i 's|include /etc/nginx/conf.d/\*.conf;|include /etc/nginx/snippets/aigf-compression.conf;\n\tinclude /etc/nginx/snippets/aigf-cloudflare-real-ip.conf;\n\tinclude /etc/nginx/snippets/aigf-affiliate-map.conf;\n\tinclude /etc/nginx/conf.d/*.conf;|' /etc/nginx/nginx.conf
+    # The Cloudflare real-IP ranges come in through conf.d (aigf-cloudflare-real-ip.conf,
+    # installed by converge.sh); including the snippet here as well would load it twice.
+    sed -i 's|include /etc/nginx/conf.d/\*.conf;|include /etc/nginx/snippets/aigf-compression.conf;\n\tinclude /etc/nginx/snippets/aigf-affiliate-map.conf;\n\tinclude /etc/nginx/conf.d/*.conf;|' /etc/nginx/nginx.conf
 fi
 # Long domain names need a bigger hash bucket once the network grows.
 if ! grep -q "server_names_hash_bucket_size" /etc/nginx/nginx.conf; then
