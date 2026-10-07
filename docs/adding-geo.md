@@ -82,6 +82,11 @@ Set `status: published` when a page is ready.
 
 Install the vhost and request a certificate — see [deployment.md](deployment.md).
 
+Once the new site is live, also run `./scripts/nginx-config en` (the
+worldwide edition, `x_default`): its homepage sends visitors on to their own
+country's site, and the new country joins that list only when this vhost is
+generated again.
+
 ## 7. Build and deploy
 
 ```bash
@@ -104,6 +109,7 @@ appears under **Sites** the next time an editor loads the CMS.
 - [ ] content translated and published
 - [ ] `geo.enabled: true` in `config/geos/<code>.yml`
 - [ ] `./scripts/nginx-config <code>` + vhost installed + certificate issued
+- [ ] once live: `./scripts/nginx-config en`, so the worldwide homepage sends the new country there
 - [ ] `./scripts/build <code>` clean
 - [ ] `./scripts/deploy <code>`
 - [ ] hreflang verified: the new URLs appear on the other GEOs after their next build

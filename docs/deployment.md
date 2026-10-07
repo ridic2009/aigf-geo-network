@@ -66,6 +66,16 @@ Each vhost: HTTP→HTTPS redirect, `www`→apex redirect, pretty URLs via
 `try_files`, `error_page 404 /404.html`, security headers, immutable caching for
 fingerprinted assets, always-revalidate for HTML, dotfiles denied.
 
+The worldwide edition (`x_default` in `config/network.yml`) also sends a visitor
+on from its homepage, and only from there, to the site of their own country:
+a 302, decided by the `CF-IPCountry` header Cloudflare adds. Every enabled
+market whose language is not the worldwide edition's takes part; one in the same
+language (US, AU, CA, NZ) does not. A Belgian whose browser asks for French goes
+to the French site rather than the Dutch Belgian one. Search engines, link
+previews and anything that is not a browser always get the page itself, so the
+worldwide edition stays indexed and a shared link keeps its card. Without the
+header (no Cloudflare in front), nothing is redirected.
+
 Never edit a vhost on the server — regenerate and redeploy, otherwise the next
 `nginx-config` run silently overwrites the change.
 
