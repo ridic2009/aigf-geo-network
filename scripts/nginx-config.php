@@ -42,7 +42,9 @@ if (preg_match('#^[A-Za-z]:[\\/]#', $webRoot)) {
 
 $sitesDir = Network::path('infra', 'nginx', 'sites');
 $snippetsDir = Network::path('infra', 'nginx', 'snippets');
-foreach ([$sitesDir, $snippetsDir] as $dir) {
+// Directives of the http{} level, installed into /etc/nginx/conf.d/ by converge.sh.
+$httpDir = Network::path('infra', 'nginx', 'http');
+foreach ([$sitesDir, $snippetsDir, $httpDir] as $dir) {
     if (!is_dir($dir)) {
         mkdir($dir, 0o777, true);
     }
@@ -159,6 +161,30 @@ real_ip_header CF-Connecting-IP;
 CONF);
 
 Cli::ok('infra/nginx/snippets/ written (security headers, cache, compression, Cloudflare real IP)');
+
+/* ---------------------------------------------------------- traffic logs */
+
+file_put_contents($httpDir . '/traffic.conf', <<<'CONF'
+# The two logs the traffic report is made from (infra/aggregate-traffic.py):
+# every press of a partner button, and every page a reader was given. JSON
+# lines, so a header with a quote in it cannot break a line apart.
+log_format aigf_click escape=json '{"t":"$time_iso8601","host":"$host","uri":"$request_uri",'
+    '"status":"$status","method":"$request_method","ref":"$http_referer",'
+    '"ip":"$remote_addr","cfip":"$http_cf_connecting_ip","ua":"$http_user_agent",'
+    '"cc":"$http_cf_ipcountry"}';
+log_format aigf_view escape=json '{"t":"$time_iso8601","host":"$host","uri":"$request_uri",'
+    '"ref":"$http_referer","ua":"$http_user_agent","cc":"$http_cf_ipcountry"}';
+
+# A page view is a GET answered with a page: an address that ends in a slash,
+# not a picture, a script, a redirect or the 404 page. The address as asked
+# for, because $uri has become /…/index.html by the time a line is written.
+map "$request_method:$status:$request_uri" $aigf_page_view {
+    default 0;
+    "~^GET:(?:200|304):[^?]*/(?:\?.*)?$" 1;
+}
+
+CONF);
+Cli::ok('infra/nginx/http/traffic.conf written (click and page view logs)');
 
 /* ------------------------------------------------- homepage by country */
 
@@ -290,6 +316,20 @@ $common = <<<CONF
     location = /redirects.json { deny all; }
     location ^~ /server/ { deny all; }
     location = /_redirects { deny all; }
+    location = /outbound.json { deny all; }
+
+    # A partner button leads here. /go/<product>/ answers with the product's
+    # partner link in this market: a 302 the root-owned helper writes from the
+    # release's outbound.json, or the release's own page that sends the reader
+    # on until it has. Every request is a click, logged for the traffic report.
+    location ^~ /go/ {
+        access_log /var/log/nginx/aigf-clicks.log aigf_click;
+        include /etc/nginx/snippets/aigf-security-headers.conf;
+        add_header Cache-Control "private, no-store" always;
+        add_header X-Robots-Tag "noindex, nofollow" always;
+        include /etc/nginx/aigf-outbound/{$domain}/*.conf;
+        try_files \$uri \$uri/ =404;
+    }
 
 {$home}    # Pretty URLs: /reviews/candy-ai/ -> /reviews/candy-ai/index.html
     location / {
@@ -307,6 +347,7 @@ $common = <<<CONF
     }
 
     access_log /var/log/nginx/{$domain}.access.log;
+    access_log /var/log/nginx/aigf-views.log aigf_view if=\$aigf_page_view;
     error_log  /var/log/nginx/{$domain}.error.log warn;
 CONF;
 

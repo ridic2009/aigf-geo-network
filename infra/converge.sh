@@ -81,6 +81,19 @@ if [ -f "$HELPER_SRC" ] && ! cmp -s "$HELPER_SRC" "$HELPER_DST"; then
     fi
 fi
 
+# --- 2a. the traffic counter -------------------------------------------------
+# It reads the nginx logs, which only root may, so it runs from a copy root
+# owns: never run deploy-writable code as root. aigf-traffic.timer runs it.
+COUNTER_SRC="$REPO_DIR/infra/aggregate-traffic.py"
+COUNTER_DST=/usr/local/sbin/aigf-traffic
+if [ -f "$COUNTER_SRC" ] && ! cmp -s "$COUNTER_SRC" "$COUNTER_DST"; then
+    if [ "$CHECK_ONLY" -eq 1 ]; then
+        problem "$COUNTER_DST is missing or out of date"
+    else
+        install -o root -g root -m 755 "$COUNTER_SRC" "$COUNTER_DST" && changed "$COUNTER_DST installed"
+    fi
+fi
+
 # --- 2b. certificate renewal -------------------------------------------------
 # Webroot renewals do not reload nginx; this hook does, for every certificate here.
 HOOK_SRC="$REPO_DIR/infra/certbot-reload-nginx.sh"
@@ -117,6 +130,19 @@ fi
 # --- 4. nginx snippets and vhosts -------------------------------------------
 NGINX_CHANGED=0
 BACKUP_DIR=$(mktemp -d)
+NEW_HTTP=()
+
+# Directives of the http{} level (log formats, maps) go to conf.d, which
+# nginx.conf includes before the vhosts that use them.
+for src in "$REPO_DIR"/infra/nginx/http/*.conf; do
+    [ -f "$src" ] || continue
+    dst="/etc/nginx/conf.d/aigf-$(basename "$src")"
+    cmp -s "$src" "$dst" && continue
+    if [ "$CHECK_ONLY" -eq 1 ]; then problem "$dst differs from the repository"; continue; fi
+    mkdir -p "$BACKUP_DIR/http"
+    if [ -f "$dst" ]; then cp -a "$dst" "$BACKUP_DIR/http/"; else NEW_HTTP+=("$dst"); fi
+    install -o root -g root -m 644 "$src" "$dst" && NGINX_CHANGED=1 && changed "$dst"
+done
 
 for src in "$REPO_DIR"/infra/nginx/snippets/*.conf; do
     [ -f "$src" ] || continue
@@ -148,6 +174,10 @@ if [ "$NGINX_CHANGED" -eq 1 ]; then
         systemctl reload nginx && say "  nginx reloaded"
     else
         # Put back exactly what was there and keep the running config alive.
+        for f in "$BACKUP_DIR"/http/*; do
+            [ -f "$f" ] && cp -a "$f" /etc/nginx/conf.d/
+        done
+        for f in "${NEW_HTTP[@]}"; do rm -f "$f"; done
         for f in "$BACKUP_DIR"/*; do
             [ -f "$f" ] || continue
             case "$(basename "$f")" in
@@ -178,6 +208,13 @@ done
 if [ "$UNITS_CHANGED" -eq 1 ]; then
     systemctl daemon-reload && say "  systemd reloaded"
 fi
+# Timers added after install-automation.sh ran start here, once.
+for timer in aigf-traffic.timer; do
+    [ -f "/etc/systemd/system/$timer" ] || continue
+    systemctl is-enabled --quiet "$timer" 2>/dev/null && continue
+    if [ "$CHECK_ONLY" -eq 1 ]; then problem "$timer is not enabled"; continue; fi
+    if systemctl enable --now "$timer" >/dev/null 2>&1; then changed "$timer enabled"; else problem "$timer could not be enabled"; fi
+done
 
 # --- 6. what a release writes to --------------------------------------------
 # One manual deploy as root leaves releases.log owned by root, and every later

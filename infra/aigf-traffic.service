@@ -1,0 +1,18 @@
+[Unit]
+Description=AIGF network: count partner clicks and page views from the nginx logs
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/sbin/aigf-traffic
+StateDirectory=aigf-traffic
+StateDirectoryMode=0755
+# Reads the logs, writes /var/lib/aigf-traffic and nothing else, never talks
+# to the network. Root only to read logs that are not world-readable.
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+Nice=10
+TimeoutStartSec=300

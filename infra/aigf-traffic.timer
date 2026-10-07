@@ -1,0 +1,11 @@
+[Unit]
+Description=Count partner clicks and page views every ten minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=10min
+AccuracySec=1min
+Unit=aigf-traffic.service
+
+[Install]
+WantedBy=timers.target

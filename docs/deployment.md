@@ -319,42 +319,58 @@ would change and exits.
 
 Nothing in the build depends on this: DNS stays a deliberate, separate step.
 
-## Affiliate redirect service (optional)
+## Partner clicks and the traffic report
 
-By default a partner URL is written straight into the HTML, so changing it means
-rebuilding every page that mentions the product. The redirect service moves that
-indirection to the edge:
+Every partner button on a ConvertStudio site points at the site's own address,
+`/go/<product>/?from=<block>`, never at the partner. That address is the click
+counter:
 
 ```
-https://go.example.com/candy-ai/de   ->  302  ->  partner URL
+reader -> https://<domain>/go/candy-ai/?from=hero
+       -> 302 -> partner link of this market       (written by the root helper)
+       -> one JSON line in /var/log/nginx/aigf-clicks.log
 ```
 
-It is **not** an application: `scripts/redirect-config` generates an Nginx `map`
-from `data/affiliates/`, so the origin stays static-only.
+* The release carries `outbound.json` (product -> partner link of the site's
+  market). `minicms-redirects`, run by `converge.sh` every two minutes, turns
+  it into `location = /go/<id>/ { return 302 "..."; }` in
+  `/etc/nginx/aigf-outbound/<domain>/outbound.conf`, nested in the vhost's
+  `location ^~ /go/`. A link with a character that cannot sit in a quoted Nginx
+  string (`"`, `\`, `$`, spaces, braces) is left out rather than escaped.
+* The release also carries `go/<id>/index.html`, a page that sends the reader on
+  at once. It answers in the minutes between a release and the next converge,
+  and for any link the helper left out, so a button is never dead.
+* `/go/` sends `Cache-Control: private, no-store` and `X-Robots-Tag: noindex`;
+  `robots.txt` disallows it.
+* Every page a reader is given (a GET answered 200/304 at an address ending in
+  `/`) is one line in `/var/log/nginx/aigf-views.log`, without the reader's
+  address. Both formats are in `infra/nginx/http/traffic.conf` (installed as
+  `/etc/nginx/conf.d/aigf-traffic.conf`).
+* `aigf-traffic.timer` runs `/usr/local/sbin/aigf-traffic`
+  (`infra/aggregate-traffic.py`) every ten minutes. It writes one file per UTC
+  day to `/var/lib/aigf-traffic/<date>.json`: views by page, source, country and
+  device; clicks by page, product, block, country and device, with repeat
+  presses of the same reader on the same day counted once; robots counted apart.
+  No address or browser string is written. Today and yesterday are recounted on
+  every run; an older day is filled in once while the logs (two weeks) still
+  hold it.
+* ConvertStudio reads that directory (`CSTUDIO_TRAFFIC=/var/lib/aigf-traffic`
+  in its `.env`) and shows it under «Клики и доход», with an estimated revenue
+  from the EPC its catalogue states per product and market.
+
+Check it by hand:
 
 ```bash
-./scripts/redirect-config --enable=go.example.com   # writes affiliate.redirect_base
-./scripts/build-all --optimize                      # CTAs now point at the redirect host
+curl -sI https://<domain>/go/<product>/ | grep -i '^location'
+tail -n 3 /var/log/nginx/aigf-clicks.log
+systemctl list-timers aigf-traffic.timer
+journalctl -u aigf-traffic.service -n 5
+ls -l /var/lib/aigf-traffic | tail -n 3
 ```
 
-Then install it once:
-
-```bash
-rsync -az infra/nginx/snippets/affiliate-map.conf root@VPS:/etc/nginx/snippets/aigf-affiliate-map.conf
-rsync -az infra/nginx/sites/go.example.com.conf    root@VPS:/etc/nginx/sites-available/
-ssh root@VPS 'ln -sf /etc/nginx/sites-available/go.example.com.conf /etc/nginx/sites-enabled/ && nginx -t && systemctl reload nginx'
-```
-
-Afterwards, changing a partner link is `./scripts/redirect-config` plus copying
-one file — no rebuild, no cache invalidation, and every click is in one access
-log per product and per GEO. Redirects are 302 (destinations change), the host
-sends `X-Robots-Tag: noindex` and serves `Disallow: /`.
-
-`./scripts/redirect-config --disable` puts the direct links back.
-
-Prerequisites: a DNS record for `go.example.com`, a certificate for it, and the
-`include /etc/nginx/snippets/aigf-affiliate-map.conf;` line inside `http{}`
-(`infra/server-setup.sh` adds it on new servers).
+`scripts/redirect-config` is what the Cecil build used for the same job
+(`go.<domain>`, `affiliate.redirect_base`); it was never enabled, and
+ConvertStudio does not read it.
 
 ## What is deployed, and what is not
 
@@ -374,6 +390,7 @@ production keeps serving the previous release.
 | Did the build or the validation fail, and why? | `var/auto-deploy.log`, or `journalctl -u aigf-deploy.service` |
 | Which commit is published? | `var/last-successful-commit` |
 | Traffic and errors | Nginx `access.log` / `error.log` per domain; Cloudflare analytics |
+| Partner clicks and page views | `/var/lib/aigf-traffic/<date>.json`, «Клики и доход» in ConvertStudio; raw lines in `aigf-clicks.log` / `aigf-views.log` |
 
 ## Secrets
 
