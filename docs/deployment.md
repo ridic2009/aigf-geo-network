@@ -358,7 +358,7 @@ reader -> https://<domain>/go/candy-ai/?from=hero
   every run; an older day is filled in once while the logs (two weeks) still
   hold it.
 * ConvertStudio reads that directory (`CSTUDIO_TRAFFIC=/var/lib/aigf-traffic`
-  in its `.env`) and shows it under «Клики и доход», with an estimated revenue
+  in its `.env`) and shows it under «Переходы к партнёрам», with an estimated revenue
   from the EPC its catalogue states per product and market.
 
 Check it by hand:
@@ -393,7 +393,7 @@ production keeps serving the previous release.
 | Did the build or the validation fail, and why? | `var/auto-deploy.log`, or `journalctl -u aigf-deploy.service` |
 | Which commit is published? | `var/last-successful-commit` |
 | Traffic and errors | Nginx `access.log` / `error.log` per domain; Cloudflare analytics |
-| Partner clicks and page views | `/var/lib/aigf-traffic/<date>.json`, «Клики и доход» in ConvertStudio; raw lines in `aigf-clicks.log` / `aigf-views.log` |
+| Partner clicks and page views | `/var/lib/aigf-traffic/<date>.json`, «Переходы к партнёрам» in ConvertStudio; raw lines in `aigf-clicks.log` / `aigf-views.log` |
 
 ## Secrets
 
