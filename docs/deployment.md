@@ -354,6 +354,15 @@ reader -> https://<domain>/go/candy-ai/?from=hero
   day to `/var/lib/aigf-traffic/<date>.json`: views by page, source, country and
   device; clicks by page, product, block, country and device, with repeat
   presses of the same reader on the same day counted once; robots counted apart.
+  A robot is anything that is not a person's browser: a program that names
+  itself, a user-agent no browser sends (`compatible;`, WebKit without
+  `(KHTML, like Gecko)`, Windows XP/Vista), a browser far out of date (Chrome
+  more than ~15 months behind, Firefox more than two years, iOS/Safari before
+  15), a request a browser makes ahead of the reader (`Sec-Purpose: prefetch`),
+  and, once the Sec-Fetch headers are logged, a page that is not a navigation to
+  a document or a press that is not a same-site navigation by a user. A press
+  must come from a page of the same site (Referer); a reader who presses 4
+  buttons of 3 partners within a minute, or 10 in a day, is a program.
   No address or browser string is written. Today and yesterday are recounted on
   every run; an older day is filled in once while the logs (two weeks) still
   hold it.

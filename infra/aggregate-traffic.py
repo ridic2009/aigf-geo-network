@@ -17,7 +17,8 @@ No address or browser string of a reader leaves this script. An address is
 used only in memory, to tell a reader's second press of the same button on
 the same day from a new reader's first.
 """
-from datetime import datetime, timedelta, timezone
+from collections import defaultdict
+from datetime import date, datetime, timedelta, timezone
 import glob
 import gzip
 import json
@@ -65,8 +66,101 @@ SOURCES = [
 SOURCES = [(name, re.compile(pattern)) for name, pattern in SOURCES]
 
 
-def is_robot(agent):
-    return not agent.startswith('Mozilla/') or bool(ROBOT.search(agent))
+# Browsers update themselves; a scraper copies one user-agent string from an
+# old list and keeps it. Chrome and Firefox ship a major version every four
+# weeks, so how far behind a version is can be told from the day it was seen.
+CHROME = re.compile(r'(?:Chrome|CriOS)/(\d+)')
+FIREFOX = re.compile(r'(?:Firefox|FxiOS)/(\d+)')
+IOS = re.compile(r'(?:iPhone|iPad|iPod)[^)]* OS (\d+)_')
+SAFARI = re.compile(r'Version/(\d+)[.\d]* (?:Mobile/\S+ )?Safari/')
+CHROME_ANCHOR = (128, date(2024, 8, 20))
+FIREFOX_ANCHOR = (128, date(2024, 7, 9))
+# About fifteen months of Chrome releases, room for a delayed update; two years of Firefox, as long as
+# an extended-support release lives.
+CHROME_LAG = 17
+FIREFOX_LAG = 26
+# iOS 15 is the last system of phones sold in 2015-2016; older is a copied string.
+OLDEST_APPLE = 15
+
+
+def current(anchor, day):
+    version, released = anchor
+    return version + (day - released).days // 28
+
+
+def malformed(agent):
+    """A user-agent no browser sends: assembled by hand, or borrowed by a program that says what it is."""
+    if 'compatible;' in agent:
+        return True
+    if 'AppleWebKit/' in agent and '(KHTML, like Gecko)' not in agent:
+        return True
+    if 'Chrome/' in agent and 'AppleWebKit/' not in agent:
+        return True
+    return bool(re.search(r'Windows NT (?:5\.|6\.0)|Windows 9[58]', agent))
+
+
+def outdated(agent, day):
+    found = CHROME.search(agent)
+    if found and int(found.group(1)) < current(CHROME_ANCHOR, day) - CHROME_LAG:
+        return True
+    found = FIREFOX.search(agent)
+    if found and int(found.group(1)) < current(FIREFOX_ANCHOR, day) - FIREFOX_LAG:
+        return True
+    found = IOS.search(agent)
+    if found and int(found.group(1)) < OLDEST_APPLE:
+        return True
+    found = SAFARI.search(agent)
+    return bool(found and 'Chrome/' not in agent and int(found.group(1)) < OLDEST_APPLE)
+
+
+def is_robot(agent, day=None):
+    """Not a person: no browser at all, a program that says what it is, a string no browser sends, or a browser years out of date."""
+    if not agent.startswith('Mozilla/') or ROBOT.search(agent) or malformed(agent):
+        return True
+    return day is not None and outdated(agent, day)
+
+
+def prefetched(record):
+    """A browser fetching ahead of the reader, not the reader opening anything."""
+    purpose = str(record.get('sp', '')).lower()
+    return 'prefetch' in purpose or 'prerender' in purpose
+
+
+def navigated(record, dest):
+    """
+    A browser that sends Sec-Fetch headers says how a request came about: a
+    page a person opens is a navigation to a document, a partner button a
+    person presses is a navigation from the same site with user activation.
+    Most scrapers send none of them. A line logged before these fields were
+    recorded has no opinion and passes.
+    """
+    if 'sfm' not in record:
+        return True
+    if record.get('sfm') != 'navigate':
+        return False
+    if dest == 'document':
+        return record.get('sfd') == 'document'
+    return record.get('sfs') in ('same-origin', 'same-site') and record.get('sfu') == '?1'
+
+
+# Several partner buttons pressed one after another, a few seconds apart, is
+# a program walking a page's links: no person opens four partners in a minute.
+BURST_SECONDS = 60
+BURST_CLICKS = 4
+BURST_PRODUCTS = 3
+DAILY_CLICKS = 10
+
+
+def bursts(presses):
+    """Whether one reader's presses on one site in one day look like a program: (moment, product) pairs."""
+    presses = sorted(presses)
+    if len(presses) >= DAILY_CLICKS:
+        return True
+    for start, (moment, _) in enumerate(presses):
+        window = [product for at, product in presses[start:] if (at - moment).total_seconds() <= BURST_SECONDS]
+        if len(window) >= BURST_CLICKS and len(set(window)) >= BURST_PRODUCTS:
+            return True
+    return False
 
 
 def device(agent):
@@ -151,13 +245,16 @@ def count(click_records, view_records, wanted):
             continue
         counted = host_of(date, host)
         agent = str(record.get('ua', ''))
-        if is_robot(agent):
+        if is_robot(agent, datetime.fromisoformat(date).date()) or prefetched(record) or not navigated(record, 'document'):
             counted['bots']['views'] += 1
             continue
         key = (path_of(str(record.get('uri', ''))), source(str(record.get('ref', '')), host, network),
                country(record.get('cc')), device(agent))
         counted['views'][key] = counted['views'].get(key, 0) + 1
 
+    # A press is judged on its own first, then with the reader's other presses
+    # of the day: one that passes alone may still be part of a burst.
+    pressed = []
     for record in click_records:
         date = day_of(record.get('t'))
         host = str(record.get('host', '')).lower()
@@ -167,19 +264,32 @@ def count(click_records, view_records, wanted):
             continue
         counted = host_of(date, host)
         agent = str(record.get('ua', ''))
-        if is_robot(agent) or record.get('method') != 'GET':
+        referer = urlsplit(str(record.get('ref', '')))
+        # A person presses a button on a page of this site, and the browser names the page.
+        from_site = (referer.hostname or '').lower() in (host, f'www.{host}')
+        if (is_robot(agent, datetime.fromisoformat(date).date()) or record.get('method') != 'GET' or not from_site
+                or prefetched(record) or not navigated(record, 'button')):
+            counted['bots']['clicks'] += 1
+            continue
+        # Behind Cloudflare the connection comes from its edge; the reader's own
+        # address is the one Cloudflare names.
+        reader = (date, host, str(record.get('cfip') or record.get('ip', '')), agent)
+        pressed.append((reader, datetime.fromisoformat(str(record.get('t'))), record, address, product.group(1), path_of(referer.geturl()), agent))
+
+    presses = defaultdict(list)
+    for reader, moment, _, _, product, _, _ in pressed:
+        presses[reader].append((moment, product))
+    automated = {reader for reader, made in presses.items() if bursts(made)}
+
+    for reader, _, record, address, product, page, agent in pressed:
+        counted = host_of(reader[0], reader[1])
+        if reader in automated:
             counted['bots']['clicks'] += 1
             continue
         placement = (parse_qs(address.query).get('from') or [''])[0]
-        referer = urlsplit(str(record.get('ref', '')))
-        page = path_of(referer.geturl()) if (referer.hostname or '').lower() in (host, f'www.{host}') else ''
-        key = (page, product.group(1), placement if PLACEMENT.fullmatch(placement) else '',
-               country(record.get('cc')), device(agent))
-        # Behind Cloudflare the connection comes from its edge; the reader's own
-        # address is the one Cloudflare names.
-        reader = (date, host, product.group(1), str(record.get('cfip') or record.get('ip', '')), agent)
-        first = reader not in seen
-        seen.add(reader)
+        key = (page, product, placement if PLACEMENT.fullmatch(placement) else '', country(record.get('cc')), device(agent))
+        first = (reader, product) not in seen
+        seen.add((reader, product))
         clicks, unique = counted['clicks'].get(key, (0, 0))
         counted['clicks'][key] = (clicks + 1, unique + (1 if first else 0))
     return days
