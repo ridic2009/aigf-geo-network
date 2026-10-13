@@ -165,15 +165,25 @@ Cli::ok('infra/nginx/snippets/ written (security headers, cache, compression, Cl
 /* ---------------------------------------------------------- traffic logs */
 
 file_put_contents($httpDir . '/traffic.conf', <<<'CONF'
-# The two logs the traffic report is made from (infra/aggregate-traffic.py):
-# every press of a partner button, and every page a reader was given. JSON
-# lines, so a header with a quote in it cannot break a line apart.
+# The three logs the traffic report is made from (infra/aggregate-traffic.py):
+# every press of a partner button, every page a reader was given, and what a
+# page's script says about the browser it runs in. JSON lines, so a header
+# with a quote in it cannot break a line apart. The Sec-Fetch headers say how
+# a browser came to ask (a person's navigation, a click, a prefetch); most
+# programs send none, which is how the counter tells them apart. The address
+# ties a reader's pages to their presses, and is never written to a report.
 log_format aigf_click escape=json '{"t":"$time_iso8601","host":"$host","uri":"$request_uri",'
     '"status":"$status","method":"$request_method","ref":"$http_referer",'
     '"ip":"$remote_addr","cfip":"$http_cf_connecting_ip","ua":"$http_user_agent",'
-    '"cc":"$http_cf_ipcountry"}';
+    '"cc":"$http_cf_ipcountry","sfm":"$http_sec_fetch_mode","sfs":"$http_sec_fetch_site",'
+    '"sfu":"$http_sec_fetch_user","sp":"$http_sec_purpose$http_purpose"}';
 log_format aigf_view escape=json '{"t":"$time_iso8601","host":"$host","uri":"$request_uri",'
-    '"ref":"$http_referer","ua":"$http_user_agent","cc":"$http_cf_ipcountry"}';
+    '"ref":"$http_referer","ip":"$remote_addr","cfip":"$http_cf_connecting_ip",'
+    '"ua":"$http_user_agent","cc":"$http_cf_ipcountry",'
+    '"sfm":"$http_sec_fetch_mode","sfd":"$http_sec_fetch_dest","sp":"$http_sec_purpose$http_purpose"}';
+log_format aigf_signal escape=json '{"t":"$time_iso8601","host":"$host","uri":"$request_uri",'
+    '"ref":"$http_referer","ip":"$remote_addr","cfip":"$http_cf_connecting_ip",'
+    '"ua":"$http_user_agent","cc":"$http_cf_ipcountry"}';
 
 # A page view is a GET answered with a page: an address that ends in a slash,
 # not a picture, a script, a redirect or the 404 page. The address as asked
@@ -184,7 +194,7 @@ map "$request_method:$status:$request_uri" $aigf_page_view {
 }
 
 CONF);
-Cli::ok('infra/nginx/http/traffic.conf written (click and page view logs)');
+Cli::ok('infra/nginx/http/traffic.conf written (click, page view and browser signal logs)');
 
 // The visitor's own address in every log, instead of a Cloudflare edge's. The
 // ranges live in the snippet above; this is what puts them into http{}.
@@ -327,6 +337,15 @@ $common = <<<CONF
     location ^~ /server/ { deny all; }
     location = /_redirects { deny all; }
     location = /outbound.json { deny all; }
+
+    # What a page's script says about the browser it runs in, for the traffic
+    # report to tell people from programs. Nothing is stored on the device;
+    # the line in the log is all there is.
+    location = /_s {
+        access_log /var/log/nginx/aigf-signals.log aigf_signal;
+        add_header Cache-Control "no-store" always;
+        return 204;
+    }
 
     # A partner button leads here. /go/<product>/ answers with the product's
     # partner link in this market: a 302 the root-owned helper writes from the
