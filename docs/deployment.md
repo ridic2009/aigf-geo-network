@@ -346,26 +346,50 @@ reader -> https://<domain>/go/candy-ai/?from=hero
 * `/go/` sends `Cache-Control: private, no-store` and `X-Robots-Tag: noindex`;
   `robots.txt` disallows it.
 * Every page a reader is given (a GET answered 200/304 at an address ending in
-  `/`) is one line in `/var/log/nginx/aigf-views.log`, without the reader's
-  address. Both formats are in `infra/nginx/http/traffic.conf` (installed as
-  `/etc/nginx/conf.d/aigf-traffic.conf`).
+  `/`) is one line in `/var/log/nginx/aigf-views.log`, with the reader's
+  address, so their pages can be tied to their presses.
+* The site's script (`site.js`, written by ConvertStudio) reports once per page
+  what it sees of the browser: `POST /_s?v=1&e=l&p=<page id>&f=<flags>&z=<time
+  zone>`, answered 204 and logged to `/var/log/nginx/aigf-signals.log`. It
+  stores nothing on the device. On a partner button it appends
+  `s=<page id>.<ms since shown>.<mouse moves>.<m|t|p|k><trusted 1|0>` to the
+  `/go/` address. All three formats are in `infra/nginx/http/traffic.conf`
+  (installed as `/etc/nginx/conf.d/aigf-traffic.conf`).
 * `aigf-traffic.timer` runs `/usr/local/sbin/aigf-traffic`
   (`infra/aggregate-traffic.py`) every ten minutes. It writes one file per UTC
-  day to `/var/lib/aigf-traffic/<date>.json`: views by page, source, country and
-  device; clicks by page, product, block, country and device, with repeat
-  presses of the same reader on the same day counted once; robots counted apart.
-  A robot is anything that is not a person's browser: a program that names
-  itself, a user-agent no browser sends (`compatible;`, WebKit without
-  `(KHTML, like Gecko)`, Windows XP/Vista), a browser far out of date (Chrome
-  more than ~15 months behind, Firefox more than two years, iOS/Safari before
-  15), a request a browser makes ahead of the reader (`Sec-Purpose: prefetch`),
-  and, once the Sec-Fetch headers are logged, a page that is not a navigation to
-  a document or a press that is not a same-site navigation by a user. A press
-  must come from a page of the same site (Referer); a reader who presses 4
-  buttons of 3 partners within a minute, or 10 in a day, is a program.
-  No address or browser string is written. Today and yesterday are recounted on
-  every run; an older day is filled in once while the logs (two weeks) still
-  hold it.
+  day to `/var/lib/aigf-traffic/<date>.json` (version 2): views by page, source,
+  country, device, quality and reason; clicks by page, source, product, block,
+  country, device, quality and reason, with repeat presses of the same reader
+  on the same day counted once as unique.
+  * **Source** of a view: `utm_source` or `src` in its address (`utm:<name>`,
+    fifty names a site a day, the rest `utm:other`), else the Referer (search
+    engines by name, `ai`, `social`, `direct`, `internal`, `other`). A press
+    comes from where its reader's visit began: the last page they opened from
+    outside the site, today or yesterday; `unknown` without one.
+  * **Quality**: `human`, `suspect` (may be a person: a VPN, a journey, a
+    private browser) or `bot`, with the strongest reason that held — the list
+    and its order are `REASONS` in the script. In short: a program that names
+    itself or no browser at all, a user-agent no browser sends, a browser far
+    out of date, a prefetch, no Sec-Fetch navigation from a browser that sends
+    them (Safari before 16.4 does not), a press that names no page of the site,
+    twenty pages a minute or 150 a day, bursts of presses across partners; in
+    doubt — a data centre's address, a press by a reader who opened no page.
+  * From `AIGF_SIGNALS_SINCE` on (an ISO moment in `/etc/aigf-traffic.env`,
+    set once every site carries the script), what the script reports also
+    counts: a driver, DevTools or a headless browser, a browser contradicting
+    itself (an antidetect browser, a borrowed user-agent), a press a script
+    made — robots; no report at all, drawing without a graphics card, a time
+    zone from another country, a press within a second or with a mouse that
+    never moved — in doubt.
+  * **Data centres** come from iptoasn.com's table, which `aigf-asn.timer`
+    fetches weekly into `/var/lib/aigf-asn/`; without it nothing is a data
+    centre. Cloudflare, Akamai, Fastly and Apple are never one: WARP and iCloud
+    Private Relay readers come through them.
+
+  No address, browser string, network, page id or time zone is written. Today
+  and yesterday are recounted on every run; an older day is filled in once
+  while the logs (two weeks) still hold it. To count a day again, move its file
+  away and run `systemctl start aigf-traffic`.
 * ConvertStudio reads that directory (`CSTUDIO_TRAFFIC=/var/lib/aigf-traffic`
   in its `.env`) and shows it under «Переходы к партнёрам», with an estimated revenue
   from the EPC its catalogue states per product and market.
@@ -375,8 +399,12 @@ Check it by hand:
 ```bash
 curl -sI https://<domain>/go/<product>/ | grep -i '^location'
 tail -n 3 /var/log/nginx/aigf-clicks.log
-systemctl list-timers aigf-traffic.timer
+tail -n 3 /var/log/nginx/aigf-signals.log
+curl -s -o /dev/null -w '%{http_code}\n' -X POST 'https://<domain>/_s?v=1'   # 204
+systemctl list-timers aigf-traffic.timer aigf-asn.timer
 journalctl -u aigf-traffic.service -n 5
+ls -l /var/lib/aigf-asn
+cat /etc/aigf-traffic.env
 ls -l /var/lib/aigf-traffic | tail -n 3
 ```
 

@@ -4,10 +4,14 @@ Description=AIGF network: count partner clicks and page views from the nginx log
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/python3 /usr/local/sbin/aigf-traffic
+# AIGF_SIGNALS_SINCE=<ISO moment>: from when pages carry the script that
+# reports on the browser. Set on the server, not here, once every site has it.
+EnvironmentFile=-/etc/aigf-traffic.env
 StateDirectory=aigf-traffic
 StateDirectoryMode=0755
-# Reads the logs, writes /var/lib/aigf-traffic and nothing else, never talks
-# to the network. Root only to read logs that are not world-readable.
+# Reads the logs and the table of networks (aigf-asn.timer), writes
+# /var/lib/aigf-traffic and nothing else, never talks to the network. Root
+# only to read logs that are not world-readable.
 CapabilityBoundingSet=CAP_DAC_READ_SEARCH
 NoNewPrivileges=yes
 ProtectSystem=strict

@@ -1,0 +1,12 @@
+[Unit]
+Description=Fetch the table of networks once a week
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=7d
+RandomizedDelaySec=1h
+Persistent=true
+Unit=aigf-asn.service
+
+[Install]
+WantedBy=timers.target

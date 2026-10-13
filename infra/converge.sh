@@ -209,7 +209,7 @@ if [ "$UNITS_CHANGED" -eq 1 ]; then
     systemctl daemon-reload && say "  systemd reloaded"
 fi
 # Timers added after install-automation.sh ran start here, once.
-for timer in aigf-traffic.timer; do
+for timer in aigf-traffic.timer aigf-asn.timer; do
     [ -f "/etc/systemd/system/$timer" ] || continue
     systemctl is-enabled --quiet "$timer" 2>/dev/null && continue
     if [ "$CHECK_ONLY" -eq 1 ]; then problem "$timer is not enabled"; continue; fi
