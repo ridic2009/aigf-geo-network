@@ -25,7 +25,7 @@ scp infra/server-setup.sh root@VPS:/tmp/
 ssh root@VPS "bash /tmp/server-setup.sh"
 ```
 
-Installs Nginx, rsync, certbot, ufw and fail2ban; creates the `deploy` user and
+Installs Nginx, rsync, certbot, ufw, fail2ban and logrotate; creates the `deploy` user and
 `/srv/www`; wires the shared Nginx snippets into `nginx.conf`; opens the
 firewall. The deploy user is allowed to run exactly two commands as root:
 `nginx -t` and `systemctl reload nginx`.
@@ -388,8 +388,10 @@ reader -> https://<domain>/go/candy-ai/?from=hero
 
   No address, browser string, network, page id or time zone is written. Today
   and yesterday are recounted on every run; an older day is filled in once
-  while the logs (two weeks) still hold it. To count a day again, move its file
-  away and run `systemctl start aigf-traffic`.
+  while the logs still hold it: logrotate turns them over every night and
+  keeps fourteen (the nginx package's `/etc/logrotate.d/nginx`), so a day
+  older than two weeks can no longer be counted again. To count a day again,
+  move its file away and run `systemctl start aigf-traffic`.
 * ConvertStudio reads that directory (`CSTUDIO_TRAFFIC=/var/lib/aigf-traffic`
   in its `.env`) and shows it under «Переходы к партнёрам», with an estimated revenue
   from the EPC its catalogue states per product and market.

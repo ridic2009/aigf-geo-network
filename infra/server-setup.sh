@@ -16,7 +16,9 @@ WEB_ROOT=${WEB_ROOT:-/srv/www}
 echo "==> Packages"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
-apt-get install -y -qq nginx rsync certbot python3 python3-certbot-nginx ufw fail2ban
+# logrotate: minimal images leave it out, and then the nginx logs grow for ever
+# while the traffic counter rereads them whole every ten minutes.
+apt-get install -y -qq nginx rsync certbot python3 python3-certbot-nginx ufw fail2ban logrotate
 
 echo "==> Deploy user"
 if ! id -u "$DEPLOY_USER" >/dev/null 2>&1; then
