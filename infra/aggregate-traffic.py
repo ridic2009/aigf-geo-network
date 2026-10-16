@@ -266,8 +266,10 @@ def crawls(moments):
     moments = sorted(moments)
     if len(moments) >= DAILY_VIEWS:
         return True
-    return any((moments[index + CRAWL_VIEWS - 1] - moment).total_seconds() <= CRAWL_SECONDS
-               for index, moment in enumerate(moments[:len(moments) - CRAWL_VIEWS + 1]))
+    # Every run of CRAWL_VIEWS pages in a row. Fewer pages than that hold none; a
+    # slice with a negative end would count from the back and read past the list.
+    return any((moments[index + CRAWL_VIEWS - 1] - moments[index]).total_seconds() <= CRAWL_SECONDS
+               for index in range(len(moments) - CRAWL_VIEWS + 1))
 
 
 # Networks people browse from although a cloud company runs them: Cloudflare

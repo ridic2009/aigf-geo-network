@@ -238,6 +238,14 @@ class CountTests(unittest.TestCase):
         self.assertEqual(verdicts(days, 'views'), {('bot', 'crawl-rate'): 20, HUMAN: 19})
         self.assertEqual(verdicts(days, 'clicks'), {('bot', 'crawl-rate'): 1})
 
+    def test_fewer_pages_than_a_crawl_are_a_reader_whatever_their_number(self):
+        # Ten to eighteen pages of one reader once stopped the count of every day (13-16 Oct 2026).
+        for total in range(1, traffic.CRAWL_VIEWS):
+            with self.subTest(pages=total):
+                pages = [view(f'/p{index}/', ref=f'https://{HOST}/', ip='198.51.100.62', t=f'2026-10-07T12:00:{index:02d}+00:00')
+                         for index in range(total)]
+                self.assertEqual(verdicts(traffic.count([], pages, self.wanted), 'views'), {HUMAN: total})
+
     def test_a_data_centre_is_in_doubt(self):
         networks = traffic.Networks([(ipaddress.ip_address('198.51.100.0'), ipaddress.ip_address('198.51.100.255'))])
         days = traffic.count([click('/go/candy-ai/?from=hero', ip='198.51.100.7')],
